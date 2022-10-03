@@ -37,3 +37,5 @@ module.exports = {
 ```
 
 `npm install cypress --save-dev`
+
+`npm install --save-dev @stryker-mutator/core`
