@@ -11,9 +11,9 @@ function GetTheme(){
 }
 
 function ThemeLink(){
-    let themeType: ThemeOptions = useSelector((state: RootState) => state.theme.value);
+    const themeType: ThemeOptions = useSelector((state: RootState) => state.theme.value);
     return (
-        <link rel={"stylesheet"} href={`/${themeType}Theme.css`}/>
+        <link rel={"stylesheet"} href={`/${themeType}.css`}/>
     );
 }
 

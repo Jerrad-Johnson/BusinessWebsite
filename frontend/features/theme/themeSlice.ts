@@ -1,13 +1,13 @@
 import {createSlice, Draft} from '@reduxjs/toolkit'
 
 export interface ThemeOptions {
-    dark: "dark";
-    light: "light";
+    dark: "dark-theme";
+    light: "light-theme";
 }
 
 const themeOptions: ThemeOptions = {
-    dark: "dark",
-    light: "light",
+    dark: "dark-theme",
+    light: "light-theme",
 }
 
 export interface ThemeState {
