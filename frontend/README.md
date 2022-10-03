@@ -4,11 +4,11 @@ In frontend folder:
 
 `npx create-next-app@latest FolderNameHere --ts --use-npm`
 
-`npm install @reduxjs/toolkit react-redux`
+`npm i @reduxjs/toolkit react-redux`
 
-`npm install @types/react-redux` // This is probably uneeded, as react-redux should have a dependency on it. 
+`npm i @types/react-redux` // This is probably unneeded, as react-redux should have a dependency on it. 
 
-`npm install -D tailwindcss postcss autoprefixer`
+`npm i -D tailwindcss postcss autoprefixer`
 
 `npx tailwindcss init -p`
 
@@ -36,6 +36,8 @@ module.exports = {
 @tailwind utilities;
 ```
 
-`npm install cypress --save-dev`
+`npm i cypress --save-dev`
 
-`npm install --save-dev @stryker-mutator/core`
+`npm i --save-dev @stryker-mutator/core`
+
+`nvm i dotenv --save`
