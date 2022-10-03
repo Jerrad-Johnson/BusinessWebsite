@@ -5,7 +5,7 @@ export interface ThemeOptions {
     light: "light-theme";
 }
 
-const themeOptions: ThemeOptions = {
+export const themeOptions: ThemeOptions = {
     dark: "dark-theme",
     light: "light-theme",
 }
@@ -24,14 +24,15 @@ export const themeSlice = createSlice({
     reducers: {
         lightTheme: (state: Draft<ThemeState>) => {
             state.value = themeOptions.light;
+            localStorage.setItem("themeStyle", themeOptions.light);
         },
 
         darkTheme: (state: Draft<ThemeState>) => {
             state.value = themeOptions.dark;
+            localStorage.setItem("themeStyle", themeOptions.dark);
         },
     },
 });
 
 export const { lightTheme, darkTheme } = themeSlice.actions;
-
 export default themeSlice.reducer;

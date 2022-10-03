@@ -4,10 +4,10 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {useDispatch} from "react-redux";
+import Link from "next/link";
 
 function Home<NextPage>(){
   const dispatch = useDispatch();
-
 
   return (
     <div className={styles.container}>
@@ -20,6 +20,7 @@ function Home<NextPage>(){
       <main className={styles.main}>
         <button onClick={() => { dispatch(lightTheme()); }}>Light</button>
         <button onClick={() => { dispatch(darkTheme()); }}>Dark</button>
+        <Link href={"/test"}>Test page</Link>
       </main>
 
       <footer className={styles.footer}>

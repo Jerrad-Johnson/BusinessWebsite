@@ -1,6 +1,7 @@
-import {Provider, useSelector} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import {RootState, store} from "../app/store";
-import {ThemeOptions} from "../features/theme/themeSlice";
+import {useEffect} from "react";
+import {darkTheme, lightTheme, themeOptions} from "../features/theme/themeSlice";
 
 function GetTheme(){
     return (
@@ -11,9 +12,20 @@ function GetTheme(){
 }
 
 function ThemeLink(){
-    const themeType: ThemeOptions = useSelector((state: RootState) => state.theme.value);
+    let themeType: string = useSelector((state: RootState) => state.theme.value);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        let storedTheme: string | undefined | null = localStorage.getItem("themeStyle");
+        if ((storedTheme !== null) && (storedTheme !== undefined)) themeType = storedTheme;
+        if (storedTheme === themeOptions.light) dispatch(lightTheme());
+        if (storedTheme === themeOptions.dark) dispatch(darkTheme());
+    }, []);
+
     return (
-        <link rel={"stylesheet"} href={`/${themeType}.css`}/>
+        <>
+            <link rel={"stylesheet"} href={`/${themeType}.css`}/>
+        </>
     );
 }
 
