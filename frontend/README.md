@@ -41,3 +41,5 @@ module.exports = {
 `npm i --save-dev @stryker-mutator/core`
 
 `nvm i dotenv --save`
+
+Add `.env.development` and `.env.production` to the frontend folder.
