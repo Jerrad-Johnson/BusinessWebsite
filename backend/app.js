@@ -6,7 +6,7 @@ var logger = require('morgan');
 const ExifReader  = require('exifreader');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin/_admin');
 
 var app = express();
 let cc = console.log;
@@ -32,7 +32,7 @@ async function getTags(){
 }
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
