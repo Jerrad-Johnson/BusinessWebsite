@@ -34,5 +34,19 @@
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.8.4"
+  },
+  "exifreader": {
+    "include": {
+      "jpeg": true,
+      "exif": [
+        "DateTime",
+        "GPSLatitude",
+        "GPSLatitudeRef",
+        "GPSLongitude",
+        "GPSLongitudeRef",
+        "GPSAltitude",
+        "GPSAltitudeRef"
+      ]
+    }
   }
 }
