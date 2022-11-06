@@ -22,13 +22,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/test', (req, res, next) => {
-  cc(getTags());
+  getTags();
   next();
 });
 
 async function getTags(){
-  const tags = await ExifReader.load('./test_images/test.jpg');
-  cc(tags);
+  const tags = await ExifReader.load('./test_images/162A2078.jpg');
+  cc(tags.Model.value);
+  cc(tags.LensModel.value);
+  cc(tags.FocalLength.value);
+  cc(tags.DateCreated.value)
+  cc(tags.ExposureTime.value)
+  cc(tags.FNumber.value)
+  cc(tags.ISOSpeedRatings.value)
+  cc(tags.OffsetTime.value)
+  cc(tags.OffsetTimeOriginal.value)
+  cc(tags.GPSLatitude.description, tags.GPSLatitudeRef.value[0])
+  cc(tags.GPSLongitude.description, tags.GPSLongitudeRef.value[0]);
+  cc(Math.trunc(tags.GPSAltitude.value[0] / 10000 * 3.28084));
+
 }
 
 app.use('/', indexRouter);

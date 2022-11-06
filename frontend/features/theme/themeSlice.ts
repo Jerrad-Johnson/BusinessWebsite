@@ -11,7 +11,7 @@ export const themeOptions: ThemeOptions = {
 }
 
 export interface ThemeState {
-    value: "dark" | "light";
+    value: "dark-theme" | "light-theme";
 }
 
 const initialState: ThemeState = {
