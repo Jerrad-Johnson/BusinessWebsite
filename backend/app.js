@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const ExifReader  = require('exifreader');
+const fs = require('fs');
 
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin/_admin');
@@ -27,20 +28,51 @@ app.get('/test', (req, res, next) => {
 });
 
 async function getTags(){
-  const tags = await ExifReader.load('./test_images/162A2078.jpg');
-  cc(tags.Model.value);
-  cc(tags.LensModel.value);
-  cc(tags.FocalLength.value);
-  cc(tags.DateCreated.value)
-  cc(tags.ExposureTime.value)
-  cc(tags.FNumber.value)
-  cc(tags.ISOSpeedRatings.value)
-  cc(tags.OffsetTime.value)
-  cc(tags.OffsetTimeOriginal.value)
-  cc(tags.GPSLatitude.description, tags.GPSLatitudeRef.value[0])
-  cc(tags.GPSLongitude.description, tags.GPSLongitudeRef.value[0]);
-  cc(Math.trunc(tags.GPSAltitude.value[0] / 10000 * 3.28084));
+  let exifData = [];
+  let exifObject = {};
+  let formattedExifData = [];
+  let exifAsString = "";
+  const imagePath = `./public/map_images/macro/`
+  const allImageFileNames = await fs.promises.readdir(imagePath);
+  exifData = await getAllExifData(imagePath, allImageFileNames);
 
+  for (let entry of exifData){
+    exifObject.LensModel = entry.LensModel.value;
+    exifObject.fileName = entry.fileName;
+    exifObject.LensModel = entry.LensModel.value;
+    exifObject.FocalLength = entry.LensModel.value;
+    exifObject.DateCreated = entry.DateCreated.value;
+    exifObject.ExposureTime = entry.DateCreated.value;
+    exifObject.FNumber = entry.FNumber.value;
+    exifObject.ISOSpeedRatings = entry.ISOSpeedRatings.value;
+    exifObject.OffsetTime = entry.OffsetTime.value;
+    exifObject.OffsetTimeOriginal = entry.OffsetTimeOriginal.value;
+    exifObject.GPSLatitude = (entry.GPSLatitude.description + " " + entry.GPSLatitudeRef.value[0]);
+    exifObject.GPSLongitude = (entry.GPSLongitude.description + " " + entry.GPSLongitudeRef.value[0]);
+    exifObject.GPSAltitude = Math.trunc(entry.GPSAltitude.value[0] / 10000 * 3.28084);
+
+    exifAsString = JSON.stringify(exifObject);
+    formattedExifData.push(exifAsString);
+
+    for (const prop of Object.getOwnPropertyNames(exifObject)){
+      delete exifObject[prop];
+    }
+
+  }
+    cc(formattedExifData)
+}
+
+async function getAllExifData(imagePath, allImageFileNames){
+  let entry;
+  let exifResults = [];
+
+  for (let fileName of allImageFileNames){
+    entry = await ExifReader.load(imagePath + fileName);
+    entry.fileName = fileName;
+    exifResults.push(entry);
+  }
+
+  return exifResults;
 }
 
 app.use('/', indexRouter);
