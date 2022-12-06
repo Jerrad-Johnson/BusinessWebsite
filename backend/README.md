@@ -1,4 +1,22 @@
 # Backend
+## Pool
+
+```
+const mysql = require("mysql");
+
+var pool = mysql.createPool({
+    connectionLimit : 10,
+    host: '',
+    port: ,
+    user: '',
+    password: '',
+    database: '',
+});
+
+exports.pool = pool;
+
+```
+
 ## Session
 
 Create file `session_secret.js` in the `common` folder, and add:
@@ -32,3 +50,4 @@ CREATE TABLE admin_account (username CHAR(5), password VARCHAR(30));
 ```
 INSERT INTO admin_account (username, password) values ('admin', 'REPLACEME');   
 ```
+
