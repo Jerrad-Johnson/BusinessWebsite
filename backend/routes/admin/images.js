@@ -7,6 +7,6 @@ router.get('/', (res, req, next) => {
     next();
 });
 
-router.put('/updateAllImages', ImagesControllerPost); //TODO Change to POST
+router.post('/updateAllImages', ImagesControllerPost); //TODO Change to POST
 
 module.exports = router;

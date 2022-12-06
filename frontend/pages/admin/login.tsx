@@ -28,7 +28,7 @@ function Login<NextPage>(): JSX.Element{
 }
 
 async function handleLogin(): Promise<void>{
-    await httpClient.put(`${serverUrl}admin/images/updateAllImages`);
+    await httpClient.post(`${serverUrl}admin/images/updateAllImages`);
 }
 
 
