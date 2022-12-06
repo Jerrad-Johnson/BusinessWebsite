@@ -44,7 +44,7 @@ USE Business;
 ```
 
 ```
-CREATE TABLE admin_account (username CHAR(5), password VARCHAR(30));
+CREATE TABLE admin_account (username CHAR(5), password VARCHAR(120));
 ```
 
 ```

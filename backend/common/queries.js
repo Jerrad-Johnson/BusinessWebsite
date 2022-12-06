@@ -4,7 +4,6 @@ const {pool} = require("./pool");
 let cc = console.log;
 
 exports.genericSQLPromise = async (query, values, res) => {
-    cc(values)
     let didError = errorExistsNotInScript;
     let queryResults;
 
