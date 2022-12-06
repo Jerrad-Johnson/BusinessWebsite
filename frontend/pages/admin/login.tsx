@@ -21,13 +21,13 @@ function LoginPanel(): ReactElement{
             <h1 className={"container__main-header"}>Admin Login</h1>
             <form>
                 <label>Username
-                    <input type={"text"} placeholder={"Username"} value={username} onChange={(e) => {
+                    <input className={""} type={"text"} placeholder={"Username"} value={username} onChange={(e) => {
                         e.preventDefault();
                         setUsername(e.target.value);
                     }}/>
                 </label>
                 <label>Password
-                    <input type={"password"} placeholder={"Password"} value={password} onChange={(e) => {
+                    <input className={""} type={"password"} placeholder={"Password"} value={password} onChange={(e) => {
                         e.preventDefault();
                         setPassword(e.target.value);
                     }}/>
