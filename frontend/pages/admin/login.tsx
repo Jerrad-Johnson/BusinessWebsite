@@ -1,5 +1,7 @@
 import type {JSXElement} from "@babel/types";
 import useSWR from "swr";
+import httpClient from "../../common/httpClient";
+import {serverUrl} from "../../common/variables";
 
 const cc = console.log;
 
@@ -11,6 +13,7 @@ const loginPanel: JSX.Element = (
           <input type={"password"} placeholder={"Password"}/>
           <button className={"button button-submit"} onClick={(e) => {
               e.preventDefault();
+              handleLogin();
           }}>Submit</button>
       </form>
   </div>
@@ -25,7 +28,7 @@ function Login<NextPage>(): JSX.Element{
 }
 
 async function handleLogin(): Promise<void>{
-
+    await httpClient.put(`${serverUrl}admin/images/updateAllImages`);
 }
 
 
