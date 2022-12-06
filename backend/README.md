@@ -1,4 +1,11 @@
 # Backend
+## Session
+
+Create file `session_secret.js` in the `common` folder, and add:
+```
+exports.sessionSecret = "YOUR-STRING-HERE";
+```
+
 ## Database
 ### Administration
 
