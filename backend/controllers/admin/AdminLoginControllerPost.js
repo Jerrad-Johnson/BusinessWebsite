@@ -2,8 +2,6 @@ const {standardizedResponse} = require("../../utils/fns");
 const {genericSQLPromise} = require("../../common/queries");
 const bcrypt = require('../../common/custom-bcrypt');
 
-
-
 exports.AdminLoginController = async (req, res, next) => {
     if (req.body.username === undefined || req.body.password === undefined || req.body.username === "" || req.body.password === ""){
         res.status(200).send(standardizedResponse("Must enter both username and password", {loggedIn: false}));
@@ -11,9 +9,13 @@ exports.AdminLoginController = async (req, res, next) => {
     }
 
     let query = "SELECT password FROM admin_account WHERE username = ?";
-    let queryResult = await genericSQLPromise(query, [req.body?.username], res);
-    let comparison = bcrypt.compare(req.body?.password, queryResult?.data[0]?.password);
+    let queryResult = await genericSQLPromise(query, [req.body.username], res);
+    if (queryResult?.data[0]?.password === undefined){
+        res.status(200).send(standardizedResponse("Username or password not found.", {loggedIn: false}));
+        return;
+    }
 
+    let comparison = bcrypt.compare(req.body?.password, queryResult?.data[0]?.password);
     if (comparison === true){
         req.session.admin = true;
         res.status(200).send(standardizedResponse("Logged in", {loggedIn: true}));

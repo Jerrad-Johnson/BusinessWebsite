@@ -46,6 +46,7 @@ function LoginPanel(){
 async function handleLogin(username: string, password: string): Promise<void>{
     const res: HttpResponse = await httpClient.post(`${serverUrl}/admin/login`, {username, password});
     cc(res);
+    if (res.data.loggedIn === true) window.location.href = "/admin";
     //await httpClient.post(`${serverUrl}/admin/images/updateAllImages`);
 }
 
