@@ -14,7 +14,7 @@ const LeafletMap = () => {
             <Marker
                 position={[40.8054,-74.0241]}
                 draggable={true}
-                animate={true}
+                /*animate={true}*/
             >
 
                 <Popup>

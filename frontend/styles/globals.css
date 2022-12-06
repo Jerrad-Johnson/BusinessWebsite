@@ -7,6 +7,17 @@
     width: 80vw;
 }
 
+body{
+    width: 100%;
+}
+
+.container__login {
+    width: 80%;
+    margin: auto;
+}
+
+
+
 /*
 html,
 body {

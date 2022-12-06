@@ -2,9 +2,6 @@ import useSWR from "swr";
 const cc = console.log;
 
 function Index<NextPage>(){
-const {loadImages}
-
-
     return (
         <button onClick={(e) => {
 
