@@ -1,3 +1,5 @@
+const {standardizedResponse} = require("../../common/standardizedResponse");
+
 exports.AdminLoginController = async (req, res, next) => {
-    cc(req.body);
+    res.status(200).send(standardizedResponse("test", {something: "sommewhere"}));
 }

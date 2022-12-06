@@ -1,6 +1,7 @@
 import httpClient from "../../common/httpClient";
 import {serverUrl} from "../../common/variables";
 import {Dispatch, ReactElement, SetStateAction, useState} from "react";
+import {HttpResponse} from "../../common/types";
 const cc = console.log;
 
 function Login<NextPage>(){
@@ -43,8 +44,8 @@ function LoginPanel(){
 
 
 async function handleLogin(username: string, password: string): Promise<void>{
-    const res = await httpClient.post(`${serverUrl}/admin/login`, {"username": username, "password": password});
-
+    const res: HttpResponse = await httpClient.post(`${serverUrl}/admin/login`, {username, password});
+    cc(res);
     //await httpClient.post(`${serverUrl}/admin/images/updateAllImages`);
 }
 
