@@ -43,8 +43,8 @@ function LoginPanel(){
 
 
 async function handleLogin(username: string, password: string): Promise<void>{
-    const loginInformation: {username: string; password: string} = {"username": username, "password": password}
-    const res = await httpClient.post(`${serverUrl}/admin/login`, loginInformation);
+    const res = await httpClient.post(`${serverUrl}/admin/login`, {"username": username, "password": password});
+
     //await httpClient.post(`${serverUrl}/admin/images/updateAllImages`);
 }
 
