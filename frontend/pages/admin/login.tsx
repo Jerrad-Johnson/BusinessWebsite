@@ -22,19 +22,17 @@ function LoginPanel(): ReactElement{
             <form>
                 <label>Username
                     <input className={""} type={"text"} placeholder={"Username"} value={username} onChange={(e) => {
-                        e.preventDefault();
                         setUsername(e.target.value);
                     }}/>
                 </label>
                 <label>Password
                     <input className={""} type={"password"} placeholder={"Password"} value={password} onChange={(e) => {
-                        e.preventDefault();
                         setPassword(e.target.value);
                     }}/>
                 </label>
                 <button className={"button button-submit"} onClick={(e) => {
                     e.preventDefault();
-                    handleLogin();
+                    handleLogin(username, password);
                 }}>Submit</button>
             </form>
         </div>
@@ -44,8 +42,9 @@ function LoginPanel(): ReactElement{
 
 
 
-async function handleLogin(): Promise<void>{
-    //const res = await httpClient.post(`${serverUrl}/admin/login`);
+async function handleLogin(username: string, password: string): Promise<void>{
+    const loginInformation: {username: string; password: string} = {"username": username, "password": password}
+    const res = await httpClient.post(`${serverUrl}/admin/login`, loginInformation);
     //await httpClient.post(`${serverUrl}/admin/images/updateAllImages`);
 }
 

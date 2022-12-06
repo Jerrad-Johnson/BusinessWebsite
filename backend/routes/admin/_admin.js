@@ -4,7 +4,6 @@ const imagesRouter = require('./images');
 const {AdminLoginController} = require("../../controllers/admin/AdminLoginControllerPost");
 
 router.use('/images', imagesRouter);
-
-router.get('login', AdminLoginController)
+router.post('/login', AdminLoginController)
 
 module.exports = router;
