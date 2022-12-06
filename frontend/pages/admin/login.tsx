@@ -3,7 +3,7 @@ import {serverUrl} from "../../common/variables";
 import {Dispatch, ReactElement, SetStateAction, useState} from "react";
 const cc = console.log;
 
-function Login<NextPage>(): ReactElement{
+function Login<NextPage>(){
 
     return (
         <>
@@ -12,9 +12,9 @@ function Login<NextPage>(): ReactElement{
     );
 }
 
-function LoginPanel(): ReactElement{
-    const [username, setUsername]: [string, Dispatch<SetStateAction<string>>] = useState("w");
-    const [password, setPassword]: [string, Dispatch<SetStateAction<string>>] = useState("e");
+function LoginPanel(){
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
     return (
         <div className={"container container__login container--login--admin"}>
