@@ -1,4 +1,4 @@
-exports.formatExifForMapUpdate = async (req, exifData) => {
+exports.formatExifForMapUpdate = async (exifData) => {
     let exifObject = {};
     let formattedExifData = [];
     let exifAsString = "";

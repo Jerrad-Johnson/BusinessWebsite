@@ -5,12 +5,12 @@ const {adminIsLoggedIn} = require("../../../models/admin/checkIfLoggedIn");
 const {getFoldernamesForMapUpdate} = require("../../../models/admin/images/getFoldernamesForMapUpdate"); cc = console.log;
 
 exports.ImagesControllerPost = async (req, res, next) => {
-    if (!adminIsLoggedIn(req, res)) return;
+    //if (!adminIsLoggedIn(req, res)) return;
 
     let foldernames = await getFoldernamesForMapUpdate();
-    let filenames =  await getFilenamesForMapUpdate(req, foldernames);
-    let rawExifData = await getExifForMapUpdate(req, filenames);
-    let formattedExifData = await formatExifForMapUpdate(req, rawExifData);
+    let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
+    let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
+    /*let formattedExifData = await formatExifForMapUpdate(rawExifData);*/
 //    cc(formattedExifData); //TODO Handle error
 }
 

@@ -1,11 +1,15 @@
 const fs = require('fs');
 
-exports.getFilenamesForMapUpdate = async (req) => {
+exports.getFilenamesForMapUpdate = async (foldernames) => {
     //TODO Update folder path
-    const imagePath = `./public/map_images/macro/`
-    const allImageFileNames = await fs.promises.readdir(imagePath);
+    const imagePath = `./public/map_images/`
+    let foldersAndFiles = {};
 
-    let test = await fs.promises.readdir('./public/map_images');
-    cc(test);
-    return allImageFileNames;
+    for (let entry of foldernames){
+        let files = await fs.promises.readdir(`${imagePath}${entry}`);
+        if (files.length > 0) foldersAndFiles[entry] = files;
+        files = [];
+    }
+
+    return foldersAndFiles;
 }
