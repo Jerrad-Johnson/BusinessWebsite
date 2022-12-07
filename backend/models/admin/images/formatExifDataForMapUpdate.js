@@ -1,3 +1,4 @@
+const {businessName} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (exifData) => {
     let exifObject = {};
     let formattedExifData = {};
@@ -5,9 +6,20 @@ exports.formatExifForMapUpdate = async (exifData) => {
 
     for (let folder in exifData) {
         formattedExifData[folder] = [];
+        let filenameSplit = [];
+
         for (let file of exifData[folder]){
+            filenameSplit = file.fileName.split("-");
+            if (filenameSplit[1]){
+                exifObject.altText = filenameSplit[1];
+                exifObject.fileName = `${filenameSplit[0]}${filenameSplit[2]}`;
+            } else {
+                exifObject.altText = `${folder} photograph by ${businessName}.`;
+                exifObject.fileName = file.fileName;
+            }
+
+            filenameSplit = [];
             exifObject.LensModel = file.LensModel.value;
-            exifObject.fileName = file.fileName;
             exifObject.LensModel = file.LensModel.value;
             exifObject.FocalLength = file.LensModel.value;
             exifObject.DateCreated = file.DateCreated.value;
@@ -23,6 +35,8 @@ exports.formatExifForMapUpdate = async (exifData) => {
 
             exifAsString = JSON.stringify(exifObject);
             formattedExifData[folder].push(exifAsString);
+
+            //TODO Convert DataCreated
 
             for (const prop of Object.getOwnPropertyNames(exifObject)) {
                 delete exifObject[prop];
