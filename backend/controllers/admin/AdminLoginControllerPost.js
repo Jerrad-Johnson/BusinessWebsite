@@ -2,7 +2,7 @@ const {standardizedResponse} = require("../../utils/fns");
 const {genericSQLPromise} = require("../../common/queries");
 const bcrypt = require('../../common/custom-bcrypt');
 
-exports.AdminLoginController = async (req, res, next) => {
+exports.AdminLoginController = async (req, res, next) => { // TODO Split into Models.
     if (req.body.username === undefined || req.body.password === undefined || req.body.username === "" || req.body.password === ""){
         res.status(200).send(standardizedResponse("Must enter both username and password", {loggedIn: false}));
         return;
