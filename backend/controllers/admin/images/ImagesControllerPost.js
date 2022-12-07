@@ -10,7 +10,8 @@ exports.ImagesControllerPost = async (req, res, next) => {
     let foldernames = await getFoldernamesForMapUpdate();
     let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
-    /*let formattedExifData = await formatExifForMapUpdate(rawExifData);*/
+    let formattedExifData = await formatExifForMapUpdate(rawExifData);
+    cc(formattedExifData);
 //    cc(formattedExifData); //TODO Handle error
 }
 

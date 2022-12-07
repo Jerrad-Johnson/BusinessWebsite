@@ -1,28 +1,31 @@
 exports.formatExifForMapUpdate = async (exifData) => {
     let exifObject = {};
-    let formattedExifData = [];
+    let formattedExifData = {};
     let exifAsString = "";
 
-    for (let entry of exifData) {
-        exifObject.LensModel = entry.LensModel.value;
-        exifObject.fileName = entry.fileName;
-        exifObject.LensModel = entry.LensModel.value;
-        exifObject.FocalLength = entry.LensModel.value;
-        exifObject.DateCreated = entry.DateCreated.value;
-        exifObject.ExposureTime = entry.DateCreated.value;
-        exifObject.FNumber = entry.FNumber.value;
-        exifObject.ISOSpeedRatings = entry.ISOSpeedRatings.value;
-        exifObject.OffsetTime = entry.OffsetTime.value;
-        exifObject.OffsetTimeOriginal = entry.OffsetTimeOriginal.value;
-        exifObject.GPSLatitude = (entry.GPSLatitude.description + " " + entry.GPSLatitudeRef.value[0]);
-        exifObject.GPSLongitude = (entry.GPSLongitude.description + " " + entry.GPSLongitudeRef.value[0]);
-        exifObject.GPSAltitude = Math.trunc(entry.GPSAltitude.value[0] / 10000 * 3.28084);
+    for (let folder in exifData) {
+        formattedExifData[folder] = [];
+        for (let file of exifData[folder]){
+            exifObject.LensModel = file.LensModel.value;
+            exifObject.fileName = file.fileName;
+            exifObject.LensModel = file.LensModel.value;
+            exifObject.FocalLength = file.LensModel.value;
+            exifObject.DateCreated = file.DateCreated.value;
+            exifObject.ExposureTime = file.DateCreated.value;
+            exifObject.FNumber = file.FNumber.value;
+            exifObject.ISOSpeedRatings = file.ISOSpeedRatings.value;
+            exifObject.OffsetTime = file.OffsetTime.value;
+            exifObject.OffsetTimeOriginal = file.OffsetTimeOriginal.value;
+            exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
+            exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
+            exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
 
-        exifAsString = JSON.stringify(exifObject);
-        formattedExifData.push(exifAsString);
+            exifAsString = JSON.stringify(exifObject);
+            formattedExifData[folder].push(exifAsString);
 
-        for (const prop of Object.getOwnPropertyNames(exifObject)) {
-            delete exifObject[prop];
+            for (const prop of Object.getOwnPropertyNames(exifObject)) {
+                delete exifObject[prop];
+            }
         }
     }
 
