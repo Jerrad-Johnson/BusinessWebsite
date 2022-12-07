@@ -19,6 +19,7 @@ exports.formatExifForMapUpdate = async (exifData) => {
             exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
             exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
             exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
+            exifObject.folderName = folder;
 
             exifAsString = JSON.stringify(exifObject);
             formattedExifData[folder].push(exifAsString);
