@@ -2,24 +2,12 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Script from "next/script";
-import Document from "next/document";
-import {darkTheme, lightTheme} from "../features/theme/themeSlice";
-import {useDispatch} from "react-redux";
-import Link from "next/link";
-import dynamic from "next/dynamic";
-import {useEffect} from "react";
-
+import ExifReader from 'exifreader';
 let cc = console.log;
 
-
-
 function Test<NextPage>(){
-    const MapWithNoSSR = dynamic(() => import("../components/LeafletMap"), {
-        ssr: false
-    });
 
-    cc(MapWithNoSSR)
+    cc(loadTags());
 
     return (
         <div className={styles.container}>
@@ -33,7 +21,6 @@ function Test<NextPage>(){
 
             <main className={styles.main}>
                 <div id={"map"} className={"height: 100px;"}>
-                    <MapWithNoSSR />
                 </div>
             </main>
 
@@ -53,5 +40,11 @@ function Test<NextPage>(){
     )
 }
 
+async function loadTags(){
+    const tags = await ExifReader.load("/test.jpg");
+    cc(tags);
+    /*const imageDate = tags['DateTimeOriginal'].description;
+    const unprocessedTagValue = tags['DateTimeOriginal'].value;*/
+}
 
 export default Test;

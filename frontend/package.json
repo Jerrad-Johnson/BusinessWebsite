@@ -10,12 +10,20 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
+    "@types/leaflet": "^1.8.0",
     "@types/react-redux": "^7.1.24",
+    "axios": "^1.2.1",
+    "exifreader": "^4.6.0",
+    "immer": "^9.0.16",
     "leaflet": "^1.9.1",
+    "leaflet-defaulticon-compatibility": "^0.1.1",
+    "leaflet-geosearch": "^3.7.0",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-redux": "^8.0.4"
+    "react-leaflet": "^4.1.0",
+    "react-redux": "^8.0.4",
+    "swr": "^1.3.0"
   },
   "devDependencies": {
     "@stryker-mutator/core": "^6.2.2",
@@ -29,5 +37,19 @@
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.8.4"
+  },
+  "exifreader": {
+    "include": {
+      "jpeg": true,
+      "exif": [
+        "DateTime",
+        "GPSLatitude",
+        "GPSLatitudeRef",
+        "GPSLongitude",
+        "GPSLongitudeRef",
+        "GPSAltitude",
+        "GPSAltitudeRef"
+      ]
+    }
   }
 }

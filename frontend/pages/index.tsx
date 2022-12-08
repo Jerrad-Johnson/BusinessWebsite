@@ -1,4 +1,6 @@
 import type { NextPage } from 'next'
+import type {AppDispatch} from "../app/store";
+import type {ReactElement} from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -6,8 +8,8 @@ import {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {useDispatch} from "react-redux";
 import Link from "next/link";
 
-function Home<NextPage>(){
-  const dispatch = useDispatch();
+function Home<NextPage>(): ReactElement{
+  const dispatch: AppDispatch = useDispatch();
 
   return (
     <div className={styles.container}>
