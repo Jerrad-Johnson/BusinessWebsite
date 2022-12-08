@@ -11,7 +11,7 @@ exports.ImagesControllerPost = async (req, res, next) => {
     let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
     let formattedExifData = await formatExifForMapUpdate(rawExifData);
-    cc(formattedExifData);
+    cc(formattedExifData)
 }
 
 /*
