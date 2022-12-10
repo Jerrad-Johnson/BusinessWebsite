@@ -2,7 +2,7 @@ const {genericSQLPromise} = require("../../../common/queries");
 const mysql = require("mysql");
 const {standardizedResponse} = require("../../../utils/fns");
 
-exports.saveImageDataToDB = async (req, res, files) => {
+exports.updateLeafletPhotos = async (req, res, files) => {
     const deleteAllQuery = "DELETE FROM leaflet_images;";
     try{
         await genericSQLPromise(deleteAllQuery, [], res);
