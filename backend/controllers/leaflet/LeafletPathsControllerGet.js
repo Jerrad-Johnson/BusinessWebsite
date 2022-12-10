@@ -1,9 +1,9 @@
-const {getPathsForLeaflet} = require("../../models/leaflet/getPathsForLeaflet");
+const {getDataForLeaflet} = require("../../models/leaflet/getDataForLeaflet");
 const {standardizedResponse} = require("../../utils/fns");
 
 exports.LeafletImagePathsControllerGet = async (req, res, next) => {
     try {
-        results = await getPathsForLeaflet(req, res, next);
+        results = await getDataForLeaflet(req, res, next);
     } catch (e) {
         cc(e);
         res.status(500).send(standardizedResponse("MySQL Error", e))
