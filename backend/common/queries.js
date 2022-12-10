@@ -10,6 +10,7 @@ exports.genericSQLPromise = async (query, values, res) => {
     await new Promise ((resolve, reject) => {
         pool.query(query, values, (err, results) => {
             if (err) {
+                cc(err);
                 didError = errorExistsInScript;
                 genericError(res, err.sqlMessage);
                 reject(err.sqlMessage);
@@ -18,7 +19,7 @@ exports.genericSQLPromise = async (query, values, res) => {
             resolve();
         });
     }).catch((e) => {
-        cc(e)
+        throw new Error(e);
     });
 
     return {error: didError, data: queryResults};

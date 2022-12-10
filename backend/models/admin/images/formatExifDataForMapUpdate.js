@@ -13,6 +13,7 @@ exports.formatExifForMapUpdate = async (exifData) => {
             exifObject.DateTimeCreated = file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
 
             exifObject.FolderName = folder;
+            exifObject.FileNameFull = file.fileName;
             exifObject.LensModel = file.LensModel.value;
             exifObject.CameraModel = file.Model.description;
             exifObject.FocalLength = file.FocalLength.description.split(" ").join("");
@@ -52,7 +53,7 @@ function reformatFilenameAndGetAltText(file, folder){
         filenameAndAlt.fileName = `${filenameSplit[0]}${filenameSplit[2]}`;
     } else {
         filenameAndAlt.altText = `${folder} photograph by ${businessName}.`;
-        filenameAndAlt.fileName = file.fileName;
+        filenameAndAlt.fileName = file;
     }
     return [filenameAndAlt.altText, filenameAndAlt.fileName];
 }
@@ -81,6 +82,7 @@ CREATE TABLE leaflet_images (
     id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
     folder VARCHAR(255) NOT NULL,
     file_name VARCHAR(255) NOT NULL,
+    file_name_full VARCHAR(255) NOT NULL,
     alt_text VARCHAR(510) NOT NULL,
     camera_model VARCHAR(255),
     lens_model VARCHAR(255),

@@ -2,7 +2,8 @@ const {getFilenamesForMapUpdate} = require("../../../models/admin/images/getFile
 const {getExifForMapUpdate} = require("../../../models/admin/images/getExifForMapUpdate");
 const {formatExifForMapUpdate} = require("../../../models/admin/images/formatExifDataForMapUpdate");
 const {adminIsLoggedIn} = require("../../../models/admin/checkIfLoggedIn");
-const {getFoldernamesForMapUpdate} = require("../../../models/admin/images/getFoldernamesForMapUpdate"); cc = console.log;
+const {getFoldernamesForMapUpdate} = require("../../../models/admin/images/getFoldernamesForMapUpdate");
+const {updateLeafletPhotos} = require("../../../models/admin/images/updateLeafletPhotos"); cc = console.log;
 
 exports.ImagesControllerPost = async (req, res, next) => {
     //if (!adminIsLoggedIn(req, res)) return;
@@ -11,7 +12,7 @@ exports.ImagesControllerPost = async (req, res, next) => {
     let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
     let formattedExifData = await formatExifForMapUpdate(rawExifData);
-    cc(formattedExifData)
+    let imageDataSaved = await updateLeafletPhotos(req, res, formattedExifData);
 }
 
 /*
