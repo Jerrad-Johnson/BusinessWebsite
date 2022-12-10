@@ -12,7 +12,8 @@ exports.updateLeafletPhotos = async (req, res, files) => {
         return;
     }
 
-    const insertQuery = "INSERT INTO leaflet_images(folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, lat_lon, altitude) VALUES (?);";
+    const insertQuery = `INSERT INTO leaflet_images(folder, file_name, file_name_full, alt_text, camera_model,
+        lens_model, focal_length, exposure_time, iso, photo_capture, lat_lon, altitude) VALUES (?)`;
 
     for (folder in files){
         for (file of files[folder]){
@@ -31,9 +32,7 @@ exports.updateLeafletPhotos = async (req, res, files) => {
                 res.status(500).send(standardizedResponse("SQL Error", e));
                 return;
             }
-
         }
     }
     res.status(200).send(standardizedResponse("Updated Leaflet"));
-
 }
