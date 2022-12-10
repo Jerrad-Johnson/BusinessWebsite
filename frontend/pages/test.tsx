@@ -9,17 +9,21 @@ import {useDispatch} from "react-redux";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {useEffect} from "react";
+import useSWR from "swr";
+import {serverUrl} from "../common/variables";
+import httpClient from "../common/httpClient";
 
 let cc = console.log;
 
 
 
 function Test<NextPage>(){
+    const {leafletData, leafletError, leafletIsLoading} = useSWR(`${serverUrl}/leaflet/getImagePaths`, leafletFetcher);
     const MapWithNoSSR = dynamic(() => import("../components/LeafletMap"), {
         ssr: false
     });
 
-    cc(MapWithNoSSR)
+    //cc(MapWithNoSSR)
 
     return (
         <div className={styles.container}>
@@ -32,6 +36,9 @@ function Test<NextPage>(){
             </Head>
 
             <main className={styles.main}>
+                <button onClick={(e) => {
+                    leafletFetcher(leafletData, leafletError, leafletIsLoading);
+                }}>Log</button>
                 <div id={"map"} className={"height: 100px;"}>
                     <MapWithNoSSR />
                 </div>
@@ -53,5 +60,11 @@ function Test<NextPage>(){
     )
 }
 
+async function leafletFetcher(leafletData, leafletError, leafletIsLoading){
+    //cc(this);
+    let x = await httpClient.get(`${serverUrl}/leaflet/getImagePaths`);
+    cc(x);
+
+}
 
 export default Test;

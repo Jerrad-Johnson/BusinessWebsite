@@ -1,5 +1,5 @@
 var express = require('express');
-const {LeafletImagePathsControllerGet} = require("../../controllers/leaflet/LeafletImagePathsControllerGet");
+const {LeafletImagePathsControllerGet} = require("../../controllers/leaflet/LeafletPathsControllerGet");
 var router = express.Router();
 
 router.get('/', (req, res, next) => {
