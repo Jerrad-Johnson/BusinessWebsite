@@ -2,6 +2,8 @@ const {genericSQLPromise} = require("../../../common/queries");
 const mysql = require("mysql");
 const {standardizedResponse} = require("../../../utils/fns");
 
+
+
 exports.updateLeafletPhotos = async (req, res, files) => {
     const deleteAllQuery = "DELETE FROM leaflet_images;";
     try{
@@ -18,10 +20,11 @@ exports.updateLeafletPhotos = async (req, res, files) => {
     for (folder in files){
         for (file of files[folder]){
             file = JSON.parse(file);
+            cc(file.GPSLatitude);
+            let lon = setDirectionLatLon(file.GPSLongitude);
+            let lat = setDirectionLatLon(file.GPSLatitude);
 
-            try{
-                let lon = file.GPSLongitude.slice(0, -2);
-                let lat = file.GPSLatitude.slice(0, -2);
+            try {
                 let RAW_POINT = mysql.raw(`ST_GeomFromText("POINT(${lon} ${lat})")`);
 
                 await genericSQLPromise(insertQuery, [[folder, file.FileName,
@@ -35,4 +38,11 @@ exports.updateLeafletPhotos = async (req, res, files) => {
         }
     }
     res.status(200).send(standardizedResponse("Updated Leaflet"));
+}
+
+function setDirectionLatLon(coordinate){
+    let decoupledCoordinate = JSON.parse(JSON.stringify(coordinate));
+    if (decoupledCoordinate.slice(-1) === "W") return -decoupledCoordinate.slice(0, -2);
+    if (decoupledCoordinate.slice(-1) === "S") return -decoupledCoordinate.slice(0, -2);
+    return +decoupledCoordinate.slice(0, -2);
 }

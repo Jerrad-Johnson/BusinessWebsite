@@ -32,13 +32,8 @@ exports.formatExifForMapUpdate = async (exifData) => {
             for (let prop of Object.getOwnPropertyNames(exifObject)) {
                 delete exifObject[prop];
             }
-            //cc(file.DateCreated.value);
-            let captureDate = new Date(file.DateCreated.value);
-            let captureDateToUTC = captureDate.toUTCString();
-            //cc(captureDateToUTC);
-
-//cc(file.DateCreated.value.toUTCString())
-  //          cc(Date.UTC(file.DateCreated.value));
+            /*let captureDate = new Date(file.DateCreated.value);
+            let captureDateToUTC = captureDate.toUTCString();*/
         }
     }
     return formattedExifData;

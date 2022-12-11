@@ -3,23 +3,29 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Script from "next/script";
-import Document from "next/document";
 import {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {useDispatch} from "react-redux";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import {useEffect} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import useSWR, {SWRHook, SWRResponse} from "swr";
+import {serverUrl} from "../common/variables";
+import httpClient from "../common/httpClient";
 
 let cc = console.log;
 
 
 
 function Test<NextPage>(){
+    const [leafletData, setLeafletData] = useState({});
+
+    useEffect(() => {
+        getLeafletData(setLeafletData)
+    }, []);
+
     const MapWithNoSSR = dynamic(() => import("../components/LeafletMap"), {
         ssr: false
     });
-
-    cc(MapWithNoSSR)
 
     return (
         <div className={styles.container}>
@@ -32,6 +38,9 @@ function Test<NextPage>(){
             </Head>
 
             <main className={styles.main}>
+                <button onClick={(e) => {
+                    dataLog(leafletData);
+                }}>Log</button>
                 <div id={"map"} className={"height: 100px;"}>
                     <MapWithNoSSR />
                 </div>
@@ -53,5 +62,15 @@ function Test<NextPage>(){
     )
 }
 
+async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): Promise<void>{
+    const results = await httpClient.get(`${serverUrl}/leaflet/getImagePaths`);
+    setLeafletData(results.data.data);
+}
+
+
+
+function dataLog(leafletData){
+    cc(leafletData);
+}
 
 export default Test;
