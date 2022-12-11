@@ -2,8 +2,42 @@ import { MapContainer, TileLayer,Marker,Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import "leaflet-defaulticon-compatibility";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import httpClient from "../common/httpClient";
+import {serverUrl} from "../common/variables";
+import {LatLngExpression} from "leaflet";
+const cc = console.log;
 
 const LeafletMap = () => {
+    const [leafletData, setLeafletData] = useState([]);
+
+    useEffect(() => {
+        getLeafletData(setLeafletData)
+    }, []);
+
+    const leafletMarkers = leafletData.map((e) => {
+       let lat: number = +e.latitude;
+       let lon: number = +e.longitude;
+
+       cc(lat, lon);
+       let lat_lon: LatLngExpression = [lat, lon];
+
+       return (
+           <Marker key={e.file_name_full}
+               position={lat_lon}
+               draggable={true}
+               /*animate={true}*/
+               >
+
+               <Popup>
+                   {e.file_name_full}
+               </Popup>
+           </Marker>
+       );
+    });
+
+
+
     return (
         <MapContainer center={[40.8054,-74.0241]} zoom={14} scrollWheelZoom={true} style={{height: "100%", width: "100%"}}>
             <TileLayer
@@ -11,18 +45,14 @@ const LeafletMap = () => {
                 attribution={'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'}
                 maxZoom={16}
             />
-            <Marker
-                position={[40.8054,-74.0241]}
-                draggable={true}
-                /*animate={true}*/
-            >
-
-                <Popup>
-                    Hey ! you found me
-                </Popup>
-            </Marker>
+            {leafletMarkers}
         </MapContainer>
     )
+}
+
+async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): Promise<void>{
+    const results = await httpClient.get(`${serverUrl}/leaflet/getImagePaths`);
+    setLeafletData(results.data.data);
 }
 
 export default LeafletMap;

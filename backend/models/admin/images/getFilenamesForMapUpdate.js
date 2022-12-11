@@ -10,6 +10,5 @@ exports.getFilenamesForMapUpdate = async (foldernames) => {
         if (files.length > 0) foldersAndFiles[entry] = files;
         files = [];
     }
-
     return foldersAndFiles;
 }

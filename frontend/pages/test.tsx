@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Script from "next/script";
-import Document from "next/document";
 import {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {useDispatch} from "react-redux";
 import Link from "next/link";
@@ -63,7 +62,7 @@ function Test<NextPage>(){
     )
 }
 
-async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): void{
+async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): Promise<void>{
     const results = await httpClient.get(`${serverUrl}/leaflet/getImagePaths`);
     setLeafletData(results.data.data);
 }
