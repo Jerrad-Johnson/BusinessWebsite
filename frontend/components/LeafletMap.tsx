@@ -6,6 +6,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import httpClient from "../common/httpClient";
 import {serverUrl} from "../common/variables";
 import {LatLngExpression} from "leaflet";
+import Image from "next/image";
 const cc = console.log;
 
 const LeafletMap = () => {
