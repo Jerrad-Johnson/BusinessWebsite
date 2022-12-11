@@ -18,8 +18,6 @@ const LeafletMap = () => {
     const leafletMarkers = leafletData.map((e) => {
        let lat: number = +e.latitude;
        let lon: number = +e.longitude;
-
-       cc(lat, lon);
        let lat_lon: LatLngExpression = [lat, lon];
 
        return (
@@ -35,8 +33,6 @@ const LeafletMap = () => {
            </Marker>
        );
     });
-
-
 
     return (
         <MapContainer center={[40.8054,-74.0241]} zoom={14} scrollWheelZoom={true} style={{height: "100%", width: "100%"}}>
