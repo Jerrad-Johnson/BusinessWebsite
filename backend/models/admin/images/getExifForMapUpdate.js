@@ -3,7 +3,8 @@ const ExifReader = require('exifreader');
 exports.getExifForMapUpdate = async (fileAndFolderNames) => {
     let entry;
     let exifResults = {};
-    const imagePath = `./public/map_images`
+    const imagePath = `http://localhost:3001/map_images`
+    cc(process.cwd());
 
     for (let folderName in fileAndFolderNames){
         exifResults[folderName] = [];
@@ -13,5 +14,6 @@ exports.getExifForMapUpdate = async (fileAndFolderNames) => {
             exifResults[folderName].push(entry);
         }
     }
+
     return exifResults;
 }

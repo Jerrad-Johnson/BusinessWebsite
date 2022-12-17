@@ -60,6 +60,7 @@ CREATE TABLE leaflet_images (
     id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
     folder VARCHAR(255) NOT NULL,
     file_name VARCHAR(255) NOT NULL,
+    file_name_full VARCHAR(510) NOT NULL,
     alt_text VARCHAR(510) NOT NULL,
     camera_model VARCHAR(255),
     lens_model VARCHAR(255),

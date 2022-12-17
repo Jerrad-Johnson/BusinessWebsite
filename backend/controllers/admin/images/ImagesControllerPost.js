@@ -3,7 +3,8 @@ const {getExifForMapUpdate} = require("../../../models/admin/images/getExifForMa
 const {formatExifForMapUpdate} = require("../../../models/admin/images/formatExifDataForMapUpdate");
 const {adminIsLoggedIn} = require("../../../models/admin/checkIfLoggedIn");
 const {getFoldernamesForMapUpdate} = require("../../../models/admin/images/getFoldernamesForMapUpdate");
-const {updateLeafletPhotos} = require("../../../models/admin/images/updateLeafletPhotos"); cc = console.log;
+const {updateLeafletPhotos} = require("../../../models/admin/images/updateLeafletPhotos");
+cc = console.log;
 
 exports.ImagesControllerPost = async (req, res, next) => {
     //if (!adminIsLoggedIn(req, res)) return;
