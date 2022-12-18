@@ -1,2 +1,2 @@
 export const serverUrl = "http://localhost:3001";
-
+export const mapDefaultLocation: number[] = [44.0805,-103.2310];
