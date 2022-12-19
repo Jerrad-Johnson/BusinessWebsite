@@ -8,14 +8,16 @@ import httpClient from "../common/httpClient";
 import {serverUrl} from "../common/variables";
 import {LatLngExpression} from "leaflet";
 import {mapDefaultLocation} from "../common/variables";
+import Image from "next/image";
 const cc = console.log;
 
 
 const LeafletMap = () => {
     const [leafletData, setLeafletData] = useState([]);
+    cc(leafletData)
 
     useEffect(() => {
-        getLeafletData(setLeafletData)
+        getLeafletData(setLeafletData);
     }, []);
 
     const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude}) => {
