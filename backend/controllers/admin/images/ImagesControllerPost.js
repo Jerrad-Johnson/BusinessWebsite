@@ -11,9 +11,9 @@ cc = console.log;
 exports.ImagesControllerPost = async (req, res, next) => {
     //if (!adminIsLoggedIn(req, res)) return;
 
-    let createThumbnailResult = await createLeafletThumbnails();
-/*    let foldernames = await getFoldernamesForMapUpdate();
-    let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
+    let foldernames = await getFoldernamesForMapUpdate();
+    let createThumbnailResult = await createLeafletThumbnails(foldernames);
+    /*let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
     let formattedExifData = await formatExifForMapUpdate(rawExifData);
     let imageDataSaved = await updateLeafletPhotos(req, res, formattedExifData);*/
