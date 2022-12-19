@@ -63,9 +63,6 @@ function reformatDateAndTime(file){
     let newTimeCreated = hourShifted + timeCreated.slice(2);
     let dateCreated = file.DateCreated.value.slice(0, 10);
 
-    cc(file.DateCreated.value)
-    cc(file.DateCreated.value.slice(0, -6) + file.OffsetTime.description)
-
     return [newTimeCreated, dateCreated];
 }
 

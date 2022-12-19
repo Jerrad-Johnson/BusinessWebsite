@@ -20,7 +20,6 @@ exports.updateLeafletPhotos = async (req, res, files) => {
     for (folder in files){
         for (file of files[folder]){
             file = JSON.parse(file);
-            cc(file.GPSLatitude);
             let lon = setDirectionLatLon(file.GPSLongitude);
             let lat = setDirectionLatLon(file.GPSLatitude);
 
@@ -37,7 +36,7 @@ exports.updateLeafletPhotos = async (req, res, files) => {
             }
         }
     }
-    res.status(200).send(standardizedResponse("Updated Leaflet"));
+
 }
 
 function setDirectionLatLon(coordinate){

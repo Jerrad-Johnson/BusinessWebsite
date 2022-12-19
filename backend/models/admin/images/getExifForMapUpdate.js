@@ -4,7 +4,6 @@ exports.getExifForMapUpdate = async (fileAndFolderNames) => {
     let entry;
     let exifResults = {};
     const imagePath = `http://localhost:3001/map_images`
-    cc(process.cwd());
 
     for (let folderName in fileAndFolderNames){
         exifResults[folderName] = [];
