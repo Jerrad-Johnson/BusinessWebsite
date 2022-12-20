@@ -1,6 +1,7 @@
 const {standardizedResponse} = require("../../utils/fns");
 const {genericSQLPromise} = require("../../common/queries");
 const bcrypt = require('../../common/custom-bcrypt');
+const {cc} = require("../../common/variables");
 
 exports.AdminLoginController = async (req, res, next) => { // TODO Split into Models.
     if (req.body.username === undefined || req.body.password === undefined || req.body.username === "" || req.body.password === ""){
@@ -16,6 +17,8 @@ exports.AdminLoginController = async (req, res, next) => { // TODO Split into Mo
     }
 
     let comparison = bcrypt.compare(req.body?.password, queryResult?.data[0]?.password);
+    //cc(bcrypt.hash('', 10)); For re-creating admin password; add to UI later.
+
     if (comparison === true){
         req.session.admin = true;
         res.status(200).send(standardizedResponse("Logged in", {loggedIn: true}));
