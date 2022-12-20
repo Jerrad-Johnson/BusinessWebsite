@@ -1,4 +1,4 @@
-const {businessName, errorExistsInScript, cc} = require("../../../common/variables");
+const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (exifData) => {
     let exifObject = {};
     let formattedExifData = {};
@@ -25,6 +25,7 @@ exports.formatExifForMapUpdate = async (exifData) => {
                 exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
                 exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
                 exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
+                exifObject.URL = `${pathToLeafletThumbnailsForExifReader}/${folder}/${file.fileName}`;
 
                 exifAsString = JSON.stringify(exifObject);
                 formattedExifData[folder].push(exifAsString);
@@ -34,6 +35,7 @@ exports.formatExifForMapUpdate = async (exifData) => {
                 for (let prop of Object.getOwnPropertyNames(exifObject)) {
                     delete exifObject[prop];
                 }
+
                 /*let captureDate = new Date(file.DateCreated.value);
                 let captureDateToUTC = captureDate.toUTCString();*/
             }

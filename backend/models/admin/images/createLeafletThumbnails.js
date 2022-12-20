@@ -26,7 +26,7 @@ exports.createLeafletThumbnails = async (foldernames) => {
     for (let folder of foldernames){
         let files = await fs.promises.readdir(`${pathToLeafletImages}/${folder}`);
         for (let file of files){
-            await sharp(`${pathToLeafletImages}/${folder}/${file}`).resize(300, 300)
+            await sharp(`${pathToLeafletImages}/${folder}/${file}`).resize(300, 300).withMetadata()
             .toFile(`${pathToLeafletThumbnails}/${folder}/${file}`, (err) => {
                 didScriptError = errorExistsInScript;
                 cc(err);

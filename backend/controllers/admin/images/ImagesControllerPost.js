@@ -23,14 +23,12 @@ exports.ImagesControllerPost = async (req, res, next) => {
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
     if (rawExifData === errorExistsInScript) res.status(500).send(standardizedResponse("Failed to get exif data from images."));
 
-    cc(rawExifData) // ... TODO Sharp is removing exif data.
+    let formattedExifData = await formatExifForMapUpdate(rawExifData);
+    if (formattedExifData === errorExistsInScript) res.status(500).send(standardizedResponse("Failed to reformat image exif data."));
 
-    /*let formattedExifData = await formatExifForMapUpdate(rawExifData);
-    if (formattedExifData === errorExistsInScript) res.status(500).send(standardizedResponse("Failed to reformat image exif data."));*/
+    let imageDataSaved = await updateLeafletPhotos(req, res, formattedExifData);
+    if (imageDataSaved === errorExistsInScript) return;
 
-    /*let imageDataSaved = await updateLeafletPhotos(req, res, formattedExifData);*/
-
-    //cc(imageDataSaved)
     res.status(200).send(standardizedResponse("Updated Leaflet"));
 }
 

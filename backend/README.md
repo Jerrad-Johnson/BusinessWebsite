@@ -58,6 +58,7 @@ INSERT INTO admin_account (username, password) values ('admin', 'REPLACEME');
 ```
 CREATE TABLE leaflet_images (
     id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
+    url VARCHAR(510) NOT NULL,
     folder VARCHAR(255) NOT NULL,
     file_name VARCHAR(255) NOT NULL,
     file_name_full VARCHAR(510) NOT NULL,
