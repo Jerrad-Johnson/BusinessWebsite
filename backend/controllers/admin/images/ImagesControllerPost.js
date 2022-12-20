@@ -17,11 +17,11 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    let createThumbnailResult = await createLeafletThumbnails(foldernames);
+    /*let createThumbnailResult = await createLeafletThumbnails(foldernames);
     if (createThumbnailResult === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to create thumbnails."));
         return;
-    }
+    }*/
 
     let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     if (fileAndFolderNames === errorExistsInScript){

@@ -26,6 +26,8 @@ exports.formatExifForMapUpdate = async (exifData) => {
                 exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
                 exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
                 exifObject.URL = `${pathToLeafletThumbnailsForExifReader}/${folder}/${file.fileName}`;
+                exifObject.width = file['Image Width'].value;
+                exifObject.height = file['Image Height'].value
 
                 exifAsString = JSON.stringify(exifObject);
                 formattedExifData[folder].push(exifAsString);

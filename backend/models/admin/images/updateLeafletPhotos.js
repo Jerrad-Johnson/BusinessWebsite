@@ -17,7 +17,7 @@ exports.updateLeafletPhotos = async (req, res, files) => {
     if (scriptDidError) return errorExistsInScript;
 
     const insertQuery = `INSERT INTO leaflet_images(url, folder, file_name, file_name_full, alt_text, camera_model,
-        lens_model, focal_length, exposure_time, iso, photo_capture, lat_lon, altitude) VALUES (?)`;
+        lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?)`;
 
 
     for (folder in files){
@@ -31,7 +31,8 @@ exports.updateLeafletPhotos = async (req, res, files) => {
 
                 await genericSQLPromise(insertQuery, [[file.URL, folder, file.FileName,
                     file.FileNameFull, file.AltText, file.CameraModel, file.LensModel, file.FocalLength,
-                    file.ExposureTime, file.ISOSpeedRatings, file.DateTimeCreated, RAW_POINT, file.GPSAltitude]], res);
+                    file.ExposureTime, file.ISOSpeedRatings, file.DateTimeCreated, file.width, file.height,
+                    RAW_POINT, file.GPSAltitude]], res);
             } catch (e) {
                 cc(e);
                 scriptDidError = errorExistsInScript;
