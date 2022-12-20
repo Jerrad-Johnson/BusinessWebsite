@@ -20,7 +20,7 @@ const LeafletMap = () => {
         getLeafletData(setLeafletData);
     }, []);
 
-    const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude}) => {
+    const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude, url}) => {
        let lat: number = +latitude;
        let lon: number = +longitude;
        let lat_lon: LatLngExpression = [lat, lon];
@@ -33,6 +33,7 @@ const LeafletMap = () => {
                >
 
                <Popup>
+                   <img src={url}/>
                    {file_name_full}
                </Popup>
            </Marker>
