@@ -1,8 +1,8 @@
 const {standardizedResponse} = require("../../utils/fns");
+const {cc} = require("../../common/variables");
 
 exports.adminIsLoggedIn = ((req, res) => {
     if (req.session.admin !== true){
-        res.status(401).send(standardizedResponse("Not logged in."));
         return false;
     }
     return true;

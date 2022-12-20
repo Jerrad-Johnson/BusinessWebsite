@@ -69,6 +69,8 @@ CREATE TABLE leaflet_images (
     exposure_time VARCHAR(255),
     iso SMALLINT,
     photo_capture DATETIME,
+    width VARCHAR(255) NOT NULL,
+    height VARCHAR(255) NOT NULL,
     lat_lon POINT NOT NULL,
     altitude MEDIUMINT NOT NULL,
     SPATIAL INDEX (lat_lon)

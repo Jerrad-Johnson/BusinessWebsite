@@ -4,4 +4,10 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig
+//TODO Update DOMAIN before build
+module.exports = {
+  reactStrictMode: true,
+  images: {
+    domains: ['localhost'],
+  },
+}

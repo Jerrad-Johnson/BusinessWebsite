@@ -9,7 +9,10 @@ const {createLeafletThumbnails} = require("../../../models/admin/images/createLe
 const {errorExistsInScript, cc} = require("../../../common/variables");
 
 exports.ImagesControllerPost = async (req, res, next) => {
-    //if (!adminIsLoggedIn(req, res)) return;
+    if (!adminIsLoggedIn(req, res)) {
+        res.status(403).send(standardizedResponse("User is not logged in as Admin."));
+        return;
+    }
 
     let foldernames = await getFoldernamesForMapUpdate();
     if (foldernames === errorExistsInScript){
