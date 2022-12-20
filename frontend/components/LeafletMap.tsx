@@ -14,13 +14,12 @@ const cc = console.log;
 
 const LeafletMap = () => {
     const [leafletData, setLeafletData] = useState([]);
-    cc(leafletData)
 
     useEffect(() => {
         getLeafletData(setLeafletData);
     }, []);
 
-    const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude, url}) => {
+    const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude, url, height, width}) => {
        let lat: number = +latitude;
        let lon: number = +longitude;
        let lat_lon: LatLngExpression = [lat, lon];
@@ -33,7 +32,7 @@ const LeafletMap = () => {
                >
 
                <Popup>
-                   <img src={url}/>
+                   <Image src={url} height={height} width={width}/>
                    {file_name_full}
                </Popup>
            </Marker>
