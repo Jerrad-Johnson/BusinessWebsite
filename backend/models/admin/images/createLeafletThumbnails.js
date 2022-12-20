@@ -7,21 +7,21 @@ exports.createLeafletThumbnails = async (foldernames) => {
 
     if(fs.existsSync(pathToLeafletThumbnails)){
         fs.rm(pathToLeafletThumbnails, { recursive: true }, (err) => {
-            cc(err)
             didScriptError = errorExistsInScript;
+            cc(err)
         });
     }
-    if (didScriptError === errorExistsInScript) return didScriptError;
+    if (didScriptError) return errorExistsInScript;
 
     for (folder of foldernames){
         if(!fs.existsSync(`${pathToLeafletThumbnails}/${folder}`)){
             fs.mkdirSync(`${pathToLeafletThumbnails}/${folder}`, { recursive: true }, (err) => {
-                cc(err);
                 didScriptError = errorExistsInScript;
+                cc(err);
             });
         }
     }
-    if (didScriptError === errorExistsInScript) return didScriptError;
+    if (didScriptError) return errorExistsInScript;
 
     for (let folder of foldernames){
         let files = await fs.promises.readdir(`${pathToLeafletImages}/${folder}`);

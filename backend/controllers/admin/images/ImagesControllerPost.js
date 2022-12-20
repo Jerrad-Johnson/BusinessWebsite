@@ -7,14 +7,16 @@ const {updateLeafletPhotos} = require("../../../models/admin/images/updateLeafle
 const {standardizedResponse} = require("../../../utils/fns");
 const {createLeafletThumbnails} = require("../../../models/admin/images/createLeafletThumbnails");
 const {errorExistsInScript} = require("../../../common/variables");
-cc = console.log;
 
 exports.ImagesControllerPost = async (req, res, next) => {
     //if (!adminIsLoggedIn(req, res)) return;
 
     let foldernames = await getFoldernamesForMapUpdate();
+    if (foldernames === errorExistsInScript) res.status(500).send(standardizedResponse("Failed to find image folders."));
+
     let createThumbnailResult = await createLeafletThumbnails(foldernames);
     if (createThumbnailResult === errorExistsInScript) res.status(500).send(standardizedResponse("Failed to create thumbnails."));
+
     /*let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
     let formattedExifData = await formatExifForMapUpdate(rawExifData);
