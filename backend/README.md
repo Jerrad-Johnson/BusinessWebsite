@@ -86,3 +86,11 @@ Filename is split via `-`
 
 Example: `IMG_1022-Butterfly at Reiman Gardens-.jpg` becomes `IMG_1022.jpg` and `Butterfly at Reiman Gardens`--for the filename and alt text, respectively. 
 
+
+## Known Issues
+
+### "Resource busy or locked" error in node.
+
+This occurs after running leaflet image update more than once.
+
+According to stack, this appears to be a windows issue. Should work correctly in linux. 
