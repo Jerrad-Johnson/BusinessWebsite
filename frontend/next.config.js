@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
 }
 
+//TODO Update DOMAIN before build
 module.exports = {
   reactStrictMode: true,
   images: {
