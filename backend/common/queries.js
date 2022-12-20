@@ -12,14 +12,14 @@ exports.genericSQLPromise = async (query, values, res) => {
             if (err) {
                 cc(err);
                 didError = errorExistsInScript;
-                genericError(res, err.sqlMessage);
-                reject(err.sqlMessage);
+                //genericError(res, err.sqlMessage);
+                //reject(err.sqlMessage);
             }
             queryResults = results;
             resolve();
         });
     }).catch((e) => {
-        throw new Error(e);
+        throw new Error(e.sqlMessage);
     });
 
     return {error: didError, data: queryResults};

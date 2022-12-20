@@ -58,6 +58,7 @@ INSERT INTO admin_account (username, password) values ('admin', 'REPLACEME');
 ```
 CREATE TABLE leaflet_images (
     id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
+    url VARCHAR(510) NOT NULL,
     folder VARCHAR(255) NOT NULL,
     file_name VARCHAR(255) NOT NULL,
     file_name_full VARCHAR(510) NOT NULL,
@@ -86,3 +87,11 @@ Filename is split via `-`
 
 Example: `IMG_1022-Butterfly at Reiman Gardens-.jpg` becomes `IMG_1022.jpg` and `Butterfly at Reiman Gardens`--for the filename and alt text, respectively. 
 
+
+## Known Issues
+
+### "Resource busy or locked" error in node.
+
+This occurs after running leaflet image update more than once.
+
+According to stack, this appears to be a windows issue. Should work correctly in linux. 

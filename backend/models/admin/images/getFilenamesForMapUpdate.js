@@ -1,14 +1,23 @@
 const fs = require('fs');
+const {pathToLeafletImages, errorExistsInScript, errorExistsNotInScript, cc} = require("../../../common/variables");
 
 exports.getFilenamesForMapUpdate = async (foldernames) => {
     //TODO Update folder path
-    const imagePath = `./public/map_images/`
     let foldersAndFiles = {};
+    let didScriptError = errorExistsNotInScript;
 
     for (let entry of foldernames){
-        let files = await fs.promises.readdir(`${imagePath}${entry}`);
+        if (didScriptError) break;
+
+        let files = await fs.promises.readdir(`${pathToLeafletImages}/${entry}`, {}, (err) => {
+            didScriptError = errorExistsInScript
+            cc(err);
+        });
+
         if (files.length > 0) foldersAndFiles[entry] = files;
         files = [];
     }
+
+    if (didScriptError) return errorExistsInScript;
     return foldersAndFiles;
 }

@@ -1,41 +1,50 @@
-const {businessName} = require("../../../common/variables");
+const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (exifData) => {
     let exifObject = {};
     let formattedExifData = {};
     let exifAsString = "";
 
-    for (let folder in exifData) {
-        formattedExifData[folder] = [];
+    try {
 
-        for (let file of exifData[folder]){
-            [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
-            /*[exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);*/
-            exifObject.DateTimeCreated = file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
+        for (let folder in exifData) {
+            formattedExifData[folder] = [];
 
-            exifObject.FolderName = folder;
-            exifObject.FileNameFull = file.fileName;
-            exifObject.LensModel = file.LensModel.value;
-            exifObject.CameraModel = file.Model.description;
-            exifObject.FocalLength = file.FocalLength.description.split(" ").join("");
-            exifObject.ExposureTime = file.ExposureTime.description;
-            exifObject.ApertureValue = file.ApertureValue.description;
-            exifObject.ISOSpeedRatings = file.ISOSpeedRatings.value;
-            exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
-            exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
-            exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
+            for (let file of exifData[folder]){
+                [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
+                /*[exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);*/
+                exifObject.DateTimeCreated = file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
 
-            exifAsString = JSON.stringify(exifObject);
-            formattedExifData[folder].push(exifAsString);
+                exifObject.FolderName = folder;
+                exifObject.FileNameFull = file.fileName;
+                exifObject.LensModel = file.LensModel.value;
+                exifObject.CameraModel = file.Model.description;
+                exifObject.FocalLength = file.FocalLength.description.split(" ").join("");
+                exifObject.ExposureTime = file.ExposureTime.description;
+                exifObject.ApertureValue = file.ApertureValue.description;
+                exifObject.ISOSpeedRatings = file.ISOSpeedRatings.value;
+                exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
+                exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
+                exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
+                exifObject.URL = `${pathToLeafletThumbnailsForExifReader}/${folder}/${file.fileName}`;
 
-            //TODO Convert DataCreated
+                exifAsString = JSON.stringify(exifObject);
+                formattedExifData[folder].push(exifAsString);
 
-            for (let prop of Object.getOwnPropertyNames(exifObject)) {
-                delete exifObject[prop];
+                //TODO Convert DataCreated
+
+                for (let prop of Object.getOwnPropertyNames(exifObject)) {
+                    delete exifObject[prop];
+                }
+
+                /*let captureDate = new Date(file.DateCreated.value);
+                let captureDateToUTC = captureDate.toUTCString();*/
             }
-            /*let captureDate = new Date(file.DateCreated.value);
-            let captureDateToUTC = captureDate.toUTCString();*/
         }
+    } catch (e) {
+        cc(e);
+        return errorExistsInScript;
     }
+
     return formattedExifData;
 }
 
@@ -62,9 +71,6 @@ function reformatDateAndTime(file){
     let hourShifted = hourToShift + tzDifference;
     let newTimeCreated = hourShifted + timeCreated.slice(2);
     let dateCreated = file.DateCreated.value.slice(0, 10);
-
-    cc(file.DateCreated.value)
-    cc(file.DateCreated.value.slice(0, -6) + file.OffsetTime.description)
 
     return [newTimeCreated, dateCreated];
 }

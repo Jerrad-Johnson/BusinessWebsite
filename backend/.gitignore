@@ -1,2 +1,4 @@
 common/session_secret.js
 common/pool.js
+public/leaflet
+public/map_images
