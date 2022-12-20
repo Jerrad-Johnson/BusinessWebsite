@@ -41,8 +41,8 @@ function Home<NextPage>(): ReactElement{
                             <div className={"inner"}>
                                 <h2 className={"title"}>Future is here</h2>
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Laudantium illum tenetur consequatur veritatis?
+                                    <button onClick={() => { dispatch(lightTheme()); }}>Light</button>
+                                    <button onClick={() => { dispatch(darkTheme()); }}>Dark</button>
                                 </p>
                                 <button className={"btn"}>Read more</button>
                             </div>
