@@ -49,3 +49,6 @@ The 3D overlay should disappear when the page width is too small, rather than th
 
 Clicking anywhere on the overlay should close the nav bar.
 
+
+## Overlay
+Background image should change when the user's device is portrait-oriented. 
