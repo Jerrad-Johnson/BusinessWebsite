@@ -1,4 +1,6 @@
-body{
-    background: #fff;
-    color: #000;
+.container {
+    background-image: linear-gradient(135deg, #485461 0%, #28313b 74%);
+}
+
+.overlay {
 }

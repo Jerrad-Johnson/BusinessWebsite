@@ -1,4 +1,12 @@
-body{
-    background: #000;
-    color: #fff;
+.container {
+    background-image: linear-gradient(135deg, #222 0%, #111 74%);
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+header{
+ /*   background: url("/backgrounds/hc.jpg") no-repeat top center / cover;*/
+
 }
