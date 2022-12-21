@@ -7,10 +7,14 @@ export const orientations = {
 
 function useScreenOrientation(){
     if (typeof screen !== "undefined"){
-        const [screenOrientation, setScreenOrientation] = useState(screen.orientation.type);
+        const [screenOrientation, setScreenOrientation] = useState(orientations.landscape);
 
         const updateOrientation = () => {
-            setScreenOrientation((window.innerHeight >= window.innerWidth ? orientations.landscape : orientations.portrait));
+            setScreenOrientation(
+                window.innerHeight >= window.innerWidth
+                ? orientations.portrait
+                : orientations.landscape
+            );
         }
 
         useEffect(() => {
@@ -18,7 +22,7 @@ function useScreenOrientation(){
             return () => {
                 window.removeEventListener('resize', updateOrientation);
             }
-        }, [])
+        }, []);
 
         return screenOrientation;
     }

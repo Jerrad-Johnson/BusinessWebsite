@@ -50,8 +50,6 @@ function Home<NextPage>(): ReactElement{
                             <p>
                                 <button onClick={() => { dispatch(lightTheme()); }}>Light </button>
                                 <button onClick={() => { dispatch(darkTheme()); }}>Dark </button>
-                                <button onClick={() => { cc(screen.orientation) }}>Get Orientation </button>
-                                <button onClick={() => { cc(screenOrientation) }}>Get Orientation </button>
 
                             </p>
                             <button className={"btn"}>Read more</button>
