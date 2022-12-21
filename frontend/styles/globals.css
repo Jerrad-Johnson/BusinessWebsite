@@ -29,7 +29,7 @@
 
 
 
-
+/* TODO Design for mobile-friendly use. */
 /* Sidebar Menu */
 * {
     padding: 0;
@@ -131,7 +131,6 @@ button {
 header {
     min-height: 100vh;
     width: 100%;
-    background-color: #000; /*: url("bg.jpg") no-repeat top center / cover;*/
     position: relative;
 }
 

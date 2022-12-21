@@ -25,7 +25,7 @@ function Home<NextPage>(): ReactElement{
 
             <div className={"navbar"}>
                 <div className={"menu"}>
-                    <h3 className={"logo"}>Brand<span>Name</span></h3>
+                    <h3 className={"logo"}>Ideal<span>Portraits</span></h3>
                     <div className={"hamburger-menu"} onClick={(e) => {
                         navOpenOrClosed ? setNavOpenOrClosed(0) : setNavOpenOrClosed(1);
                     }}>
@@ -37,6 +37,8 @@ function Home<NextPage>(): ReactElement{
             <div className={"main-container"}>
                 <div className={"main"}>
                     <header>
+                        <Image src={'/backgrounds/hc.jpg'} layout={'fill'} objectFit={'cover'}
+                               objectPosition={'center'}/>
                         <div className={"overlay"}>
                             <div className={"inner"}>
                                 <h2 className={"title"}>Future is here</h2>

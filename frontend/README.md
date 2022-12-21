@@ -41,3 +41,11 @@ module.exports = {
 `npm i --save-dev @stryker-mutator/core`
 
 Add `.env.development` and `.env.production`.
+
+# TODO
+## Styling
+### Nav-related
+The 3D overlay should disappear when the page width is too small, rather than the Nav items merging into it.
+
+Clicking anywhere on the overlay should close the nav bar.
+
