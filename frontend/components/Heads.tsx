@@ -3,14 +3,12 @@ import {businessName} from "../common/variables";
 
 const linkRel = ( <link rel="icon" href="/favicon.ico" /> );
 
-const Heads = {
-    GalleryHead: (
+export function GenericHead({metaName, content}){
+    return (
         <Head>
             <title>{businessName}</title>
-            <meta name="Image Galleries" content="Stuff" />
+            <meta name={metaName} content={content} />
             {linkRel}
         </Head>
-    )
+    );
 }
-
-export default Heads;

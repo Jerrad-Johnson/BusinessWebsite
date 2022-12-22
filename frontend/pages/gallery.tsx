@@ -3,7 +3,7 @@ import {cc} from "../common/variables";
 import Navbar from "../components/Navbar";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
-import {GalleryHead} from "../components/Heads";
+import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import {GalleryMain} from "../components/MainContents";
 
@@ -17,10 +17,15 @@ function Gallery<NextPage>(): ReactElement{
                 navbarOpenOrClosed={navbarOpenOrClosed}
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
-            {GalleryHead}
+            <GenericHead
+                content={"Stuff"}
+                metaName={"Image Galleries"}
+            />
             <GalleryMain/>
             <OverlayShadows/>
-            <NavbarLinks/>
+            <NavbarLinks
+                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
+            />
         </div>
     );
 }
