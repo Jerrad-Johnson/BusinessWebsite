@@ -1,13 +1,17 @@
 import {ReactElement, useState} from "react";
+import {AppDispatch} from "../app/store";
+import {useDispatch} from "react-redux";
+import {closeNavBar, navbarOpenOrClosedOptions, openNavBar} from "../features/navbar/navbarOpenOrClosedSlice";
 
-function Navbar({navOpenOrClosed, setNavOpenOrClosed}: {navOpenOrClosed: boolean, setNavOpenOrClosed: boolean}): ReactElement {
+function Navbar(): ReactElement {
+    const dispatch: AppDispatch = useDispatch();
 
     return (
         <div className={"navbar"}>
             <div className={"menu"}>
                 <h3 className={"logo"}>Ideal<span>Portraits</span></h3>
                 <div className={"hamburger-menu"} onClick={(e) => {
-                    navOpenOrClosed ? setNavOpenOrClosed(0) : setNavOpenOrClosed(1);
+                    localStorage.getItem("navBarOpenOrClosed") === navbarOpenOrClosedOptions.open ? dispatch(closeNavBar()) : dispatch(openNavBar());
                 }}>
                     <div className={"bar"}></div>
                 </div>
