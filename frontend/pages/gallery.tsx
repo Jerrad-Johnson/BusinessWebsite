@@ -8,6 +8,7 @@ import {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import Link from "next/link";
 import {AppDispatch} from "../app/store";
 import {useDispatch} from "react-redux";
+import Navbar from "../components/Navbar";
 
 function Gallery<NextPage>(): ReactElement{
     const dispatch: AppDispatch = useDispatch();
@@ -22,16 +23,7 @@ function Gallery<NextPage>(): ReactElement{
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className={"navbar"}>
-                <div className={"menu"}>
-                    <h3 className={"logo"}>Ideal<span>Portraits</span></h3>
-                    <div className={"hamburger-menu"} onClick={(e) => {
-                        navOpenOrClosed ? setNavOpenOrClosed(0) : setNavOpenOrClosed(1);
-                    }}>
-                        <div className={"bar"}></div>
-                    </div>
-                </div>
-            </div>
+            <Navbar navOpenOrClosed={navOpenOrClosed} setNavOpenOrClosed={setNavOpenOrClosed}/>
 
             <div className={"main-container"}>
                 <div className={"main"}>
