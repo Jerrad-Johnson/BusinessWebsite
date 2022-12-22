@@ -19,7 +19,6 @@ function Home<NextPage>(): ReactElement{
    const [navOpenOrClosed, setNavOpenOrClosed] = useState(false);
    const screenOrientation = useScreenOrientation();
 
-
   return (
     <div className={'container' + (navOpenOrClosed ? " active" : " ") }>
       <Head>
