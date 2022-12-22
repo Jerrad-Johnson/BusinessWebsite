@@ -24,6 +24,7 @@
     "react-18-image-lightbox": "^5.1.4",
     "react-dom": "18.2.0",
     "react-grid-gallery": "^1.0.0",
+    "react-justified-grid": "^1.0.0",
     "react-leaflet": "^4.2.0",
     "react-leaflet-markercluster": "^3.0.0-rc1",
     "react-redux": "^8.0.4",
