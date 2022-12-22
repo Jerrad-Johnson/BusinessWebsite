@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import PhotoLightbox from "./ReactSpringLightbox";
 import ImageLightbox from "./ImageLightbox";
 import MyImageGallery from "./ImageLightbox";
+import {cc} from "../common/variables";
 
 export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
@@ -20,10 +21,8 @@ export function GalleryMain(){
                     <div className={"overlay"}>
                         <div className={"inner"}>
                             <h2 className={"title"}>Future is here</h2>
-                            <p>
                                 <MyImageGallery/>
                                 {/*<PhotoLightbox/>*/}
-                            </p>
                             <button className={"btn"}>Read more</button>
                         </div>
                     </div>
