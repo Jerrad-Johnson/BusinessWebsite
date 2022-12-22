@@ -1,83 +1,33 @@
 import React, { Component } from 'react';
-import Lightbox from 'react-18-image-lightbox';
-import 'react-18-image-lightbox/style.css'; // This only needs to be imported once in your app
-import { Gallery } from "react-grid-gallery";
+import JustifiedGrid from 'react-justified-grid'
 
-const images = [
-    '//placekitten.com/1500/500',
-    '//placekitten.com/4000/3000',
-    '//placekitten.com/800/1200',
-    '//placekitten.com/1500/1500',
-];
+function MyImageGallery() {
+    const imageList = [{
+        src: 'https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg',
+        width: 320,
+        height: 320
+    }, {
+        src: 'https://scontent.cdninstagram.com/vp/f1d729fe57fa4ddc7c18fa346609cdb8/5C838862/t51.2885-15/e35/s320x320/44348158_2491449144206376_3633417851169311676_n.jpg',
+        width: 320,
+        height: 167
+    }, {
+        src: 'https://scontent.cdninstagram.com/vp/b0f56148b7f7d06ff186a51853888b2f/5C84ACC0/t51.2885-15/e35/s320x320/44724241_2191160064490130_1438494317224719529_n.jpg',
+        width: 320,
+        height: 240
+    }, {
+        src: 'https://scontent.cdninstagram.com/vp/dcda7878c4a828f0c850b73dc5c6587d/5C728976/t51.2885-15/e35/p320x320/43158355_534503580355624_1875160473904621159_n.jpg',
+        width: 320,
+        height: 400
+    }];
 
-export default class ImageLightbox extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            photoIndex: 0,
-            isOpen: false,
-        };
-    }
-
-    render() {
-        const { photoIndex, isOpen } = this.state;
-        const images = [
-            {
-                src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-                width: 320,
-                height: 174,
-                isSelected: true,
-                caption: "After Rain (Jeshu John - designerspics.com)",
-            },
-            {
-                src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-                width: 320,
-                height: 212,
-                tags: [
-                    { value: "Ocean", title: "Ocean" },
-                    { value: "People", title: "People" },
-                ],
-                alt: "Boats (Jeshu John - designerspics.com)",
-            },
-
-            {
-                src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-                width: 320,
-                height: 212,
-            },
-        ];
-
-        return (
-            <div>
-
-
-
-                <Gallery images={images} defaultContainerWidth={1200}/>
-
-{/*                <button type="button" onClick={() => this.setState({ isOpen: true })}>
-                    Open Lightbox
-                </button>
-
-                {isOpen && (
-                    <Lightbox
-                        mainSrc={images[photoIndex]}
-                        nextSrc={images[(photoIndex + 1) % images.length]}
-                        prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-                        onCloseRequest={() => this.setState({ isOpen: false })}
-                        onMovePrevRequest={() =>
-                            this.setState({
-                                photoIndex: (photoIndex + images.length - 1) % images.length,
-                            })
-                        }
-                        onMoveNextRequest={() =>
-                            this.setState({
-                                photoIndex: (photoIndex + 1) % images.length,
-                            })
-                        }
-                    />}
-                )}*/}
-            </div>
-        );
-    }
+    return (
+        <JustifiedGrid
+            images={imageList}
+            rows={3}
+            maxRowHeight={64}
+            gutter={1}
+        />
+    );
 }
+
+export default MyImageGallery;

@@ -5,6 +5,7 @@ import {AppDispatch} from "../app/store";
 import {useDispatch} from "react-redux";
 import PhotoLightbox from "./ReactSpringLightbox";
 import ImageLightbox from "./ImageLightbox";
+import MyImageGallery from "./ImageLightbox";
 
 export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
@@ -20,7 +21,7 @@ export function GalleryMain(){
                         <div className={"inner"}>
                             <h2 className={"title"}>Future is here</h2>
                             <p>
-                                <ImageLightbox/>
+                                <MyImageGallery/>
                                 {/*<PhotoLightbox/>*/}
                             </p>
                             <button className={"btn"}>Read more</button>
