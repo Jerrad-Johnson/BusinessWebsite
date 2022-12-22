@@ -16,15 +16,11 @@ export function GalleryMain(){
         <div className={"main-container"}>
             <div className={"main"}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'}/>
-                    <div className={"overlay"}>
-                        <div className={"inner"}>
-                            <h2 className={"title"}>Future is here</h2>
-                                <MyImageGallery/>
-                                {/*<PhotoLightbox/>*/}
-                            <button className={"btn"}>Read more</button>
-                        </div>
+                    <div className={"inner"}>
+                        <h2 className={"title"}>Future is here</h2>
+                            <MyImageGallery/>
+                            {/*<PhotoLightbox/>*/}
+                        <button className={"btn"}>Read more</button>
                     </div>
                 </header>
             </div>
