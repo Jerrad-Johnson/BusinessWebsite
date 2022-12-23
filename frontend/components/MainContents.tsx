@@ -18,7 +18,9 @@ export function GalleryMain(){
                 <header>
                     <div className={"inner"}>
                         <h2 className={"title"}>Future is here</h2>
-                            <MyImageGallery/>
+                            <MyImageGallery
+                                padding={10}
+                            />
                             {/*<PhotoLightbox/>*/}
                         <button className={"btn"}>Read more</button>
                     </div>
