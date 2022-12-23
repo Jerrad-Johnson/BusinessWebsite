@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {cc} from "../common/variables";
+import Image from "next/image";
 var layoutGeometry = require('justified-layout');
 
 
@@ -77,7 +78,7 @@ function calculateGalleryLayout(calculatoroptions, galleryContainer){
         e.width = Math.trunc(+e.width);
 
         return (
-            <img
+            <Image
                 style={
                     {
                     "height": e.height,
@@ -86,8 +87,12 @@ function calculateGalleryLayout(calculatoroptions, galleryContainer){
                     }
                 }
                 src={ "http://localhost:3001/leaflet/thumbnails/macro/162A2078.jpg" }
+                blurDataURL={"http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg"}
+                placeholder={"blur"}
                 key={k}
                 className={"njGalleryImage"}
+                width={e.width}
+                height={e.height}
             />
         );
     });
