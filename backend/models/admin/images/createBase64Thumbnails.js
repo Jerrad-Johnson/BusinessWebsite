@@ -11,7 +11,7 @@ exports.createBase64Thumbnails = async (req, res, fileAndFolderNames) => {
 
         for (folder in fileAndFolderNames){
             if(!fs.existsSync(`${pathToBase64Thumbnails}/${folder}`)){
-                fs.mkdirSync(`${pathToBase64Thumbnails}/${folder}`, { recursive: true }, (err) => {
+                fs.mkdir(`${pathToBase64Thumbnails}/${folder}`, { recursive: true }, (err) => {
                     throw new Error(err);
                 });
             }
