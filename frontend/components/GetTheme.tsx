@@ -5,9 +5,7 @@ import {darkTheme, lightTheme, themeOptions} from "../features/theme/themeSlice"
 
 function GetTheme(){
     return (
-        <Provider store={store}>
             <ThemeLink/>
-        </Provider>
     );
 }
 

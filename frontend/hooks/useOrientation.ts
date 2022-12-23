@@ -18,6 +18,7 @@ function useScreenOrientation(){
         }
 
         useEffect(() => {
+            setScreenOrientation(updateOrientation());
             window.addEventListener('resize', updateOrientation);
             return () => {
                 window.removeEventListener('resize', updateOrientation);
