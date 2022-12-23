@@ -11,10 +11,10 @@ function MyImageGallery(inputs) {
     const [galleryElements, setGalleryElements] = useState((<></>));
 
     const delinkedInputs = delinkObject(inputs);
-    const padding = delinkedInputs.padding | 10;
-    const userDefinedContainerWidth = delinkedInputs.containerWidth | undefined;
-    const userDefinedTargetRowHeight = delinkedInputs.containerWidth | undefined;
-    const justifyFinalRow = delinkedInputs.justifyFinalRow | undefined
+    const padding = delinkedInputs.padding || 10;
+    const userDefinedContainerWidth = delinkedInputs.containerWidth || undefined;
+    const userDefinedTargetRowHeight = delinkedInputs.containerWidth || undefined;
+    const justifyFinalRow = delinkedInputs.justifyFinalRow || undefined;
 
     const calculatorInputs = {
         padding,
@@ -73,8 +73,6 @@ function calculateGalleryLayout(calculatorInputs){
             targetRowHeight: userDefinedTargetRowHeight | 200,
         }
     );
-
-
 
     return imageLayout.boxes.map((e, k) => {
         e.height = Math.trunc(+e.height);

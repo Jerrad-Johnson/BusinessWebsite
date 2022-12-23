@@ -19,7 +19,7 @@ export function GalleryMain(){
                     <div className={"inner"}>
                         <h2 className={"title"}>Future is here</h2>
                             <MyImageGallery
-                                padding={10}
+                                padding={20}
                             />
                             {/*<PhotoLightbox/>*/}
                         <button className={"btn"}>Read more</button>
