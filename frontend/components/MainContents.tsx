@@ -23,9 +23,11 @@ export function GalleryMain(){
                             imagePadding={{vertical: 10, horizontal: 10}}
                         />
 
-                            <h2 className={"title"}>Future is here</h2>
-                                {/*<PhotoLightbox/>*/}
-                            <button className={"btn"}>Read more</button>
+                        <br/>
+
+                        <h2 className={"title"}>Future is here</h2>
+                            {/*<PhotoLightbox/>*/}
+                        <button className={"btn"}>Read more</button>
                     </div>
                 </header>
             </div>
