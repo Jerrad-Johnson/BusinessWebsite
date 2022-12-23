@@ -16,9 +16,16 @@ export function GalleryMain(){
         <div className={"main-container"}>
             <div className={"main"}>
                 <header>
-                    <div className={"inner"}>
+                    <div className={"overlay"}>
+                        <MyImageGallery
+                            containerWidth={"60%"}
+                            containerPadding={0}
+                            imagePadding={{vertical: 10, horizontal: 10}}
+                        />
+
+                        <br/>
+
                         <h2 className={"title"}>Future is here</h2>
-                            <MyImageGallery/>
                             {/*<PhotoLightbox/>*/}
                         <button className={"btn"}>Read more</button>
                     </div>

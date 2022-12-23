@@ -44,7 +44,7 @@ function Home<NextPage>(): ReactElement{
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'}/>
                     <div className={"overlay"}>
-                        <div className={"inner"}>
+                        <div className={styles.inner}>
                             <h2 className={"title"}>Future is here</h2>
                             <p>
                                 <button onClick={() => { dispatch(lightTheme()); }}>Light </button>
