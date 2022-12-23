@@ -42,7 +42,6 @@ function MyImageGallery(options) {
     );
 }
 
-
 function calculateGalleryLayout(calculatoroptions, galleryContainer){
     const optionsCopy = {...calculatoroptions}
 
@@ -86,7 +85,7 @@ function calculateGalleryLayout(calculatoroptions, galleryContainer){
                     "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px",
                     }
                 }
-                src={ "http://localhost:3001/leaflet/thumbnails/macro/162A2078.jpg" }
+                src={ "http://localhost:3001/temp/162A2061.jpg" }
                 blurDataURL={"http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg"}
                 placeholder={"blur"}
                 key={k}
