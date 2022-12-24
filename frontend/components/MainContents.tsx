@@ -7,6 +7,7 @@ import PhotoLightbox from "./ReactSpringLightbox";
 import ImageLightbox from "./ImageLightbox";
 import MyImageGallery from "./ImageLightbox";
 import {cc} from "../common/variables";
+import dynamic from "next/dynamic";
 
 export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
