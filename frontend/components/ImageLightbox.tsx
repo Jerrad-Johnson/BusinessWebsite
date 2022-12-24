@@ -85,13 +85,13 @@ function calculateGalleryLayout(calculatoroptions, galleryContainer){
                 key={k}
             >
                 <Image
-                    margin={(imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px"}
                     src={ "http://localhost:3001/temp/162A2061.jpg" }
                     blurDataURL={"http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg"}
                     placeholder={"blur"}
                     className={"njGalleryImage"}
                     width={e.width}
                     height={e.height}
+                    /*alt={}*/
                 />
             </div>
         );
