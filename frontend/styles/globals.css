@@ -122,7 +122,7 @@ button {
     width: 100%;
     left: 0;
     z-index: 5;
-    overflow: hidden;
+    overflow: auto;
     transform-origin: left;
     transform-style: preserve-3d;
     transition: 0.5s;

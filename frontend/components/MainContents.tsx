@@ -13,14 +13,37 @@ export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
     const screenOrientation = useScreenOrientation();
 
+    const photos = [
+        {
+            src: "http://localhost:3001/temp/162A2061.jpg",
+            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+            height: 300,
+            width: 300,
+            blur: true,
+        }, {
+            src: "http://localhost:3001/temp/162A2061.jpg",
+            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+            height: 200,
+            width: 300,
+            blur: true,
+        }, {
+            src: "http://localhost:3001/temp/162A2061.jpg",
+            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+            height: 300,
+            width: 200,
+            blur: true,
+        }
+    ];
+
     return (
         <div className={"main-container"}>
             <div className={"main"}>
                 <header>
                     <div className={"overlay"}>
                         <MyImageGallery
-                            containerWidth={"60%"}
-                            containerPadding={0}
+                            images={photos}
+                            containerWidth={"100%"}
+                            containerPadding={10}
                             imagePadding={{vertical: 10, horizontal: 10}}
                         />
 
