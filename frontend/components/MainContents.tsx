@@ -33,16 +33,20 @@ export function GalleryMain(){
         }
     ];
 
+    const galleryData = {
+        images: photos,
+        containerWidth: "100%",
+        containerPadding: 10,
+        imagePadding: {vertical: 10, horizontal: 10},
+    }
+
     return (
         <div className={"main-container"}>
             <div className={"main"}>
                 <header>
                     <div className={"overlay"}>
                         <MyImageGallery
-                            images={photos}
-                            containerWidth={"100%"}
-                            containerPadding={10}
-                            imagePadding={{vertical: 10, horizontal: 10}}
+                            {...galleryData}
                         />
 
                         <br/>
