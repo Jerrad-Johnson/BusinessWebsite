@@ -35,7 +35,7 @@ function createNewRow(layoutConfig, layoutData) {
         spacing: layoutConfig.boxSpacing.horizontal,
         targetRowHeight: layoutConfig.targetRowHeight,
         targetRowHeightTolerance: layoutConfig.targetRowHeightTolerance,
-        edgeCaseMinRowHeight: 0.5 * layoutConfig.targetRowHeight,
+        edgeCaseMinRowHeight: 10,
         edgeCaseMaxRowHeight: 2 * layoutConfig.targetRowHeight,
         rightToLeft: false,
         isBreakoutRow: isBreakoutRow,
