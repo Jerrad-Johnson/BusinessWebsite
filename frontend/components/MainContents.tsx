@@ -38,7 +38,9 @@ export function GalleryMain(){
         containerWidth: "100%",
         containerPadding: 10,
         imagePadding: {vertical: 10, horizontal: 10},
-        targetRowHeight: 500,
+        targetRowHeight: 250,
+        showIncompleteRows: true,
+        targetRowHeightTolerance: .1,
     }
 
     return (
@@ -46,15 +48,14 @@ export function GalleryMain(){
             <div className={"main"}>
                 <header>
                     <div className={"overlay"}>
-                        <MyImageGallery
-                            {...galleryData}
-                        />
+                        <div className={"main-container-content"}>
+                            <div className={"main-container-headline"}>Gallery</div>
+                            <MyImageGallery
+                                {...galleryData}
+                            />
 
-                        <br/>
-
-                        <h2 className={"title"}>Future is here</h2>
-                            {/*<PhotoLightbox/>*/}
-                        <button className={"btn"}>Read more</button>
+                            <br/>
+                        </div>
                     </div>
                 </header>
             </div>
