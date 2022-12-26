@@ -149,8 +149,6 @@ button {
     @apply
     pt-2
     pb-2
-
-
 }
 
 header {
@@ -163,7 +161,7 @@ header {
     position: absolute;
     padding-right: 20%;
     padding-left: 20%;
-    padding-top: 10%;
+    padding-top: 6%;
     width: 100%;
     height: 100%;
     top: 0;
