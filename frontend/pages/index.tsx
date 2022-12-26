@@ -40,7 +40,7 @@ function Home<NextPage>(): ReactElement{
 
         <div className={"main-container"}>
             <div className={"main"}>
-                <header>`
+                <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'}/>
                     <div className={"overlay"}>

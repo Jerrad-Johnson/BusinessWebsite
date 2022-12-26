@@ -7,10 +7,39 @@ import PhotoLightbox from "./ReactSpringLightbox";
 import ImageLightbox from "./ImageLightbox";
 import MyImageGallery from "./ImageLightbox";
 import {cc} from "../common/variables";
+import dynamic from "next/dynamic";
 
 export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
     const screenOrientation = useScreenOrientation();
+
+    const photos = [
+        {
+            src: "http://localhost:3001/temp/162A2061.jpg",
+            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+            height: 300,
+            width: 300,
+            alt: "Butterfly!",
+        }, {
+            src: "http://localhost:3001/temp/162A2061.jpg",
+            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+            height: 200,
+            width: 300,
+        }, {
+            src: "http://localhost:3001/temp/162A2061.jpg",
+            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+            height: 300,
+            width: 200,
+        }
+    ];
+
+    const galleryData = {
+        images: photos,
+        containerWidth: "100%",
+        containerPadding: 10,
+        imagePadding: {vertical: 10, horizontal: 10},
+        targetRowHeight: 500,
+    }
 
     return (
         <div className={"main-container"}>
@@ -18,9 +47,7 @@ export function GalleryMain(){
                 <header>
                     <div className={"overlay"}>
                         <MyImageGallery
-                            containerWidth={"60%"}
-                            containerPadding={0}
-                            imagePadding={{vertical: 10, horizontal: 10}}
+                            {...galleryData}
                         />
 
                         <br/>
