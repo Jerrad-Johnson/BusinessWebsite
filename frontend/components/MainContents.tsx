@@ -47,9 +47,12 @@ export function GalleryMain(){
         <div className={"main-container"}>
             <div className={"main"}>
                 <header>
+                    {/*<Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
+                           objectPosition={'center'}/> Replace with a good image*/}
                     <div className={"overlay"}>
                         <div className={"main-container-content"}>
                             <div className={"main-container-headline"}>Gallery</div>
+                            <hr/>
                             <MyImageGallery
                                 {...galleryData}
                             />

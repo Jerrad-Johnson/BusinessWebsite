@@ -141,8 +141,8 @@ button {
     scrollbar-width: none;  /* Firefox */
 
     @apply
-    pl-4
-    pr-4
+    pl-8
+    pr-8
 }
 
 .main-container-content::-webkit-scrollbar {
