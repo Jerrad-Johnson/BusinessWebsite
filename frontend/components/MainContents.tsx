@@ -19,19 +19,17 @@ export function GalleryMain(){
             blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
             height: 300,
             width: 300,
-            blur: true,
+            alt: "Butterfly!",
         }, {
             src: "http://localhost:3001/temp/162A2061.jpg",
             blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
             height: 200,
             width: 300,
-            blur: true,
         }, {
             src: "http://localhost:3001/temp/162A2061.jpg",
             blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
             height: 300,
             width: 200,
-            blur: true,
         }
     ];
 
