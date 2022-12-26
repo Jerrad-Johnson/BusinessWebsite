@@ -1,8 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
-import {cc} from "../common/variables";
 import Image from "next/image";
-var layoutGeometry = require('justified-layout');
-
+const layoutGeometry = require('justified-layout');
 
 function MyImageGallery(galleryInput) {
     handleErrorChecking(galleryInput);
@@ -12,32 +10,21 @@ function MyImageGallery(galleryInput) {
 
     const galleryInputWithDefaults = addDefaultsToGalleryInput(galleryInput);
     const { containerPadding, containerWidth } = {...galleryInputWithDefaults};
+    const njGalleryStyle = createGalleryStyle(containerPadding, containerWidth);
 
-    useEffect(() => {
-        setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef));
+    effectHook(setGalleryElements, galleryInputWithDefaults, galleryElementRef);
 
-        window.addEventListener('resize', () => setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
-        return () => {
-            window.removeEventListener('resize', () => setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
-        }
-    }, []);
 
     return (
             <div className={"njGallery"}
-                style={
-                    {
-                    "width": (containerWidth),
-                    "display": "flex",
-                    "flexWrap": "wrap",
-                    "padding": (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px",
-                    }
-                }
+                style={njGalleryStyle}
                 ref={galleryElementRef}
             >
                 {galleryElements}
             </div>
     );
 }
+
 
 function createGalleryLayout(galleryInputWithDefaults, galleryElementRef){
     const galleryInputCopy = {...galleryInputWithDefaults}
@@ -72,7 +59,7 @@ function calculateGalleryLayout(galleryInputCopy, galleryElementRef){
     galleryElementRef = galleryElementRef.current;
     const { images, containerPadding, containerWidth, targetRowHeight, imagePadding, maxRows, showIncompleteRows } = galleryInputCopy;
 
-    const imageDimensions = images.map((e, k) => {
+    const imageDimensions = images.map((e) => {
         return {width: e.width, height: e.height}
     });
 
@@ -111,7 +98,7 @@ function handleErrorChecking(galleryInput){
 
     if (!images) throw new Error("You must include images.");
     for (let entry of images){
-        if (!entry.src) throw new Error("Every image must include a sorce (URL).");
+        if (!entry.src) throw new Error("Every image must include a source (URL).");
         if (!entry.width) throw new Error("Every image must include a width value.");
         if (!entry.height) throw new Error("Every image must include a height value.");
         if (typeof entry.width !== "number") throw new Error("Image width must be a number, not a string.");
@@ -134,6 +121,27 @@ function addDefaultsToGalleryInput(galleryInput){
         maxRows: galleryInputCopy.hideIncompleteRows || Number.POSITIVE_INFINITY,
         showIncompleteRows: galleryInputCopy.maxRows || true,
     }
+}
+
+function effectHook(setGalleryElements, galleryInputWithDefaults, galleryElementRef){
+    useEffect(() => {
+        setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef));
+
+        window.addEventListener('resize', () => setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
+        return () => {
+            window.removeEventListener('resize', () => setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
+        }
+    }, []);
+}
+
+function createGalleryStyle(containerPadding, containerWidth){
+    return {
+        "width": (containerWidth),
+        "display": "flex",
+        "flexWrap": "wrap",
+        "padding": (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px",
+    }
+
 }
 
 export default MyImageGallery;
