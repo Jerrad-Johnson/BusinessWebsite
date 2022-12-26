@@ -10,7 +10,7 @@ function MyImageGallery(galleryInput) {
     const galleryElementRef = useRef(null);
     const [ galleryElements, setGalleryElements ] = useState(null);
 
-    const galleryInputWithDefaults = addDefaultsTogalleryInput(galleryInput);
+    const galleryInputWithDefaults = addDefaultsToGalleryInput(galleryInput);
     const { containerPadding, containerWidth } = {...galleryInputWithDefaults};
 
     useEffect(() => {
@@ -43,19 +43,15 @@ function createGalleryLayout(galleryInputWithDefaults, galleryElementRef){
     const galleryInputCopy = {...galleryInputWithDefaults}
     const {images, imagePadding} = galleryInputCopy;
     const imageLayout = calculateGalleryLayout(galleryInputCopy, galleryElementRef);
-    const imageLayoutAndGalleryInput = reformatGalleryData(imageLayout, images);
+    const reformattedImageData = reformatGalleryData(imageLayout, images);
 
-
-    return imageLayoutAndGalleryInput.map((e, k) => {
+    return reformattedImageData.map((e, k) => {
         e.height = Math.trunc(+e.boxHeight);
         e.width = Math.trunc(+e.boxWidth);
 
         return (
-            <div style={
-                    {
-                    "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px",
-                    }
-                }
+            <div
+                style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
                 key={k}
             >
                 <Image
@@ -74,7 +70,6 @@ function createGalleryLayout(galleryInputWithDefaults, galleryElementRef){
 
 function calculateGalleryLayout(galleryInputCopy, galleryElementRef){
     galleryElementRef = galleryElementRef.current;
-
     const { images, containerPadding, containerWidth, targetRowHeight, imagePadding, maxRows, showIncompleteRows } = galleryInputCopy;
 
     const imageDimensions = images.map((e, k) => {
@@ -97,24 +92,23 @@ function calculateGalleryLayout(galleryInputCopy, galleryElementRef){
 
 function reformatGalleryData(imageLayout, images){
     const imagesCopy = [...images];
-    let imageLayoutAndGalleryInput = [];
+    let reformattedImageData = [];
     for (let i = 0; i < imageLayout.boxes.length; i++){
-        imageLayoutAndGalleryInput[i] = {};
-        imageLayoutAndGalleryInput[i].boxHeight = imageLayout.boxes[i].height;
-        imageLayoutAndGalleryInput[i].boxWidth = imageLayout.boxes[i].width;
-        imageLayoutAndGalleryInput[i].imgSrc = imagesCopy[i].src;
-        imageLayoutAndGalleryInput[i].imgBlurSrc = imagesCopy[i].blurSrc;
-        imageLayoutAndGalleryInput[i].alt = imagesCopy[i].alt;
+        reformattedImageData[i] = {};
+        reformattedImageData[i].boxHeight = imageLayout.boxes[i].height;
+        reformattedImageData[i].boxWidth = imageLayout.boxes[i].width;
+        reformattedImageData[i].imgSrc = imagesCopy[i].src;
+        reformattedImageData[i].imgBlurSrc = imagesCopy[i].blurSrc;
+        reformattedImageData[i].alt = imagesCopy[i].alt;
     }
 
-    return imageLayoutAndGalleryInput
+    return reformattedImageData;
 }
 
 function handleErrorChecking(galleryInput){
     const galleryInputCopy = {...galleryInput}
     const {containerPadding, images} = galleryInputCopy;
 
-    if (!images) throw new Error("You must include images.");
     if (!images) throw new Error("You must include images.");
     for (let entry of images){
         if (!entry.src) throw new Error("Every image must include a sorce (URL).");
@@ -127,7 +121,7 @@ function handleErrorChecking(galleryInput){
     if (containerPadding && containerPadding % 2 !== 0) throw new Error("Padding must be an even number");
 }
 
-function addDefaultsTogalleryInput(galleryInput){
+function addDefaultsToGalleryInput(galleryInput){
     const galleryInputCopy = {...galleryInput}
 
     return {
