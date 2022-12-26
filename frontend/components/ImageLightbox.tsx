@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import Image from "next/image";
-const layoutGeometry = require('../libs/justified-layout_v2/lib/index');
+const layoutGeometry = require('../libs/justified-layout_v2');
 
 //NOTE: Script *will* cause a crash if the container is too small for images to exist at all. Need to fix this.
 

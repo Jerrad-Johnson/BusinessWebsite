@@ -39,7 +39,7 @@ export function GalleryMain(){
         containerPadding: 10,
         imagePadding: {vertical: 10, horizontal: 10},
         targetRowHeight: 300,
-        showIncompleteRows: false,
+        /*showIncompleteRows: false,*/
         targetRowHeightTolerance: .2,
     }
 
