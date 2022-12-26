@@ -53,6 +53,57 @@ export function GalleryMain(){
                             <MyImageGallery
                                 {...galleryData}
                             />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
+                            lorem <br />
 
                             <br/>
                         </div>
