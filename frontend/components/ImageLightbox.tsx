@@ -3,6 +3,8 @@ import Image from "next/image";
 import {cc} from "../common/variables";
 const layoutGeometry = require('../libs/justified-layout_v2/lib/index');
 
+//NOTE: Script *will* cause a crash if the container is too small for images to exist at all. Need to fix this.
+
 function MyImageGallery(galleryInput) {
     checkInputForErrors(galleryInput);
 
