@@ -1,4 +1,6 @@
-### Original, basic set up for this new project.
+# Setup
+
+## Initial, basic set up.
 
 In frontend folder:
 
@@ -42,6 +44,20 @@ module.exports = {
 
 Add `.env.development` and `.env.production`.
 
+## Environment variables
+### env.development
+
+```
+SERVERURL= ...
+```
+
+### next.config.js
+```
+  env: {
+    SERVERURL: process.env.SERVERURL,
+  }
+```
+
 # TODO
 ## Styling
 ### Nav-related
@@ -52,3 +68,8 @@ Clicking anywhere on the overlay should close the nav bar.
 
 ## Overlay
 Background image should change when the user's device is portrait-oriented. 
+
+# Problems
+## Leaflet map
+### Re-fetching
+Script re-fetches all thumbnails upon scroll. <Image> tag should fix this.
