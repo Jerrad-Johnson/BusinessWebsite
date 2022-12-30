@@ -13,7 +13,7 @@ function Index<NextPage>(): ReactElement{
 }
 
 async function updateImages(): Promise<void>{
-    await httpClient.post(`${serverUrl}/admin/images/updateAllImages`);
+    await httpClient.post(`${process.env.SERVERURL}/admin/images/updateAllImages`);
 }
 
 

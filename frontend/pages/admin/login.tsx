@@ -1,5 +1,4 @@
 import httpClient from "../../common/httpClient";
-import {serverUrl} from "../../common/variables";
 import {Dispatch, ReactElement, SetStateAction, useState} from "react";
 import {HttpResponse} from "../../common/types";
 const cc = console.log;
@@ -44,7 +43,7 @@ function LoginPanel(): ReactElement{
 
 
 async function handleLogin(username: string, password: string): Promise<void>{
-    const res = await httpClient.post(`${serverUrl}/admin/login`, {username, password});
+    const res = await httpClient.post(`${process.env.SERVERURL}/admin/login`, {username, password});
     if (res.data.loggedIn === true) window.location.href = "/admin";
 }
 

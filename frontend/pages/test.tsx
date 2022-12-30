@@ -1,20 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import Script from "next/script";
-import {darkTheme, lightTheme} from "../features/theme/themeSlice";
-import {useDispatch} from "react-redux";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import useSWR, {SWRHook, SWRResponse} from "swr";
-import {serverUrl} from "../common/variables";
 import httpClient from "../common/httpClient";
 import {cc} from "../common/variables";
 
-
-
 function Test<NextPage>(){
+    cc(process.env.SERVERURL);
     const [leafletData, setLeafletData] = useState({});
 
     useEffect(() => {
@@ -49,7 +41,7 @@ function Test<NextPage>(){
 }
 
 async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): Promise<void>{
-    const results = await httpClient.get(`${serverUrl}/leaflet/getImagePaths`);
+    const results = await httpClient.get(`${process.env.SERVERURL}/leaflet/getImagePaths`);
     setLeafletData(results.data.data);
 }
 

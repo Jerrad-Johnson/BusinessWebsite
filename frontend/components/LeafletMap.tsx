@@ -5,7 +5,6 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import httpClient from "../common/httpClient";
-import {serverUrl} from "../common/variables";
 import {LatLngExpression} from "leaflet";
 import {mapDefaultLocation} from "../common/variables";
 import Image from "next/image";
@@ -54,7 +53,7 @@ const LeafletMap = () => {
 }
 
 async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): Promise<void>{
-    const results = await httpClient.get(`${serverUrl}/leaflet/getImagePaths`);
+    const results = await httpClient.get(`${process.env.SERVERURL}/leaflet/getImagePaths`);
     setLeafletData(results.data.data);
 }
 
