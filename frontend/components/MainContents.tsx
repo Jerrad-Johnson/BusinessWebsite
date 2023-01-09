@@ -43,6 +43,8 @@ export function GalleryMain(){
         targetRowHeightTolerance: .2,
     }
 
+
+
     return (
         <div className={"main-container"}>
             <div className={"main"}>
