@@ -6,7 +6,7 @@ import httpClient from "../common/httpClient";
 import {cc} from "../common/variables";
 
 function Test<NextPage>(){
-    cc(process.env.SERVERURL);
+
     const [leafletData, setLeafletData] = useState({});
 
     useEffect(() => {

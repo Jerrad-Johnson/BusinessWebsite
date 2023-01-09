@@ -3,9 +3,9 @@ import {cc} from "../common/variables";
 import Navbar from "../components/Navbar";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
-import {GalleryHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import {GalleryMain} from "../components/MainContents";
+import {GenericHead} from "./Heads";
 
 
 function Gallery<NextPage>(): ReactElement{
@@ -17,7 +17,7 @@ function Gallery<NextPage>(): ReactElement{
                 navbarOpenOrClosed={navbarOpenOrClosed}
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
-            {GalleryHead}
+            <GenericHead/>
             <GalleryMain/>
             <OverlayShadows/>
             <NavbarLinks/>
