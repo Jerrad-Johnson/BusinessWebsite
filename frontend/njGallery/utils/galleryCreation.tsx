@@ -1,5 +1,10 @@
 import Image from "next/image";
-import {GalleryInputs, GalleryInputsWithDefaults, ImageArrayFormat} from "../types/njGallery";
+import {
+    GalleryInputs,
+    GalleryInputsWithDefaults,
+    GalleryLayoutData,
+    ImageArrayFormat, ReformattedGalleryLayoutData
+} from "../types/njGallery";
 import {ReactElement} from "react";
 import {cc} from "../../common/variables";
 const layoutGeometry = require('../justified-layout');
@@ -7,12 +12,13 @@ const layoutGeometry = require('../justified-layout');
 export function createGalleryLayout(galleryInputWithDefaults: GalleryInputsWithDefaults, galleryElementRef: ReactElement): ReactElement[]{
     const galleryInputCopy: GalleryInputsWithDefaults = {...galleryInputWithDefaults}
     const {images, imagePadding} = galleryInputCopy;
-    const imageLayout: ImageArrayFormat = calculateGalleryLayout(galleryInputCopy, galleryElementRef);
+    const imageLayout = calculateGalleryLayout(galleryInputCopy, galleryElementRef);
     const reformattedImageData = reformatGalleryData(imageLayout, images);
 
     return reformattedImageData.map((e, k) => {
-        e.height = Math.trunc(+e.boxHeight);
-        e.width = Math.trunc(+e.boxWidth);
+        let boxHeight = Math.trunc(+e.boxHeight);
+        let boxWidth = Math.trunc(+e.boxWidth);
+        let imgBlurSrc = e.imgBlurSrc ? "blur" as const : undefined;
 
         return (
                 <div
@@ -22,10 +28,10 @@ export function createGalleryLayout(galleryInputWithDefaults: GalleryInputsWithD
             <Image
                 src={e.imgSrc}
             blurDataURL={e.imgBlurSrc}
-            placeholder={e.imgBlurSrc && "blur"}
+            placeholder={imgBlurSrc}
             className={"njGalleryImage"}
-            width={e.boxWidth}
-            height={e.boxHeight}
+            width={boxWidth}
+            height={boxHeight}
             alt={e.alt}
             />
             </div>
@@ -33,7 +39,7 @@ export function createGalleryLayout(galleryInputWithDefaults: GalleryInputsWithD
     });
 }
 
-export function calculateGalleryLayout(galleryInputCopy: GalleryInputs, galleryElementRef): ImageArrayFormat{
+export function calculateGalleryLayout(galleryInputCopy: GalleryInputs, galleryElementRef){
     const { images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows, targetRowHeightTolerance } = galleryInputCopy;
 
     const imageDimensions = images.map((e) => {
@@ -61,9 +67,11 @@ export function calculateGalleryLayout(galleryInputCopy: GalleryInputs, galleryE
     return imageLayout;
 }
 
-export function reformatGalleryData(imageLayout, images){
+export function reformatGalleryData(imageLayout: GalleryLayoutData, images: ImageArrayFormat[]): ReformattedGalleryLayoutData[]{
     const imagesCopy = [...images];
     let reformattedGalleryData = [];
+
+    cc(imageLayout)
 
     for (let i = 0; i < imageLayout.boxes.length; i++){
         reformattedGalleryData[i] = {};
@@ -73,8 +81,6 @@ export function reformatGalleryData(imageLayout, images){
         reformattedGalleryData[i].imgBlurSrc = imagesCopy[i].blurSrc;
         reformattedGalleryData[i].alt = imagesCopy[i].alt;
     }
-
-    cc(reformattedGalleryData)
 
     return reformattedGalleryData;
 }

@@ -1,6 +1,4 @@
-import {Property} from "csstype";
-import FlexWrap = Property.FlexWrap;
-import {MutableRefObject, ReactElement} from "react";
+import {MutableRefObject} from "react";
 
 export interface GalleryInputs {
     images: ImageArrayFormat[];
@@ -31,11 +29,31 @@ type ImagePaddingDirections = {
     horizontal: number;
 }
 
-export type ImageArrayFormat = {
+export interface ImageArrayFormat {
     src: string;
     blurSrc?: string;
     height: number;
     width: number;
+    alt?: string;
+}
+
+export interface GalleryLayoutData {
+    boxes: {
+        aspectRatio: number;
+        top: number;
+        width: number;
+        height: number;
+        left: number;
+    };
+    containerHeight: number;
+    widowCount: number;
+}
+
+export interface ReformattedGalleryLayoutData {
+    boxHeight: number;
+    boxWidth: number;
+    imgSrc: string;
+    imgBlurSrc?: string;
     alt?: string;
 }
 

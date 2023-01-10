@@ -16,6 +16,7 @@ function NjGallery(galleryInput: GalleryInputs) {
     const {containerPadding, containerWidth} = {...galleryInputWithDefaults};
     const njGalleryStyle: GalleryBaseStyles = createGalleryStyle(containerPadding, containerWidth);
 
+    //@ts-ignore
     useResizeHook(setImageElements, galleryInputWithDefaults, galleryElementRef, createGalleryLayout);
 
     return (

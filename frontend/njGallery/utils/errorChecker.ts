@@ -14,6 +14,8 @@ export function checkInputForErrors(galleryInput: GalleryInputs): void{
         if (!entry.height) throw new Error("Every image must include a height value.");
         if (typeof entry.width !== "number") throw new Error("Image width must be a number, not a string.");
         if (typeof entry.height !== "number") throw new Error("Image height must be a number, not a string.");
+        if (entry.blurSrc === "") throw new Error("Blur src must not be an empty string. Provide a URL, or leave it undefined.");
+
     }
 
     if (targetRowHeightTolerance !== undefined && (targetRowHeightTolerance > 1 || targetRowHeightTolerance < 0 || typeof targetRowHeightTolerance !== "number")) throw new Error("targetRowHeightTolerance must be a number between 0 and 1.");
