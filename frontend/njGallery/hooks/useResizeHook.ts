@@ -1,17 +1,18 @@
 import {Dispatch, ReactElement, SetStateAction, useEffect} from "react";
 import {GalleryElementRef, GalleryInputsWithDefaults} from "../types/njGallery";
+import {createGalleryLayout} from "../utils/galleryCreation";
 
-function useResizeHook(setGalleryElements: Dispatch<SetStateAction<ReactElement[] | null>>,
+function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] | null>>,
                        galleryInputWithDefaults: GalleryInputsWithDefaults,
                        galleryElementRef: GalleryElementRef,
-                       createGalleryLayout: (x: GalleryInputsWithDefaults, y: GalleryElementRef) => ReactElement[]){
+                       ){
 
     useEffect(() => {
-        setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef));
+        setImageElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef));
 
-        window.addEventListener('resize', () => setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
+        window.addEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
         return () => {
-            window.removeEventListener('resize', () => setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
+            window.removeEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef)));
         }
     }, []);
 }
