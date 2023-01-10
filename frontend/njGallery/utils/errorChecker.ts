@@ -1,7 +1,11 @@
-export function checkInputForErrors(galleryInput){
+import {GalleryInputs} from "../types/njGallery";
+
+//TODO   Checking for   justifyFinalRow?: boolean;
+//     maxRows?: number;
+
+export function checkInputForErrors(galleryInput: GalleryInputs){
     const galleryInputCopy = {...galleryInput}
     const {images, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance, showIncompleteRows } = galleryInputCopy;
-
 
     if (!images) throw new Error("You must include images.");
     for (let entry of images){
@@ -22,7 +26,7 @@ export function checkInputForErrors(galleryInput){
     checkPaddingsForErrors(imagePadding?.vertical, "Image vertical");
     checkPaddingsForErrors(imagePadding?.horizontal, "Image horizontal");
 
-    function checkPaddingsForErrors(element, elementName){
+    function checkPaddingsForErrors(element: string | number | undefined, elementName: string){
         if (element && typeof element !== "number") throw new Error(`${elementName} padding must be a number.`);
         if (element && typeof element === "number" && element < 0) throw new Error(`${elementName} padding must be a positive number.`);
     }

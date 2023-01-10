@@ -6,6 +6,20 @@ export interface GalleryInputs {
     targetRowHeight?: number;
     showIncompleteRows?: boolean;
     targetRowHeightTolerance?: number;
+    justifyFinalRow?: boolean;
+    maxRows?: number;
+}
+
+export interface GalleryInputsWithDefaults {
+    images: ImageArrayFormat[];
+    containerWidth: string | number;
+    containerPadding: number;
+    imagePadding: ImagePaddingDirections;
+    targetRowHeight: number;
+    showIncompleteRows: boolean;
+    targetRowHeightTolerance: number;
+    justifyFinalRow: boolean;
+    maxRows: number;
 }
 
 type ImagePaddingDirections = {
@@ -20,3 +34,4 @@ export type ImageArrayFormat = {
     width: number;
     alt?: string;
 }
+

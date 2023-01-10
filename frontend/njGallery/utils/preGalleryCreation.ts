@@ -1,6 +1,8 @@
-export function addDefaultsToGalleryInput(galleryInput){
+import {GalleryInputs, GalleryInputsWithDefaults} from "../types/njGallery";
+
+export function addDefaultsToGalleryInput(galleryInput: GalleryInputs){
     const galleryInputCopy = {...galleryInput}
-    const defaults = {
+    const defaults: GalleryInputsWithDefaults = {
         images: galleryInputCopy.images,
         containerPadding: galleryInputCopy.containerPadding || 10,
         containerWidth: galleryInputCopy.containerWidth || "100%",
