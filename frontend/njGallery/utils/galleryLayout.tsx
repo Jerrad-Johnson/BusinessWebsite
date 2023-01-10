@@ -3,12 +3,12 @@ import {
     GalleryElementRef,
     GalleryInputsWithDefaults,
     GalleryLayoutData,
-    ImageArrayFormat, ReformattedGalleryLayout
+    ImageArrayData, ReformattedGalleryLayout
 } from "../types/njGallery";
 import {ReactElement} from "react";
 const layoutGeometry = require('../justified-layout');
 
-export function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     //@ts-ignore
@@ -39,7 +39,7 @@ export function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWith
     });
 }
 
-export function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): GalleryLayoutData{
+function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): GalleryLayoutData{
     const {images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows, targetRowHeightTolerance} = galleryInputsWithDefaultsCopy;
     const imagesDimensions = images.map((e) => { return {width: e.width, height: e.height} });
 
@@ -60,7 +60,7 @@ export function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInp
     );
 }
 
-export function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArrayFormat[]): ReformattedGalleryLayout[] | []{
+function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArrayData[]): ReformattedGalleryLayout[] | []{
     const imagesCopy = [...images];
     let reformattedGalleryLayout = [];
 
@@ -75,3 +75,5 @@ export function reformatGalleryData(galleryLayout: GalleryLayoutData, images: Im
 
     return reformattedGalleryLayout;
 }
+
+export default createGalleryLayout;

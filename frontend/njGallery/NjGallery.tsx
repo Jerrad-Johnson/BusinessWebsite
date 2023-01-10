@@ -1,8 +1,9 @@
 import {useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
-import {addDefaultsToGalleryInput, createGalleryStyle} from "./utils/preGalleryCreation";
-import {GalleryBaseStyles, GalleryElementRef, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
+import addGalleryDefaults, {addDefaultsToGalleryInput} from "./utils/galleryDefaults";
+import createGalleryStyle from "./utils/galleryStyles";
+import {GalleryStylesEssential, GalleryElementRef, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
 
 function NjGallery(galleryInputsFromUser: GalleryInputs) {
     checkInputForErrors(galleryInputsFromUser);
@@ -10,9 +11,9 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState(null);
 
-    const galleryInputsWithDefaults: GalleryInputsWithDefaults = addDefaultsToGalleryInput(galleryInputsFromUser);
+    const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(galleryInputsFromUser);
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
-    const galleryStyles: GalleryBaseStyles = createGalleryStyle(containerPadding, containerWidth);
+    const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
 
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef);

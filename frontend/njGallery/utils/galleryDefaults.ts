@@ -1,6 +1,6 @@
-import {GalleryBaseStyles, GalleryInputs, GalleryInputsWithDefaults} from "../types/njGallery";
+import {GalleryInputs, GalleryInputsWithDefaults} from "../types/njGallery";
 
-export function addDefaultsToGalleryInput(galleryInput: GalleryInputs): GalleryInputsWithDefaults{
+function addDefaultsToGalleryInput(galleryInput: GalleryInputs): GalleryInputsWithDefaults{
     const galleryInputCopy = {...galleryInput}
     const defaults: GalleryInputsWithDefaults = {
         images: galleryInputCopy.images,
@@ -17,11 +17,4 @@ export function addDefaultsToGalleryInput(galleryInput: GalleryInputs): GalleryI
     return Object.assign(galleryInputCopy, defaults);
 }
 
-export function createGalleryStyle(containerPadding: number, containerWidth: number | string): GalleryBaseStyles{
-    return {
-        "width": (containerWidth),
-        "display": "flex",
-        "flexWrap": "wrap",
-        "padding": (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px",
-    }
-}
+export default addDefaultsToGalleryInput;

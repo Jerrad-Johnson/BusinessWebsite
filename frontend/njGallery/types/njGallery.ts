@@ -1,7 +1,7 @@
 import {MutableRefObject} from "react";
 
 export interface GalleryInputs {
-    images: ImageArrayFormat[];
+    images: ImageArrayData[];
     containerWidth?: string | number;
     containerPadding?: number;
     imagePadding?: ImagePaddingDirections;
@@ -13,7 +13,7 @@ export interface GalleryInputs {
 }
 
 export interface GalleryInputsWithDefaults {
-    images: ImageArrayFormat[];
+    images: ImageArrayData[];
     containerWidth: string | number;
     containerPadding: number;
     imagePadding: ImagePaddingDirections;
@@ -29,7 +29,7 @@ type ImagePaddingDirections = {
     horizontal: number;
 }
 
-export interface ImageArrayFormat {
+export interface ImageArrayData {
     src: string;
     blurSrc?: string;
     height: number;
@@ -57,7 +57,7 @@ export interface ReformattedGalleryLayout {
     alt?: string;
 }
 
-export interface GalleryBaseStyles {
+export interface GalleryStylesEssential {
     width: number | string;
     display: "flex";
     flexWrap: "wrap";

@@ -9,13 +9,13 @@ import MyImageGallery from "./ImageLightbox";
 import {cc} from "../common/variables";
 import dynamic from "next/dynamic";
 import NjGallery from "../njGallery/NjGallery";
-import {GalleryInputs, ImageArrayFormat} from "../njGallery/types/njGallery";
+import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
 
 export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
     const screenOrientation = useScreenOrientation();
 
-    const photos: ImageArrayFormat[] = [
+    const photos: ImageArrayData[] = [
         {
             src: "http://localhost:3001/temp/162A2061.jpg",
             blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
