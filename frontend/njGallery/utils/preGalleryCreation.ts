@@ -17,7 +17,6 @@ export function addDefaultsToGalleryInput(galleryInput: GalleryInputs): GalleryI
     return Object.assign(galleryInputCopy, defaults);
 }
 
-
 export function createGalleryStyle(containerPadding: number, containerWidth: number | string): GalleryBaseStyles{
     return {
         "width": (containerWidth),

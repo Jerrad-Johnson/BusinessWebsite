@@ -1,19 +1,17 @@
 import {GalleryInputs} from "../types/njGallery";
 
 //TODO   Checking for   justifyFinalRow?: boolean; maxRows?: number;
-export function checkInputForErrors(galleryInput: GalleryInputs): void{
-    const galleryInputCopy = {...galleryInput}
-    const {images, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance, showIncompleteRows } = galleryInputCopy;
+export function checkInputForErrors(galleryInputsFromUser: GalleryInputs): void{
+    const {images, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance, showIncompleteRows } = {...galleryInputsFromUser};
 
     if (!images) throw new Error("You must include images.");
-    for (let entry of images){
-        if (!entry.src) throw new Error("Every image must include a source (URL).");
-        if (!entry.width) throw new Error("Every image must include a width value.");
-        if (!entry.height) throw new Error("Every image must include a height value.");
-        if (typeof entry.width !== "number") throw new Error("Image width must be a number, not a string.");
-        if (typeof entry.height !== "number") throw new Error("Image height must be a number, not a string.");
-        if (entry.blurSrc === "") throw new Error("Blur src must not be an empty string. Provide a URL, or leave it undefined.");
-
+    for (let image of images){
+        if (!image.src) throw new Error("Every image must include a source (URL).");
+        if (!image.width) throw new Error("Every image must include a width value.");
+        if (!image.height) throw new Error("Every image must include a height value.");
+        if (typeof image.width !== "number") throw new Error("Image width must be a number, not a string.");
+        if (typeof image.height !== "number") throw new Error("Image height must be a number, not a string.");
+        if (image.blurSrc === "") throw new Error("Blur src must not be an empty string. Provide a URL, or leave it undefined.");
     }
 
     if (targetRowHeightTolerance !== undefined && (targetRowHeightTolerance > 1 || targetRowHeightTolerance < 0 || typeof targetRowHeightTolerance !== "number")) throw new Error("targetRowHeightTolerance must be a number between 0 and 1.");

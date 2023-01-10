@@ -49,7 +49,7 @@ export interface GalleryLayoutData {
     widowCount: number;
 }
 
-export interface ReformattedGalleryLayoutData {
+export interface ReformattedGalleryLayout {
     boxHeight: number;
     boxWidth: number;
     imgSrc: string;
