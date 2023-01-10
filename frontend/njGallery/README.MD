@@ -34,6 +34,14 @@ const galleryInputs: GalleryInputs = {
 />
 ```
 
+### Requirements
+
+Every image must include `src` (url), `height`, and `width`. Height and width must be provided as whole numbers representing pixel measurements, e.g. `300`.
+
+If you're dynamically generating a list, pass an empty array of images `[]` until the data is loaded. Example: `const galleryInputs = { images: [] }`
+
+`blurSrc` is not required, but highly recommended. `alt` is also not required.
+
 ***
 
 ## Options
@@ -83,10 +91,10 @@ const galleryInputs: GalleryInputs = {
 
 `<Image>` tag.
 
-### Images
+***
 
-Every image must include source (URL), height, and width. Height and width must be provided as **pixel** measurements.
+# Credits
 
-If you're dynamically generating a list, you can pass an empty array: `[]`.
+NextJS Justified Gallery uses a **slightly** modified justified-layout script by SmugMug.
 
-`blurSrc` is not required, but highly recommended. `alt` is also not required.
+Their license is included in the respective folder `justified-layout` of this package.
