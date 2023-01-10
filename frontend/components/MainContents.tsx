@@ -8,6 +8,7 @@ import ImageLightbox from "./ImageLightbox";
 import MyImageGallery from "./ImageLightbox";
 import {cc} from "../common/variables";
 import dynamic from "next/dynamic";
+import NjGallery from "../njGallery/NjGallery";
 
 export function GalleryMain(){
     const dispatch: AppDispatch = useDispatch();
@@ -34,7 +35,7 @@ export function GalleryMain(){
     ];
 
     const galleryData = {
-        images: photos,
+        images: photos, // If you're loading the images from a backend, just pass an empty array until the data is retrieved.
         containerWidth: "100%",
         containerPadding: 10,
         imagePadding: {vertical: 10, horizontal: 10},
@@ -55,62 +56,10 @@ export function GalleryMain(){
                         <div className={"main-container-content"}>
                             <div className={"main-container-headline"}>Gallery</div>
                             <hr/>
-                            <MyImageGallery
+                            <NjGallery
                                 {...galleryData}
                             />
                             lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-                            lorem <br />
-
-                            <br/>
                         </div>
                     </div>
                 </header>

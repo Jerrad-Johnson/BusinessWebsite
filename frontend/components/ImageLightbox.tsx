@@ -29,7 +29,6 @@ function MyImageGallery(galleryInput) {
     );
 }
 
-
 function createGalleryLayout(galleryInputWithDefaults, galleryElementRef){
     const galleryInputCopy = {...galleryInputWithDefaults}
     const {images, imagePadding} = galleryInputCopy;
@@ -105,7 +104,8 @@ function reformatGalleryData(imageLayout, images){
 
 function checkInputForErrors(galleryInput){
     const galleryInputCopy = {...galleryInput}
-    const {images, containerWidth, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance, showIncompleteRows } = galleryInputCopy;
+    const {images, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance, showIncompleteRows } = galleryInputCopy;
+
 
     if (!images) throw new Error("You must include images.");
     for (let entry of images){
@@ -116,7 +116,7 @@ function checkInputForErrors(galleryInput){
         if (typeof entry.height !== "number") throw new Error("Image height must be a number, not a string.");
     }
 
-    if (targetRowHeightTolerance && targetRowHeightTolerance > 1 || targetRowHeightTolerance < 0 || typeof targetRowHeightTolerance !== "number") throw new Error("targetRowHeightTolerance must be a number between 0 and 1.");
+    if (targetRowHeightTolerance !== undefined && (targetRowHeightTolerance > 1 || targetRowHeightTolerance < 0 || typeof targetRowHeightTolerance !== "number")) throw new Error("targetRowHeightTolerance must be a number between 0 and 1.");
     if (containerPadding && containerPadding % 2 !== 0) throw new Error("Container padding must be an even number.");
     if (targetRowHeight && typeof targetRowHeight !== "number") throw new Error("Target row height must be a number.");
     if (targetRowHeight && typeof targetRowHeight === "number" && targetRowHeight < 10) throw new Error("Target row height must be a positive number, and greater than 10.");
