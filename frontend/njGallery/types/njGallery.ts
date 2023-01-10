@@ -1,3 +1,6 @@
+import {Property} from "csstype";
+import FlexWrap = Property.FlexWrap;
+
 export interface GalleryInputs {
     images: ImageArrayFormat[];
     containerWidth?: string | number;
@@ -33,5 +36,12 @@ export type ImageArrayFormat = {
     height: number;
     width: number;
     alt?: string;
+}
+
+export interface GalleryBaseStyles {
+    width: number | string;
+    display: "flex";
+    flexWrap: "wrap";
+    padding: string;
 }
 

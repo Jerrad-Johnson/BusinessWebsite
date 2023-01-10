@@ -3,7 +3,7 @@ import {GalleryInputs} from "../types/njGallery";
 //TODO   Checking for   justifyFinalRow?: boolean;
 //     maxRows?: number;
 
-export function checkInputForErrors(galleryInput: GalleryInputs){
+export function checkInputForErrors(galleryInput: GalleryInputs): void{
     const galleryInputCopy = {...galleryInput}
     const {images, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance, showIncompleteRows } = galleryInputCopy;
 

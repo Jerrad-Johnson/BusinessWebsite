@@ -3,7 +3,8 @@ import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
 import {addDefaultsToGalleryInput, createGalleryStyle} from "./utils/preGalleryCreation";
 import {createGalleryLayout} from "./utils/galleryCreation";
-import {GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
+import {GalleryBaseStyles, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
+import {cc} from "../common/variables";
 
 function NjGallery(galleryInput: GalleryInputs) {
     checkInputForErrors(galleryInput);
@@ -13,9 +14,11 @@ function NjGallery(galleryInput: GalleryInputs) {
 
     const galleryInputWithDefaults: GalleryInputsWithDefaults = addDefaultsToGalleryInput(galleryInput);
     const {containerPadding, containerWidth} = {...galleryInputWithDefaults};
-    const njGalleryStyle = createGalleryStyle(containerPadding, containerWidth);
+    const njGalleryStyle: GalleryBaseStyles = createGalleryStyle(containerPadding, containerWidth);
 
     useResizeHook(setImageElements, galleryInputWithDefaults, galleryElementRef, createGalleryLayout);
+
+    cc(imageElements)
 
     return (
         <div className={"njGallery"}
