@@ -1,15 +1,15 @@
-import {ReactElement, useRef, useState} from 'react';
+import {MutableRefObject, ReactElement, useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
 import {addDefaultsToGalleryInput, createGalleryStyle} from "./utils/preGalleryCreation";
 import {createGalleryLayout} from "./utils/galleryCreation";
-import {GalleryBaseStyles, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
+import {GalleryBaseStyles, GalleryInputRef, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
 import {cc} from "../common/variables";
 
 function NjGallery(galleryInput: GalleryInputs) {
     checkInputForErrors(galleryInput);
 
-    const galleryElementRef = useRef(null);
+    const galleryElementRef: GalleryInputRef = useRef(null);
     const [imageElements, setImageElements] = useState(null);
 
     const galleryInputWithDefaults: GalleryInputsWithDefaults = addDefaultsToGalleryInput(galleryInput);
@@ -17,8 +17,6 @@ function NjGallery(galleryInput: GalleryInputs) {
     const njGalleryStyle: GalleryBaseStyles = createGalleryStyle(containerPadding, containerWidth);
 
     useResizeHook(setImageElements, galleryInputWithDefaults, galleryElementRef, createGalleryLayout);
-
-    cc(imageElements)
 
     return (
         <div className={"njGallery"}

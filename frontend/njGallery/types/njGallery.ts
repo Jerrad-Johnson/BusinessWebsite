@@ -1,5 +1,6 @@
 import {Property} from "csstype";
 import FlexWrap = Property.FlexWrap;
+import {MutableRefObject, ReactElement} from "react";
 
 export interface GalleryInputs {
     images: ImageArrayFormat[];
@@ -45,3 +46,4 @@ export interface GalleryBaseStyles {
     padding: string;
 }
 
+export type GalleryInputRef = MutableRefObject<null | HTMLDivElement>;

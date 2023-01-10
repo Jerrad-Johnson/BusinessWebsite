@@ -1,10 +1,10 @@
-import {Dispatch, ReactElement, SetStateAction, useEffect} from "react";
-import {GalleryInputsWithDefaults} from "../types/njGallery";
+import React, {Dispatch, ReactElement, SetStateAction, useEffect} from "react";
+import {GalleryInputRef, GalleryInputsWithDefaults} from "../types/njGallery";
 
-function useResizeHook(setGalleryElements: SetStateAction<Dispatch<JSX.Element[]>>,
+function useResizeHook(setGalleryElements: SetStateAction<Dispatch<ReactElement[] | null>>,
                        galleryInputWithDefaults: GalleryInputsWithDefaults,
-                       galleryElementRef: ReactElement,
-                       createGalleryLayout: () => JSX.Element[]){
+                       galleryElementRef: GalleryInputRef,
+                       createGalleryLayout: () => ReactElement[]){
 
     useEffect(() => {
         setGalleryElements(createGalleryLayout(galleryInputWithDefaults, galleryElementRef));

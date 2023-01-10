@@ -1,10 +1,13 @@
 import Image from "next/image";
+import {GalleryInputs, GalleryInputsWithDefaults, ImageArrayFormat} from "../types/njGallery";
+import {ReactElement} from "react";
+import {cc} from "../../common/variables";
 const layoutGeometry = require('../justified-layout');
 
-export function createGalleryLayout(galleryInputWithDefaults, galleryElementRef){
-    const galleryInputCopy = {...galleryInputWithDefaults}
+export function createGalleryLayout(galleryInputWithDefaults: GalleryInputsWithDefaults, galleryElementRef: ReactElement): ReactElement[]{
+    const galleryInputCopy: GalleryInputsWithDefaults = {...galleryInputWithDefaults}
     const {images, imagePadding} = galleryInputCopy;
-    const imageLayout = calculateGalleryLayout(galleryInputCopy, galleryElementRef);
+    const imageLayout: ImageArrayFormat = calculateGalleryLayout(galleryInputCopy, galleryElementRef);
     const reformattedImageData = reformatGalleryData(imageLayout, images);
 
     return reformattedImageData.map((e, k) => {
@@ -30,7 +33,7 @@ export function createGalleryLayout(galleryInputWithDefaults, galleryElementRef)
     });
 }
 
-export function calculateGalleryLayout(galleryInputCopy, galleryElementRef){
+export function calculateGalleryLayout(galleryInputCopy: GalleryInputs, galleryElementRef): ImageArrayFormat{
     const { images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows, targetRowHeightTolerance } = galleryInputCopy;
 
     const imageDimensions = images.map((e) => {
@@ -60,16 +63,18 @@ export function calculateGalleryLayout(galleryInputCopy, galleryElementRef){
 
 export function reformatGalleryData(imageLayout, images){
     const imagesCopy = [...images];
-    let reformattedImageData = [];
+    let reformattedGalleryData = [];
 
     for (let i = 0; i < imageLayout.boxes.length; i++){
-        reformattedImageData[i] = {};
-        reformattedImageData[i].boxHeight = imageLayout.boxes[i].height;
-        reformattedImageData[i].boxWidth = imageLayout.boxes[i].width;
-        reformattedImageData[i].imgSrc = imagesCopy[i].src;
-        reformattedImageData[i].imgBlurSrc = imagesCopy[i].blurSrc;
-        reformattedImageData[i].alt = imagesCopy[i].alt;
+        reformattedGalleryData[i] = {};
+        reformattedGalleryData[i].boxHeight = imageLayout.boxes[i].height;
+        reformattedGalleryData[i].boxWidth = imageLayout.boxes[i].width;
+        reformattedGalleryData[i].imgSrc = imagesCopy[i].src;
+        reformattedGalleryData[i].imgBlurSrc = imagesCopy[i].blurSrc;
+        reformattedGalleryData[i].alt = imagesCopy[i].alt;
     }
 
-    return reformattedImageData;
+    cc(reformattedGalleryData)
+
+    return reformattedGalleryData;
 }
