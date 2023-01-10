@@ -16,9 +16,9 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
 
     return reformattedGalleryLayout.map((e, k) => {
-        let boxHeight = Math.trunc(+e.boxHeight);
-        let boxWidth = Math.trunc(+e.boxWidth);
-        let imgBlurSrc = e.imgBlurSrc ? "blur" as const : undefined;
+        const boxHeight = Math.trunc(+e.boxHeight);
+        const boxWidth = Math.trunc(+e.boxWidth);
+        const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
 
         return (
             <div
@@ -42,7 +42,6 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
 function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): GalleryLayoutData{
     const {images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows, targetRowHeightTolerance} = galleryInputsWithDefaultsCopy;
     const imagesDimensions = images.map((e) => { return {width: e.width, height: e.height} });
-
     let galleryContainerWidth = galleryElementRef?.current?.offsetWidth ? galleryElementRef?.current?.offsetWidth-4 : 14; // -4 because otherwise at some widths, the last image in a row jumps to the next row. Total width might be e.g. 0.42 pixels too large.
     if ((galleryContainerWidth - containerPadding) < 14) galleryContainerWidth = 14 + containerPadding;
     const galleryContainerCalculatedWidth = Math.trunc(galleryContainerWidth);

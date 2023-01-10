@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
-import addGalleryDefaults, {addDefaultsToGalleryInput} from "./utils/galleryDefaults";
+import addGalleryDefaults from "./utils/galleryDefaults";
 import createGalleryStyle from "./utils/galleryStyles";
 import {GalleryStylesEssential, GalleryElementRef, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
 

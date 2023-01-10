@@ -37,12 +37,13 @@ export function GalleryMain(){
 
     const galleryInputs: GalleryInputs = {
         images: photos, // If you're loading the images from a backend, just pass an empty array until the data is retrieved.
-        /*containerWidth: "100%",
+        containerWidth: "100%",
         containerPadding: 10,
         imagePadding: {vertical: 10, horizontal: 10},
         targetRowHeight: 300,
         showIncompleteRows: false,
-        targetRowHeightTolerance: .2,*/
+        targetRowHeightTolerance: .2,
+        maxRows: 1,
     }
 
 
