@@ -44,7 +44,7 @@ export interface GalleryLayoutData {
         width: number;
         height: number;
         left: number;
-    };
+    }[];
     containerHeight: number;
     widowCount: number;
 }
@@ -64,4 +64,4 @@ export interface GalleryBaseStyles {
     padding: string;
 }
 
-export type GalleryInputRef = MutableRefObject<null | HTMLDivElement>;
+export type GalleryElementRef = MutableRefObject<null | HTMLDivElement>;
