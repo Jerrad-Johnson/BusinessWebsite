@@ -46,8 +46,6 @@ export function GalleryMain(){
         maxRows: 1,
     }
 
-
-
     return (
         <div className={"main-container"}>
             <div className={"main"}>
