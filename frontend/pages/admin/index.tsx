@@ -1,6 +1,5 @@
 import useSWR from "swr";
 import httpClient from "../../common/httpClient";
-import {serverUrl} from "../../common/variables";
 import {ReactElement} from "react";
 const cc = console.log;
 

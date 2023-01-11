@@ -56,6 +56,7 @@ async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>):
     try{
         const results = await httpClient.get(`${process.env.SERVERURL}/leaflet/getImagePaths`);
         if (!results?.data?.data) throw new Error("Leaflet map data not retrieved.");
+        cc(results.data.data)
         setLeafletData(results.data.data);
     } catch (e){
         throw new Error(e);
