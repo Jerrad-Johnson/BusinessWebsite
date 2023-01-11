@@ -45,7 +45,14 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
 function navigationDelayHandler(e: MouseEvent, setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>){
     e.preventDefault();
     setNavbarOpenOrClosed(navbarOptions.closed);
-    setTimeout(() => {window.location.href = e.target.getAttribute('href')}, 200);
+    setTimeout(() => {
+        const target = e.target;
+        if(!(target instanceof Element)) return;
+        const href = target.getAttribute("href");
+        if(!href) return;
+        window.location.href = href;
+    }, 200);
+
 }
 
 export default NavbarLinks;
