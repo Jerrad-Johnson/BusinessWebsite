@@ -1,7 +1,9 @@
 import Link from "next/link";
 import {cc, navbarOptions} from "../common/variables";
+import {Dispatch, SetStateAction} from "react";
+import {NavbarOptions} from "../types/layout";
 
-function NavbarLinks({setNavbarOpenOrClosed}){
+function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}){
     return (
         <div className={"links"}>
             <ul>
@@ -40,7 +42,7 @@ function NavbarLinks({setNavbarOpenOrClosed}){
     );
 }
 
-function navigationDelayHandler(e, setNavbarOpenOrClosed){
+function navigationDelayHandler(e, setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>){
     e.preventDefault();
     setNavbarOpenOrClosed(navbarOptions.closed);
     setTimeout(() => {window.location.href = e.target.getAttribute('href')}, 200);

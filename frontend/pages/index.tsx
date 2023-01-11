@@ -93,7 +93,7 @@ function Home<NextPage>(): ReactElement{
 /*      <main className={styles.main}>
         <button onClick={() => { dispatch(lightTheme()); }}>Light</button>
         <button onClick={() => { dispatch(darkTheme()); }}>Dark</button>
-        <Link href={"/test"}>Test page</Link>
+        <Link href={"/test"}>GalleryMap page</Link>
       </main>
 
       <footer className={styles.footer}>

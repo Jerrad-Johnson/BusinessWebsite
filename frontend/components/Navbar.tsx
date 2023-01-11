@@ -1,7 +1,8 @@
-import {ReactElement} from "react";
+import {Dispatch, ReactElement, SetStateAction} from "react";
 import {navbarOptions} from "../common/variables";
+import {NavbarOptions} from "../types/layout";
 
-function Navbar({navbarOpenOrClosed, setNavbarOpenOrClosed}): ReactElement {
+function Navbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed: NavbarOptions, setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}): ReactElement {
 
     return (
         <div className={"navbar"}>

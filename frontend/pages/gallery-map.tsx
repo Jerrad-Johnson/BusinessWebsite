@@ -5,7 +5,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import httpClient from "../common/httpClient";
 import {cc} from "../common/variables";
 
-function Test<NextPage>(){
+function GalleryMap<NextPage>(){
 
     const [leafletData, setLeafletData] = useState({});
 
@@ -51,4 +51,4 @@ function dataLog(leafletData){
     cc(leafletData);
 }
 
-export default Test;
+export default GalleryMap;
