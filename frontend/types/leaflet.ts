@@ -1,4 +1,4 @@
-export interface leafletPinImageData {
+export interface LeafletPinImageData {
     alt_text: string;
     camera_model: string;
     file_name: string;
@@ -12,3 +12,5 @@ export interface leafletPinImageData {
     url: string;
     width: number;
 }
+
+export type LeafletPinImageDataArray = LeafletPinImageData[];

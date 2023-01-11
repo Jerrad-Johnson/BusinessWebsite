@@ -8,17 +8,18 @@ import httpClient from "../common/httpClient";
 import {LatLngExpression} from "leaflet";
 import {mapDefaultLocation} from "../common/variables";
 import Image from "next/image";
+import {LeafletPinImageDataArray} from "../types/leaflet";
 const cc = console.log;
 
 
 const LeafletMap = () => {
-    const [leafletData, setLeafletData] = useState([]);
+    const [leafletData, setLeafletData] = useState<LeafletPinImageDataArray>([]);
 
     useEffect(() => {
         getLeafletData(setLeafletData);
     }, []);
 
-    const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude, url, height, width}) => {
+    const leafletMarkers = leafletData.map(({file_name_full, latitude, longitude, url, height, width, alt_text}) => {
        let lat: number = +latitude;
        let lon: number = +longitude;
        let lat_lon: LatLngExpression = [lat, lon];
@@ -31,7 +32,7 @@ const LeafletMap = () => {
                >
 
                <Popup>
-                   <Image src={url} height={height} width={width}/>
+                   <Image src={url} height={height} width={width} alt={alt_text}/>
                    {file_name_full}
                </Popup>
            </Marker>
@@ -52,14 +53,14 @@ const LeafletMap = () => {
     )
 }
 
-async function getLeafletData(setLeafletData: Dispatch<SetStateAction<object>>): Promise<void>{
+async function getLeafletData(setLeafletData: Dispatch<SetStateAction<LeafletPinImageDataArray>>){
     try{
         const results = await httpClient.get(`${process.env.SERVERURL}/leaflet/getImagePaths`);
         if (!results?.data?.data) throw new Error("Leaflet map data not retrieved.");
-        cc(results.data.data)
-        setLeafletData(results.data.data);
+        const leafletPinImageDataArray: LeafletPinImageDataArray = results.data.data;
+        setLeafletData(leafletPinImageDataArray);
     } catch (e){
-        throw new Error(e);
+        cc(e);
     }
 }
 
