@@ -28,6 +28,8 @@ function Home<NextPage>(): ReactElement{
        setIsUserMobile(isMobile);
    }, []);
 
+
+
    cc(isUserMobile)
 
   return (
