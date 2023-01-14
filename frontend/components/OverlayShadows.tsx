@@ -1,7 +1,3 @@
-import {useEffect, useState} from "react";
-import useScreenWidth from "../hooks/useScreenWidth";
-import {isMobile} from "react-device-detect";
-
 function OverlayShadows({isUserMobile, width}){
 
     return (

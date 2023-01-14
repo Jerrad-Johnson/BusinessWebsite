@@ -1,10 +1,7 @@
 import Image from "next/image";
-import useScreenOrientation, {orientations} from "../hooks/useOrientation";
+import {orientations} from "../hooks/useOrientation";
 import {darkTheme, lightTheme} from "../features/theme/themeSlice";
-import {AppDispatch} from "../app/store";
-import {useDispatch} from "react-redux";
 import {cc} from "../common/variables";
-import dynamic from "next/dynamic";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
 import styles from "../styles/Index.module.css";
@@ -65,8 +62,6 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
         </div>
     );
 }
-
-
 
 export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
                           {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
