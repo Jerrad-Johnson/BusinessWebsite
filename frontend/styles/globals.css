@@ -219,6 +219,13 @@ header {
     transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
 }
 
+.container.active .main.mobile {
+    animation: none;
+    cursor: pointer;
+    transform: none;
+    display: none;
+}
+
 @keyframes main-animation {
     from {
         transform: translate(0);
@@ -308,9 +315,17 @@ ul {
     opacity: 0.15;
 }
 
+.shadow.one.mobile {
+    display: none;
+}
+
 .shadow.two {
     z-index: -2;
     opacity: 0.1;
+}
+
+.shadow.two.mobile {
+    display: none;
 }
 
 .container.active .shadow.one {
