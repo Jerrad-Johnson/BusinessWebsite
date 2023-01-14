@@ -9,7 +9,7 @@ function Navbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed
             <div className={"menu"}>
                 <h3 className={"logo"}>Ideal<span>Portraits</span></h3>
                 <div className={"hamburger-menu"} onClick={(e) => {
-                    navbarOpenOrClosed === navbarOptions.open ? setNavbarOpenOrClosed(navbarOptions.closed) : setNavbarOpenOrClosed(navbarOptions.open);
+                        navbarOpenOrClosed === navbarOptions.open ? setNavbarOpenOrClosed(navbarOptions.closed) : setNavbarOpenOrClosed(navbarOptions.open);
                 }}>
                     <div className={"bar"}></div>
                 </div>

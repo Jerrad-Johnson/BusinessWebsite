@@ -276,6 +276,7 @@ ul {
     animation: appear 0.5s forwards ease var(--i);
 }
 
+/*TODO Design nav to fade out on nav close*/
 @keyframes appear {
     from {
         opacity: 0;

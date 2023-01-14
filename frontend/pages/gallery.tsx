@@ -7,23 +7,32 @@ import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import {GalleryMain} from "../components/MainContents";
 import {NavbarOptions} from "../types/layout";
+import Basics from "../components/forEveryPage";
 
 
 function Gallery<NextPage>(): ReactElement{
-    const [navbarOpenOrClosed, setNavbarOpenOrClosed] = useState<NavbarOptions>(navbarOptions.closed);
+    const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
     return (
         <div className={'container' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
-            <Navbar
-                navbarOpenOrClosed={navbarOpenOrClosed}
-                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
-            />
             <GenericHead
                 content={"Stuff"}
                 metaName={"Image Galleries"}
             />
-            <GalleryMain/>
-            <OverlayShadows/>
+            <Navbar
+                navbarOpenOrClosed={navbarOpenOrClosed}
+                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
+            />
+            <GalleryMain
+                isUserMobile={isUserMobile}
+                width={width}
+                dispatch={dispatch}
+                screenOrientation={screenOrientation}
+            />
+            <OverlayShadows
+                isUserMobile={isUserMobile}
+                width={width}
+            />
             <NavbarLinks
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
