@@ -1,4 +1,4 @@
-const {cc, pathTo10pxThumbnails, errorExistsInScript, pathToLeafletImages, pathToLeafletThumbnails,
+const {cc, pathTo10pxThumbnails, errorExistsInScript, pathToGalleryImages, pathToLeafletThumbnails,
     errorExistsNotInScript
 } = require("../../../common/variables");
 const fs = require("fs");
@@ -28,7 +28,7 @@ exports.create10pxThumbnails = async (req, res, fileAndFolderNames) => {
     for (let folder in fileAndFolderNames){
         let files = await fs.promises.readdir(`${pathToLeafletThumbnails}/${folder}`);
         for (let file of fileAndFolderNames[folder]){
-            await sharp(`${pathToLeafletImages}/${folder}/${file}`).resize(10, 10)
+            await sharp(`${pathToGalleryImages}/${folder}/${file}`).resize(10, 10)
                 .toFile(`${pathTo10pxThumbnails}/${folder}/${file}`, (err) => {
                     didScriptError = errorExistsInScript;
                     cc(err);

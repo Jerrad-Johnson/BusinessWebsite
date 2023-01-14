@@ -3,7 +3,7 @@ const {standardizedResponse} = require("../../../utils/fns");
 const {cc, errorExistsNotInScript, errorExistsInScript} = require("../../../common/variables");
 const mysql = require("mysql");
 
-exports.updateLeafletPhotos = async (req, res, files) => {
+exports.updateLeafletPhotosTable = async (req, res, files) => {
     const deleteAllQuery = "DELETE FROM leaflet_images;";
     let scriptDidError = errorExistsNotInScript;
 

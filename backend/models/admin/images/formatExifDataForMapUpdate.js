@@ -11,7 +11,7 @@ exports.formatExifForMapUpdate = async (exifData) => {
 
             for (let file of exifData[folder]){
                 [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
-                /*[exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);*/
+                [exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);
                 exifObject.DateTimeCreated = file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
 
                 exifObject.FolderName = folder;
@@ -38,8 +38,8 @@ exports.formatExifForMapUpdate = async (exifData) => {
                     delete exifObject[prop];
                 }
 
-                /*let captureDate = new Date(file.DateCreated.value);
-                let captureDateToUTC = captureDate.toUTCString();*/
+                let captureDate = new Date(file.DateCreated.value);
+                let captureDateToUTC = captureDate.toUTCString();
             }
         }
     } catch (e) {
