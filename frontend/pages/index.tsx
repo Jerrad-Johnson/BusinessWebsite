@@ -9,12 +9,12 @@ import {useDispatch} from "react-redux";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import {businessName, navbarOptions} from "../common/variables";
-import dynamic from "next/dynamic";
 import useScreenOrientation from "../hooks/useOrientation";
 import {orientations} from "../hooks/useOrientation";
 import {NavbarOptions} from "../types/layout";
 import NavbarLinks from "../components/NavbarLinks";
 import {isMobile} from 'react-device-detect';
+import {useWindowWidth} from '@react-hook/window-size'
 const cc = console.log;
 
 
@@ -23,6 +23,7 @@ function Home<NextPage>(): ReactElement{
    const [navOpenOrClosed, setNavOpenOrClosed] = useState<NavbarOptions>(navbarOptions.closed);
    const screenOrientation = useScreenOrientation();
    const [isUserMobile, setIsUserMobile] = useState(false);
+
 
    useEffect(() => {
        setIsUserMobile(isMobile);
