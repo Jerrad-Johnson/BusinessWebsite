@@ -219,7 +219,7 @@ header {
     transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
 }
 
-.container.active .main.mobile {
+.container.active .main.mobile, .container.active .main.narrow {
     animation: none;
     cursor: pointer;
     transform: none;
@@ -315,7 +315,7 @@ ul {
     opacity: 0.15;
 }
 
-.shadow.one.mobile {
+.shadow.one.mobile, .shadow.one.narrow{
     display: none;
 }
 
@@ -324,7 +324,7 @@ ul {
     opacity: 0.1;
 }
 
-.shadow.two.mobile {
+.shadow.two.mobile, .shadow.two.narrow{
     display: none;
 }
 

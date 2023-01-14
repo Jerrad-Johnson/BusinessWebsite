@@ -14,7 +14,7 @@ import {orientations} from "../hooks/useOrientation";
 import {NavbarOptions} from "../types/layout";
 import NavbarLinks from "../components/NavbarLinks";
 import {isMobile} from 'react-device-detect';
-import {useWindowWidth} from '@react-hook/window-size'
+import useScreenWidth from "../hooks/useScreenWidth";
 const cc = console.log;
 
 
@@ -23,15 +23,12 @@ function Home<NextPage>(): ReactElement{
    const [navOpenOrClosed, setNavOpenOrClosed] = useState<NavbarOptions>(navbarOptions.closed);
    const screenOrientation = useScreenOrientation();
    const [isUserMobile, setIsUserMobile] = useState(false);
-
+   const width = useScreenWidth();
 
    useEffect(() => {
        setIsUserMobile(isMobile);
    }, []);
 
-
-
-   cc(isUserMobile)
 
   return (
     <div className={"container" + (navOpenOrClosed === navbarOptions.open ? " active" : "")}>
@@ -53,7 +50,7 @@ function Home<NextPage>(): ReactElement{
         </div>
 
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : " ")}>
+            <div className={"main" + (isUserMobile === true ? " mobile" : " ") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'}/>
@@ -71,8 +68,8 @@ function Home<NextPage>(): ReactElement{
                 </header>
             </div>
 
-            <div className={"shadow one" + (isUserMobile === true ? " mobile" : "")}></div>
-            <div className={"shadow two" + (isUserMobile === true ? " mobile" : "")}></div>
+            <div className={"shadow one" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}></div>
+            <div className={"shadow two" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}></div>
         </div>
 
         <NavbarLinks setNavbarOpenOrClosed={setNavOpenOrClosed}/>
