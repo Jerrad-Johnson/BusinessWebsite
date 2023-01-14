@@ -14,7 +14,11 @@ import useScreenOrientation from "../hooks/useOrientation";
 import {orientations} from "../hooks/useOrientation";
 import {NavbarOptions} from "../types/layout";
 import NavbarLinks from "../components/NavbarLinks";
+import {isMobile} from 'react-device-detect';
+
+
 const cc = console.log;
+cc(isMobile)
 
 function Home<NextPage>(): ReactElement{
    const dispatch: AppDispatch = useDispatch();

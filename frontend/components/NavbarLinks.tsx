@@ -52,7 +52,6 @@ function navigationDelayHandler(e: MouseEvent, setNavbarOpenOrClosed: Dispatch<S
         if(!href) return;
         window.location.href = href;
     }, 200);
-
 }
 
 export default NavbarLinks;
