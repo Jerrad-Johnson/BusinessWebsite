@@ -27,11 +27,11 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    /*let create1920pxResult = await resizeGalleryImages(foldernames, pathTo1920pxPhotos, resizeResolutions.large, fitMethods.inside);
+    let create1920pxResult = await resizeGalleryImages(foldernames, pathTo1920pxPhotos, resizeResolutions.large, fitMethods.inside);
     if (create1920pxResult === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to create large images."));
         return;
-    }*/
+    }
 
     let createThumbnailResult = await resizeGalleryImages(foldernames, pathToLeafletThumbnails, resizeResolutions.mapThumbnail, fitMethods.inside);
     if (createThumbnailResult === errorExistsInScript){
@@ -39,11 +39,11 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    /*let create10pxResults = await resizeGalleryImages(foldernames, pathTo10pxThumbnails, resizeResolutions.base64Prep, fitMethods.inside);
+    let create10pxResults = await resizeGalleryImages(foldernames, pathTo10pxThumbnails, resizeResolutions.base64Prep, fitMethods.inside);
     if (create10pxResults === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to create 10px thumbnails."));
         return;
-    }*/
+    }
 
     let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
     if (fileAndFolderNames === errorExistsInScript){

@@ -31,10 +31,6 @@ exports.resizeGalleryImages = async (foldernames, path, resolution, fitMethod, )
                 if (err){
                     didScriptError = errorExistsInScript;
                     console.log('Failed to write file.');
-                } else {
-                    fs.unlink(`${path}/${folder}/${file}`, (err) => {
-                        console.log('Failed to unlink.');
-                    });
                 }
             });
         }
