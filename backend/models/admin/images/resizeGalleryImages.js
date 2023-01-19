@@ -2,11 +2,11 @@ const fs = require("fs");
 const sharp = require("sharp");
 const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, fitMethods, resizeResolutions,
     pathToFullsizePhotos, pathToThumbnails, pathTo10pxThumbnails, pathsToPublicGalleries, pathToPublicGalleries,
-    pathTo1920pxPhotos, pathToBase64Thumbnails
+    pathTo1920pxPhotos, pathToBase64Thumbnails, ct
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
-const {readdirSync} = require("fs");
+sharp.cache(false)
 
 
 exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution, fitMethod) => {
@@ -19,16 +19,18 @@ exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution
     const extantDirectoriesInThumbnails = getDirectories(pathToThumbnails);
     const extantDirectoriesIn1920px = getDirectories(pathTo1920pxPhotos);
     const extantDirectoriesInBase64 = getDirectories(pathToBase64Thumbnails)
-    const extantDirectoriesWithPaths = [
-        {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails},
-        {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails},
-        {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos},
-        {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails},
+    const extantDirectoriesWithOptions = [
+        {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos, resize: [resizeResolutions.large.x, resizeResolutions.large.y]},
+        {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails, resize: [resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y]},
+        {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails, resize: [resizeResolutions.tenPx.x, resizeResolutions.tenPx.y]},
+        {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails}
     ];
 
-    for (let entry of extantDirectoriesWithPaths) rmDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
-    for (let entry of extantDirectoriesWithPaths) mkDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
-    for (let entry of extantDirectoriesWithPaths) rmFiles(newDirectories, entry.path);
+    for (let entry of extantDirectoriesWithOptions) rmDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
+    for (let entry of extantDirectoriesWithOptions) mkDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
+    for (let entry of extantDirectoriesWithOptions) rmFiles(newDirectories, entry.path);
+    extantDirectoriesWithOptions.pop();
+    for (let entry of extantDirectoriesWithOptions) mkImages(newFoldersAndFiles, entry.path);
 
 
 
@@ -56,13 +58,29 @@ function mkDirectoriesIfNeeded(newDir, extantDir, galleryPathByImageSize){
     }
 }
 
-function rmFiles(extantDir, galleryPathByImageSize) {
-    for (folder of extantDir){
+function rmFiles(newDirectories, galleryPathByImageSize) {
+    for (folder of newDirectories){
         const files = fs.readdirSync(path.join(galleryPathByImageSize, folder));
         for (const file of files) {
             fs.unlinkSync(path.join(galleryPathByImageSize, folder, file), (err) => {
                 if (err) throw err;
             });
+        }
+    }
+}
+
+function mkImages(newFoldersAndFiles, galleryPathByImageSize){
+    for (let folder in newFoldersAndFiles){
+        for (let file of newFoldersAndFiles[folder]){
+            sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside })
+                .resize(resizeResolutions.large.x, resizeResolutions.large.y)
+                .toFile(path.join(galleryPathByImageSize, folder, file), (err) => {
+                    if (err){
+                        ct(err);
+                        return;
+                    }
+                });
         }
     }
 }
