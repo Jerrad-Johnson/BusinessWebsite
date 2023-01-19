@@ -6,58 +6,41 @@ const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, 
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
-const {existsSync} = require("fs");
 
 
 exports.resizeGalleryImages = async (foldernames, galleryPath, resolution, fitMethod) => {
     let didScriptError = errorExistsNotInScript;
-
-    //cc(pathsToPublicGalleries);
-    /*if(fs.existsSync(galleryPath)){
-        //fse.removeSync(path);
-    }*/
 
     let newDirectories = [];
     for (let folder in foldernames){
         newDirectories.push(folder);
     }
 
-    //cc(newDirectories)
-
-    function getDirectories(source) {
-        return fs.readdirSync(source, {withFileTypes: true})
-            .filter(dirent => dirent.isDirectory())
-            .map(dirent => dirent.name)
-    }
-
     const extantDirectoriesIn10px = getDirectories(pathTo10pxThumbnails);
     const extantDirectoriesInThumbnails = getDirectories(pathToThumbnails);
     const extantDirectoriesIn1920px = getDirectories(pathTo1920pxPhotos);
     const extantDirectoriesInBase64 = getDirectories(pathToBase64Thumbnails)
-    const directoriesToCull = [
+    const extantDirectoriesWithPaths = [
         {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails},
         {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails},
         {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos},
         {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails},
     ];
 
-    cc(directoriesToCull)
-
-    for (let entry of directoriesToCull){
+    for (let entry of extantDirectoriesWithPaths){
         rmDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
     }
 
-
-
-    function rmDirectoriesIfNeeded(newDir, extantDir, galleryPathByImageSize){
-
-            cc(extantDir)
-        for (let folder of extantDir){
-            if (!newDir.find((e) => e === folder)){
-                fse.removeSync(path.join(galleryPathByImageSize, folder));
-            }
-        }
+    for (let entry of extantDirectoriesWithPaths) {
+        mkDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
     }
+
+
+
+
+
+
+
 
     /*let galleryPaths = [];
     for (let path in pathsToPublicGalleries){
@@ -101,4 +84,25 @@ exports.resizeGalleryImages = async (foldernames, galleryPath, resolution, fitMe
         }
 
     return didScriptError;
+}
+
+function getDirectories(source) {
+    return fs.readdirSync(source, {withFileTypes: true})
+        .filter(dirent => dirent.isDirectory())
+        .map(dirent => dirent.name)
+}
+
+function rmDirectoriesIfNeeded(newDir, extantDir, galleryPathByImageSize){
+    for (let folder of extantDir){
+        if (!newDir.find((e) => e === folder)){
+            fse.removeSync(path.join(galleryPathByImageSize, folder));
+            delete extantDir[folder];
+        }
+    }
+}
+
+function mkDirectoriesIfNeeded(newDir, extantDir, galleryPathByImageSize){
+    for (let folder of newDir){
+        if (!extantDir.find((e) => e === folder)) fs.mkdirSync(path.join(galleryPathByImageSize, folder));
+    }
 }

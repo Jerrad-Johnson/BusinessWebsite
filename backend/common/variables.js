@@ -26,7 +26,7 @@ exports.resizeResolutions = {
 }
 
 
-exports.pathTo10pxThumbnails = pathToThumbnails;
+exports.pathTo10pxThumbnails = pathTo10pxThumbnails;
 exports.pathToBase64Thumbnails = pathToBase64Thumbnails;
 exports.pathTo1920pxPhotos = pathTo1920pxPhotos;
 exports.pathToThumbnails = pathToThumbnails;
