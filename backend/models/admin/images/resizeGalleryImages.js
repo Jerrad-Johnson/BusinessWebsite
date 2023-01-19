@@ -6,7 +6,6 @@ const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, 
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
-var deasync = require('deasync');
 
 
 exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution, fitMethod) => {
@@ -27,8 +26,7 @@ exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution
     for (let entry of extantDirectoriesWithOptions) rmDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
     for (let entry of extantDirectoriesWithOptions) mkDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
     for (let entry of extantDirectoriesWithOptions) rmFiles(newDirectories, entry.path);
-    extantDirectoriesWithOptions.pop();
-    for (let entry of extantDirectoriesWithOptions) await mkImages(newFoldersAndFiles, entry.path);
+    await mkImages(newFoldersAndFiles);
     mkBase64Images(newFoldersAndFiles);
 
 
@@ -66,27 +64,31 @@ function rmFiles(newDirectories, galleryPathByImageSize) {
     }
 }
 
-async function mkImages(newFoldersAndFiles, galleryPathByImageSize, resolution){
+async function mkImages(newFoldersAndFiles){
     for (let folder in newFoldersAndFiles){
         for (let file of newFoldersAndFiles[folder]){
             let proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(250, 250);
-             await proc.toFile(path.join(galleryPathByImageSize, folder, file));
+                { fit: fitMethods.inside }).resize(resizeResolutions.large.x, resizeResolutions.large.y);
+             await proc.toFile(path.join(pathTo1920pxPhotos, folder, file));
 
+            proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y);
+            await proc.toFile(path.join(pathToThumbnails, folder, file));
+
+            proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y);
+            await proc.toFile(path.join(pathTo10pxThumbnails, folder, file));
         }
     }
 }
 
 function mkBase64Images(newFoldersAndFiles){
     for (let folder in newFoldersAndFiles){
-        cc(pathTo10pxThumbnails, folder);
-        cc(fs.readdirSync(`${pathTo10pxThumbnails}/${folder}`));
-/*        for (let file of newFoldersAndFiles[folder]){
+        for (let file of newFoldersAndFiles[folder]){
             let image = fs.readFileSync(`${pathTo10pxThumbnails}/${folder}/${file}`);
-            cc(image);
             fs.writeFileSync(`${pathToBase64Thumbnails}/${folder}/${file}`, image, { encoding: 'base64' }, (err) => {
                 throw new Error(err);
             });
-        }*/
+        }
     }
 }
