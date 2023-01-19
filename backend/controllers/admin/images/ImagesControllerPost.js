@@ -6,7 +6,7 @@ const {getFoldernamesForMapUpdate} = require("../../../models/admin/images/getFo
 const {updateLeafletPhotosTable} = require("../../../models/admin/images/updateLeafletPhotosTable");
 const {standardizedResponse} = require("../../../utils/fns");
 const {resizeGalleryImages} = require("../../../models/admin/images/resizeGalleryImages");
-const {errorExistsInScript, cc, pathToLeafletThumbnails, fitMethods, resizeResolutions, pathTo1920pxPhotos,
+const {errorExistsInScript, cc, pathToThumbnails, fitMethods, resizeResolutions, pathTo1920pxPhotos,
     pathTo10pxThumbnails
 } = require("../../../common/variables");
 const {create10pxThumbnails} = require("../../../models/admin/images/create10pxThumbnails");
@@ -27,13 +27,19 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    let create1920pxResult = await resizeGalleryImages(foldernames, pathTo1920pxPhotos, resizeResolutions.large, fitMethods.inside);
-    if (create1920pxResult === errorExistsInScript){
+    let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
+    if (fileAndFolderNames === errorExistsInScript){
+        res.status(500).send(standardizedResponse("Failed to get filenames for map update."));
+        return;
+    }
+
+    let createImagesResult = await resizeGalleryImages(fileAndFolderNames, pathTo1920pxPhotos, resizeResolutions.large, fitMethods.inside);
+    if (createImagesResult === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to create large images."));
         return;
     }
 
-    let createThumbnailResult = await resizeGalleryImages(foldernames, pathToLeafletThumbnails, resizeResolutions.mapThumbnail, fitMethods.inside);
+   /* let createThumbnailResult = await resizeGalleryImages(foldernames, pathToLeafletThumbnails, resizeResolutions.mapThumbnail, fitMethods.inside);
     if (createThumbnailResult === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to create thumbnails."));
         return;
@@ -45,11 +51,7 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    let fileAndFolderNames =  await getFilenamesForMapUpdate(foldernames);
-    if (fileAndFolderNames === errorExistsInScript){
-        res.status(500).send(standardizedResponse("Failed to get filenames for map update."));
-        return;
-    }
+
 
     let base64ThumbnailResults = await createBase64Thumbnails(req, res, fileAndFolderNames);
     if (base64ThumbnailResults === errorExistsInScript){
@@ -67,10 +69,10 @@ exports.ImagesControllerPost = async (req, res, next) => {
     if (formattedExifData === errorExistsInScript) {
         res.status(500).send(standardizedResponse("Failed to reformat image exif data."));
         return;
-    }
+    }*/
 
-    let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
-    if (imageDataSaved === errorExistsInScript) return;
+    /*let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
+    if (imageDataSaved === errorExistsInScript) return;*/
 
 /*    let createTinyThumbnailResults = await create10pxThumbnails(req, res, fileAndFolderNames);
     if (createTinyThumbnailResults === errorExistsInScript) return;*/
