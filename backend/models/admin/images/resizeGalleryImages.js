@@ -6,12 +6,10 @@ const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, 
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
-sharp.cache(false)
+var deasync = require('deasync');
 
 
 exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution, fitMethod) => {
-    let didScriptError = errorExistsNotInScript;
-
     let newDirectories = [];
     for (let folder in newFoldersAndFiles) newDirectories.push(folder);
 
@@ -20,9 +18,9 @@ exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution
     const extantDirectoriesIn1920px = getDirectories(pathTo1920pxPhotos);
     const extantDirectoriesInBase64 = getDirectories(pathToBase64Thumbnails)
     const extantDirectoriesWithOptions = [
-        {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos, resize: [resizeResolutions.large.x, resizeResolutions.large.y]},
-        {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails, resize: [resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y]},
-        {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails, resize: [resizeResolutions.tenPx.x, resizeResolutions.tenPx.y]},
+        {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos, resize: {x: resizeResolutions.large.x, y: resizeResolutions.large.y}},
+        {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails, resize: {x: resizeResolutions.mapThumbnail.x, y: resizeResolutions.mapThumbnail.y}},
+        {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails, resize: {x: resizeResolutions.tenPx.x, y: resizeResolutions.tenPx.y}},
         {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails}
     ];
 
@@ -30,11 +28,10 @@ exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution
     for (let entry of extantDirectoriesWithOptions) mkDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
     for (let entry of extantDirectoriesWithOptions) rmFiles(newDirectories, entry.path);
     extantDirectoriesWithOptions.pop();
-    for (let entry of extantDirectoriesWithOptions) mkImages(newFoldersAndFiles, entry.path);
+    for (let entry of extantDirectoriesWithOptions) await mkImages(newFoldersAndFiles, entry.path);
+    mkBase64Images(newFoldersAndFiles);
 
 
-
-    return didScriptError;
 }
 
 function getDirectories(source) {
@@ -69,19 +66,27 @@ function rmFiles(newDirectories, galleryPathByImageSize) {
     }
 }
 
-function mkImages(newFoldersAndFiles, galleryPathByImageSize){
+async function mkImages(newFoldersAndFiles, galleryPathByImageSize, resolution){
     for (let folder in newFoldersAndFiles){
         for (let file of newFoldersAndFiles[folder]){
-            sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside })
-                .resize(resizeResolutions.large.x, resizeResolutions.large.y)
-                .toFile(path.join(galleryPathByImageSize, folder, file), (err) => {
-                    if (err){
-                        ct(err);
-                        return;
-                    }
-                });
+            let proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside }).resize(250, 250);
+             await proc.toFile(path.join(galleryPathByImageSize, folder, file));
+
         }
     }
 }
 
+function mkBase64Images(newFoldersAndFiles){
+    for (let folder in newFoldersAndFiles){
+        cc(pathTo10pxThumbnails, folder);
+        cc(fs.readdirSync(`${pathTo10pxThumbnails}/${folder}`));
+/*        for (let file of newFoldersAndFiles[folder]){
+            let image = fs.readFileSync(`${pathTo10pxThumbnails}/${folder}/${file}`);
+            cc(image);
+            fs.writeFileSync(`${pathToBase64Thumbnails}/${folder}/${file}`, image, { encoding: 'base64' }, (err) => {
+                throw new Error(err);
+            });
+        }*/
+    }
+}
