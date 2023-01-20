@@ -39,26 +39,6 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-   /* let createThumbnailResult = await resizeGalleryImages(foldernames, pathToLeafletThumbnails, resizeResolutions.mapThumbnail, fitMethods.inside);
-    if (createThumbnailResult === errorExistsInScript){
-        res.status(500).send(standardizedResponse("Failed to create thumbnails."));
-        return;
-    }
-
-    let create10pxResults = await resizeGalleryImages(foldernames, pathTo10pxThumbnails, resizeResolutions.base64Prep, fitMethods.inside);
-    if (create10pxResults === errorExistsInScript){
-        res.status(500).send(standardizedResponse("Failed to create 10px thumbnails."));
-        return;
-    }
-
-
-
-    let base64ThumbnailResults = await createBase64Thumbnails(req, res, fileAndFolderNames);
-    if (base64ThumbnailResults === errorExistsInScript){
-        res.status(500).send(standardizedResponse("Failed to create base64 thumbnails."));
-        return;
-    }
-
     let rawExifData = await getExifForMapUpdate(fileAndFolderNames);
     if (rawExifData === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to get exif data from images."));
@@ -69,13 +49,10 @@ exports.ImagesControllerPost = async (req, res, next) => {
     if (formattedExifData === errorExistsInScript) {
         res.status(500).send(standardizedResponse("Failed to reformat image exif data."));
         return;
-    }*/
+    }
 
-    /*let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
-    if (imageDataSaved === errorExistsInScript) return;*/
-
-/*    let createTinyThumbnailResults = await create10pxThumbnails(req, res, fileAndFolderNames);
-    if (createTinyThumbnailResults === errorExistsInScript) return;*/
+    let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
+    if (imageDataSaved === errorExistsInScript) return;
 
     res.status(200).send(standardizedResponse("Updated Leaflet"));
 }

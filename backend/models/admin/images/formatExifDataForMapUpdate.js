@@ -1,4 +1,4 @@
-const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader} = require("../../../common/variables");
+const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader, ct} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (exifData) => {
     let exifObject = {};
     let formattedExifData = {};
@@ -43,7 +43,7 @@ exports.formatExifForMapUpdate = async (exifData) => {
             }
         }
     } catch (e) {
-        cc(e);
+        ct(e);
         return errorExistsInScript;
     }
 

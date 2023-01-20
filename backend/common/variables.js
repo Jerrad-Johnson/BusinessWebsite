@@ -10,6 +10,7 @@ const pathToThumbnails = "./public/galleries/thumbnails";
 const pathToBase64Thumbnails = "./public/galleries/base64_thumbnails";
 const pathTo1920pxPhotos = "./public/galleries/1920px_photos/";
 exports.pathToFullsizePhotos = "./public/galleries/fullsize_photos/";
+exports.pathToLocalhostGalleryThumbnails = "http://localhost:3001/galleries/thumbnails";
 exports.fitMethods = {
     inside: "inside",
 }
