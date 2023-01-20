@@ -1,12 +1,49 @@
 const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader, ct} = require("../../../common/variables");
-exports.formatExifForMapUpdate = async (exifData) => {
+exports.formatExifForMapUpdate = async (allExifData) => {
+    let {largeImgsExif, thumbnailImgsExif, tinyImgsExif} = {...allExifData};
+
+    largeImgsExif = format(largeImgsExif);
+    thumbnailImgsExif = format(thumbnailImgsExif);
+    tinyImgsExif = format(tinyImgsExif);
+
+    return {largeImgsExif, thumbnailImgsExif, tinyImgsExif};
+}
+
+function reformatFilenameAndGetAltText(file, folder){
+    let filenameSplit = file.split("-");
+    let filenameAndAlt = {};
+
+    if (filenameSplit[1]){
+        filenameAndAlt.altText = filenameSplit[1];
+        filenameAndAlt.fileName = `${filenameSplit[0]}${filenameSplit[2]}`;
+    } else {
+        filenameAndAlt.altText = `${folder} photograph by ${businessName}.`;
+        filenameAndAlt.fileName = file;
+    }
+    return [filenameAndAlt.altText, filenameAndAlt.fileName];
+}
+
+function reformatDateAndTime(file){
+    let timeCreated = file.DateCreated.value.slice(11, 19)
+    let hourToShift = +timeCreated.slice(0, 2);
+    let originalTZ = file.OffsetTimeOriginal.description.slice(0, 3);
+    let newTZ = file.OffsetTime.description.slice(0, 3);
+    let tzDifference = eval(newTZ - originalTZ); // NOTE: My users have no way of causing any text to end up here; eval is safe.
+    let hourShifted = hourToShift + tzDifference;
+    let newTimeCreated = hourShifted + timeCreated.slice(2);
+    let dateCreated = file.DateCreated.value.slice(0, 10);
+
+    return [newTimeCreated, dateCreated];
+}
+
+
+function format(exifData){
     let exifObject = {};
     let formattedExifData = {};
     let exifAsString = "";
 
     try {
-
-        for (let folder in exifData) {
+        for (let folder in exifData){
             formattedExifData[folder] = [];
 
             for (let file of exifData[folder]){
@@ -50,38 +87,10 @@ exports.formatExifForMapUpdate = async (exifData) => {
     return formattedExifData;
 }
 
-function reformatFilenameAndGetAltText(file, folder){
-    let filenameSplit = file.split("-");
-    let filenameAndAlt = {};
-
-    if (filenameSplit[1]){
-        filenameAndAlt.altText = filenameSplit[1];
-        filenameAndAlt.fileName = `${filenameSplit[0]}${filenameSplit[2]}`;
-    } else {
-        filenameAndAlt.altText = `${folder} photograph by ${businessName}.`;
-        filenameAndAlt.fileName = file;
-    }
-    return [filenameAndAlt.altText, filenameAndAlt.fileName];
-}
-
-function reformatDateAndTime(file){
-    let timeCreated = file.DateCreated.value.slice(11, 19)
-    let hourToShift = +timeCreated.slice(0, 2);
-    let originalTZ = file.OffsetTimeOriginal.description.slice(0, 3);
-    let newTZ = file.OffsetTime.description.slice(0, 3);
-    let tzDifference = eval(newTZ - originalTZ); // NOTE: My users have no way of causing any text to end up here; eval is safe.
-    let hourShifted = hourToShift + tzDifference;
-    let newTimeCreated = hourShifted + timeCreated.slice(2);
-    let dateCreated = file.DateCreated.value.slice(0, 10);
-
-    return [newTimeCreated, dateCreated];
-}
-
-
 
 /*
 
-CREATE TABLE leaflet_images (
+CREATE TABLE gallery_std_thumbnails (
     id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
     folder VARCHAR(255) NOT NULL,
     file_name VARCHAR(255) NOT NULL,

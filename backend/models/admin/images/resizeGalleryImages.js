@@ -82,7 +82,7 @@ async function mkImages(newFoldersAndFiles){
             await proc.toFile(path.join(pathTo1920pxPhotos, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.large.x, resizeResolutions.large.y);
+                { fit: fitMethods.inside }).resize(resizeResolutions.large.x, resizeResolutions.large.y).withMetadata();
             await proc.toFile(path.join(pathToExif1920pxPhotos, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
@@ -98,7 +98,7 @@ async function mkImages(newFoldersAndFiles){
             await proc.toFile(path.join(pathTo10pxThumbnails, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y);
+                { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y).withMetadata();
             await proc.toFile(path.join(pathToExif10pxThumbnails, folder, file));
         }
     }
