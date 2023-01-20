@@ -39,14 +39,16 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    let formattedExifData = await formatExifForMapUpdate(rawExifData);
+    cc(rawExifData)
+
+/*    let formattedExifData = await formatExifForMapUpdate(rawExifData);
     if (formattedExifData === errorExistsInScript) {
         res.status(500).send(standardizedResponse("Failed to reformat image exif data."));
         return;
     }
 
     let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
-    if (imageDataSaved === errorExistsInScript) return;
+    if (imageDataSaved === errorExistsInScript) return;*/
 
     res.status(200).send(standardizedResponse("Updated Leaflet"));
 }

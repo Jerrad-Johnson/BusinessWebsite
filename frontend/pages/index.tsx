@@ -8,7 +8,6 @@ import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
 const cc = console.log;
 
-
 function Home<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 

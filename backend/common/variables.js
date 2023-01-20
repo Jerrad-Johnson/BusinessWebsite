@@ -15,6 +15,8 @@ const pathToBase64Thumbnails = "./public/galleries/base64_thumbnails";
 exports.baseGalleryDirectories = ["10px_thumbnails", "10px_thumbnails_exif", "thumbnails", "thumbnails_exif", "1920px_photos", "1920px_photos_exif", "base64_thumbnails"];
 exports.pathToFullsizePhotos = "./public/galleries/fullsize_photos/";
 exports.pathToLocalhostGalleryThumbnailsWithExif = "http://localhost:3001/galleries/thumbnails_exif";
+exports.pathToLocalhostGallery10pxThumbnailsWithExif = "http://localhost:3001/galleries/10px_thumbnails_exif";
+exports.pathToLocalhostGallery1920pxThumbnailsWithExif = "http://localhost:3001/galleries/1920px_photos_exif";
 exports.fitMethods = {
     inside: "inside",
 }
