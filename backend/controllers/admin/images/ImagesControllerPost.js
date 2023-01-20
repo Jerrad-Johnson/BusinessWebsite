@@ -6,11 +6,7 @@ const {getFoldernamesForMapUpdate} = require("../../../models/admin/images/getFo
 const {updateLeafletPhotosTable} = require("../../../models/admin/images/updateLeafletPhotosTable");
 const {standardizedResponse} = require("../../../utils/fns");
 const {resizeGalleryImages} = require("../../../models/admin/images/resizeGalleryImages");
-const {errorExistsInScript, cc, pathToThumbnails, fitMethods, resizeResolutions, pathTo1920pxPhotos,
-    pathTo10pxThumbnails
-} = require("../../../common/variables");
-const {create10pxThumbnails} = require("../../../models/admin/images/create10pxThumbnails");
-const {createBase64Thumbnails} = require("../../../models/admin/images/createBase64Thumbnails");
+const {errorExistsInScript, cc, fitMethods, resizeResolutions, pathTo1920pxPhotos} = require("../../../common/variables");
 
 
 exports.ImagesControllerPost = async (req, res, next) => {
@@ -18,8 +14,6 @@ exports.ImagesControllerPost = async (req, res, next) => {
         res.status(403).send(standardizedResponse("User is not logged in as Admin."));
         return;
     }*/
-
-    // Script does not work in windows. Stop using it for now.
 
     let foldernames = await getFoldernamesForMapUpdate();
     if (foldernames === errorExistsInScript){
@@ -58,7 +52,7 @@ exports.ImagesControllerPost = async (req, res, next) => {
 }
 
 
-
 /*
 if (!(filenames.length > 0)) next(); //TODO Handle error
-if (!rawExifData) next(); //TODO Handle error*/
+if (!rawExifData) next(); //TODO Handle error
+*/

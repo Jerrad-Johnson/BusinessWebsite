@@ -89,6 +89,15 @@ Filename is split via `-`
 
 Example: `IMG_1022-Butterfly at Reiman Gardens-.jpg` becomes `IMG_1022.jpg` and `Butterfly at Reiman Gardens`--for the filename and alt text, respectively. 
 
+### Required folders
+
+public/galleries must contain the folders:
+```
+10px_thumbnails
+1920px_photos
+base64_thumbnails
+thumbnails
+thumbnails_exif```
 
 ## Known Issues
 

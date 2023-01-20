@@ -7,10 +7,11 @@ exports.pathToLocalFSGalleries = "./photographs/galleries";
 exports.pathToPublicGalleries = "./public/galleries";
 const pathTo10pxThumbnails = "./public/galleries/10px_thumbnails";
 const pathToThumbnails = "./public/galleries/thumbnails";
+const pathToExifThumbnails = "./public/galleries/thumbnails_exif";
 const pathToBase64Thumbnails = "./public/galleries/base64_thumbnails";
 const pathTo1920pxPhotos = "./public/galleries/1920px_photos/";
 exports.pathToFullsizePhotos = "./public/galleries/fullsize_photos/";
-exports.pathToLocalhostGalleryThumbnails = "http://localhost:3001/galleries/thumbnails";
+exports.pathToLocalhostGalleryThumbnailsWithExif = "http://localhost:3001/galleries/thumbnails_exif";
 exports.fitMethods = {
     inside: "inside",
 }
@@ -31,3 +32,4 @@ exports.pathTo10pxThumbnails = pathTo10pxThumbnails;
 exports.pathToBase64Thumbnails = pathToBase64Thumbnails;
 exports.pathTo1920pxPhotos = pathTo1920pxPhotos;
 exports.pathToThumbnails = pathToThumbnails;
+exports.pathToExifThumbnails = pathToExifThumbnails;

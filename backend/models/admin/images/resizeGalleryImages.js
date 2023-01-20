@@ -2,7 +2,7 @@ const fs = require("fs");
 const sharp = require("sharp");
 const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, fitMethods, resizeResolutions,
     pathToFullsizePhotos, pathToThumbnails, pathTo10pxThumbnails, pathsToPublicGalleries, pathToPublicGalleries,
-    pathTo1920pxPhotos, pathToBase64Thumbnails, ct
+    pathTo1920pxPhotos, pathToBase64Thumbnails, ct, pathToExifThumbnails
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
@@ -12,13 +12,16 @@ exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution
 
     const extantDirectoriesIn10px = getDirectories(pathTo10pxThumbnails);
     const extantDirectoriesInThumbnails = getDirectories(pathToThumbnails);
+    cc(pathToExifThumbnails)
+    const extantDirectoriesInExifThumbnails = getDirectories(pathToExifThumbnails)
     const extantDirectoriesIn1920px = getDirectories(pathTo1920pxPhotos);
     const extantDirectoriesInBase64 = getDirectories(pathToBase64Thumbnails)
     const extantDirectoriesWithOptions = [
         {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos},
         {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails},
+        {dirs: extantDirectoriesInExifThumbnails, path: pathToExifThumbnails},
         {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails},
-        {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails}
+        {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails},
     ];
 
     for (let entry of extantDirectoriesWithOptions) rmDirectoriesIfNeeded(newDirectories, entry.dirs, entry.path);
@@ -68,8 +71,12 @@ async function mkImages(newFoldersAndFiles){
             await proc.toFile(path.join(pathTo1920pxPhotos, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y).withMetadata();
+                { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y);
             await proc.toFile(path.join(pathToThumbnails, folder, file));
+
+            proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y).withMetadata();
+            await proc.toFile(path.join(pathToExifThumbnails, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
                 { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y);
