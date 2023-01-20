@@ -2,7 +2,8 @@ const fs = require("fs");
 const sharp = require("sharp");
 const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, fitMethods, resizeResolutions,
     pathToFullsizePhotos, pathToThumbnails, pathTo10pxThumbnails, pathsToPublicGalleries, pathToPublicGalleries,
-    pathTo1920pxPhotos, pathToBase64Thumbnails, ct, pathToExifThumbnails, baseGalleryDirectories
+    pathTo1920pxPhotos, pathToBase64Thumbnails, ct, pathToExifThumbnails, baseGalleryDirectories,
+    pathToExif10pxThumbnails, pathToExif1920pxPhotos
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
@@ -11,16 +12,20 @@ exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution
     const newDirectories = Object.keys(newFoldersAndFiles);
 
     createBaseDirectories();
-    const extantDirectoriesIn10px = getDirectories(pathTo10pxThumbnails);
+    const extantDirectoriesIn1920px = getDirectories(pathTo1920pxPhotos);
+    const extantDirectoriesInExif1920px = getDirectories(pathToExif1920pxPhotos);
     const extantDirectoriesInThumbnails = getDirectories(pathToThumbnails);
     const extantDirectoriesInExifThumbnails = getDirectories(pathToExifThumbnails)
-    const extantDirectoriesIn1920px = getDirectories(pathTo1920pxPhotos);
-    const extantDirectoriesInBase64 = getDirectories(pathToBase64Thumbnails)
+    const extantDirectoriesIn10px = getDirectories(pathTo10pxThumbnails);
+    const extantDirectoriesInExif10px = getDirectories(pathToExif10pxThumbnails)
+    const extantDirectoriesInBase64 = getDirectories(pathToBase64Thumbnails);
     const extantDirectoriesWithOptions = [
         {dirs: extantDirectoriesIn1920px, path: pathTo1920pxPhotos},
+        {dirs: extantDirectoriesInExif1920px, path: pathToExif1920pxPhotos},
         {dirs: extantDirectoriesInThumbnails, path: pathToThumbnails},
         {dirs: extantDirectoriesInExifThumbnails, path: pathToExifThumbnails},
         {dirs: extantDirectoriesIn10px, path: pathTo10pxThumbnails},
+        {dirs: extantDirectoriesInExif10px, path: pathToExif10pxThumbnails},
         {dirs: extantDirectoriesInBase64, path: pathToBase64Thumbnails},
     ];
 
@@ -77,6 +82,10 @@ async function mkImages(newFoldersAndFiles){
             await proc.toFile(path.join(pathTo1920pxPhotos, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside }).resize(resizeResolutions.large.x, resizeResolutions.large.y);
+            await proc.toFile(path.join(pathToExif1920pxPhotos, folder, file));
+
+            proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
                 { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y);
             await proc.toFile(path.join(pathToThumbnails, folder, file));
 
@@ -87,6 +96,10 @@ async function mkImages(newFoldersAndFiles){
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
                 { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y);
             await proc.toFile(path.join(pathTo10pxThumbnails, folder, file));
+
+            proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
+                { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y);
+            await proc.toFile(path.join(pathToExif10pxThumbnails, folder, file));
         }
     }
 }

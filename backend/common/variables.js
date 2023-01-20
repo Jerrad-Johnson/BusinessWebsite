@@ -36,3 +36,5 @@ exports.pathToBase64Thumbnails = pathToBase64Thumbnails;
 exports.pathTo1920pxPhotos = pathTo1920pxPhotos;
 exports.pathToThumbnails = pathToThumbnails;
 exports.pathToExifThumbnails = pathToExifThumbnails;
+exports.pathToExif10pxThumbnails = pathToExif10pxThumbnails;
+exports.pathToExif1920pxPhotos = pathToExif1920pxPhotos;
