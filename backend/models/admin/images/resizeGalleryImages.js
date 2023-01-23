@@ -3,10 +3,11 @@ const sharp = require("sharp");
 const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, fitMethods, resizeResolutions,
     pathToFullsizePhotos, pathToThumbnails, pathTo10pxThumbnails, pathsToPublicGalleries, pathToPublicGalleries,
     pathTo1920pxPhotos, pathToBase64Thumbnails, ct, pathToExifThumbnails, baseGalleryDirectories,
-    pathToExif10pxThumbnails, pathToExif1920pxPhotos
+    pathToExif10pxThumbnails, pathToExif1920pxPhotos, pathToLocalhostGallery1920pxThumbnailsWithExif
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
+const ExifReader = require("exifreader");
 
 exports.resizeGalleryImages = async (newFoldersAndFiles, galleryPath, resolution, fitMethod) => {
     const newDirectories = Object.keys(newFoldersAndFiles);
@@ -75,30 +76,47 @@ function rmFiles(newDirectories, galleryPathByImageSize) {
 }
 
 async function mkImages(newFoldersAndFiles){
+    let resizeValue = {};
     for (let folder in newFoldersAndFiles){
         for (let file of newFoldersAndFiles[folder]){
+            let image = fs.readFileSync(path.join(pathToLocalFSGalleries, folder, file));
+
+            let exif = await ExifReader.load(image);
+            let width = exif['Image Width'].value;
+            let height = exif['Image Height'].value;
+
+            if (width >= height){
+                resizeValue.largeImg = {width: resizeResolutions.large};
+                resizeValue.smallImg = {width: resizeResolutions.mapThumbnail};
+                resizeValue.tinyImg = {width: resizeResolutions.tenPx};
+            } else {
+                resizeValue.largeImg = {height: resizeResolutions.large};
+                resizeValue.smallImg = {height: resizeResolutions.mapThumbnail};
+                resizeValue.thumbnail = {height: resizeResolutions.mapThumbnail}
+            }
+
             let proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.large.x, resizeResolutions.large.y);
+                { fit: fitMethods.inside }).resize(resizeValue.largeImg);
             await proc.toFile(path.join(pathTo1920pxPhotos, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.large.x, resizeResolutions.large.y).withMetadata();
+                { fit: fitMethods.inside }).resize(resizeValue.largeImg).withMetadata();
             await proc.toFile(path.join(pathToExif1920pxPhotos, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y);
+                { fit: fitMethods.inside }).resize(resizeValue.smallImg);
             await proc.toFile(path.join(pathToThumbnails, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.mapThumbnail.x, resizeResolutions.mapThumbnail.y).withMetadata(); // By creating a separate set with exif data, the thumbnails that the frontend loads have their file size cut by about 80%.
+                { fit: fitMethods.inside }).resize(resizeValue.smallImg).withMetadata(); // By creating a separate set with exif data, the thumbnails that the frontend loads have their file size cut by about 80%.
             await proc.toFile(path.join(pathToExifThumbnails, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y);
+                { fit: fitMethods.inside }).resize(resizeValue.tinyImg);
             await proc.toFile(path.join(pathTo10pxThumbnails, folder, file));
 
             proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
-                { fit: fitMethods.inside }).resize(resizeResolutions.tenPx.x, resizeResolutions.tenPx.y).withMetadata();
+                { fit: fitMethods.inside }).resize(resizeValue.tinyImg).withMetadata();
             await proc.toFile(path.join(pathToExif10pxThumbnails, folder, file));
         }
     }

@@ -45,8 +45,8 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }
 
-    /*let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
-    if (imageDataSaved === errorExistsInScript) return;*/
+    let imageDataSaved = await updateLeafletPhotosTable(req, res, formattedExifData);
+    if (imageDataSaved === errorExistsInScript) return;
 
     res.status(200).send(standardizedResponse("Updated Leaflet"));
 }

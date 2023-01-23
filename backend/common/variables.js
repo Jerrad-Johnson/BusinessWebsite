@@ -27,9 +27,9 @@ exports.pathsToPublicGalleries = {
     pathToBase64Thumbnails: pathToBase64Thumbnails,
 }
 exports.resizeResolutions = {
-    mapThumbnail: {x: 300, y: 300},
-    tenPx: {x: 10, y: 10},
-    large: {x: 1920, y: 1920},
+    mapThumbnail: 300,
+    tenPx: 10,
+    large: 1920,
 }
 
 

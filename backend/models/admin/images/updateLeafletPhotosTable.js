@@ -4,7 +4,8 @@ const {cc, errorExistsNotInScript, errorExistsInScript} = require("../../../comm
 const mysql = require("mysql");
 
 exports.updateLeafletPhotosTable = async (req, res, files) => {
-    const deleteAllQuery = "DELETE FROM leaflet_images;";
+    //cc(files.tinyImgsExif);
+/*    const deleteAllQuery = "DELETE FROM leaflet_images;";
     let scriptDidError = errorExistsNotInScript;
 
     try{
@@ -42,7 +43,7 @@ exports.updateLeafletPhotosTable = async (req, res, files) => {
     }
     if (scriptDidError) return errorExistsInScript;
 
-    return errorExistsNotInScript;
+    return errorExistsNotInScript;*/
 
 }
 
