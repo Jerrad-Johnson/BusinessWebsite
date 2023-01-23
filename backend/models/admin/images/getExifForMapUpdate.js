@@ -7,9 +7,9 @@ const path = require("path");
 const {readFileSync} = require("fs");
 
 exports.getExifForMapUpdate = async (fileAndFolderNames) => {
+    let largeImgBuffer, smallImgBuffer, tinyImgBuffer;
     let largeImg, smallImg, tinyImg;
     let largeImgsExif = {}, smallImgsExif = {}, tinyImgsExif = {};
-    let largeImgBuffer, smallImgBuffer, tinyImgBuffer;
 
     try {
         for (let folderName in fileAndFolderNames){
@@ -38,5 +38,5 @@ exports.getExifForMapUpdate = async (fileAndFolderNames) => {
         return errorExistsInScript;
     }
 
-    return {largeImgsExif, thumbnailImgsExif: smallImgsExif, tinyImgsExif};
+    return {largeImgsExif, smallImgsExif, tinyImgsExif};
 }

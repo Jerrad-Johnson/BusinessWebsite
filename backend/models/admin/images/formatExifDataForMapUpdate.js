@@ -1,12 +1,12 @@
 const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader, ct} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (allExifData) => {
-    let {largeImgsExif, thumbnailImgsExif, tinyImgsExif} = {...allExifData};
+    let {largeImgsExif, smallImgsExif, tinyImgsExif} = {...allExifData};
 
     largeImgsExif = format(largeImgsExif);
-    thumbnailImgsExif = format(thumbnailImgsExif);
+    smallImgsExif = format(smallImgsExif);
     tinyImgsExif = format(tinyImgsExif);
 
-    return {largeImgsExif, thumbnailImgsExif, tinyImgsExif};
+    return {largeImgsExif, smallImgsExif, tinyImgsExif};
 }
 
 function reformatFilenameAndGetAltText(file, folder){

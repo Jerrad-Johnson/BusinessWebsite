@@ -88,12 +88,11 @@ async function mkImages(newFoldersAndFiles){
             if (width >= height){
                 resizeValue.largeImg = {width: resizeResolutions.large};
                 resizeValue.smallImg = {width: resizeResolutions.mapThumbnail};
-                resizeValue.tinyImg = {width: resizeResolutions.tenPx};
             } else {
                 resizeValue.largeImg = {height: resizeResolutions.large};
                 resizeValue.smallImg = {height: resizeResolutions.mapThumbnail};
-                resizeValue.thumbnail = {height: resizeResolutions.mapThumbnail}
             }
+            resizeValue.tinyImg = {width: resizeResolutions.tenPx, height: resizeResolutions.tenPx};
 
             let proc = sharp(path.join(pathToLocalFSGalleries, folder, file),
                 { fit: fitMethods.inside }).resize(resizeValue.largeImg);
