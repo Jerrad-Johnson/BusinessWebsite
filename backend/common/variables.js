@@ -19,7 +19,7 @@ exports.pathToLocalFSGallery10pxThumbnailsWithExif = "./public/galleries/10px_th
 exports.pathToLocalFSGallery1920pxThumbnailsWithExif = "./public/galleries/1920px_photos_exif";
 exports.publicPathToLgImgs = "http://localhost:3001/galleries/1920px_photos";
 exports.publicPathToSmImgs = "http://localhost:3001/galleries/thumbnails";
-exports.publicPathToTinyImgs = "http://localhost:3001/galleries/10px_thumbnails";
+exports.publicPathToTinyImgs = "http://localhost:3001/galleries/10px_thumbnails"; // TODO These, and many others, need to be updated. In this case, environment variable is important.
 exports.fitMethods = {
     inside: "inside",
 }
