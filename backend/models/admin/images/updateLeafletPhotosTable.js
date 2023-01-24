@@ -1,49 +1,65 @@
 const {genericSQLPromise} = require("../../../common/queries");
 const {standardizedResponse} = require("../../../utils/fns");
-const {cc, errorExistsNotInScript, errorExistsInScript} = require("../../../common/variables");
+const {cc, errorExistsNotInScript, errorExistsInScript, ct} = require("../../../common/variables");
 const mysql = require("mysql");
+const path = require("path");
 
 exports.updateLeafletPhotosTable = async (req, res, files) => {
-    //cc(files.tinyImgsExif);
-/*    const deleteAllQuery = "DELETE FROM leaflet_images;";
-    let scriptDidError = errorExistsNotInScript;
+    const deleteAllQueries = ["DELETE FROM gallery_lg_images;", "DELETE FROM gallery_sm_images;", "DELETE FROM gallery_tiny_images;"]
+    const insertQueries = []
 
     try{
-        await genericSQLPromise(deleteAllQuery, [], res);
+        await deleteOldTableData(deleteAllQueries, res);
     } catch (e) {
-        cc(e);
-        scriptDidError = errorExistsInScript
-        res.status(500).send(standardizedResponse("SQL Error", e));
+        ct(e);
+        throw new Error(e);
     }
-    if (scriptDidError) return errorExistsInScript;
 
-    const insertQuery = `INSERT INTO leaflet_images(url, folder, file_name, file_name_full, alt_text, camera_model,
-        lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?)`;
+    const insertData = [{
+            query: `INSERT INTO gallery_lg_images(url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
+            files: files.largeImgsExif,
+            }, {
+            query: `INSERT INTO gallery_sm_images(url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
+            files: files.smallImgsExif,
+            }, {
+            query: `INSERT INTO gallery_tiny_images(url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
+            files: files.tinyImgsExif,
+        }
+    ];
 
+    for (set of insertData){
+        for (folder in set.files){
+            for (file of set.files[folder]){
+                file = JSON.parse(file);
+                let lon = setDirectionLatLon(file.GPSLongitude);
+                let lat = setDirectionLatLon(file.GPSLatitude);
 
-    for (folder in files){
-        for (file of files[folder]){
-            file = JSON.parse(file);
-            let lon = setDirectionLatLon(file.GPSLongitude);
-            let lat = setDirectionLatLon(file.GPSLatitude);
+                try {
+                    let RAW_POINT = mysql.raw(`ST_GeomFromText("POINT(${lon} ${lat})")`);
 
-            try {
-                let RAW_POINT = mysql.raw(`ST_GeomFromText("POINT(${lon} ${lat})")`);
-
-                await genericSQLPromise(insertQuery, [[file.URL, folder, file.FileName,
-                    file.FileNameFull, file.AltText, file.CameraModel, file.LensModel, file.FocalLength,
-                    file.ExposureTime, file.ISOSpeedRatings, file.DateTimeCreated, file.width, file.height,
-                    RAW_POINT, file.GPSAltitude]], res);
-            } catch (e) {
-                cc(e);
-                scriptDidError = errorExistsInScript;
-                res.status(500).send(standardizedResponse("SQL Error", e));
+                    await genericSQLPromise(set.query, [[file.URL, folder, file.FileName,
+                        file.FileNameFull, file.AltText, file.CameraModel, file.LensModel, file.FocalLength,
+                        file.ExposureTime, file.ISOSpeedRatings, file.DateTimeCreated, file.width, file.height,
+                        RAW_POINT, file.GPSAltitude]], res);
+                } catch (e) {
+                    ct(e);
+                    res.status(500).send(standardizedResponse("SQL Error", e));
+                    throw new Error(e);
+                }
             }
         }
     }
-    if (scriptDidError) return errorExistsInScript;
 
-    return errorExistsNotInScript;*/
+
+}
+
+async function deleteOldTableData(queries, res){
+    try{
+        for (query of queries) await genericSQLPromise(query, [], res);
+    } catch (e) {
+        res.status(500).send(standardizedResponse("SQL Error", e));
+        throw new Error(e);
+    }
 
 }
 
@@ -53,3 +69,4 @@ function setDirectionLatLon(coordinate){
     if (decoupledCoordinate.slice(-1) === "S") return -decoupledCoordinate.slice(0, -2);
     return +decoupledCoordinate.slice(0, -2);
 }
+

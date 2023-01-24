@@ -14,9 +14,12 @@ const pathToExif1920pxPhotos = "./public/galleries/1920px_photos_exif";
 const pathToBase64Thumbnails = "./public/galleries/base64_thumbnails";
 exports.baseGalleryDirectories = ["10px_thumbnails", "10px_thumbnails_exif", "thumbnails", "thumbnails_exif", "1920px_photos", "1920px_photos_exif", "base64_thumbnails"];
 exports.pathToFullsizePhotos = "./public/galleries/fullsize_photos/";
-exports.pathToLocalhostGalleryThumbnailsWithExif = "./public/galleries/thumbnails_exif";
-exports.pathToLocalhostGallery10pxThumbnailsWithExif = "./public/galleries/10px_thumbnails_exif";
-exports.pathToLocalhostGallery1920pxThumbnailsWithExif = "./public/galleries/1920px_photos_exif";
+exports.pathToLocalFSGalleryThumbnailsWithExif = "./public/galleries/thumbnails_exif";
+exports.pathToLocalFSGallery10pxThumbnailsWithExif = "./public/galleries/10px_thumbnails_exif";
+exports.pathToLocalFSGallery1920pxThumbnailsWithExif = "./public/galleries/1920px_photos_exif";
+exports.publicPathToLgImgs = "http://localhost:3001/galleries/1920px_photos";
+exports.publicPathToSmImgs = "http://localhost:3001/galleries/thumbnails";
+exports.publicPathToTinyImgs = "http://localhost:3001/galleries/10px_thumbnails";
 exports.fitMethods = {
     inside: "inside",
 }
@@ -31,7 +34,6 @@ exports.resizeResolutions = {
     tenPx: 10,
     large: 1920,
 }
-
 
 exports.pathTo10pxThumbnails = pathTo10pxThumbnails;
 exports.pathToBase64Thumbnails = pathToBase64Thumbnails;

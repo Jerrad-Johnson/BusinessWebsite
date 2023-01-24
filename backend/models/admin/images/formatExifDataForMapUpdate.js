@@ -1,10 +1,10 @@
-const {businessName, errorExistsInScript, cc, pathToLeafletThumbnailsForExifReader, ct} = require("../../../common/variables");
+const {businessName, errorExistsInScript, cc, ct, publicPathToLgImgs, publicPathToSmImgs, publicPathToTinyImgs} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (allExifData) => {
     let {largeImgsExif, smallImgsExif, tinyImgsExif} = {...allExifData};
 
-    largeImgsExif = format(largeImgsExif);
-    smallImgsExif = format(smallImgsExif);
-    tinyImgsExif = format(tinyImgsExif);
+    largeImgsExif = format(largeImgsExif, publicPathToLgImgs);
+    smallImgsExif = format(smallImgsExif, publicPathToSmImgs);
+    tinyImgsExif = format(tinyImgsExif,  publicPathToTinyImgs);
 
     return {largeImgsExif, smallImgsExif, tinyImgsExif};
 }
@@ -37,7 +37,7 @@ function reformatDateAndTime(file){
 }
 
 
-function format(exifData){
+function format(exifData, url){
     let exifObject = {};
     let formattedExifData = {};
     let exifAsString = "";
@@ -62,7 +62,7 @@ function format(exifData){
                 exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
                 exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
                 exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
-                exifObject.URL = `${pathToLeafletThumbnailsForExifReader}/${folder}/${file.fileName}`;
+                exifObject.URL = `${url}/${folder}/${file.fileName}`;
                 exifObject.width = file['Image Width'].value;
                 exifObject.height = file['Image Height'].value
 

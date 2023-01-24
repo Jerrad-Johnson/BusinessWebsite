@@ -3,7 +3,7 @@ const sharp = require("sharp");
 const {pathToLocalFSGalleries, errorExistsNotInScript, errorExistsInScript, cc, fitMethods, resizeResolutions,
     pathToFullsizePhotos, pathToThumbnails, pathTo10pxThumbnails, pathsToPublicGalleries, pathToPublicGalleries,
     pathTo1920pxPhotos, pathToBase64Thumbnails, ct, pathToExifThumbnails, baseGalleryDirectories,
-    pathToExif10pxThumbnails, pathToExif1920pxPhotos, pathToLocalhostGallery1920pxThumbnailsWithExif
+    pathToExif10pxThumbnails, pathToExif1920pxPhotos, pathToLocalFSGallery1920pxThumbnailsWithExif
 } = require("../../../common/variables");
 const path = require('path');
 const fse = require('fs-extra');
