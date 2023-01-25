@@ -1,17 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const {sessionOptions} = require('./common/sessionOptions');
 
-var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin/_admin');
-var leafletRouter = require('./routes/leaflet/leaflet');
+const indexRouter = require('./routes/index');
+const adminRouter = require('./routes/admin/_admin');
+const leafletRouter = require('./routes/leaflet/leaflet');
+const galleryRouter = require("./routes/gallery");
 
-var app = express();
+const app = express();
 const cc = console.log;
 
 // view engine setup
@@ -31,6 +32,7 @@ app.use(cors({
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
+app.use('/gallery', galleryRouter);
 app.use('/leaflet', leafletRouter);
 
 // catch 404 and forward to error handler
