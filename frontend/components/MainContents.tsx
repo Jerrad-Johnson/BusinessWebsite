@@ -9,6 +9,7 @@ import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
 import {useEffect, useState} from "react";
 import {images} from "next/dist/build/webpack/config/blocks/images";
+import {CircularProgress} from "@mui/material";
 
 export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
@@ -17,13 +18,12 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
     const [galleryFolders, setGalleryFolders] = useState(isLoading);
 
     useEffect(() => {
-        getGalleryFolderNames(setGalleryFolders);
-        handleGalleryImages(setPhotos);
-
+        getGalleryFolderNames(setGalleryFolders, setPhotos);
+        //handleGalleryImages(setPhotos);
     }, []);
 
     const galleryInputs: GalleryInputs = {
-        images: photos, // If you're loading the images from a backend, just pass an empty array until the data is retrieved.
+        images: photos,
         containerWidth: "100%",
         containerPadding: 10,
         imagePadding: {vertical: 10, horizontal: 10},
@@ -42,7 +42,7 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                         <div className={"main-container-content"}>
                             <div className={"main-container-headline"}>Gallery</div>
                             <hr/>
-                            {galleryFolders === isLoading ?  }
+                            {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
                             <hr/>
                             <NjGallery
                                 {...galleryInputs}
@@ -80,8 +80,8 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
     );
 }
 
-async function handleGalleryImages(setPhotos): Promise<void>{
-    const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "lg", galleryName: "macro"});
+async function handleGalleryImages(setPhotos, folder): Promise<void>{
+    const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "lg", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
@@ -94,17 +94,22 @@ async function handleGalleryImages(setPhotos): Promise<void>{
     setPhotos(formattedImageData);
 }
 
-async function getGalleryFolderNames(setGalleryFolders){
+async function getGalleryFolderNames(setGalleryFolders, setPhotos){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`)
-    const elements = folders.data.data.map((e) => {
+    const elements = folders.data.data.map((elem) => {
       return (
-          <span key={e.folder}>{e.folder}</span>
+          <span key={elem.folder} onClick={(event) => {
+            handleFolderChange(elem.folder, setPhotos);
+          }}>{elem.folder}</span>
       );
     });
 
     setGalleryFolders(elements);
 }
 
+function handleFolderChange(folder, setPhotos){
+    handleGalleryImages(setPhotos, folder);
+}
 
 
 
