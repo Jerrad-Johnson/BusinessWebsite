@@ -14,10 +14,19 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos]: ImageArrayData[] = useState([]);
+    const [galleryFolders, setGalleryFolders] = useState(["test", "test2"].map((e) => {
+        return (
+            <span key={e} className={"galleryFolders"}>{e}</span>
+        )
+    }));
 
     useEffect(() => {
+        getGalleryFolderNames(setGalleryFolders);
         handleGalleryImages(setPhotos);
+
     }, []);
+
+
 
 
 
@@ -51,6 +60,8 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
         targetRowHeightTolerance: .2,
     }
 
+
+
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -60,6 +71,8 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                     <div className={"overlay"}>
                         <div className={"main-container-content"}>
                             <div className={"main-container-headline"}>Gallery</div>
+                            <hr/>
+                            {galleryFolders}
                             <hr/>
                             <NjGallery
                                 {...galleryInputs}
@@ -110,3 +123,15 @@ async function handleGalleryImages(setPhotos): Promise<void>{
 
     setPhotos(formattedImageData);
 }
+
+async function getGalleryFolderNames(setGalleryFolders){
+    const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`)
+    const elements = folders.data.data.map((e) => {
+      return (
+          <span key={e.folder}>{e.folder}</span>
+      );
+    });
+
+    setGalleryFolders(elements);
+}
+
