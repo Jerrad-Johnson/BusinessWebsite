@@ -1,5 +1,5 @@
+const {getThisFolderOfImages} = require("../../../models/gallery/getThisFolderOfImages");
 
-
-exports.ImagesByFolderGet = async (req, res, next) => {
-
+exports.GalleryImagesByFolderPost = async (req, res, next) => {
+    getThisFolderOfImages(req, res, next);
 }

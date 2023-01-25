@@ -47,7 +47,7 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
         containerPadding: 10,
         imagePadding: {vertical: 10, horizontal: 10},
         targetRowHeight: 300,
-        showIncompleteRows: false,
+        showIncompleteRows: true,
         targetRowHeightTolerance: .2,
     }
 
