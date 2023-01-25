@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {orientations} from "../hooks/useOrientation";
 import {darkTheme, lightTheme} from "../features/theme/themeSlice";
-import {cc} from "../common/variables";
+import {cc, isLoading} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
 import styles from "../styles/Index.module.css";
@@ -14,41 +14,13 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos]: ImageArrayData[] = useState([]);
-    const [galleryFolders, setGalleryFolders] = useState(["test", "test2"].map((e) => {
-        return (
-            <span key={e} className={"galleryFolders"}>{e}</span>
-        )
-    }));
+    const [galleryFolders, setGalleryFolders] = useState(isLoading);
 
     useEffect(() => {
         getGalleryFolderNames(setGalleryFolders);
         handleGalleryImages(setPhotos);
 
     }, []);
-
-
-
-
-
-    /*[
-        {
-            src: "http://localhost:3001/temp/162A2061.jpg",
-            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
-            height: 300,
-            width: 300,
-            alt: "Butterfly!",
-        }, {
-            src: "http://localhost:3001/temp/162A2061.jpg",
-            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
-            height: 200,
-            width: 300,
-        }, {
-            src: "http://localhost:3001/temp/162A2061.jpg",
-            blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
-            height: 300,
-            width: 200,
-        }
-    ];*/
 
     const galleryInputs: GalleryInputs = {
         images: photos, // If you're loading the images from a backend, just pass an empty array until the data is retrieved.
@@ -60,8 +32,6 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
         targetRowHeightTolerance: .2,
     }
 
-
-
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -72,7 +42,7 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                         <div className={"main-container-content"}>
                             <div className={"main-container-headline"}>Gallery</div>
                             <hr/>
-                            {galleryFolders}
+                            {galleryFolders === isLoading ?  }
                             <hr/>
                             <NjGallery
                                 {...galleryInputs}
@@ -134,4 +104,33 @@ async function getGalleryFolderNames(setGalleryFolders){
 
     setGalleryFolders(elements);
 }
+
+
+
+
+
+
+
+
+
+
+/*[
+    {
+        src: "http://localhost:3001/temp/162A2061.jpg",
+        blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+        height: 300,
+        width: 300,
+        alt: "Butterfly!",
+    }, {
+        src: "http://localhost:3001/temp/162A2061.jpg",
+        blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+        height: 200,
+        width: 300,
+    }, {
+        src: "http://localhost:3001/temp/162A2061.jpg",
+        blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
+        height: 300,
+        width: 200,
+    }
+];*/
 

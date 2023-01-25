@@ -7,3 +7,4 @@ export const navbarOptions = {
     open: "Open",
     closed: "Closed",
 }
+export const isLoading = "Loading";
