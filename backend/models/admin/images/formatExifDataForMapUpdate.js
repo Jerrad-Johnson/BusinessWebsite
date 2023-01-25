@@ -66,9 +66,9 @@ function format(exifData, url){
                 exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
                 exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
                 exifObject.URL = `${url}/${folder}/${file.fileName}`;
-                exifObject.base64url = `${publicPathToBase64Imgs}/${folder}/${file.fileName};`
+                exifObject.base64url = `${publicPathToBase64Imgs}/${folder}/${file.fileName}`;
                 exifObject.width = file['Image Width'].value;
-                exifObject.height = file['Image Height'].value
+                exifObject.height = file['Image Height'].value;
 
                 exifAsString = JSON.stringify(exifObject);
                 formattedExifData[folder].push(exifAsString);

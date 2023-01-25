@@ -105,8 +105,10 @@ async function handleGalleryImages(setPhotos): Promise<void>{
 
     if (imageData.length < 0) return;
     for (let image of imageData){
-        formattedImageData.push({src: image.url, height: +image.height, width: +image.width})
+        formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"]})
     }
+
+    cc(imageData)
 
     setPhotos(formattedImageData);
 }
