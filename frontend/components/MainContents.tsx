@@ -56,7 +56,7 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'}/>
+                           objectPosition={'center'} alt={'Cover Portrait'}/>
                     <div className={"overlay"}>
                         <div className={"main-container-content"}>
                             <div className={"main-container-headline"}>Gallery</div>
@@ -98,17 +98,15 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
 }
 
 async function handleGalleryImages(setPhotos): Promise<void>{
-    const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "sm", galleryName: "macro"});
-    if (results?.data?.error !== false) return;
+    const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "lg", galleryName: "macro"});
+    if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
-    let formattedImageData = [];
-
     if (imageData.length < 0) return;
+
+    let formattedImageData = [];
     for (let image of imageData){
         formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"]})
     }
-
-    cc(imageData)
 
     setPhotos(formattedImageData);
 }

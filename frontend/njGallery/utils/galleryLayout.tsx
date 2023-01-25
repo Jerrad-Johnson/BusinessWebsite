@@ -15,7 +15,7 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
 
-    return reformattedGalleryLayout.map((e, k) => {
+    return reformattedGalleryLayout.map((e) => {
         const boxHeight = Math.trunc(+e.boxHeight);
         const boxWidth = Math.trunc(+e.boxWidth);
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
@@ -23,7 +23,7 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
         return (
             <div
                 style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
-                key={k}
+                key={e.imgSrc}
             >
                 <Image
                     src={e.imgSrc}

@@ -13,6 +13,7 @@ function Gallery<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
     return (
+
         <div className={'container' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
             <GenericHead
                 content={"Stuff"}
