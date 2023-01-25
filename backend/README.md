@@ -57,9 +57,7 @@ INSERT INTO admin_account (username, password) values ('admin', 'REPLACEME');
 
 ```
 CREATE TABLE gallery_lg_images ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, url VARCHAR(510), folder VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL, file_name_full VARCHAR(255) NOT NULL, alt_text VARCHAR(510) NOT NULL, camera_model VARCHAR(255), lens_model VARCHAR(255), focal_length VARCHAR(255), exposure_time VARCHAR(255), iso SMALLINT, photo_capture DATETIME, height VARCHAR(255), width VARCHAR(255), lat_lon POINT NOT NULL, altitude MEDIUMINT NOT NULL, SPATIAL INDEX (lat_lon) );
-
 CREATE TABLE gallery_sm_images ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, url VARCHAR(510), folder VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL, file_name_full VARCHAR(255) NOT NULL, alt_text VARCHAR(510) NOT NULL, camera_model VARCHAR(255), lens_model VARCHAR(255), focal_length VARCHAR(255), exposure_time VARCHAR(255), iso SMALLINT, photo_capture DATETIME, height VARCHAR(255), width VARCHAR(255), lat_lon POINT NOT NULL, altitude MEDIUMINT NOT NULL, SPATIAL INDEX (lat_lon) );
-
 CREATE TABLE gallery_tiny_images ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, url VARCHAR(510), folder VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL, file_name_full VARCHAR(255) NOT NULL, alt_text VARCHAR(510) NOT NULL, camera_model VARCHAR(255), lens_model VARCHAR(255), focal_length VARCHAR(255), exposure_time VARCHAR(255), iso SMALLINT, photo_capture DATETIME, height VARCHAR(255), width VARCHAR(255), lat_lon POINT NOT NULL, altitude MEDIUMINT NOT NULL, SPATIAL INDEX (lat_lon) );
 ```
 

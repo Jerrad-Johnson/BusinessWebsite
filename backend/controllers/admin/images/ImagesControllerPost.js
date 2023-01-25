@@ -52,7 +52,8 @@ exports.ImagesControllerPost = async (req, res, next) => {
 }
 
 
-/*
+/*NN
+
 if (!(filenames.length > 0)) next(); //TODO Handle error
 if (!rawExifData) next(); //TODO Handle error
 */

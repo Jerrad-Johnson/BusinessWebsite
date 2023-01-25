@@ -1,4 +1,5 @@
 import {GalleryInputs} from "../types/njGallery";
+import {cc} from "../../common/variables";
 
 export function checkInputForErrors(galleryInputsFromUser: GalleryInputs): void{
     const {images, containerPadding, imagePadding, targetRowHeight, targetRowHeightTolerance,
