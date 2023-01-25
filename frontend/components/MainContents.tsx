@@ -7,13 +7,18 @@ import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
 import styles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {images} from "next/dist/build/webpack/config/blocks/images";
 
 export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos]: ImageArrayData[] = useState([]);
-    getGalleryImages(setPhotos);
+
+    useEffect(() => {
+        handleGalleryImages(setPhotos);
+    }, []);
+
 
 
     /*[
@@ -92,9 +97,16 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
     );
 }
 
-async function getGalleryImages(setPhotos): ImageArrayData[]{
-    let results = await httpClient.get("http://localhost:3001/gallery/getThisFolder")
-    if (results) setPhotos(results);
+async function handleGalleryImages(setPhotos): Promise<void>{
+    const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "sm", galleryName: "macro"});
+    if (results?.data?.error !== false) return;
+    let imageData = results.data.data;
+    let formattedImageData = [];
+
+    if (imageData.length < 0) return;
+    for (let image of imageData){
+        formattedImageData.push({src: image.url, height: +image.height, width: +image.width})
+    }
+
+    setPhotos(formattedImageData);
 }
-
-

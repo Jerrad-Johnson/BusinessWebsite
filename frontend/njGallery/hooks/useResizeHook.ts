@@ -8,7 +8,6 @@ function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] 
                        ){
 
     useEffect(() => {
-        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef));
         window.addEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef)));
         return () => {
             window.removeEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef)));

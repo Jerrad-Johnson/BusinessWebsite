@@ -1,8 +1,12 @@
-exports.ct = console.trace;
 exports.cc = console.log;
+exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
+
+// Company-specific
 exports.businessName = "Ideal Portraits";
+
+// Gallery images
 exports.pathToLocalFSGalleries = "./photographs/galleries";
 exports.pathToPublicGalleries = "./public/galleries";
 const pathTo10pxThumbnails = "./public/galleries/10px_thumbnails";
@@ -20,21 +24,12 @@ exports.pathToLocalFSGallery1920pxThumbnailsWithExif = "./public/galleries/1920p
 exports.publicPathToLgImgs = "http://localhost:3001/galleries/1920px_photos";
 exports.publicPathToSmImgs = "http://localhost:3001/galleries/thumbnails";
 exports.publicPathToTinyImgs = "http://localhost:3001/galleries/10px_thumbnails"; // TODO These, and many others, need to be updated. In this case, environment variable is important.
-exports.fitMethods = {
-    inside: "inside",
-}
 exports.pathsToPublicGalleries = {
     pathTo1920pxPhotos: pathTo1920pxPhotos,
     pathTo10pxThumbnails: pathTo10pxThumbnails,
     pathToThumbnails: pathToThumbnails,
     pathToBase64Thumbnails: pathToBase64Thumbnails,
 }
-exports.resizeResolutions = {
-    mapThumbnail: 300,
-    tenPx: 10,
-    large: 1920,
-}
-
 exports.pathTo10pxThumbnails = pathTo10pxThumbnails;
 exports.pathToBase64Thumbnails = pathToBase64Thumbnails;
 exports.pathTo1920pxPhotos = pathTo1920pxPhotos;
@@ -42,3 +37,17 @@ exports.pathToThumbnails = pathToThumbnails;
 exports.pathToExifThumbnails = pathToExifThumbnails;
 exports.pathToExif10pxThumbnails = pathToExif10pxThumbnails;
 exports.pathToExif1920pxPhotos = pathToExif1920pxPhotos;
+
+exports.galleryTableNameLg = "gallery_lg_images";
+exports.galleryTableNameSm = "gallery_sm_images";
+exports.galleryTableNameTiny = "gallery_tiny_images";
+
+// Options for Sharp
+exports.fitMethods = {
+    inside: "inside",
+}
+exports.resizeResolutions = {
+    mapThumbnail: 300,
+    tenPx: 10,
+    large: 1920,
+}

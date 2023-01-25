@@ -4,8 +4,8 @@ const {getThisFolderOfImages} = require("../models/gallery/getThisFolderOfImages
 var router = express.Router();
 
 /* GET home page. */
-router.get('/getThisFolder', function(req, res, next) {
-    getThisFolderOfImages();
+router.post('/getThisFolder', function(req, res, next) {
+    getThisFolderOfImages(req, res, next);
 });
 
 module.exports = router;
