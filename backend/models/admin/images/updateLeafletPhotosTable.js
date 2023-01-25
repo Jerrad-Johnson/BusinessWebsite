@@ -16,13 +16,13 @@ exports.updateLeafletPhotosTable = async (req, res, files) => {
     }
 
     const insertData = [{
-            query: `INSERT INTO gallery_lg_images(url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
+            query: `INSERT INTO gallery_lg_images(url, base64url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
             files: files.largeImgsExif,
             }, {
-            query: `INSERT INTO gallery_sm_images(url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
+            query: `INSERT INTO gallery_sm_images(url, base64url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
             files: files.smallImgsExif,
             }, {
-            query: `INSERT INTO gallery_tiny_images(url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
+            query: `INSERT INTO gallery_tiny_images(url, base64url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, focal_length, exposure_time, iso, photo_capture, width, height, lat_lon, altitude) VALUES (?);`,
             files: files.tinyImgsExif,
         }
     ];
@@ -37,7 +37,7 @@ exports.updateLeafletPhotosTable = async (req, res, files) => {
                 try {
                     let RAW_POINT = mysql.raw(`ST_GeomFromText("POINT(${lon} ${lat})")`);
 
-                    await genericSQLPromise(set.query, [[file.URL, folder, file.FileName,
+                    await genericSQLPromise(set.query, [[file.URL, file.base64url, folder, file.FileName,
                         file.FileNameFull, file.AltText, file.CameraModel, file.LensModel, file.FocalLength,
                         file.ExposureTime, file.ISOSpeedRatings, file.DateTimeCreated, file.width, file.height,
                         RAW_POINT, file.GPSAltitude]], res);

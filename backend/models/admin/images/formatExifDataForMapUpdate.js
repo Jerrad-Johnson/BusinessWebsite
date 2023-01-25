@@ -1,4 +1,6 @@
-const {businessName, errorExistsInScript, cc, ct, publicPathToLgImgs, publicPathToSmImgs, publicPathToTinyImgs} = require("../../../common/variables");
+const {businessName, errorExistsInScript, cc, ct, publicPathToLgImgs, publicPathToSmImgs, publicPathToTinyImgs,
+    publicPathToBase64Imgs
+} = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (allExifData) => {
     let {largeImgsExif, smallImgsExif, tinyImgsExif} = {...allExifData};
 
@@ -47,6 +49,7 @@ function format(exifData, url){
             formattedExifData[folder] = [];
 
             for (let file of exifData[folder]){
+
                 [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
                 [exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);
                 exifObject.DateTimeCreated = file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
@@ -63,6 +66,7 @@ function format(exifData, url){
                 exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
                 exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
                 exifObject.URL = `${url}/${folder}/${file.fileName}`;
+                exifObject.base64url = `${publicPathToBase64Imgs}/${folder}/${file.fileName};`
                 exifObject.width = file['Image Width'].value;
                 exifObject.height = file['Image Height'].value
 
