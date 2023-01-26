@@ -5,7 +5,7 @@ const mysql = require("mysql");
 const path = require("path");
 
 exports.updateLeafletPhotosTable = async (req, res, files) => {
-    const deleteAllQueries = ["DELETE FROM gallery_lg_images;", "DELETE FROM gallery_sm_images;", "DELETE FROM gallery_tiny_images;"]
+    const deleteAllQueries = ["DELETE FROM gallery_lg_images;", "DELETE FROM gallery_sm_images;", "DELETE FROM gallery_tiny_images;", "DELETE FROM gallery_geo_data"]
     const insertQueries = []
 
     try{
@@ -19,7 +19,6 @@ exports.updateLeafletPhotosTable = async (req, res, files) => {
         query: `INSERT INTO gallery_lg_images(url, base64url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, 
             focal_length, exposure_time, iso, photo_capture, width, height) VALUES (?);`,
         files: files.largeImgsExif,
-
         }, {
         query: `INSERT INTO gallery_sm_images(url, base64url, folder, file_name, file_name_full, alt_text, camera_model, lens_model, 
             focal_length, exposure_time, iso, photo_capture, width, height) VALUES (?);`,
