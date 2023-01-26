@@ -21,8 +21,6 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
         handleGalleryImages(setPhotos, galleryFolders[0].key);
     }, [galleryFolders]);
 
-    cc(galleryFolders)
-
     useEffect(() => {
         getGalleryFolderNames(setGalleryFolders, setPhotos);
         //handleGalleryImages(setPhotos);
@@ -53,7 +51,6 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             <NjGallery
                                 {...galleryInputs}
                             />
-                            lorem <br />
                         </div>
                     </div>
                 </header>
@@ -120,7 +117,7 @@ async function getGalleryFolderNames(setGalleryFolders, setPhotos){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`)
     const elements = folders.data.data.map((elem) => {
       return (
-          <span key={elem.folder} onClick={(event) => {
+          <span key={elem.folder} className={"galleryFolderSelectors"} onClick={(event) => {
             handleFolderChange(elem.folder, setPhotos);
           }}>{elem.folder}</span>
       );

@@ -375,6 +375,24 @@ ul {
     transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
 }
 
+.galleryFolderSelectors{
+    padding-right: 6px;
+    padding-left: 6px;
+    border-right: 2px solid darkgreen;
+    display: inline-block;
+}
+
+span.galleryFolderSelectors::first-letter{
+    text-transform: capitalize;
+    font-size: 1.2rem;
+}
+
+.galleryFolderSelectors:first-of-type{
+    border-left: 2px solid darkgreen;
+}
+
+
+
 
 
 /*
