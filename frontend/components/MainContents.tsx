@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {orientations} from "../hooks/useOrientation";
 import {darkTheme, lightTheme} from "../features/theme/themeSlice";
-import {cc, isLoading} from "../common/variables";
+import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
 import styles from "../styles/Index.module.css";
@@ -9,7 +9,7 @@ import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
 import {useEffect, useState} from "react";
 import {images} from "next/dist/build/webpack/config/blocks/images";
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
@@ -51,6 +51,34 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             <NjGallery
                                 {...galleryInputs}
                             />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
                         </div>
                     </div>
                 </header>
@@ -69,7 +97,7 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
                            objectPosition={'center'}/>
                     <div className={styles.overlay + " homeOverlay"}>
                         <div className={styles.inner}>
-                            <h2 className={"title"}>Promo video to come</h2>
+                            {/*<h2 className={"title"}>Promo video to come</h2>*/}
                             {/*<button className={"btn"}>Read more</button>*/}
                         </div>
                     </div>
@@ -80,6 +108,9 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
 }
 
 export function GalleryMapMain({isUserMobile, width, dispatch, screenOrientation, MapWithNoSSR}){
+
+    const [lens, setLens] = useState("");
+
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -88,9 +119,133 @@ export function GalleryMapMain({isUserMobile, width, dispatch, screenOrientation
                            objectPosition={'center'} alt={'Cover Portrait'}/>
                     <div className={"overlay"}>
                         <div className={"main-container-content"}>
+                            <div className={"main-container-headline"}></div>
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Lens</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={lens}
+                                    onChange={(e) => {
+                                        setLens(e.target.value);
+                                    }}
+                                    label="Lens"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Otus 55</MenuItem>
+                                    <MenuItem value={20}>Otus 85</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Camera</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={lens}
+                                    onChange={(e) => {
+                                        setLens(e.target.value);
+                                    }}
+                                    label="Lens"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Otus 55</MenuItem>
+                                    <MenuItem value={20}>Otus 85</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Category</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={lens}
+                                    onChange={(e) => {
+                                        setLens(e.target.value);
+                                    }}
+                                    label="Lens"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Otus 55</MenuItem>
+                                    <MenuItem value={20}>Otus 85</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="demo-simple-select-standard-label">ISO</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={lens}
+                                    onChange={(e) => {
+                                        setLens(e.target.value);
+                                    }}
+                                    label="Lens"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Otus 55</MenuItem>
+                                    <MenuItem value={20}>Otus 85</MenuItem>
+                                </Select>
+                            </FormControl>
+
+
+
                             <div id={"map"} className={"height: 100px;"}>
                                 <MapWithNoSSR />
                             </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    );
+}
+
+export function AboutMain({isUserMobile, width, dispatch, screenOrientation}){
+    return (
+        <div className={"main-container"}>
+            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+                <header>
+                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
+                           objectPosition={'center'} alt={'Cover Portrait'}/>
+                    <div className={"overlay"}>
+                        <div className={"main-container-content"}>
+                            <div className={"main-container-headline"}>About</div>
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
                         </div>
                     </div>
                 </header>

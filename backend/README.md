@@ -25,11 +25,13 @@ exports.sessionSecret = "YOUR-STRING-HERE";
 ```
 
 ## Database
-### Administration
+### Creation
 
 ```
 CREATE DATABASE Business;
 ```
+
+### User
 
 ```
 CREATE USER 'REPLACEME'@'localhost' IDENTIFIED WITH mysql_native_password BY 'REPLACEME';
@@ -39,35 +41,116 @@ CREATE USER 'REPLACEME'@'localhost' IDENTIFIED WITH mysql_native_password BY 'RE
 GRANT ALL PRIVILEGES ON Business.* TO 'REPLACEME'@'localhost'; 
 ```
 
+### Tables
+
 ```
 USE Business; 
 ```
 
 ```
-CREATE TABLE admin_account (username CHAR(5), password VARCHAR(120));
+create table admin_account
+(
+    username char(5)      null,
+    password varchar(120) null
+);
+
+create table gallery_geo_data
+(
+    id        int auto_increment
+        primary key,
+    folder    varchar(255) null,
+    file_name varchar(255) null,
+    lat_lon   point        not null,
+    altitude  mediumint    not null,
+    constraint id
+        unique (id)
+);
+
+create spatial index lat_lon
+    on gallery_geo_data (lat_lon);
+
+create table gallery_lg_images
+(
+    id             int auto_increment
+        primary key,
+    url            varchar(510) null,
+    base64url      varchar(510) null,
+    folder         varchar(255) not null,
+    file_name      varchar(255) not null,
+    file_name_full varchar(255) not null,
+    alt_text       varchar(510) not null,
+    camera_model   varchar(255) null,
+    lens_model     varchar(255) null,
+    focal_length   varchar(255) null,
+    exposure_time  varchar(255) null,
+    iso            smallint     null,
+    photo_capture  datetime     null,
+    height         varchar(255) null,
+    width          varchar(255) null,
+    constraint id
+        unique (id)
+);
+
+create table gallery_sm_images
+(
+    id             int auto_increment
+        primary key,
+    url            varchar(510) null,
+    base64url      varchar(510) null,
+    folder         varchar(255) not null,
+    file_name      varchar(255) not null,
+    file_name_full varchar(255) not null,
+    alt_text       varchar(510) not null,
+    camera_model   varchar(255) null,
+    lens_model     varchar(255) null,
+    focal_length   varchar(255) null,
+    exposure_time  varchar(255) null,
+    iso            smallint     null,
+    photo_capture  datetime     null,
+    height         varchar(255) null,
+    width          varchar(255) null,
+    constraint id
+        unique (id)
+);
+
+create table gallery_tiny_images
+(
+    id             int auto_increment
+        primary key,
+    url            varchar(510) null,
+    base64url      varchar(510) null,
+    folder         varchar(255) not null,
+    file_name      varchar(255) not null,
+    file_name_full varchar(255) not null,
+    alt_text       varchar(510) not null,
+    camera_model   varchar(255) null,
+    lens_model     varchar(255) null,
+    focal_length   varchar(255) null,
+    exposure_time  varchar(255) null,
+    iso            smallint     null,
+    photo_capture  datetime     null,
+    height         varchar(255) null,
+    width          varchar(255) null,
+    constraint id
+        unique (id)
+);
 ```
 
+### Entry
 ```
 INSERT INTO admin_account (username, password) values ('admin', 'REPLACEME');   
 ```
 
-## Gallery Images (includes Leaflet).
+### Adding photos
 
-### Table
+In the backend/photographs directory, add folders containing images. Example:
 
 ```
-CREATE TABLE gallery_lg_images ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, url VARCHAR(510), base64url VARCHAR(510), folder VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL, file_name_full VARCHAR(255) NOT NULL, alt_text VARCHAR(510) NOT NULL, camera_model VARCHAR(255), lens_model VARCHAR(255), focal_length VARCHAR(255), exposure_time VARCHAR(255), iso SMALLINT, photo_capture DATETIME, height VARCHAR(255), width VARCHAR(255) );
-
-CREATE TABLE gallery_sm_images ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, url VARCHAR(510), base64url VARCHAR(510), folder VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL, file_name_full VARCHAR(255) NOT NULL, alt_text VARCHAR(510) NOT NULL, camera_model VARCHAR(255), lens_model VARCHAR(255), focal_length VARCHAR(255), exposure_time VARCHAR(255), iso SMALLINT, photo_capture DATETIME, height VARCHAR(255), width VARCHAR(255) );
-
-CREATE TABLE gallery_tiny_images ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, url VARCHAR(510), base64url VARCHAR(510), folder VARCHAR(255) NOT NULL, file_name VARCHAR(255) NOT NULL, file_name_full VARCHAR(255) NOT NULL, alt_text VARCHAR(510) NOT NULL, camera_model VARCHAR(255), lens_model VARCHAR(255), focal_length VARCHAR(255), exposure_time VARCHAR(255), iso SMALLINT, photo_capture DATETIME, height VARCHAR(255), width VARCHAR(255) );
-
-CREATE TABLE gallery_geo_data ( id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT, folder VARCHAR(255), file_name VARCHAR(255), SPATIAL INDEX (lat_lon), lat_lon POINT NOT NULL, altitude MEDIUMINT NOT NULL);
+photographs/Studio Portraits/img_2241-Rockabilly-.jpg
+photographs/Studio Portraits/img_2242-High School Senior-.jpg
+photographs/Macro/img_3000-Butterfly-.jpg
 ```
 
-### Location
-
-Create folders in the `public` folder and store images in those folders. Note: sub-folders are not supported.
 
 ### Filename Format
 

@@ -13,3 +13,7 @@
 .main-container-content{
     background-color: rgba(20, 20, 20, .98);
 }
+
+body{
+    color: #ccc;
+}
