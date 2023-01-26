@@ -18,8 +18,8 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/portfolio"}>
-                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.15s"}}>Portfolio</a>
+                    <Link href={"/gallery-map"}>
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.15s"}}>Gallery Map</a>
                     </Link>
                 </li>
                 <li>

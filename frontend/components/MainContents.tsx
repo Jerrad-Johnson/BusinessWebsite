@@ -80,6 +80,26 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
     );
 }
 
+export function GalleryMapMain({isUserMobile, width, dispatch, screenOrientation, MapWithNoSSR}){
+    return (
+        <div className={"main-container"}>
+            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+                <header>
+                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
+                           objectPosition={'center'} alt={'Cover Portrait'}/>
+                    <div className={"overlay"}>
+                        <div className={"main-container-content"}>
+                            <div id={"map"} className={"height: 100px;"}>
+                                <MapWithNoSSR />
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    );
+}
+
 async function handleGalleryImages(setPhotos, folder): Promise<void>{
     const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "lg", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
@@ -110,6 +130,7 @@ async function getGalleryFolderNames(setGalleryFolders, setPhotos){
 function handleFolderChange(folder, setPhotos){
     handleGalleryImages(setPhotos, folder);
 }
+
 
 
 
