@@ -26,15 +26,17 @@ function reformatFilenameAndGetAltText(file, folder){
 }
 
 function reformatDateAndTime(file){
+
     let timeCreated = file.DateCreated.value.slice(11, 19)
     let hourToShift = +timeCreated.slice(0, 2);
-    let originalTZ = file.OffsetTimeOriginal.description.slice(0, 3);
-    let newTZ = file.OffsetTime.description.slice(0, 3);
+    let originalTZ = file.OffsetTimeOriginal?.description?.slice(0, 3) || 0;
+    let newTZ = file.OffsetTime?.description?.slice(0, 3) || 0;
     let tzDifference = eval(newTZ - originalTZ); // NOTE: My users have no way of causing any text to end up here; eval is safe.
     let hourShifted = hourToShift + tzDifference;
     let newTimeCreated = hourShifted + timeCreated.slice(2);
     let dateCreated = file.DateCreated.value.slice(0, 10);
 
+    //cc(dateCreated)
     return [newTimeCreated, dateCreated];
 }
 
@@ -48,11 +50,28 @@ function format(exifData, url){
         for (let folder in exifData){
             formattedExifData[folder] = [];
 
+
             for (let file of exifData[folder]){
 
                 [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
                 [exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);
-                exifObject.DateTimeCreated = file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
+                //cc(exifObject.TimeCreated);
+                exifObject.DateTimeCreated = `${exifObject.DateCreated}T${exifObject.TimeCreated}.00${file.OffsetTime.description}`;
+                /*cc(exifObject.DateTimeCreated);
+                cc(file.DateCreated.value.slice(0, -6) + file.OffsetTime.description);*/
+                //cc(exifObject.DateTimeCreated)
+
+                  //  cc(`${exifObject.DateCreated}T${exifObject.TimeCreated}.00:${file.OffsetTime.description}`);
+
+                    /*file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
+                cc(`${exifObject.DateCreated}T${exifObject.TimeCreated}:${file.OffsetTime.description}`)*/
+                //cc(exifObject.DateTimeCreated)
+                //cc(file.OffsetTime.description)
+                //cc(exifObject.TimeCreated)
+                //cc(file.DateCreated.value)
+                //cc(exifObject.DateCreated)
+                //cc(exifObject.DateTimeCreated);
+                //cc(exifObject.DateTimeCreated, file.DateCreated.value, file.OffsetTime.description)
 
                 exifObject.FolderName = folder;
                 exifObject.FileNameFull = file.fileName;
@@ -62,13 +81,19 @@ function format(exifData, url){
                 exifObject.ExposureTime = file.ExposureTime.description;
                 exifObject.ApertureValue = file.ApertureValue.description;
                 exifObject.ISOSpeedRatings = file.ISOSpeedRatings.value;
-                exifObject.GPSLatitude = (file.GPSLatitude.description + " " + file.GPSLatitudeRef.value[0]);
-                exifObject.GPSLongitude = (file.GPSLongitude.description + " " + file.GPSLongitudeRef.value[0]);
-                exifObject.GPSAltitude = Math.trunc(file.GPSAltitude.value[0] / 10000 * 3.28084);
+                if (file.GPSLatitude?.description){
+                    exifObject.GPSLatitude = (file.GPSLatitude?.description + " " + file.GPSLatitudeRef?.value[0])
+                    exifObject.GPSLongitude = (file.GPSLongitude?.description + " " + file.GPSLongitudeRef?.value[0]);
+                } else {
+                    exifObject.GPSLatitude = null;
+                    exifObject.GPSLongitude = null;
+                }
+                exifObject.GPSAltitude = Math.trunc(file.GPSAltitude?.value?.[0] / 10000 * 3.28084) || null;
                 exifObject.URL = `${url}/${folder}/${file.fileName}`;
                 exifObject.base64url = `${publicPathToBase64Imgs}/${folder}/${file.fileName}`;
                 exifObject.width = file['Image Width'].value;
                 exifObject.height = file['Image Height'].value;
+
 
                 exifAsString = JSON.stringify(exifObject);
                 formattedExifData[folder].push(exifAsString);
@@ -79,8 +104,8 @@ function format(exifData, url){
                     delete exifObject[prop];
                 }
 
-                let captureDate = new Date(file.DateCreated.value);
-                let captureDateToUTC = captureDate.toUTCString();
+                /*let captureDate = new Date(file.DateCreated.value);
+                let captureDateToUTC = captureDate.toUTCString();*/
             }
         }
     } catch (e) {
