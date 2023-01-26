@@ -18,6 +18,12 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
     const [galleryFolders, setGalleryFolders] = useState(isLoading);
 
     useEffect(() => {
+        handleGalleryImages(setPhotos, galleryFolders[0].key);
+    }, [galleryFolders]);
+
+    cc(galleryFolders)
+
+    useEffect(() => {
         getGalleryFolderNames(setGalleryFolders, setPhotos);
         //handleGalleryImages(setPhotos);
     }, []);
