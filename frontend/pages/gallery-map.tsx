@@ -20,7 +20,6 @@ function GalleryMap<NextPage>(){
     });
 
     return (
-
         <div className={'container' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
             <GenericHead
                 content={"Stuff"}

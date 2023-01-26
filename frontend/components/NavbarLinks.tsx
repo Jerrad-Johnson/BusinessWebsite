@@ -2,8 +2,11 @@ import Link from "next/link";
 import {cc, navbarOptions} from "../common/variables";
 import {Dispatch, MouseEvent, SetStateAction} from "react";
 import {NavbarOptions} from "../types/layout";
+import {darkTheme, lightTheme} from "../features/theme/themeSlice";
+import Basics from "./forEveryPage";
 
 function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}){
+    const {dispatch} = Basics();
     return (
         <div className={"links"}>
             <ul>
@@ -36,6 +39,11 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                     <Link href={"/contact"}>
                         <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.30s"}}>Contact</a>
                     </Link>
+                </li>
+                <hr/>
+                <li>
+                    <a style={{"--i": "0.30s"}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp;
+                    <a style={{"--i": "0.30s"}} onClick={(e) => { e.preventDefault(); dispatch(darkTheme()); }}>Dark</a>
                 </li>
             </ul>
         </div>

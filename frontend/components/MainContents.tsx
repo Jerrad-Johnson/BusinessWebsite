@@ -66,12 +66,8 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
                            objectPosition={'center'}/>
                     <div className={styles.overlay + " homeOverlay"}>
                         <div className={styles.inner}>
-                            <h2 className={"title"}>Future is here</h2>
-                            <p>
-                                <button onClick={() => { dispatch(lightTheme()); }}>Light </button>
-                                <button onClick={() => { dispatch(darkTheme()); }}>Dark </button>
-                            </p>
-                            <button className={"btn"}>Read more</button>
+                            <h2 className={"title"}>Promo video to come</h2>
+                            {/*<button className={"btn"}>Read more</button>*/}
                         </div>
                     </div>
                 </header>
