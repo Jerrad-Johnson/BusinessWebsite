@@ -10,7 +10,7 @@ import createGalleryLayout from "./utils/galleryLayout";
 function NjGallery(galleryInputsFromUser: GalleryInputs) {
     checkInputForErrors(galleryInputsFromUser);
     const galleryElementRef: GalleryElementRef = useRef(null);
-    const [imageElements, setImageElements] = useState(null);
+    const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(galleryInputsFromUser);
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};

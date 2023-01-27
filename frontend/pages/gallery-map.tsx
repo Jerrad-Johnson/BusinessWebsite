@@ -15,7 +15,7 @@ import Basics from "../components/forEveryPage";
 
 function GalleryMap<NextPage>(){
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
-    const MapWithNoSSR = dynamic(() => import("../components/LeafletMap"), {
+    const MapWithNoSSR: React.ComponentType = dynamic(() => import("../components/LeafletMap"), {
         ssr: false,
     });
 

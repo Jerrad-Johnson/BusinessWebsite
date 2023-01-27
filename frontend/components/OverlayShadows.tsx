@@ -1,4 +1,4 @@
-function OverlayShadows({isUserMobile, width}){
+function OverlayShadows({isUserMobile, width}: {isUserMobile: boolean, width: number}){
 
     return (
         <>

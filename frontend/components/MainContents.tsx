@@ -7,15 +7,15 @@ import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
 import indexStyles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
-import {useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {images} from "next/dist/build/webpack/config/blocks/images";
 import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                             {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
-    const [photos, setPhotos]: ImageArrayData[] = useState([]);
-    const [galleryFolders, setGalleryFolders] = useState(isLoading);
+    const [photos, setPhotos] = useState<ImageArrayData[]>([]);
+    const [galleryFolders, setGalleryFolders] = useState<isLoading | JSX.Element[]>(isLoading);
 
     useEffect(() => {
         handleGalleryImages(setPhotos, galleryFolders[0].key);
@@ -115,7 +115,8 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
     );
 }
 
-export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithNoSSR}){
+export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithNoSSR}:
+                               {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions, MapWithNoSSR: React.ComponentType}){
 
     const [lens, setLens] = useState("");
 
@@ -217,7 +218,7 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
     );
 }
 
-export function AboutMain({isUserMobile, width, screenOrientation}){
+export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -262,13 +263,13 @@ export function AboutMain({isUserMobile, width, screenOrientation}){
     );
 }
 
-async function handleGalleryImages(setPhotos, folder): Promise<void>{
+async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>, folder: string): Promise<void>{
     const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "lg", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
 
-    let formattedImageData = [];
+    let formattedImageData: ImageArrayData[] = [];
     for (let image of imageData){
         formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"]})
     }
@@ -276,9 +277,9 @@ async function handleGalleryImages(setPhotos, folder): Promise<void>{
     setPhotos(formattedImageData);
 }
 
-async function getGalleryFolderNames(setGalleryFolders, setPhotos){
+async function getGalleryFolderNames(setGalleryFolders: Dispatch<JSX.Element[]>, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`)
-    const elements = folders.data.data.map((elem) => {
+    const elements = folders.data.data.map((elem: {folder: string}) => {
       return (
           <span key={elem.folder} className={"galleryFolderSelectors"} onClick={(event) => {
             handleFolderChange(elem.folder, setPhotos);
@@ -289,7 +290,7 @@ async function getGalleryFolderNames(setGalleryFolders, setPhotos){
     setGalleryFolders(elements);
 }
 
-function handleFolderChange(folder, setPhotos){
+function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
     handleGalleryImages(setPhotos, folder);
 }
 
