@@ -1,11 +1,12 @@
 import type {ReactElement} from "react";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
-import Navbar from "../components/Navbar";
+import Navbar, {HomeNavbar} from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
 import {IndexMain} from "../components/MainContents";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
+import HomeStyle from "../styles/Index.module.css";
 const cc = console.log;
 
 function Home<NextPage>(): ReactElement{
@@ -17,7 +18,7 @@ function Home<NextPage>(): ReactElement{
                 content={"Index"}
                 metaName={"Home"}
             />
-            <Navbar
+            <HomeNavbar
                 navbarOpenOrClosed={navbarOpenOrClosed}
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />

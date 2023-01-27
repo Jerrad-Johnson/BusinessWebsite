@@ -4,7 +4,7 @@ import {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
-import styles from "../styles/Index.module.css";
+import indexStyles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
 import {useEffect, useState} from "react";
@@ -103,8 +103,8 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'}/>
-                    <div className={styles.overlay + " homeOverlay"}>
-                        <div className={styles.inner}>
+                    <div className={indexStyles.overlay + " homeOverlay"}>
+                        <div className={indexStyles.inner}>
                             {/*<h2 className={"title"}>Promo video to come</h2>*/}
                             {/*<button className={"btn"}>Read more</button>*/}
                         </div>

@@ -15,13 +15,22 @@
     background-color: #000;
 }
 
-.bar.navOpen{
-    background-color: #fff;
-}
-
 .bar:before,
 .bar:after {
     background-color: #000;
+}
+
+.bar.home{
+    background-color: #eee;
+}
+
+.bar.home:before,
+.bar.home:after {
+    background-color: #eee;
+}
+
+.bar.navOpen{
+    background-color: #fff;
 }
 
 .logo {
