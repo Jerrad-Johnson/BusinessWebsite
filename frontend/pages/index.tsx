@@ -25,7 +25,6 @@ function Home<NextPage>(): ReactElement{
             <IndexMain
                 isUserMobile={isUserMobile}
                 width={width}
-                dispatch={dispatch}
                 screenOrientation={screenOrientation}
             />
             <OverlayShadows

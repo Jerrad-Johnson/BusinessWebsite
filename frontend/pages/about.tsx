@@ -24,7 +24,6 @@ function About<NextPage>(): ReactElement{
             <AboutMain
                 isUserMobile={isUserMobile}
                 width={width}
-                dispatch={dispatch}
                 screenOrientation={screenOrientation}
             />
             <OverlayShadows

@@ -7,10 +7,11 @@ import OverlayShadows from "../components/OverlayShadows";
 import {GalleryMain} from "../components/MainContents";
 import {GenericHead} from "./Heads";
 import {NavbarOptions} from "../types/layout";
+import Basics from "./forEveryPage";
 
 
 function Gallery<NextPage>(): ReactElement{
-    const [navbarOpenOrClosed, setNavbarOpenOrClosed] = useState<NavbarOptions>(navbarOptions.closed);
+    const {navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile} = Basics();
 
     return (
         <div className={'container' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
@@ -19,9 +20,18 @@ function Gallery<NextPage>(): ReactElement{
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
             <GenericHead/>
-            <GalleryMain/>
-            <OverlayShadows/> {/*@ts-ignore*/}
-            <NavbarLinks/>
+            <GalleryMain
+                isUserMobile = {isUserMobile}
+                width = {width}
+                screenOrientation = {screenOrientation}
+            />
+            <OverlayShadows
+                isUserMobile = {isUserMobile}
+                width = {width}
+            />
+            <NavbarLinks
+                setNavbarOpenOrClosed = {setNavbarOpenOrClosed}
+            />
         </div>
     );
 }

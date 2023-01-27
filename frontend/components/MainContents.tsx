@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {orientations} from "../hooks/useOrientation";
-import {darkTheme, lightTheme} from "../features/theme/themeSlice";
+import ThemeSlice, {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
@@ -11,8 +11,8 @@ import {useEffect, useState} from "react";
 import {images} from "next/dist/build/webpack/config/blocks/images";
 import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
-export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
-                            {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
+export function GalleryMain({isUserMobile, width, screenOrientation}:
+                            {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos]: ImageArrayData[] = useState([]);
     const [galleryFolders, setGalleryFolders] = useState(isLoading);
@@ -95,8 +95,8 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
     );
 }
 
-export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
-                          {isUserMobile: boolean, width: number, dispatch, screenOrientation: OrientationOptions}){
+export function IndexMain({isUserMobile, width, screenOrientation}:
+                          {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
     return(
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -115,7 +115,7 @@ export function IndexMain({isUserMobile, width, dispatch, screenOrientation}:
     );
 }
 
-export function GalleryMapMain({isUserMobile, width, dispatch, screenOrientation, MapWithNoSSR}){
+export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithNoSSR}){
 
     const [lens, setLens] = useState("");
 
@@ -217,7 +217,7 @@ export function GalleryMapMain({isUserMobile, width, dispatch, screenOrientation
     );
 }
 
-export function AboutMain({isUserMobile, width, dispatch, screenOrientation}){
+export function AboutMain({isUserMobile, width, screenOrientation}){
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>

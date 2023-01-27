@@ -26,7 +26,6 @@ function Gallery<NextPage>(): ReactElement{
             <GalleryMain
                 isUserMobile={isUserMobile}
                 width={width}
-                dispatch={dispatch}
                 screenOrientation={screenOrientation}
             />
             <OverlayShadows

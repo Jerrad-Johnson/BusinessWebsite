@@ -32,7 +32,6 @@ function GalleryMap<NextPage>(){
             <GalleryMapMain
                 isUserMobile={isUserMobile}
                 width={width}
-                dispatch={dispatch}
                 screenOrientation={screenOrientation}
                 MapWithNoSSR={MapWithNoSSR}
             />
