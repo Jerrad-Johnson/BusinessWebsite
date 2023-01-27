@@ -26,7 +26,6 @@ function reformatFilenameAndGetAltText(file, folder){
 }
 
 function reformatDateAndTime(file){
-
     let timeCreated = file.DateCreated.value.slice(11, 19)
     let hourToShift = +timeCreated.slice(0, 2);
     let originalTZ = file.OffsetTimeOriginal?.description?.slice(0, 3) || 0;
@@ -36,12 +35,12 @@ function reformatDateAndTime(file){
     let newTimeCreated = hourShifted + timeCreated.slice(2);
     let dateCreated = file.DateCreated.value.slice(0, 10);
 
-    //cc(dateCreated)
     return [newTimeCreated, dateCreated];
 }
 
 
 function format(exifData, url){
+
     let exifObject = {};
     let formattedExifData = {};
     let exifAsString = "";
@@ -55,24 +54,7 @@ function format(exifData, url){
 
                 [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
                 [exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);
-                //cc(exifObject.TimeCreated);
                 exifObject.DateTimeCreated = `${exifObject.DateCreated}T${exifObject.TimeCreated}.00${file.OffsetTime.description}`;
-                /*cc(exifObject.DateTimeCreated);
-                cc(file.DateCreated.value.slice(0, -6) + file.OffsetTime.description);*/
-                //cc(exifObject.DateTimeCreated)
-
-                  //  cc(`${exifObject.DateCreated}T${exifObject.TimeCreated}.00:${file.OffsetTime.description}`);
-
-                    /*file.DateCreated.value.slice(0, -6) + file.OffsetTime.description;
-                cc(`${exifObject.DateCreated}T${exifObject.TimeCreated}:${file.OffsetTime.description}`)*/
-                //cc(exifObject.DateTimeCreated)
-                //cc(file.OffsetTime.description)
-                //cc(exifObject.TimeCreated)
-                //cc(file.DateCreated.value)
-                //cc(exifObject.DateCreated)
-                //cc(exifObject.DateTimeCreated);
-                //cc(exifObject.DateTimeCreated, file.DateCreated.value, file.OffsetTime.description)
-
                 exifObject.FolderName = folder;
                 exifObject.FileNameFull = file.fileName;
                 exifObject.LensModel = file.LensModel.value;
@@ -115,30 +97,3 @@ function format(exifData, url){
 
     return formattedExifData;
 }
-
-
-/*
-
-CREATE TABLE gallery_std_thumbnails (
-    id INT PRIMARY KEY UNIQUE NOT NULL AUTO_INCREMENT,
-    folder VARCHAR(255) NOT NULL,
-    file_name VARCHAR(255) NOT NULL,
-    file_name_full VARCHAR(255) NOT NULL,
-    alt_text VARCHAR(510) NOT NULL,
-    camera_model VARCHAR(255),
-    lens_model VARCHAR(255),
-    focal_length VARCHAR(255),
-    exposure_time VARCHAR(255),
-    iso SMALLINT,
-    photo_capture DATETIME,
-    lat_lon POINT NOT NULL,
-    altitude MEDIUMINT NOT NULL,
-    SPATIAL INDEX (lat_lon)
-);
-
-
-
-
- SPATIAL KEY
-gps_latitude VARCHAR(255) NOT NULL,
-gps_longitude VARCHAR(255) NOT NULL,*/

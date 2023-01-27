@@ -15,6 +15,8 @@ exports.ImagesControllerPost = async (req, res, next) => {
         return;
     }*/
 
+    cc(5)
+
     let foldernames = await getFoldernamesForMapUpdate();
     if (foldernames === errorExistsInScript){
         res.status(500).send(standardizedResponse("Failed to find image folders."));
