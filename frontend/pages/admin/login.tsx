@@ -1,6 +1,5 @@
 import httpClient from "../../common/httpClient";
-import {Dispatch, ReactElement, SetStateAction, useState} from "react";
-import {HttpResponse} from "../../common/types";
+import {ReactElement, useState} from "react";
 const cc = console.log;
 
 function Login<NextPage>(): ReactElement{

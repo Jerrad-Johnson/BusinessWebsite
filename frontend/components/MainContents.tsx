@@ -10,14 +10,17 @@ import httpClient from "../common/httpClient";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {images} from "next/dist/build/webpack/config/blocks/images";
 import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {GalleryFolderSpans, IsLoading} from "../common/types";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                             {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos] = useState<ImageArrayData[]>([]);
-    const [galleryFolders, setGalleryFolders] = useState<isLoading | JSX.Element[]>(isLoading);
+    const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
 
     useEffect(() => {
+        if (galleryFolders === isLoading) return;
+        if (!("key" in galleryFolders[0])) return;
         handleGalleryImages(setPhotos, galleryFolders[0].key);
     }, [galleryFolders]);
 
@@ -277,7 +280,7 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArray
     setPhotos(formattedImageData);
 }
 
-async function getGalleryFolderNames(setGalleryFolders: Dispatch<JSX.Element[]>, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
+async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`)
     const elements = folders.data.data.map((elem: {folder: string}) => {
       return (
