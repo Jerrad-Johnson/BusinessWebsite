@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin/_admin');
 const leafletRouter = require('./routes/leaflet/leaflet');
 const galleryRouter = require("./routes/gallery");
+const {serverURL, frontendURL} = require("./common/variables");
 
 const app = express();
 const cc = console.log;
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
 app.use((req, res, next) => {
   const allowedOrigins = ['http://localhost:3000', 'http://localhost:3000', 'https://business.jerradjohnson.com', 'http://business.jerradjohnson.com'];
   const origin = req.headers.origin;
@@ -39,11 +41,12 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
   return next();
 });
+*/
 
-/*app.use(cors({
-  origin: "http://localhost:3000",
+app.use(cors({
+  origin: frontendURL,
   credentials: true,
-}));*/
+}));
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);

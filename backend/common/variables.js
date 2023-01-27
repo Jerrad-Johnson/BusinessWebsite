@@ -3,7 +3,8 @@ exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
 //const serverURL = "https://business.jerradjohnson.com:3002";
-const serverURL = "http://localhost:3002";
+export const serverURL = "http://localhost:3002";
+export const frontendURL = "https://business.jerradjohnson.com";
 
 // Company-specific
 exports.businessName = "Ideal Portraits";
