@@ -267,7 +267,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
 }
 
 async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>, folder: string): Promise<void>{
-    const results = await httpClient.post("http://localhost:3001/gallery/getThisFolder", {gallerySize: "lg", galleryName: folder});
+    const results = await httpClient.post(`${process.env.SERVERURL}/gallery/getThisFolder`, {gallerySize: "lg", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
@@ -281,7 +281,7 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArray
 }
 
 async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
-    const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`)
+    const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`);
     const elements = folders.data.data.map((elem: {folder: string}) => {
       return (
           <span key={elem.folder} className={"galleryFolderSelectors"} onClick={(event) => {

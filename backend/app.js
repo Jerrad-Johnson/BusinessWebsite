@@ -25,10 +25,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session(sessionOptions));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors({
+
+app.use((req, res, next) => {
+  const allowedOrigins = ['http://localhost:3000', 'https://business.jerradjohnson.com', 'http://business.jerradjohnson.com'];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  return next();
+});
+
+/*app.use(cors({
   origin: "http://localhost:3000",
   credentials: true,
-}));
+}));*/
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
