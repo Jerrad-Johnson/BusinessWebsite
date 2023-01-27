@@ -27,7 +27,7 @@ app.use(session(sessionOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  const allowedOrigins = ['http://localhost:3000', 'https://business.jerradjohnson.com', 'http://business.jerradjohnson.com'];
+  const allowedOrigins = ['http://localhost:3000', 'http://localhost:3000', 'https://business.jerradjohnson.com', 'http://business.jerradjohnson.com'];
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
