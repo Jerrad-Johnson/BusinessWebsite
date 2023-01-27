@@ -12,5 +12,5 @@ module.exports = {
   },
   env: {
     SERVERURL: process.env.SERVERURL,
-  },
+  }
 }
