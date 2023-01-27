@@ -2,6 +2,8 @@ exports.cc = console.log;
 exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
+const serverURL = "https://business.jerradjohnson.com:3002";
+//const serverURL = "http://localhost:3002";
 
 // Company-specific
 exports.businessName = "Ideal Portraits";
@@ -21,10 +23,10 @@ exports.pathToFullsizePhotos = "./public/galleries/fullsize_photos/";
 exports.pathToLocalFSGalleryThumbnailsWithExif = "./public/galleries/thumbnails_exif";
 exports.pathToLocalFSGallery10pxThumbnailsWithExif = "./public/galleries/10px_thumbnails_exif";
 exports.pathToLocalFSGallery1920pxThumbnailsWithExif = "./public/galleries/1920px_photos_exif";
-exports.publicPathToLgImgs = "http://localhost:3002/galleries/1920px_photos";
-exports.publicPathToSmImgs = "http://localhost:3002/galleries/thumbnails";
-exports.publicPathToTinyImgs = "http://localhost:3002/galleries/10px_thumbnails"; // TODO These, and many others, need to be updated. In this case, environment variable is important.
-exports.publicPathToBase64Imgs = "http://localhost:3002/galleries/base64_thumbnails"; // TODO These, and many others, need to be updated. In this case, environment variable is important.
+exports.publicPathToLgImgs = `${serverURL}/galleries/1920px_photos`;
+exports.publicPathToSmImgs = `${serverURL}/galleries/thumbnails`;
+exports.publicPathToTinyImgs = `${serverURL}/galleries/10px_thumbnails`; // TODO These, and many others, need to be updated. In this case, environment variable is important.
+exports.publicPathToBase64Imgs = `${serverURL}/galleries/base64_thumbnails`; // TODO These, and many others, need to be updated. In this case, environment variable is important.
 exports.pathsToPublicGalleries = {
     pathTo1920pxPhotos: pathTo1920pxPhotos,
     pathTo10pxThumbnails: pathTo10pxThumbnails,
