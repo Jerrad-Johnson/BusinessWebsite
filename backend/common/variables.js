@@ -2,8 +2,8 @@ exports.cc = console.log;
 exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
-//const serverURL = "https://business.jerradjohnson.com:3002";
-const serverURL = "http://35.92.185.101:3002";
+//const serverURL = "localhost:3002";
+const serverURL = "https://businessbackend.jerradjohnson.com";
 exports.frontendURL = "https://business.jerradjohnson.com";
 
 // Company-specific
