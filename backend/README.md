@@ -159,3 +159,9 @@ Filename is split via `-`
 `[1]` is used as alt text. `[0]` and `[2]` are rejoined as the file name--thus reconstituting the original file name.
 
 Example: `IMG_1022-Butterfly at Reiman Gardens-.jpg` becomes `IMG_1022.jpg` and `Butterfly at Reiman Gardens`--for the filename and alt text, respectively. 
+
+## Known Issues
+
+When running `npm i`, an error will occur related to `sharp`. Solution is to then run `npm install --ignore-scripts=false --foreground-scripts --verbose sharp`
+
+When running `npm i` in an ubuntu distro, an error related to node-linux-x64 may occur. Run `npm i cjs` to resolve the issue.
