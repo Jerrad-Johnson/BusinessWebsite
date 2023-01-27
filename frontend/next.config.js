@@ -8,7 +8,7 @@ const nextConfig = {
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'https://businessbackend.jerradjohnson.com'],
   },
   env: {
     SERVERURL: process.env.SERVERURL,
