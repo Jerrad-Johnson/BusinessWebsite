@@ -79,6 +79,14 @@ export function GalleryMain({isUserMobile, width, dispatch, screenOrientation}:
                             {lipsum}
                             <br />
                             <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
+
+                            {lipsum}
+                            <br />
+                            <br />
                         </div>
                     </div>
                 </header>
