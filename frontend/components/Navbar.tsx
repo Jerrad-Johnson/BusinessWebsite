@@ -22,7 +22,7 @@ function Navbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed
 export function HomeNavbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed: NavbarOptions, setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}): ReactElement {
 
     return (
-        <div className={"navbar"}>
+        <div className={"navbarHome"}>
             <div className={HomeStyle.menu}>
                 <h3 className={HomeStyle.logo}>Ideal<span>Portraits</span></h3>
                 <div className={"hamburger-menu"} onClick={(e) => {
