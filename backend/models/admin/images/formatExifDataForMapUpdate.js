@@ -58,10 +58,13 @@ function format(exifData, url){
 
                 [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
                 [exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);
-                if (exifObject.TimeCreated === dataMissing) exifObject.TimeCreated = null;
-                if (exifObject.DateCreated === dataMissing) exifObject.DateCreated = null;
-
-                exifObject.DateTimeCreated = `${exifObject.DateCreated}T${exifObject.TimeCreated}.00${file.OffsetTime.description}`;
+                if (exifObject.TimeCreated === dataMissing || exifObject.DateCreated === dataMissing){
+                    exifObject.TimeCreated = null;
+                    exifObject.DateCreated = null;
+                    exifObject.DateTimeCreated = null;
+                } else {
+                    exifObject.DateTimeCreated = `${exifObject.DateCreated}T${exifObject.TimeCreated}.00${file.OffsetTime.description}`;
+                }
                 exifObject.FolderName = folder;
                 exifObject.FileNameFull = file.fileName;
                 exifObject.LensModel = file.LensModel?.value || null;
