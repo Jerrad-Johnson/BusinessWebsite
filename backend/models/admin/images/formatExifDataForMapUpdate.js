@@ -86,7 +86,6 @@ function format(exifData, url){
                 exifObject.width = file['Image Width'].value;
                 exifObject.height = file['Image Height'].value;
 
-
                 exifAsString = JSON.stringify(exifObject);
                 formattedExifData[folder].push(exifAsString);
 
