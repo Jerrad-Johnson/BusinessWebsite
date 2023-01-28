@@ -57,12 +57,12 @@ function format(exifData, url){
                 exifObject.DateTimeCreated = `${exifObject.DateCreated}T${exifObject.TimeCreated}.00${file.OffsetTime.description}`;
                 exifObject.FolderName = folder;
                 exifObject.FileNameFull = file.fileName;
-                exifObject.LensModel = file.LensModel.value;
-                exifObject.CameraModel = file.Model.description;
-                exifObject.FocalLength = file.FocalLength.description.split(" ").join("");
-                exifObject.ExposureTime = file.ExposureTime.description;
-                exifObject.ApertureValue = file.ApertureValue.description;
-                exifObject.ISOSpeedRatings = file.ISOSpeedRatings.value;
+                exifObject.LensModel = file.LensModel?.value || null;
+                exifObject.CameraModel = file.Model?.description || null;
+                exifObject.FocalLength = file.FocalLength?.description?.split(" ").join("") || null;
+                exifObject.ExposureTime = file.ExposureTime?.description || null;
+                exifObject.ApertureValue = file.ApertureValue?.description || null;
+                exifObject.ISOSpeedRatings = file.ISOSpeedRatings?.value || null;
                 if (file.GPSLatitude?.description){
                     exifObject.GPSLatitude = (file.GPSLatitude?.description + " " + file.GPSLatitudeRef?.value[0])
                     exifObject.GPSLongitude = (file.GPSLongitude?.description + " " + file.GPSLongitudeRef?.value[0]);
