@@ -8,25 +8,25 @@ const nextConfig = {
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'https://businessbackend.jerradjohnson.com'],
-    remotePatterns: [
+    domains: ['localhost', 'businessbackend.jerradjohnson.com'],
+    /*remotePatterns: [
       {
         protocol: 'https',
         hostname: 'businessbackend.jerradjohnson.com',
         port: '443',
-        pathname: '/galleries/**',
+        pathname: '/galleries/!**',
       },      {
         protocol: 'https',
         hostname: 'businessbackend.jerradjohnson.com',
         port: '80',
-        pathname: '/galleries/**',
+        pathname: '/galleries/!**',
       },      {
         protocol: 'https',
         hostname: 'businessbackend.jerradjohnson.com',
         port: '3002',
-        pathname: '/galleries/**',
+        pathname: '/galleries/!**',
       },
-    ],
+    ],*/
   },
   env: {
     SERVERURL: process.env.SERVERURL,
