@@ -1,5 +1,5 @@
 const {businessName, errorExistsInScript, cc, ct, publicPathToLgImgs, publicPathToSmImgs, publicPathToTinyImgs,
-    publicPathToBase64Imgs
+    publicPathToBase64Imgs, dataMissing
 } = require("../../../common/variables");
 exports.formatExifForMapUpdate = async (allExifData) => {
     let {largeImgsExif, smallImgsExif, tinyImgsExif} = {...allExifData};
@@ -26,14 +26,18 @@ function reformatFilenameAndGetAltText(file, folder){
 }
 
 function reformatDateAndTime(file){
+    cc(file.DateCreated?.value);
+    if (file.DateCreated?.value === undefined) return [dataMissing, dataMissing];
     let timeCreated = file.DateCreated.value.slice(11, 19)
     let hourToShift = +timeCreated.slice(0, 2);
+    if (file.OffsetTimeOriginal?.description === undefined) return [dataMissing, dataMissing];
     let originalTZ = file.OffsetTimeOriginal?.description?.slice(0, 3) || 0;
     let newTZ = file.OffsetTime?.description?.slice(0, 3) || 0;
     let tzDifference = eval(newTZ - originalTZ); // NOTE: My users have no way of causing any text to end up here; eval is safe.
     let hourShifted = hourToShift + tzDifference;
     let newTimeCreated = hourShifted + timeCreated.slice(2);
     let dateCreated = file.DateCreated.value.slice(0, 10);
+
 
     return [newTimeCreated, dateCreated];
 }
@@ -54,6 +58,9 @@ function format(exifData, url){
 
                 [exifObject.AltText, exifObject.FileName] = reformatFilenameAndGetAltText(file.fileName, folder);
                 [exifObject.TimeCreated, exifObject.DateCreated] = reformatDateAndTime(file);
+                if (exifObject.TimeCreated === dataMissing) exifObject.TimeCreated = null;
+                if (exifObject.DateCreated === dataMissing) exifObject.DateCreated = null;
+
                 exifObject.DateTimeCreated = `${exifObject.DateCreated}T${exifObject.TimeCreated}.00${file.OffsetTime.description}`;
                 exifObject.FolderName = folder;
                 exifObject.FileNameFull = file.fileName;
