@@ -4,7 +4,6 @@ import {NavbarOptions} from "../types/layout";
 import HomeStyle from "../styles/Index.module.css";
 
 function Navbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed: NavbarOptions, setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}): ReactElement {
-
     return (
         <div className={"navbar"}>
             <div className={"navbar__menu" + (navbarOpenOrClosed === navbarOptions.open ? navbarStates.open : navbarStates.closed)}>
@@ -20,7 +19,6 @@ function Navbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed
 }
 
 export function HomeNavbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarOpenOrClosed: NavbarOptions, setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}): ReactElement {
-
     return (
         <div className={"navbar--home"}>
             <div className={HomeStyle.menu}>
@@ -34,7 +32,5 @@ export function HomeNavbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarO
         </div>
     );
 }
-
-
 
 export default Navbar;

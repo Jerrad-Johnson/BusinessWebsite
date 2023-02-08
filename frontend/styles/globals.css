@@ -2,13 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-#map {
-    height: 80%;
-    width: 100%;
-}
+/* -------- Globals -------- */
 
-/* TODO Design for mobile-friendly use. */
-/* Sidebar Menu */
+/* Resets  */
 * {
     padding: 0;
     margin: 0;
@@ -20,13 +16,92 @@ button {
     font-family: "Poppins", sans-serif;
 }
 
-.threeDimensionalContainer {
-    min-height: 100vh;
+/* Main */
+.main {
+    position: relative;
     width: 100%;
-    overflow-x: hidden;
+    left: 0;
+    z-index: 5;
+    overflow: auto;
+    transform-origin: left;
     transform-style: preserve-3d;
+    transition: 0.5s;
 }
 
+.main__content{
+    width: 100%;
+    max-width: 1100px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
+    /*border-radius: 15px;*/
+    margin: auto;
+    height: 100%;
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    box-shadow: 20px 0 20px -4px rgba(0, 0, 0, 0.4), -20px 0 20px -4px rgba(0, 0, 0, 0.4);
+
+    padding-top: 60px;
+
+    @apply
+    pl-16
+    pr-16
+}
+
+.main__content::-webkit-scrollbar {
+    display: none;
+}
+
+
+.main__content--headline{
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 25px;
+
+    @apply
+    pt-2
+    pb-2
+}
+
+header {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.main__overlay {
+    position: absolute;
+    padding-right: 10%;
+    padding-left: 10%;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.title {
+    font-size: 2.7rem;
+}
+
+.btn {
+    margin-top: 1rem;
+    padding: 0.6rem 1.8rem;
+    background-color: #1179e7;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Navbar */
 .navbar {
     position:fixed;
     top: 0;
@@ -112,126 +187,6 @@ button {
     transform: translateY(9px);
 }
 
-.main {
-    position: relative;
-    width: 100%;
-    left: 0;
-    z-index: 5;
-    overflow: auto;
-    transform-origin: left;
-    transform-style: preserve-3d;
-    transition: 0.5s;
-}
-
-.main__content{
-    width: 100%;
-    max-width: 1100px;
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
-    /*border-radius: 15px;*/
-    margin: auto;
-    height: 100%;
-    overflow: auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    box-shadow: 20px 0 20px -4px rgba(0, 0, 0, 0.4), -20px 0 20px -4px rgba(0, 0, 0, 0.4);
-
-    padding-top: 60px;
-
-    @apply
-    pl-16
-    pr-16
-}
-
-.main__content::-webkit-scrollbar {
-    display: none;
-}
-
-
-.main__content--headline{
-    width: 100%;
-    display: block;
-    text-align: center;
-    font-size: 25px;
-
-    @apply
-    pt-2
-    pb-2
-}
-
-header {
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
-}
-
-.main__overlay {
-    position: absolute;
-    padding-right: 10%;
-    padding-left: 10%;
-    width: 100%;
-    min-height: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: block;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.title {
-    font-size: 2.7rem;
-}
-
-.btn {
-    margin-top: 1rem;
-    padding: 0.6rem 1.8rem;
-    background-color: #1179e7;
-    border: none;
-    border-radius: 25px;
-    color: #fff;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.threeDimensionalContainer.active .navbar__bar {
-    transform: rotate(360deg);
-    background-color: transparent;
-}
-
-.threeDimensionalContainer.active .navbar__bar:before {
-    transform: translateY(0) rotate(45deg);
-}
-
-.threeDimensionalContainer.active .navbar__bar:after {
-    transform: translateY(0) rotate(-45deg);
-}
-
-.threeDimensionalContainer.active .main {
-    animation: main-animation 0.5s ease;
-    cursor: pointer;
-    transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-}
-
-.threeDimensionalContainer.active .main.mobile, .container.active .main.narrow {
-    animation: none;
-    cursor: pointer;
-    transform: none;
-    display: none;
-}
-
-@keyframes main-animation {
-    from {
-        transform: translate(0);
-    }
-
-    to {
-        transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-    }
-}
-
 .links {
     position: absolute;
     /*width: 30%;*/
@@ -292,6 +247,50 @@ ul {
     to {
         opacity: 0;
         transform: translateY(10px);
+    }
+}
+
+
+/* 3D Container */
+.threeDimensionalContainer {
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    transform-style: preserve-3d;
+}
+.threeDimensionalContainer.active .navbar__bar {
+    transform: rotate(360deg);
+    background-color: transparent;
+}
+
+.threeDimensionalContainer.active .navbar__bar:before {
+    transform: translateY(0) rotate(45deg);
+}
+
+.threeDimensionalContainer.active .navbar__bar:after {
+    transform: translateY(0) rotate(-45deg);
+}
+
+.threeDimensionalContainer.active .main {
+    animation: main-animation 0.5s ease;
+    cursor: pointer;
+    transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
+}
+
+.threeDimensionalContainer.active .main.mobile, .container.active .main.narrow {
+    animation: none;
+    cursor: pointer;
+    transform: none;
+    display: none;
+}
+
+@keyframes main-animation {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
     }
 }
 
@@ -371,6 +370,10 @@ ul {
     transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
 }
 
+
+/* -------- Page-specific Classes --------- */
+
+/* Gallery Page */
 .galleryFolderSelectors{
     padding-right: 6px;
     padding-left: 6px;
@@ -388,11 +391,12 @@ span.galleryFolderSelectors::first-letter{
 }
 
 
+/* Leaflet  */
+#map {
+    height: 80%;
+    width: 100%;
+}
 
-
-
-
-/* Leaflet */
 .marker-cluster {
     background: #9370db;
     border: 3px solid #ededed;
@@ -403,34 +407,3 @@ span.galleryFolderSelectors::first-letter{
     text-align: center;
     width: 40px;
 }
-
-
-
-/*
-.testingGallery{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 5px 5px 5px 5px;
-}
-
-
-*/
-
-
-
-
-
-/*
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-
-}
-*/
