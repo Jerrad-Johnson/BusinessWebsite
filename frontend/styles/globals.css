@@ -7,28 +7,6 @@
     width: 100%;
 }
 
-.container__login {
-    width: 80%;
-    margin: auto;
-}
-
-.marker-cluster {
-    background: #9370db;
-    border: 3px solid #ededed;
-    border-radius: 50%;
-    color: #ededed;
-    height: 40px;
-    line-height: 37px;
-    text-align: center;
-    width: 40px;
-}
-
-
-
-
-
-
-
 /* TODO Design for mobile-friendly use. */
 /* Sidebar Menu */
 * {
@@ -42,7 +20,7 @@ button {
     font-family: "Poppins", sans-serif;
 }
 
-.container {
+.threeDimensionalContainer {
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden;
@@ -61,7 +39,7 @@ button {
     margin: 0 auto;
 }
 
-.navbarHome {
+.navbar--home {
     position:fixed;
     top: 0;
     left: 0;
@@ -73,7 +51,7 @@ button {
     margin: 0 auto;
 }
 
-.menu {
+.navbar__menu {
     min-height: 60px;
     width: 100%;
     box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 5px 0px;
@@ -86,12 +64,7 @@ button {
     color: #fff;
 }
 
-.menu.navOpen{
-    background: rgba(0,0,0,0);
-    box-shadow: none;
-} /*TODO Add transition*/
-
-.logo {
+.navbar__logo {
     font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -99,11 +72,11 @@ button {
     line-height: 4rem;
 }
 
-.logo span {
+.navbar__logo span {
     font-weight: 300;
 }
 
-.hamburger-menu {
+.navbar__hamburger-menu {
     height: 4rem;
     width: 3rem;
     cursor: pointer;
@@ -112,7 +85,7 @@ button {
     justify-content: flex-end;
 }
 
-.bar {
+.navbar__bar {
     width: 1.9rem;
     height: 1.5px;
     border-radius: 2px;
@@ -121,8 +94,8 @@ button {
     position: relative;
 }
 
-.bar:before,
-.bar:after {
+.navbar__bar:before,
+.navbar__bar:after {
     content: "";
     position: absolute;
     width: inherit;
@@ -131,11 +104,11 @@ button {
     transition: 0.5s;
 }
 
-.bar:before {
+.navbar__bar:before {
     transform: translateY(-9px);
 }
 
-.bar:after {
+.navbar__bar:after {
     transform: translateY(9px);
 }
 
@@ -150,7 +123,7 @@ button {
     transition: 0.5s;
 }
 
-.main-container-content{
+.main__content{
     width: 100%;
     max-width: 1100px;
     background-color: #fff;
@@ -170,12 +143,12 @@ button {
     pr-16
 }
 
-.main-container-content::-webkit-scrollbar {
+.main__content::-webkit-scrollbar {
     display: none;
 }
 
 
-.main-container-headline{
+.main__content--headline{
     width: 100%;
     display: block;
     text-align: center;
@@ -192,7 +165,7 @@ header {
     position: relative;
 }
 
-.overlay {
+.main__overlay {
     position: absolute;
     padding-right: 10%;
     padding-left: 10%;
@@ -223,26 +196,26 @@ header {
     text-decoration: none;
 }
 
-.container.active .bar {
+.threeDimensionalContainer.active .navbar__bar {
     transform: rotate(360deg);
     background-color: transparent;
 }
 
-.container.active .bar:before {
+.threeDimensionalContainer.active .navbar__bar:before {
     transform: translateY(0) rotate(45deg);
 }
 
-.container.active .bar:after {
+.threeDimensionalContainer.active .navbar__bar:after {
     transform: translateY(0) rotate(-45deg);
 }
 
-.container.active .main {
+.threeDimensionalContainer.active .main {
     animation: main-animation 0.5s ease;
     cursor: pointer;
     transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
 }
 
-.container.active .main.mobile, .container.active .main.narrow {
+.threeDimensionalContainer.active .main.mobile, .container.active .main.narrow {
     animation: none;
     cursor: pointer;
     transform: none;
@@ -295,7 +268,7 @@ ul {
     color: #fff;
 }
 
-.container.active .links a {
+.threeDimensionalContainer.active .links a {
     animation: appear 0.5s forwards ease var(--i);
 }
 
@@ -352,7 +325,7 @@ ul {
     display: none;
 }
 
-.container.active .shadow.one {
+.threeDimensionalContainer.active .shadow.one {
     animation: shadow-one 0.6s ease-out;
     transform: perspective(1300px) rotateY(20deg) translateZ(215px) scale(0.5);
 }
@@ -371,7 +344,7 @@ ul {
     }
 }
 
-.container.active .shadow.two {
+.threeDimensionalContainer.active .shadow.two {
     animation: shadow-two 0.6s ease-out;
     transform: perspective(1300px) rotateY(20deg) translateZ(120px) scale(0.5);
 }
@@ -390,11 +363,11 @@ ul {
     }
 }
 
-.container.active .main:hover + .shadow.one {
+.threeDimensionalContainer.active .main:hover + .shadow.one {
     transform: perspective(1300px) rotateY(20deg) translateZ(230px) scale(0.5);
 }
 
-.container.active .main:hover {
+.threeDimensionalContainer.active .main:hover {
     transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
 }
 
@@ -413,6 +386,24 @@ span.galleryFolderSelectors::first-letter{
 .galleryFolderSelectors:first-of-type{
     border-left: 2px solid darkgreen;
 }
+
+
+
+
+
+
+/* Leaflet */
+.marker-cluster {
+    background: #9370db;
+    border: 3px solid #ededed;
+    border-radius: 50%;
+    color: #ededed;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    width: 40px;
+}
+
 
 
 /*

@@ -20,7 +20,7 @@ function GalleryMap<NextPage>(){
     });
 
     return (
-        <div className={'container' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
+        <div className={'threeDimensionalContainer' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
             <GenericHead
                 content={"Stuff"}
                 metaName={"Image Galleries"}

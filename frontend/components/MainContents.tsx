@@ -40,14 +40,13 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
     }
 
     return (
-        <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"overlay"}>
-                        <div className={"main-container-content"}>
-                            <div className={"main-container-headline"}>Gallery</div>
+                    <div className={"main__overlay"}>
+                        <div className={"main__content"}>
+                            <div className={"main__content--headline"}>Gallery</div>
                             <hr/>
                             {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
                             <hr/>
@@ -94,7 +93,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                     </div>
                 </header>
             </div>
-        </div>
     );
 }
 
@@ -129,9 +127,9 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"overlay"}>
-                        <div className={"main-container-content"}>
-                            <div className={"main-container-headline"}></div>
+                    <div className={"main__overlay"}>
+                        <div className={"main__content"}>
+                            <div className={"main__content--headline"}></div>
                             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                                 <InputLabel id="demo-simple-select-standard-label">Lens</InputLabel>
                                 <Select
@@ -228,9 +226,9 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"overlay"}>
-                        <div className={"main-container-content"}>
-                            <div className={"main-container-headline"}>About</div>
+                    <div className={"main__overlay"}>
+                        <div className={"main__content"}>
+                            <div className={"main__content--headline"}>About</div>
                             {lipsum}
                             <br />
                             <br />
