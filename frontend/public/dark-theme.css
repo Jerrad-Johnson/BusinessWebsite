@@ -26,6 +26,7 @@ body{
     box-shadow: none;
 }
 
+/* TODO Make this BG color fade */
 .navbar__menu.navOpen{
     width: 100%;
     background-color: rgba(0, 0, 0, .0);

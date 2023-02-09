@@ -23,10 +23,10 @@ export function HomeNavbar({navbarOpenOrClosed, setNavbarOpenOrClosed}: {navbarO
         <div className={"navbar--home"}>
             <div className={HomeStyle.menu}>
                 <h3 className={HomeStyle.logo}>Ideal<span>Portraits</span></h3>
-                <div className={"hamburger-menu"} onClick={(e) => {
+                <div className={"navbar__hamburger-menu"} onClick={(e) => {
                     navbarOpenOrClosed === navbarOptions.open ? setNavbarOpenOrClosed(navbarOptions.closed) : setNavbarOpenOrClosed(navbarOptions.open);
                 }}>
-                    <div className={"navbar__bar"}></div>
+                    <div className={"navbar__bar home"}></div>
                 </div>
             </div>
         </div>
