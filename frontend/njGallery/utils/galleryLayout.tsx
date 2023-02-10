@@ -6,6 +6,7 @@ import {
     ImageArrayData, ReformattedGalleryLayout
 } from "../types/njGallery";
 import {ReactElement} from "react";
+import {cc} from "../../common/variables";
 const layoutGeometry = require('../justified-layout');
 
 function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): ReactElement[]{
@@ -19,11 +20,13 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
         const boxHeight = Math.trunc(+e.boxHeight);
         const boxWidth = Math.trunc(+e.boxWidth);
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
+        let ratio = +(e.boxHeight / e.boxWidth).toFixed(3);;
+        cc(ratio);
 
         return (
             <div
                 style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
-                key={e.imgSrc}
+                key={e.imgSrc} onClick={((event) => { cc(event) }) }
             >
                 <Image
                     src={e.imgSrc}

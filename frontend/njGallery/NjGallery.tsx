@@ -18,6 +18,7 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
 
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef));
+        cc(imageElements);
     }, [galleryInputsFromUser]);
 
     //@ts-ignore

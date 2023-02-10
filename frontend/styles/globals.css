@@ -52,7 +52,6 @@ button {
     display: none;
 }
 
-
 .main__content--headline{
     width: 100%;
     display: block;
@@ -83,7 +82,6 @@ header {
     justify-content: center;
     align-items: center;
 }
-
 
 .title {
     font-size: 2.7rem;
