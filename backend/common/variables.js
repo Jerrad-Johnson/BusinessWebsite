@@ -4,7 +4,7 @@ exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
 exports.dataMissing = "Data Missing";
 
-const serverURL = "localhost:3002";
+const serverURL = "http://localhost:3002";
 exports.frontendURL = "http://localhost:3000";
 
 //const serverURL = "https://businessbackend.jerradjohnson.com";

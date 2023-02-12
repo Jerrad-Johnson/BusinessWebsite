@@ -8,7 +8,7 @@ const nextConfig = {
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'businessbackend.jerradjohnson.com', ''],
+    domains: ['localhost', 'businessbackend.jerradjohnson.com'],
 /*    remotePatterns: [
       {
         protocol: 'https',
