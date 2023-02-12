@@ -3,9 +3,11 @@ exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
 exports.dataMissing = "Data Missing";
+
 const serverURL = "localhost:3002";
-//const serverURL = "https://businessbackend.jerradjohnson.com";
 exports.frontendURL = "http://localhost:3000";
+
+//const serverURL = "https://businessbackend.jerradjohnson.com";
 //exports.frontendURL = "https://business.jerradjohnson.com";
 
 // Company-specific

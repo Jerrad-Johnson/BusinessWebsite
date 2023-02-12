@@ -265,14 +265,15 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
 }
 
 async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>, folder: string): Promise<void>{
-    const results = await httpClient.post(`${process.env.SERVERURL}/gallery/getThisFolder`, {gallerySize: "lg", galleryName: folder});
+    const results = await httpClient.post(`${process.env.SERVERURL}/gallery/getThisFolder`, {gallerySize: "sm", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
+    cc(imageData)
 
     let formattedImageData: ImageArrayData[] = [];
     for (let image of imageData){
-        formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"]})
+        formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"], lg_img_url: image.lg_img_url})
     }
 
     setPhotos(formattedImageData);

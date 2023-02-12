@@ -20,13 +20,12 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
         const boxHeight = Math.trunc(+e.boxHeight);
         const boxWidth = Math.trunc(+e.boxWidth);
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
-        let ratio = +(e.boxHeight / e.boxWidth).toFixed(3);;
-        cc(ratio);
+        let ratio = +(e.boxHeight / e.boxWidth).toFixed(3);
 
         return (
             <div
                 style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
-                key={e.imgSrc} onClick={((event) => { cc(event) }) }
+                key={e.imgSrc} onClick={((event) => { cc(event) })} data-ratio={ratio} data-largeimg={"http://www.blah.blah"}
             >
                 <Image
                     src={e.imgSrc}
