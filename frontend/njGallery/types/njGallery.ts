@@ -35,6 +35,7 @@ export interface ImageArrayData {
     height: number;
     width: number;
     alt?: string;
+    lg_img_url?: string;
 }
 
 export interface GalleryLayoutData {

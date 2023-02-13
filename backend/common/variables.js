@@ -55,7 +55,7 @@ exports.fitMethods = {
     inside: "inside",
 }
 exports.resizeResolutions = {
-    mapThumbnail: 300,
+    mapThumbnail: 600,
     tenPx: 10,
     large: 1920,
 }

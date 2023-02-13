@@ -269,7 +269,6 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArray
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
-    cc(imageData)
 
     let formattedImageData: ImageArrayData[] = [];
     for (let image of imageData){

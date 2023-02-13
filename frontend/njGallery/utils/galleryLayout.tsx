@@ -7,13 +7,16 @@ import {
 } from "../types/njGallery";
 import {ReactElement} from "react";
 import {cc} from "../../common/variables";
+import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
+import {handleLightbox} from "../NjGallery";
 
-function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     //@ts-ignore
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);
+
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
 
     return reformattedGalleryLayout.map((e) => {
@@ -25,10 +28,15 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
         return (
             <div
                 style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
-                key={e.imgSrc} onClick={((event) => { cc(event) })} data-ratio={ratio} data-largeimg={"http://www.blah.blah"}
+                key={e.imgSrc}
             >
                 <Image
                     src={e.imgSrc}
+                    onClick={((event) => {
+                        handleLightbox(event, galleryInputsWithDefaults, setLightboxState); })
+                    }
+                    data-ratio={ratio}
+                    data-largeimg={e.lg_img_url}
                     blurDataURL={e.imgBlurSrc}
                     placeholder={imgBlurSrc}
                     className={"njGalleryImage"}
@@ -72,9 +80,17 @@ function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArra
         reformattedGalleryLayout[i].imgSrc = imagesCopy[i].src;
         reformattedGalleryLayout[i].imgBlurSrc = imagesCopy[i].blurSrc;
         reformattedGalleryLayout[i].alt = imagesCopy[i].alt;
+        reformattedGalleryLayout[i].lg_img_url = imagesCopy[i].lg_img_url;
     }
 
     return reformattedGalleryLayout;
 }
+
+/*function handleLightbox(event, galleryInputsWithDefaults){
+    let url = event.target.getAttribute("data-largeimg")
+    let position = galleryInputsWithDefaults.images.findIndex((elem) => {
+        return elem.lg_img_url === url;
+    });
+}*/
 
 export default createGalleryLayout;
