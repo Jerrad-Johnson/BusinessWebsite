@@ -30,6 +30,13 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
     const [windowHeight, windowWidth] = useWindowDimensions();
 
     let lightboxImages = galleryInputsWithDefaults.images;
+    cc(lightboxImages)
+    let activeImageWidth = lightboxImages?.[lightboxState]?.width;
+    let activeImageHeight = lightboxImages?.[lightboxState]?.height;
+    let ratio  = activeImageHeight/activeImageWidth
+    let max = Math.max(windowHeight, windowWidth);
+    cc(max);
+
     let lightbox = (
         <div className={"lightbox"}>
             <Image
@@ -40,7 +47,7 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
 
                 blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
                 className={"lightboxImage"}
-                width={windowWidth} height={windowHeight}
+                width={max * (.8)} height={max * (.8) * (ratio)}
                 /*width={lightboxImages?.[lightboxState]?.width}
                 height={lightboxImages?.[lightboxState]?.height}*/
                 alt={lightboxImages?.[lightboxState]?.alt}
