@@ -388,6 +388,17 @@ span.galleryFolderSelectors::first-letter{
     border-left: 2px solid darkgreen;
 }
 
+.lightbox{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vh;
+    z-index: 10;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 1.0);
+}
+
 
 /* Leaflet  */
 #map {

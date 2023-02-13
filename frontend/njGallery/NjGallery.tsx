@@ -6,6 +6,8 @@ import createGalleryStyle from "./utils/galleryStyles";
 import {GalleryStylesEssential, GalleryElementRef, GalleryInputs, GalleryInputsWithDefaults} from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
+import Image from "next/image";
+import {useWindowDimensions} from "../hooks/useWindowDimensions";
 
 function NjGallery(galleryInputsFromUser: GalleryInputs) {
     checkInputForErrors(galleryInputsFromUser);
@@ -25,18 +27,37 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState);
 
-    useEffect(() => {
-        if (lightboxState !== null) cc(5) // Open lightbox
-        if (lightboxState === null) cc(5) // CLose lightbox
-    }, [lightboxState]);
+    const [windowHeight, windowWidth] = useWindowDimensions();
+
+    let lightboxImages = galleryInputsWithDefaults.images;
+    let lightbox = (
+        <div className={"lightbox"}>
+            <Image
+                src={lightboxImages?.[lightboxState]?.lg_img_url}
+                onClick={((event) => {
+                    setLightboxState(null)
+                })}
+
+                blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
+                className={"lightboxImage"}
+                width={windowWidth} height={windowHeight}
+                /*width={lightboxImages?.[lightboxState]?.width}
+                height={lightboxImages?.[lightboxState]?.height}*/
+                alt={lightboxImages?.[lightboxState]?.alt}
+            />
+        </div>
+    );
 
     return (
-        <div className={"njGallery"}
-             style={galleryStyles}
-             ref={galleryElementRef}
-        >
-            {imageElements}
-        </div>
+        <>
+            {lightboxState !== null && lightbox}
+            <div className={"njGallery"}
+                 style={galleryStyles}
+                 ref={galleryElementRef}
+            >
+                {imageElements}
+            </div>
+        </>
     );
 }
 
@@ -47,7 +68,6 @@ export function handleLightbox(event, galleryInputsWithDefaults, setLightboxStat
     });
 
     setLightboxState(position);
-
 }
 
 export default NjGallery;
