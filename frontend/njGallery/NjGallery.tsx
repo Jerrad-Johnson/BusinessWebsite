@@ -30,28 +30,36 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
     const [windowHeight, windowWidth] = useWindowDimensions();
 
     let lightboxImages = galleryInputsWithDefaults.images;
-    cc(lightboxImages)
     let activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = lightboxImages?.[lightboxState]?.height;
-    let ratio  = activeImageHeight/activeImageWidth
-    let max = Math.max(windowHeight, windowWidth);
-    cc(max);
+    let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
+
+    let max = windowHeight > windowWidth ? windowWidth : windowHeight
+        //activeImageHeight/activeImageWidth <= 1 ? windowWidth : windowHeight;
+        //Math.max(windowHeight, windowWidth);
+    let portraitOrientation = activeImageWidth/activeImageHeight >= 1 ? true : false;
+    let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
+    let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
+
+    cc(imageHeight)
 
     let lightbox = (
         <div className={"lightbox"}>
-            <Image
-                src={lightboxImages?.[lightboxState]?.lg_img_url}
-                onClick={((event) => {
-                    setLightboxState(null)
-                })}
+            <div className={"lightbox__image--subcontainer"}>
+                <Image
+                    src={lightboxImages?.[lightboxState]?.lg_img_url}
+                    onClick={((event) => {
+                        setLightboxState(null)
+                    })}
 
-                blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
-                className={"lightboxImage"}
-                width={max * (.8)} height={max * (.8) * (ratio)}
-                /*width={lightboxImages?.[lightboxState]?.width}
-                height={lightboxImages?.[lightboxState]?.height}*/
-                alt={lightboxImages?.[lightboxState]?.alt}
-            />
+                    blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
+                    className={"lightbox__image"}
+                    width={imageWidth} height={imageHeight}
+                    /*width={lightboxImages?.[lightboxState]?.width}
+                    height={lightboxImages?.[lightboxState]?.height}*/
+                    alt={lightboxImages?.[lightboxState]?.alt}
+                />
+            </div>
         </div>
     );
 
