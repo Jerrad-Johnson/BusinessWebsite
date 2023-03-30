@@ -45,6 +45,7 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
 
     let lightbox = (
         <div className={"lightbox"}>
+            <div className={"lightbox__left-selector"}>L</div>
             <div className={"lightbox__image--subcontainer"}>
                 <Image
                     src={lightboxImages?.[lightboxState]?.lg_img_url}
@@ -60,6 +61,9 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
                     alt={lightboxImages?.[lightboxState]?.alt}
                 />
             </div>
+            <div className={"lightbox__right-selector"}>R</div>
+            <div className={"break"}></div>
+            <div className={"lightbox__exif-data"}>Exif</div>
         </div>
     );
 

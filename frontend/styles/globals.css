@@ -407,6 +407,12 @@ span.galleryFolderSelectors::first-letter{
     margin: 10vh 10vw;
 }
 
+.lightbox__exif-data{
+}
+
+.break {
+}
+
 
 /* Leaflet  */
 #map {
