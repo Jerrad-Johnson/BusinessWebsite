@@ -45,7 +45,13 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
 
     let lightbox = (
         <div className={"lightbox"}>
-            <div className={"lightbox__left-selector"}>L</div>
+            <div className={"lightbox__left-selector"}>
+                <button
+                    onClick={() => {
+                        setLightboxState(prev => (typeof prev !== "boolean" && prev-1 > -1) ? prev-1 : prev);
+                    }}> L
+                </button>
+            </div>
             <div className={"lightbox__image--subcontainer"}>
                 <Image
                     src={lightboxImages?.[lightboxState]?.lg_img_url}
@@ -61,7 +67,13 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
                     alt={lightboxImages?.[lightboxState]?.alt}
                 />
             </div>
-            <div className={"lightbox__right-selector"}>R</div>
+            <div className={"lightbox__right-selector"}>
+                <button
+                    onClick={() => {
+                        setLightboxState(prev => (typeof prev !== "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev);
+                    }}> R
+                </button>
+            </div>
             <div className={"break"}></div>
             <div className={"lightbox__exif-data"}>Exif</div>
         </div>
