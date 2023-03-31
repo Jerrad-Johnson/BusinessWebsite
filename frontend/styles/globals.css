@@ -403,12 +403,37 @@ span.galleryFolderSelectors::first-letter{
     align-items: center;
 }
 
+.lightbox__backdrop{
+    display: flex;
+    padding: 40px;
+    flex-flow: column;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
+    -moz-box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
+    box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
+}
+
+.lightbox__middle-row{
+    display: flex;
+    align-items: center;
+}
+
+
 .lightbox__image--styler{
-    margin: 10vh 10vw;
+    /*margin: 10vh 10vw;*/
+}
+
+.lightbox__image--subcontainer{
+
 }
 
 .lightbox__exif-data{
 }
+
+
 
 .break {
 }

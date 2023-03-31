@@ -43,39 +43,57 @@ function NjGallery(galleryInputsFromUser: GalleryInputs) {
 
     cc(imageHeight)
 
+
     let lightbox = (
         <div className={"lightbox"}>
-            <div className={"lightbox__left-selector"}>
-                <button
-                    onClick={() => {
-                        setLightboxState(prev => (typeof prev !== "boolean" && prev-1 > -1) ? prev-1 : prev);
-                    }}> L
-                </button>
-            </div>
-            <div className={"lightbox__image--subcontainer"}>
-                <Image
-                    src={lightboxImages?.[lightboxState]?.lg_img_url}
-                    onClick={((event) => {
-                        setLightboxState(null)
-                    })}
+            <div className={"lightbox__backdrop"}>
 
-                    blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
-                    className={"lightbox__image"}
-                    width={imageWidth} height={imageHeight}
-                    /*width={lightboxImages?.[lightboxState]?.width}
-                    height={lightboxImages?.[lightboxState]?.height}*/
-                    alt={lightboxImages?.[lightboxState]?.alt}
-                />
+                <div className={"lightbox__top-row"}>
+                    <button onClick={(e) => {
+                        setLightboxState(null);
+                    }}>Close</button>
+                </div>
+
+                <div className={"lightbox__middle-row"}>
+                    <div className={"lightbox__left-selector"}>
+                        <button
+                            onClick={() => {
+                                setLightboxState(prev => (typeof prev !== "boolean" && prev-1 > -1) ? prev-1 : prev);
+                            }}> L
+                        </button>
+                    </div>
+                    <div className={"lightbox__image--subcontainer"}>
+                        <Image
+                            src={lightboxImages?.[lightboxState]?.lg_img_url}
+                            onClick={((event) => {
+                                setLightboxState(null)
+                            })}
+                            blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
+                            className={"lightbox__image"}
+                            width={imageWidth} height={imageHeight}
+                            /*width={lightboxImages?.[lightboxState]?.width}
+                            height={lightboxImages?.[lightboxState]?.height}*/
+                            alt={lightboxImages?.[lightboxState]?.alt}
+                        />
+                    </div>
+                    <div className={"lightbox__right-selector"}>
+                        <button
+                            onClick={() => {
+                                setLightboxState(prev => (typeof prev !== "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev);
+                            }}> R
+                        </button>
+                    </div>
+                </div>
+
+                <div className={"lightbox__bottom-row"}>
+                    Title: {lightboxImages?.[lightboxState]?.alt && lightboxImages[lightboxState].alt}
+                    Original Resolution:
+                    Camera:
+                </div>
+
+                {/*<div className={"break"}></div>*/}
+                {/*<div className={"lightbox__exif-data"} onClick={(() => cc(lightboxImages?.[lightboxState]))}>{lightboxImages?.[lightboxState]?.alt && lightboxImages[lightboxState].alt}</div>*/}
             </div>
-            <div className={"lightbox__right-selector"}>
-                <button
-                    onClick={() => {
-                        setLightboxState(prev => (typeof prev !== "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev);
-                    }}> R
-                </button>
-            </div>
-            <div className={"break"}></div>
-            <div className={"lightbox__exif-data"}>Exif</div>
         </div>
     );
 
