@@ -54,8 +54,6 @@ function NjGallery(props: GalleryInputs) {
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
-
-
     let lightbox = (
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"}>
@@ -98,9 +96,6 @@ function NjGallery(props: GalleryInputs) {
                     Original Resolution:
                     Camera:
                 </div>
-
-                {/*<div className={"break"}></div>*/}
-                {/*<div className={"lightbox__exif-data"} onClick={(() => cc(lightboxImages?.[lightboxState]))}>{lightboxImages?.[lightboxState]?.alt && lightboxImages[lightboxState].alt}</div>*/}
             </div>
         </div>
     );
