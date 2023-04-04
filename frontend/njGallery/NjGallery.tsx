@@ -68,14 +68,9 @@ function NjGallery(props: GalleryInputs) {
                     <div className={"lightbox__image--subcontainer"}>
                         <Image
                             src={lightboxImages?.[lightboxState]?.lg_img_url}
-                            /*onClick={((event) => {
-                                setLightboxState(null)
-                            })}*/
                             blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
                             className={"lightbox__image"}
                             width={imageWidth} height={imageHeight}
-                            /*width={lightboxImages?.[lightboxState]?.width}
-                            height={lightboxImages?.[lightboxState]?.height}*/
                             alt={lightboxImages?.[lightboxState]?.alt}
                         />
 
