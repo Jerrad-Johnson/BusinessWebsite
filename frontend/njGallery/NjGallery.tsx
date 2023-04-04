@@ -7,18 +7,19 @@ import {
     GalleryStylesEssential,
     GalleryElementRef,
     GalleryInputsWithDefaults,
-    GalleryProps
+    GalleryInputs
 } from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 
-function NjGallery(props: GalleryProps) {
+
+function NjGallery(props: GalleryInputs) {
     checkInputForErrors(props);
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
-    const [lightboxState, setLightboxState] = [props.lightboxState, props.setLightboxState];
+    const [lightboxState, setLightboxState] = useState<number | null>(null);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
@@ -27,6 +28,14 @@ function NjGallery(props: GalleryProps) {
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState));
     }, [props]);
+
+    useEffect(() => {
+        if (lightboxState === null){
+            document.querySelector(".navbar").style.zIndex = 10;
+        } else {
+            document.querySelector(".navbar").style.zIndex = 1;
+        }
+    }, [lightboxState]);
 
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState);
@@ -45,7 +54,6 @@ function NjGallery(props: GalleryProps) {
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
-    cc(imageHeight)
 
 
     let lightbox = (
@@ -59,19 +67,12 @@ function NjGallery(props: GalleryProps) {
                 </div>
 
                 <div className={"lightbox__middle-row"}>
-                    <div className={"lightbox__left-selector"}>
-                        <button
-                            onClick={() => {
-                                setLightboxState(prev => (typeof prev !== "boolean" && prev-1 > -1) ? prev-1 : prev);
-                            }}> L
-                        </button>
-                    </div>
                     <div className={"lightbox__image--subcontainer"}>
                         <Image
                             src={lightboxImages?.[lightboxState]?.lg_img_url}
-                            onClick={((event) => {
+                            /*onClick={((event) => {
                                 setLightboxState(null)
-                            })}
+                            })}*/
                             blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
                             className={"lightbox__image"}
                             width={imageWidth} height={imageHeight}
@@ -79,13 +80,16 @@ function NjGallery(props: GalleryProps) {
                             height={lightboxImages?.[lightboxState]?.height}*/
                             alt={lightboxImages?.[lightboxState]?.alt}
                         />
-                    </div>
-                    <div className={"lightbox__right-selector"}>
-                        <button
-                            onClick={() => {
-                                setLightboxState(prev => (typeof prev !== "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev);
-                            }}> R
-                        </button>
+
+                        <div onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxState(prev => (typeof prev !== "boolean" && prev-1 > -1) ? prev-1 : prev)}
+                        } className={"lightbox__image--move-left"}></div>
+
+                        <div onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxState(prev => (typeof prev !== "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                        } className={"lightbox__image--move-right"}></div>
                     </div>
                 </div>
 

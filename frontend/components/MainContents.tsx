@@ -17,7 +17,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 
     const [photos, setPhotos] = useState<ImageArrayData[]>([]);
     const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
-    const [lightboxState, setLightboxState] = useState<boolean>(null);
 
     useEffect(() => {
         if (galleryFolders === isLoading) return;
@@ -40,7 +39,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         targetRowHeightTolerance: .2,
     }
 
-    const props = {...galleryInputs, lightboxState, setLightboxState}
 
     return (
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -54,7 +52,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                             {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
                             <hr/>
                             <NjGallery
-                                {...props}
+                                {...galleryInputs}
                             />
 
                             {lipsum}

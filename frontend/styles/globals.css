@@ -225,6 +225,7 @@ ul {
     animation: appear 0.5s forwards ease var(--i);
 }
 
+
 /*TODO Design nav to fade out on nav close*/
 @keyframes appear {
     from {
@@ -427,9 +428,24 @@ span.galleryFolderSelectors::first-letter{
 }
 
 .lightbox__image--subcontainer{
-
+    position: relative;
 }
 
+.lightbox__image--move-left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height:100%;
+}
+
+.lightbox__image--move-right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height:100%;
+}
 .lightbox__exif-data{
 }
 

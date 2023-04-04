@@ -1,6 +1,6 @@
 import {MutableRefObject} from "react";
 
-export interface GalleryProps {
+export interface GalleryInputs {
     images: ImageArrayData[];
     containerWidth?: string | number;
     containerPadding?: number;
@@ -10,8 +10,6 @@ export interface GalleryProps {
     targetRowHeightTolerance?: number;
     justifyFinalRow?: boolean;
     maxRows?: number;
-    lightboxState: null | number;
-    setLightboxState: () => null | number;
 }
 
 export interface GalleryInputsWithDefaults {
