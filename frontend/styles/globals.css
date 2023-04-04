@@ -497,6 +497,10 @@ span.galleryFolderSelectors::first-letter{
         padding-left: 0%;
     }
 
+    .navbar{
+        width: 100%;
+    }
+
 
 }
 
