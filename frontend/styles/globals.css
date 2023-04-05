@@ -276,7 +276,7 @@ ul {
     transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
 }
 
-.threeDimensionalContainer.active .main.mobile, .container.active .main.narrow {
+.threeDimensionalContainer.active .main.mobile, .threeDimensionalContainer.active .main.narrow {
     animation: none;
     cursor: pointer;
     transform: none;
@@ -500,21 +500,15 @@ span.galleryFolderSelectors::first-letter{
     .navbar{
         width: 100%;
     }
-
-
 }
 
 @media screen and (max-width: 950px) {
-    .threeDimensionalContainer.active .main {
-
+/*    .threeDimensionalContainer.active .main {
         display: none;
     }
 
-    .shadow.one{
+    .shadow.one .shadow.two{
         display: none;
-    }
-
-    .shadow.two{
-        display: none;
-    }
+    }*/
+    /*Replace the above with javascript*/
 }
