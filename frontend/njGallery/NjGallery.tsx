@@ -86,13 +86,36 @@ function NjGallery(props: GalleryInputs) {
                 </div>
 
                 <div className={"lightbox__bottom-row"}>
-                    Title: {lightboxImages?.[lightboxState]?.alt}
-                    Date: {lightboxImages?.[lightboxState]?.date}
-                    Camera: {lightboxImages?.[lightboxState]?.camera_model}
-                    Lens: {lightboxImages?.[lightboxState]?.lens}
-                    Focal Length: {lightboxImages?.[lightboxState]?.focal}
-                    Exposure Time: {lightboxImages?.[lightboxState]?.exposure}
-                    ISO: {lightboxImages?.[lightboxState]?.iso}
+                    <div className={"lightbox__bottom-row--left"}>
+                        <ul>
+                            <li>
+                                Title: {lightboxImages?.[lightboxState]?.alt}
+                            </li>
+                            <li>
+                                Date: {lightboxImages?.[lightboxState]?.date}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className={"lightbox__bottom-row--right"}>
+                        <ul>
+                            <li>
+                                Camera: {lightboxImages?.[lightboxState]?.camera_model}
+                            </li>
+                            <li>
+                                Lens: {lightboxImages?.[lightboxState]?.lens}
+                            </li>
+                            <li>
+                                Focal Length: {lightboxImages?.[lightboxState]?.focal}
+                            </li>
+                            <li>
+                                Exposure Time: {lightboxImages?.[lightboxState]?.exposure}
+                            </li>
+                            <li>
+                                ISO: {lightboxImages?.[lightboxState]?.iso}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

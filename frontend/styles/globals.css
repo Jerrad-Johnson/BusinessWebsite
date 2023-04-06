@@ -457,8 +457,6 @@ span.galleryFolderSelectors::first-letter{
 }
 
 .lightbox__bottom-row{
-    @apply
-    mt-4;
 }
 
 .lightbox__exif-data{
@@ -499,6 +497,22 @@ span.galleryFolderSelectors::first-letter{
 
     .navbar{
         width: 100%;
+    }
+
+    .lightbox__bottom-row--right ul li, .lightbox__bottom-row--left ul li{
+    }
+    .lightbox__bottom-row--right{
+        @apply
+        mt-2
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .lightbox__bottom-row{
+        @apply
+        flex
+        justify-between
+        mt-4;
     }
 }
 
