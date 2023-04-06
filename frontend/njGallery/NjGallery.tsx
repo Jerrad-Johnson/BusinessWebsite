@@ -54,6 +54,7 @@ function NjGallery(props: GalleryInputs) {
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
+    /*TODO Add lightbox image-shift on key press. Change Lightbox "Date" format. CSS Transition.*/
     let lightbox = (
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"}>
@@ -75,12 +76,12 @@ function NjGallery(props: GalleryInputs) {
 
                         <div onClick={(e) => {
                             e.stopPropagation();
-                            setLightboxState(prev => (typeof prev !== "boolean" && prev-1 > -1) ? prev-1 : prev)}
+                            setLightboxState(prev => (typeof prev === "boolean" && prev-1 > -1) ? prev-1 : prev)}
                         } className={"lightbox__image--move-left"}></div>
 
                         <div onClick={(e) => {
                             e.stopPropagation();
-                            setLightboxState(prev => (typeof prev !== "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            setLightboxState(prev => (typeof prev === "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                         } className={"lightbox__image--move-right"}></div>
                     </div>
                 </div>
@@ -92,7 +93,7 @@ function NjGallery(props: GalleryInputs) {
                                 Title: {lightboxImages?.[lightboxState]?.alt}
                             </li>
                             <li>
-                                Date: {lightboxImages?.[lightboxState]?.date}
+                                Date: {lightboxImages?.[lightboxState]?.date || "unlisted"}
                             </li>
                         </ul>
                     </div>

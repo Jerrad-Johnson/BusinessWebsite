@@ -501,6 +501,7 @@ span.galleryFolderSelectors::first-letter{
 
     .lightbox__bottom-row--right ul li, .lightbox__bottom-row--left ul li{
     }
+
     .lightbox__bottom-row--right{
         @apply
         mt-2
