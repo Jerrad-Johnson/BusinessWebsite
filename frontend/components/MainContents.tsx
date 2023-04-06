@@ -273,7 +273,22 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArray
 
     let formattedImageData: ImageArrayData[] = [];
     for (let image of imageData){
-        formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"], lg_img_url: image.lg_img_url})
+        formattedImageData.push(
+            {
+                src: image.url,
+                height: +image.height,
+                width: +image.width,
+                blurSrc: image.base64url,
+                lg_img_url: image.lg_img_url,
+                alt: image["alt_text"] || null,
+                camera_model: image.camera_model || null,
+                exposure: image.exposure_time || null,
+                focal: image.focal_length || null,
+                iso: image.iso || null,
+                lens: image.lens_model || null,
+                date: image.photo_capture || null,
+            }
+        )
     }
 
     setPhotos(formattedImageData);

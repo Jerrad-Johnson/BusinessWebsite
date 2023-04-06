@@ -57,7 +57,6 @@ function NjGallery(props: GalleryInputs) {
     let lightbox = (
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"}>
-
                 <div className={"lightbox__top-row"}>
                     <button onClick={(e) => {
                         setLightboxState(null);
@@ -87,9 +86,13 @@ function NjGallery(props: GalleryInputs) {
                 </div>
 
                 <div className={"lightbox__bottom-row"}>
-                    Title: {lightboxImages?.[lightboxState]?.alt && lightboxImages[lightboxState].alt}
-                    Original Resolution:
-                    Camera:
+                    Title: {lightboxImages?.[lightboxState]?.alt}
+                    Date: {lightboxImages?.[lightboxState]?.date}
+                    Camera: {lightboxImages?.[lightboxState]?.camera_model}
+                    Lens: {lightboxImages?.[lightboxState]?.lens}
+                    Focal Length: {lightboxImages?.[lightboxState]?.focal}
+                    Exposure Time: {lightboxImages?.[lightboxState]?.exposure}
+                    ISO: {lightboxImages?.[lightboxState]?.iso}
                 </div>
             </div>
         </div>
