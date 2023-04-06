@@ -5,7 +5,7 @@ import createGalleryLayout from "../utils/galleryLayout";
 function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] | null>>,
                        galleryInputsWithDefaults: GalleryInputsWithDefaults,
                        galleryElementRef: GalleryElementRef,
-                       setLightboxState,
+                       setLightboxState: Dispatch<SetStateAction<number | null>>,
                        ){
 
     useEffect(() => {

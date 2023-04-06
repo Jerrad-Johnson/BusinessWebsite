@@ -5,13 +5,13 @@ import {
     GalleryLayoutData,
     ImageArrayData, ReformattedGalleryLayout
 } from "../types/njGallery";
-import {ReactElement} from "react";
+import {Dispatch, ReactElement, SetStateAction} from "react";
 import {cc} from "../../common/variables";
 import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
 import {handleLightbox} from "../NjGallery";
 
-function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: null | number): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     //@ts-ignore

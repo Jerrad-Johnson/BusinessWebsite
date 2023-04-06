@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
 import addGalleryDefaults from "./utils/galleryDefaults";
@@ -90,10 +90,10 @@ function NjGallery(props: GalleryInputs) {
                     <div className={"lightbox__bottom-row--left"}>
                         <ul>
                             <li>
-                                Title: {lightboxImages?.[lightboxState]?.alt}
+                                Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
                             </li>
                             <li>
-                                Date: {lightboxImages?.[lightboxState]?.date || "unlisted"}
+                                Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "unlisted" }
                             </li>
                         </ul>
                     </div>
@@ -101,19 +101,19 @@ function NjGallery(props: GalleryInputs) {
                     <div className={"lightbox__bottom-row--right"}>
                         <ul>
                             <li>
-                                Camera: {lightboxImages?.[lightboxState]?.camera_model}
+                                Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
                             </li>
                             <li>
-                                Lens: {lightboxImages?.[lightboxState]?.lens}
+                                Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
                             </li>
                             <li>
-                                Focal Length: {lightboxImages?.[lightboxState]?.focal}
+                                Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
                             </li>
                             <li>
-                                Exposure Time: {lightboxImages?.[lightboxState]?.exposure}
+                                Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
                             </li>
                             <li>
-                                ISO: {lightboxImages?.[lightboxState]?.iso}
+                                ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
                             </li>
                         </ul>
                     </div>
@@ -135,7 +135,7 @@ function NjGallery(props: GalleryInputs) {
     );
 }
 
-export function handleLightbox(event, galleryInputsWithDefaults, setLightboxState){
+export function handleLightbox(event, galleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>){
     let url = event.target.getAttribute("data-largeimg")
     let position = galleryInputsWithDefaults.images.findIndex((elem) => {
         return elem.lg_img_url === url;
