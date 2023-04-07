@@ -13,6 +13,7 @@ import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
+import {event} from "eventemitter2";
 
 
 function NjGallery(props: GalleryInputs) {
@@ -31,9 +32,11 @@ function NjGallery(props: GalleryInputs) {
 
     useEffect(() => {
         if (lightboxState === null){
-            document.querySelector(".navbar").style.zIndex = 10;
+            const navbarElem: HTMLElement | null = document.querySelector(".navbar");
+            if (navbarElem !== null) navbarElem.style.zIndex = "10";
         } else {
-            document.querySelector(".navbar").style.zIndex = 1;
+            const navbarElem: HTMLElement | null = document.querySelector(".navbar");
+            if (navbarElem !== null) navbarElem.style.zIndex = "1";
         }
     }, [lightboxState]);
 
@@ -43,8 +46,10 @@ function NjGallery(props: GalleryInputs) {
     const [windowHeight, windowWidth] = useWindowDimensions();
 
     let lightboxImages = galleryInputsWithDefaults.images;
-    let activeImageWidth = lightboxImages?.[lightboxState]?.width;
-    let activeImageHeight = lightboxImages?.[lightboxState]?.height;
+    let activeImageWidth = 0;
+    if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
+    let activeImageHeight = 0 ;
+    if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
     let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
 
     let max = windowHeight > windowWidth ? windowWidth : windowHeight
@@ -53,6 +58,7 @@ function NjGallery(props: GalleryInputs) {
     let portraitOrientation = activeImageWidth/activeImageHeight >= 1 ? true : false;
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
+
 
     /*TODO Add lightbox image-shift on key press. Change Lightbox "Date" format. CSS Transition.*/
     let lightbox = (
@@ -67,11 +73,12 @@ function NjGallery(props: GalleryInputs) {
                 <div className={"lightbox__middle-row"}>
                     <div className={"lightbox__image--subcontainer"}>
                         <Image
-                            src={lightboxImages?.[lightboxState]?.lg_img_url}
-                            blurDataURL={lightboxImages?.[lightboxState]?.imgBlurSrc}
+                            src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                            blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
                             className={"lightbox__image"}
-                            width={imageWidth} height={imageHeight}
-                            alt={lightboxImages?.[lightboxState]?.alt}
+                            width={ imageWidth }
+                            height={ imageHeight }
+                            alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                         />
 
                         <div onClick={(e) => {
@@ -81,7 +88,7 @@ function NjGallery(props: GalleryInputs) {
 
                         <div onClick={(e) => {
                             e.stopPropagation();
-                            setLightboxState(prev => (typeof prev === "boolean" && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            setLightboxState(prev => (typeof prev === "boolean" && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                         } className={"lightbox__image--move-right"}></div>
                     </div>
                 </div>
@@ -135,7 +142,8 @@ function NjGallery(props: GalleryInputs) {
     );
 }
 
-export function handleLightbox(event, galleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>){
+export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>){
+    //@ts-ignore
     let url = event.target.getAttribute("data-largeimg")
     let position = galleryInputsWithDefaults.images.findIndex((elem) => {
         return elem.lg_img_url === url;
