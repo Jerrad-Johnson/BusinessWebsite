@@ -11,7 +11,7 @@ import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
 import {handleLightbox} from "../NjGallery";
 
-function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     //@ts-ignore
@@ -34,8 +34,8 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
                     src={e.imgSrc}
                     onClick={((event) => {
                         event.stopPropagation();
-                        handleLightbox(event, galleryInputsWithDefaults, setLightboxState); })
-                    }
+                        handleLightbox(event, galleryInputsWithDefaults, setLightboxState, setLightboxEverOpened);
+                    })}
                     data-ratio={ratio}
                     data-largeimg={e.lg_img_url}
                     blurDataURL={e.imgBlurSrc}

@@ -25,9 +25,10 @@ function NjGallery(props: GalleryInputs) {
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
+    const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
 
     useEffect(() => {
-        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState));
+        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
     }, [props]);
 
     useEffect(() => {
@@ -41,25 +42,56 @@ function NjGallery(props: GalleryInputs) {
     }, [lightboxState]);
 
     //@ts-ignore
-    useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState);
+    useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
 
     useEffect(() => {
+        if (lightboxEverOpened){
+            window.addEventListener('click', (e) => {
+                if (lightboxState !== null) {
+                    const elem = document.getElementById("lightboxArea");
+                    if (!elem?.contains(e.target)){
+                        setLightboxState(null);
+                    }
+                }
+            })
+
+            return () => {
+                window.removeEventListener('click', (e) => {
+                    if (lightboxState !== null) {
+                        const elem = document.getElementById("lightboxArea");
+                        if (!elem?.contains(e.target)){
+                            setLightboxState(null);
+                        }
+                    }
+                })
+            }
+        }
+    }, [lightboxEverOpened]);
+
+/*    useEffect(() => {
         window.addEventListener('click', (e) => {
             const elem = document.getElementById("lightboxArea");
             if (lightboxState !== null && !elem?.contains(e.target)){
                 setLightboxState(null);
+                window.removeEventListener('click', (e) => {
+                    const elem = document.getElementById("lightboxArea");
+                    if (lightboxState !== null && !elem?.contains(e.target)){
+                        setLightboxState(null);
+                    }
+                });
             }
         });
 
         return () => {
             window.removeEventListener('click', (e) => {
+                cc(5)
                 const elem = document.getElementById("lightboxArea");
                 if (lightboxState !== null && !elem?.contains(e.target)){
                     setLightboxState(null);
                 }
             });
         }
-    }, [lightboxState]);
+    }, [lightboxState]);*/
 
     //useClickOutsideOfBoxHook("lightboxArea", lightboxState, setLightboxState);
 
@@ -87,9 +119,6 @@ function NjGallery(props: GalleryInputs) {
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                 <div className={"lightbox__top-row"}>
-                    <button onClick={(e) => {
-                        setLightboxState(null);
-                    }}>Close</button>
                 </div>
 
                 <div className={"lightbox__middle-row"}>
@@ -162,7 +191,7 @@ function NjGallery(props: GalleryInputs) {
     );
 }
 
-export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>){
+export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened){
     //@ts-ignore
     let url = event.target.getAttribute("data-largeimg")
     let position = galleryInputsWithDefaults.images.findIndex((elem) => {
@@ -170,6 +199,7 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
     });
 
     setLightboxState(position);
+    setLightboxEverOpened(true);
 }
 
 function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{

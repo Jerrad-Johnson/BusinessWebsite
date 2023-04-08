@@ -6,12 +6,13 @@ function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] 
                        galleryInputsWithDefaults: GalleryInputsWithDefaults,
                        galleryElementRef: GalleryElementRef,
                        setLightboxState: Dispatch<SetStateAction<number | null>>,
+                       setLightboxEverOpened,
                        ){
 
     useEffect(() => {
-        window.addEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState)));
+        window.addEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened)));
         return () => {
-            window.removeEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState)));
+            window.removeEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened)));
         }
     }, []);
 }
