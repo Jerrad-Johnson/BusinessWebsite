@@ -45,6 +45,8 @@ function NjGallery(props: GalleryInputs) {
     const [windowHeight, windowWidth] = useWindowDimensions();
 
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
+    lightboxImages = changeDateFormatLightboxImages(lightboxImages);
+
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -149,6 +151,17 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
     });
 
     setLightboxState(position);
+}
+
+function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
+    let lightboxImagesCopy = {...lightboxImages};
+
+    for (let entry of lightboxImages){
+        if (entry?.date.length < 12) continue;
+        entry.date = entry.date.slice(0, 10)
+    }
+
+    return lightboxImagesCopy;
 }
 
 export default NjGallery;
