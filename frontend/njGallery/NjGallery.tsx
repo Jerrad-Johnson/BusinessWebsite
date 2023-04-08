@@ -7,13 +7,12 @@ import {
     GalleryStylesEssential,
     GalleryElementRef,
     GalleryInputsWithDefaults,
-    GalleryInputs
+    GalleryInputs, ImageArrayData
 } from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
-import {event} from "eventemitter2";
 
 
 function NjGallery(props: GalleryInputs) {
@@ -45,7 +44,9 @@ function NjGallery(props: GalleryInputs) {
 
     const [windowHeight, windowWidth] = useWindowDimensions();
 
-    let lightboxImages = galleryInputsWithDefaults.images;
+    let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
+    lightboxImages = changeDateFormatLightboxImages(lightboxImages);
+
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -83,12 +84,12 @@ function NjGallery(props: GalleryInputs) {
 
                         <div onClick={(e) => {
                             e.stopPropagation();
-                            setLightboxState(prev => (typeof prev === "boolean" && prev-1 > -1) ? prev-1 : prev)}
+                            setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
                         } className={"lightbox__image--move-left"}></div>
 
                         <div onClick={(e) => {
                             e.stopPropagation();
-                            setLightboxState(prev => (typeof prev === "boolean" && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                         } className={"lightbox__image--move-right"}></div>
                     </div>
                 </div>
@@ -100,7 +101,7 @@ function NjGallery(props: GalleryInputs) {
                                 Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
                             </li>
                             <li>
-                                Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "unlisted" }
+                                Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "Not Listed" }
                             </li>
                         </ul>
                     </div>
@@ -150,6 +151,17 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
     });
 
     setLightboxState(position);
+}
+
+function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
+    let lightboxImagesCopy = {...lightboxImages};
+
+    for (let entry of lightboxImages){
+        if (entry?.date?.length === undefined || entry?.date?.length < 12) continue;
+        entry.date = entry.date.slice(0, 10)
+    }
+
+    return lightboxImagesCopy;
 }
 
 export default NjGallery;

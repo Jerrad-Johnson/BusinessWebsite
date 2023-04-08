@@ -3,12 +3,7 @@ exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
 exports.dataMissing = "Data Missing";
-
-const serverURL = "http://localhost:3002";
-exports.frontendURL = "http://localhost:3000";
-
-//const serverURL = "https://businessbackend.jerradjohnson.com";
-//exports.frontendURL = "https://business.jerradjohnson.com";
+require('dotenv').config()
 
 // Company-specific
 exports.businessName = "Ideal Portraits";
@@ -28,10 +23,10 @@ exports.pathToFullsizePhotos = "./public/galleries/fullsize_photos/";
 exports.pathToLocalFSGalleryThumbnailsWithExif = "./public/galleries/thumbnails_exif";
 exports.pathToLocalFSGallery10pxThumbnailsWithExif = "./public/galleries/10px_thumbnails_exif";
 exports.pathToLocalFSGallery1920pxThumbnailsWithExif = "./public/galleries/1920px_photos_exif";
-exports.publicPathToLgImgs = `${serverURL}/galleries/1920px_photos`;
-exports.publicPathToSmImgs = `${serverURL}/galleries/thumbnails`;
-exports.publicPathToTinyImgs = `${serverURL}/galleries/10px_thumbnails`; // TODO These, and many others, need to be updated. In this case, environment variable is important.
-exports.publicPathToBase64Imgs = `${serverURL}/galleries/base64_thumbnails`; // TODO These, and many others, need to be updated. In this case, environment variable is important.
+exports.publicPathToLgImgs = `${process.env.SERVER_URL}/galleries/1920px_photos`;
+exports.publicPathToSmImgs = `${process.env.SERVER_URL}/galleries/thumbnails`;
+exports.publicPathToTinyImgs = `${process.env.SERVER_URL}/galleries/10px_thumbnails`; // TODO These, and many others, need to be updated. In this case, environment variable is important.
+exports.publicPathToBase64Imgs = `${process.env.SERVER_URL}/galleries/base64_thumbnails`; // TODO These, and many others, need to be updated. In this case, environment variable is important.
 exports.pathsToPublicGalleries = {
     pathTo1920pxPhotos: pathTo1920pxPhotos,
     pathTo10pxThumbnails: pathTo10pxThumbnails,
