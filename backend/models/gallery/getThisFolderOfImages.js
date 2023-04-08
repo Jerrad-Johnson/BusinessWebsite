@@ -14,7 +14,15 @@ exports.getThisFolderOfImages = async (req, res, next) => {
     }
 
     try{
-        let results = await genericSQLPromise(`SELECT * FROM ${galleryByImageSize} WHERE folder = ?`, [req.body.galleryName]);
+        let results = await genericSQLPromise(`
+            SELECT ${galleryByImageSize}.*, gallery_lg_images.url AS 'lg_img_url' 
+            FROM ${galleryByImageSize} 
+            JOIN gallery_lg_images
+            WHERE gallery_sm_images.folder = ? 
+            AND gallery_lg_images.folder = ?
+            AND ${galleryByImageSize}.file_name = gallery_lg_images.file_name`,
+            [[req.body.galleryName], [req.body.galleryName]]);
+
         res.status(200).send(standardizedResponse("Image data loaded.", results));
 
     } catch (e) {

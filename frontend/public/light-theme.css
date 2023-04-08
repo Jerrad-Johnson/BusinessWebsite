@@ -1,8 +1,8 @@
-.container {
+.threeDimensionalContainer {
     background-image: linear-gradient(135deg, #485461 0%, #28313b 74%);
 }
 
-.main-container-content{
+.main__content{
     background-color: rgba(255, 255, 255, .97);
 }
 
@@ -11,37 +11,47 @@
     background-color: rgba(255, 255, 255, 0.2);
 }*/
 
-.bar{
+.navbar__bar{
     background-color: #000;
 }
 
-.bar:before,
-.bar:after {
+.navbar__bar:before,
+.navbar__bar:after {
     background-color: #000;
 }
 
-.bar.home{
+.navbar__bar.home{
     background-color: #eee;
 }
 
-.bar.home:before,
-.bar.home:after {
+.navbar__bar.home:before,
+.navbar__bar.home:after {
     background-color: #eee;
 }
 
-.bar.navOpen{
-    background-color: #fff;
-}
-
-.logo {
+.navbar__logo {
     color: #444;
 }
 
-.logo.navOpen{
+.navbar__logo.navOpen{
     color: #fff;
 }
 
-.bar.navOpen:before,
-.bar.navOpen:after {
+.navbar__bar.navOpen:before,
+.navbar__bar.navOpen:after {
+    background-color: #fff;
+}
+
+.navbar__menu.navOpen {
+    box-shadow: none;
+}
+
+/* TODO Make this BG color fade */
+.navbar__menu.navOpen{
+    width: 100%;
+    background-color: rgba(0, 0, 0, .0);
+}
+
+.lightbox__backdrop{
     background-color: #fff;
 }

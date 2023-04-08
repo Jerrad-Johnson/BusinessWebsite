@@ -3,9 +3,12 @@ exports.ct = console.trace;
 exports.errorExistsInScript = true;
 exports.errorExistsNotInScript = false;
 exports.dataMissing = "Data Missing";
-//const serverURL = "localhost:3002";
-const serverURL = "https://businessbackend.jerradjohnson.com";
-exports.frontendURL = "https://business.jerradjohnson.com";
+
+const serverURL = "http://localhost:3002";
+exports.frontendURL = "http://localhost:3000";
+
+//const serverURL = "https://businessbackend.jerradjohnson.com";
+//exports.frontendURL = "https://business.jerradjohnson.com";
 
 // Company-specific
 exports.businessName = "Ideal Portraits";
@@ -52,7 +55,7 @@ exports.fitMethods = {
     inside: "inside",
 }
 exports.resizeResolutions = {
-    mapThumbnail: 300,
+    mapThumbnail: 600,
     tenPx: 10,
     large: 1920,
 }

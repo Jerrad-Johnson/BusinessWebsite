@@ -5,20 +5,25 @@ import {
     GalleryLayoutData,
     ImageArrayData, ReformattedGalleryLayout
 } from "../types/njGallery";
-import {ReactElement} from "react";
+import {Dispatch, ReactElement, SetStateAction} from "react";
+import {cc} from "../../common/variables";
+import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
+import {handleLightbox} from "../NjGallery";
 
-function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     //@ts-ignore
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);
+
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
 
     return reformattedGalleryLayout.map((e) => {
         const boxHeight = Math.trunc(+e.boxHeight);
         const boxWidth = Math.trunc(+e.boxWidth);
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
+        let ratio = +(e.boxHeight / e.boxWidth).toFixed(3);
 
         return (
             <div
@@ -27,6 +32,11 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
             >
                 <Image
                     src={e.imgSrc}
+                    onClick={((event) => {
+                        handleLightbox(event, galleryInputsWithDefaults, setLightboxState); })
+                    }
+                    data-ratio={ratio}
+                    data-largeimg={e.lg_img_url}
                     blurDataURL={e.imgBlurSrc}
                     placeholder={imgBlurSrc}
                     className={"njGalleryImage"}
@@ -70,9 +80,17 @@ function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArra
         reformattedGalleryLayout[i].imgSrc = imagesCopy[i].src;
         reformattedGalleryLayout[i].imgBlurSrc = imagesCopy[i].blurSrc;
         reformattedGalleryLayout[i].alt = imagesCopy[i].alt;
+        reformattedGalleryLayout[i].lg_img_url = imagesCopy[i].lg_img_url;
     }
 
     return reformattedGalleryLayout;
 }
+
+/*function handleLightbox(event, galleryInputsWithDefaults){
+    let url = event.target.getAttribute("data-largeimg")
+    let position = galleryInputsWithDefaults.images.findIndex((elem) => {
+        return elem.lg_img_url === url;
+    });
+}*/
 
 export default createGalleryLayout;

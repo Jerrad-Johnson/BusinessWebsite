@@ -39,15 +39,15 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         targetRowHeightTolerance: .2,
     }
 
+
     return (
-        <div className={"main-container"}>
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"overlay"}>
-                        <div className={"main-container-content"}>
-                            <div className={"main-container-headline"}>Gallery</div>
+                    <div className={"main__overlay"}>
+                        <div className={"main__content"}>
+                            <div className={"main__content--headline"}>Gallery</div>
                             <hr/>
                             {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
                             <hr/>
@@ -94,7 +94,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                     </div>
                 </header>
             </div>
-        </div>
     );
 }
 
@@ -129,9 +128,9 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"overlay"}>
-                        <div className={"main-container-content"}>
-                            <div className={"main-container-headline"}></div>
+                    <div className={"main__overlay"}>
+                        <div className={"main__content"}>
+                            <div className={"main__content--headline"}></div>
                             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                                 <InputLabel id="demo-simple-select-standard-label">Lens</InputLabel>
                                 <Select
@@ -228,9 +227,9 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"overlay"}>
-                        <div className={"main-container-content"}>
-                            <div className={"main-container-headline"}>About</div>
+                    <div className={"main__overlay"}>
+                        <div className={"main__content"}>
+                            <div className={"main__content--headline"}>About</div>
                             {lipsum}
                             <br />
                             <br />
@@ -267,14 +266,29 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
 }
 
 async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>, folder: string): Promise<void>{
-    const results = await httpClient.post(`${process.env.SERVERURL}/gallery/getThisFolder`, {gallerySize: "lg", galleryName: folder});
+    const results = await httpClient.post(`${process.env.SERVERURL}/gallery/getThisFolder`, {gallerySize: "sm", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
 
     let formattedImageData: ImageArrayData[] = [];
     for (let image of imageData){
-        formattedImageData.push({src: image.url, height: +image.height, width: +image.width, blurSrc: image.base64url, alt: image["alt_text"]})
+        formattedImageData.push(
+            {
+                src: image.url,
+                height: +image.height,
+                width: +image.width,
+                blurSrc: image.base64url,
+                lg_img_url: image.lg_img_url,
+                alt: image["alt_text"] || null,
+                camera_model: image.camera_model || null,
+                exposure: image.exposure_time || null,
+                focal: image.focal_length || null,
+                iso: image.iso || null,
+                lens: image.lens_model || null,
+                date: image.photo_capture || null,
+            }
+        )
     }
 
     setPhotos(formattedImageData);

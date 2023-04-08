@@ -2,35 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-#map {
-    height: 80%;
-    width: 100%;
-}
+/* -------- Globals -------- */
 
-.container__login {
-    width: 80%;
-    margin: auto;
-}
-
-.marker-cluster {
-    background: #9370db;
-    border: 3px solid #ededed;
-    border-radius: 50%;
-    color: #ededed;
-    height: 40px;
-    line-height: 37px;
-    text-align: center;
-    width: 40px;
-}
-
-
-
-
-
-
-
-/* TODO Design for mobile-friendly use. */
-/* Sidebar Menu */
+/* Resets  */
 * {
     padding: 0;
     margin: 0;
@@ -42,103 +16,7 @@ button {
     font-family: "Poppins", sans-serif;
 }
 
-.container {
-    min-height: 100vh;
-    width: 100%;
-    overflow-x: hidden;
-    transform-style: preserve-3d;
-}
-
-.navbar {
-    position:fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 80%;
-    max-width: 1100px;
-    z-index: 10;
-    height: 3rem;
-    margin: 0 auto;
-}
-
-.navbarHome {
-    position:fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 80%;
-    padding-top: 10px;
-    z-index: 10;
-    height: 3rem;
-    margin: 0 auto;
-}
-
-.menu {
-    min-height: 60px;
-    width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 5px 0px;
-    background: #fff;
-    padding-right: 10%;
-    padding-left: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #fff;
-}
-
-.menu.navOpen{
-    background: rgba(0,0,0,0);
-    box-shadow: none;
-} /*TODO Add transition*/
-
-.logo {
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    line-height: 4rem;
-}
-
-.logo span {
-    font-weight: 300;
-}
-
-.hamburger-menu {
-    height: 4rem;
-    width: 3rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.bar {
-    width: 1.9rem;
-    height: 1.5px;
-    border-radius: 2px;
-    background-color: #eee;
-    transition: 0.5s;
-    position: relative;
-}
-
-.bar:before,
-.bar:after {
-    content: "";
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    background-color: #eee;
-    transition: 0.5s;
-}
-
-.bar:before {
-    transform: translateY(-9px);
-}
-
-.bar:after {
-    transform: translateY(9px);
-}
-
+/* Main */
 .main {
     position: relative;
     width: 100%;
@@ -150,7 +28,7 @@ button {
     transition: 0.5s;
 }
 
-.main-container-content{
+.main__content{
     width: 100%;
     max-width: 1100px;
     background-color: #fff;
@@ -170,12 +48,11 @@ button {
     pr-16
 }
 
-.main-container-content::-webkit-scrollbar {
+.main__content::-webkit-scrollbar {
     display: none;
 }
 
-
-.main-container-headline{
+.main__content--headline{
     width: 100%;
     display: block;
     text-align: center;
@@ -192,7 +69,7 @@ header {
     position: relative;
 }
 
-.overlay {
+.main__overlay {
     position: absolute;
     padding-right: 10%;
     padding-left: 10%;
@@ -205,7 +82,6 @@ header {
     justify-content: center;
     align-items: center;
 }
-
 
 .title {
     font-size: 2.7rem;
@@ -223,40 +99,90 @@ header {
     text-decoration: none;
 }
 
-.container.active .bar {
-    transform: rotate(360deg);
-    background-color: transparent;
+/* Navbar */
+.navbar {
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 80%;
+    max-width: 1100px;
+    z-index: 10;
+    height: 3rem;
+    margin: 0 auto;
 }
 
-.container.active .bar:before {
-    transform: translateY(0) rotate(45deg);
+.navbar--home {
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 80%;
+    padding-top: 10px;
+    z-index: 10;
+    height: 3rem;
+    margin: 0 auto;
 }
 
-.container.active .bar:after {
-    transform: translateY(0) rotate(-45deg);
+.navbar__menu {
+    min-height: 60px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 5px 0px;
+    background: #fff;
+    padding-right: 10%;
+    padding-left: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
 }
 
-.container.active .main {
-    animation: main-animation 0.5s ease;
+.navbar__logo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 4rem;
+}
+
+.navbar__logo span {
+    font-weight: 300;
+}
+
+.navbar__hamburger-menu {
+    height: 4rem;
+    width: 3rem;
     cursor: pointer;
-    transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-.container.active .main.mobile, .container.active .main.narrow {
-    animation: none;
-    cursor: pointer;
-    transform: none;
-    display: none;
+.navbar__bar {
+    width: 1.9rem;
+    height: 1.5px;
+    border-radius: 2px;
+    background-color: #eee;
+    transition: 0.5s;
+    position: relative;
 }
 
-@keyframes main-animation {
-    from {
-        transform: translate(0);
-    }
+.navbar__bar:before,
+.navbar__bar:after {
+    content: "";
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    background-color: #eee;
+    transition: 0.5s;
+}
 
-    to {
-        transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
-    }
+.navbar__bar:before {
+    transform: translateY(-9px);
+}
+
+.navbar__bar:after {
+    transform: translateY(9px);
 }
 
 .links {
@@ -295,9 +221,10 @@ ul {
     color: #fff;
 }
 
-.container.active .links a {
+.threeDimensionalContainer.active .links a {
     animation: appear 0.5s forwards ease var(--i);
 }
+
 
 /*TODO Design nav to fade out on nav close*/
 @keyframes appear {
@@ -319,6 +246,50 @@ ul {
     to {
         opacity: 0;
         transform: translateY(10px);
+    }
+}
+
+
+/* 3D Container */
+.threeDimensionalContainer {
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    transform-style: preserve-3d;
+}
+.threeDimensionalContainer.active .navbar__bar {
+    transform: rotate(360deg);
+    background-color: transparent;
+}
+
+.threeDimensionalContainer.active .navbar__bar:before {
+    transform: translateY(0) rotate(45deg);
+}
+
+.threeDimensionalContainer.active .navbar__bar:after {
+    transform: translateY(0) rotate(-45deg);
+}
+
+.threeDimensionalContainer.active .main {
+    animation: main-animation 0.5s ease;
+    cursor: pointer;
+    transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
+}
+
+.threeDimensionalContainer.active .main.mobile, .threeDimensionalContainer.active .main.narrow {
+    animation: none;
+    cursor: pointer;
+    transform: none;
+    display: none;
+}
+
+@keyframes main-animation {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        transform: perspective(1300px) rotateY(20deg) translateZ(310px) scale(0.5);
     }
 }
 
@@ -352,7 +323,7 @@ ul {
     display: none;
 }
 
-.container.active .shadow.one {
+.threeDimensionalContainer.active .shadow.one {
     animation: shadow-one 0.6s ease-out;
     transform: perspective(1300px) rotateY(20deg) translateZ(215px) scale(0.5);
 }
@@ -371,7 +342,7 @@ ul {
     }
 }
 
-.container.active .shadow.two {
+.threeDimensionalContainer.active .shadow.two {
     animation: shadow-two 0.6s ease-out;
     transform: perspective(1300px) rotateY(20deg) translateZ(120px) scale(0.5);
 }
@@ -390,14 +361,18 @@ ul {
     }
 }
 
-.container.active .main:hover + .shadow.one {
+.threeDimensionalContainer.active .main:hover + .shadow.one {
     transform: perspective(1300px) rotateY(20deg) translateZ(230px) scale(0.5);
 }
 
-.container.active .main:hover {
+.threeDimensionalContainer.active .main:hover {
     transform: perspective(1300px) rotateY(20deg) translateZ(340px) scale(0.5);
 }
 
+
+/* -------- Page-specific Classes --------- */
+
+/* Gallery Page */
 .galleryFolderSelectors{
     padding-right: 6px;
     padding-left: 6px;
@@ -414,32 +389,141 @@ span.galleryFolderSelectors::first-letter{
     border-left: 2px solid darkgreen;
 }
 
-
-/*
-.testingGallery{
-    width: 100%;
+.lightbox{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, .6);
     display: flex;
-    flex-wrap: wrap;
-    padding: 5px 5px 5px 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox__backdrop{
+    display: flex;
+    padding: 20px 40px 20px 40px;
+    flex-flow: column;
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
+    -moz-box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
+    box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
+}
+
+.lightbox__top-row{
+    justify-content: flex-end;
+    display: flex;
+
+    @apply
+    mb-4;
+}
+
+.lightbox__middle-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
-*/
-
-
-
-
-
-/*
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+.lightbox__image--subcontainer{
+    position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
+.lightbox__image--styler{
+    /*margin: 10vh 10vw;*/
+}
+
+.lightbox__image--move-left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height:100%;
+}
+
+.lightbox__image--move-right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height:100%;
+}
+
+.lightbox__bottom-row{
+}
+
+.lightbox__exif-data{
 
 }
-*/
+
+
+
+
+
+/* Leaflet  */
+#map {
+    height: 80%;
+    width: 100%;
+}
+
+.marker-cluster {
+    background: #9370db;
+    border: 3px solid #ededed;
+    border-radius: 50%;
+    color: #ededed;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    width: 40px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 800px){
+    .main__content {
+        padding: 60px 30px 30px 30px;
+    }
+
+    .main__overlay {
+        padding-right: 0%;
+        padding-left: 0%;
+    }
+
+    .navbar{
+        width: 100%;
+    }
+
+    .lightbox__bottom-row--right ul li, .lightbox__bottom-row--left ul li{
+    }
+
+    .lightbox__bottom-row--right{
+        @apply
+        mt-2
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .lightbox__bottom-row{
+        @apply
+        flex
+        justify-between
+        mt-4;
+    }
+}
+
+@media screen and (max-width: 950px) {
+/*    .threeDimensionalContainer.active .main {
+        display: none;
+    }
+
+    .shadow.one .shadow.two{
+        display: none;
+    }*/
+    /*Replace the above with javascript*/
+}

@@ -1,8 +1,8 @@
-.container {
+.threeDimensionalContainer {
     background-image: linear-gradient(135deg, #222 0%, #111 74%);
 }
 
-.overlay {
+.main__overlay {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -10,7 +10,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.main-container-content{
+.main__content{
     background-color: rgba(20, 20, 20, .98);
 }
 
@@ -18,6 +18,20 @@ body{
     color: #ccc;
 }
 
-.menu{
+.navbar__menu{
     background-color: rgba(20, 20, 20, .98);
+}
+
+.navbar__menu.navOpen {
+    box-shadow: none;
+}
+
+/* TODO Make this BG color fade */
+.navbar__menu.navOpen{
+    width: 100%;
+    background-color: rgba(0, 0, 0, .0);
+}
+
+.lightbox__backdrop{
+    background-color: #111;
 }

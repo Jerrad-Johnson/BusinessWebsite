@@ -35,6 +35,13 @@ export interface ImageArrayData {
     height: number;
     width: number;
     alt?: string;
+    lg_img_url?: string;
+    date: string | null;
+    lens: string | null;
+    camera_model: string | null;
+    focal: string | null;
+    exposure: string | null;
+    iso: string | null;
 }
 
 export interface GalleryLayoutData {
@@ -53,6 +60,7 @@ export interface ReformattedGalleryLayout {
     boxHeight: number;
     boxWidth: number;
     imgSrc: string;
+    lg_img_url?: string;
     imgBlurSrc?: string;
     alt?: string;
 }

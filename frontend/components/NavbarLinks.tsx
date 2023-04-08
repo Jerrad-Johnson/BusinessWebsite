@@ -27,7 +27,17 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                 </li>
 {/*                <li>
                     <Link href={"/testimonials"}>
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.20s"}}>Services</a>
+                    </Link>
+                </li>*/}
+{/*                <li>
+                    <Link href={"/testimonials"}>
                         <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.20s"}}>Testimonials</a>
+                    </Link>
+                </li>*/}
+                {/*                <li>
+                    <Link href={"/testimonials"}>
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.20s"}}>Why Us?</a>
                     </Link>
                 </li>*/}
                 <li>
@@ -35,6 +45,11 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                         <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.25s"}}>About</a>
                     </Link>
                 </li>
+{/*                <li>
+                    <Link href={"/about"}>@ts-ignore
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.25s"}}>Equipment</a>
+                    </Link>
+                </li>*/}
 {/*                <li>
                     <Link href={"/contact"}>
                         <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.30s"}}>Contact</a>
