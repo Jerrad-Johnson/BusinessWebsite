@@ -13,6 +13,7 @@ import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
+import * as querystring from "querystring";
 
 
 function NjGallery(props: GalleryInputs) {
@@ -42,6 +43,26 @@ function NjGallery(props: GalleryInputs) {
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState);
 
+    useEffect(() => {
+        window.addEventListener('click', (e) => {
+            const elem = document.getElementById("lightboxArea");
+            if (lightboxState !== null && !elem?.contains(e.target)){
+                setLightboxState(null);
+            }
+        });
+
+        return () => {
+            window.removeEventListener('click', (e) => {
+                const elem = document.getElementById("lightboxArea");
+                if (lightboxState !== null && !elem?.contains(e.target)){
+                    setLightboxState(null);
+                }
+            });
+        }
+    }, [lightboxState]);
+
+    //useClickOutsideOfBoxHook("lightboxArea", lightboxState, setLightboxState);
+
     const [windowHeight, windowWidth] = useWindowDimensions();
 
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
@@ -64,7 +85,7 @@ function NjGallery(props: GalleryInputs) {
     /*TODO Add lightbox image-shift on key press. Change Lightbox "Date" format. CSS Transition.*/
     let lightbox = (
         <div className={"lightbox"}>
-            <div className={"lightbox__backdrop"}>
+            <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                 <div className={"lightbox__top-row"}>
                     <button onClick={(e) => {
                         setLightboxState(null);
@@ -83,12 +104,10 @@ function NjGallery(props: GalleryInputs) {
                         />
 
                         <div onClick={(e) => {
-                            e.stopPropagation();
                             setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
                         } className={"lightbox__image--move-left"}></div>
 
                         <div onClick={(e) => {
-                            e.stopPropagation();
                             setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                         } className={"lightbox__image--move-right"}></div>
                     </div>

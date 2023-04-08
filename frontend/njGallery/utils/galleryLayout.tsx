@@ -33,6 +33,7 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
                 <Image
                     src={e.imgSrc}
                     onClick={((event) => {
+                        event.stopPropagation();
                         handleLightbox(event, galleryInputsWithDefaults, setLightboxState); })
                     }
                     data-ratio={ratio}
