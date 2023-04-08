@@ -68,33 +68,6 @@ function NjGallery(props: GalleryInputs) {
         }
     }, [lightboxEverOpened]);
 
-/*    useEffect(() => {
-        window.addEventListener('click', (e) => {
-            const elem = document.getElementById("lightboxArea");
-            if (lightboxState !== null && !elem?.contains(e.target)){
-                setLightboxState(null);
-                window.removeEventListener('click', (e) => {
-                    const elem = document.getElementById("lightboxArea");
-                    if (lightboxState !== null && !elem?.contains(e.target)){
-                        setLightboxState(null);
-                    }
-                });
-            }
-        });
-
-        return () => {
-            window.removeEventListener('click', (e) => {
-                cc(5)
-                const elem = document.getElementById("lightboxArea");
-                if (lightboxState !== null && !elem?.contains(e.target)){
-                    setLightboxState(null);
-                }
-            });
-        }
-    }, [lightboxState]);*/
-
-    //useClickOutsideOfBoxHook("lightboxArea", lightboxState, setLightboxState);
-
     const [windowHeight, windowWidth] = useWindowDimensions();
 
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
@@ -107,8 +80,6 @@ function NjGallery(props: GalleryInputs) {
     let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
 
     let max = windowHeight > windowWidth ? windowWidth : windowHeight
-        //activeImageHeight/activeImageWidth <= 1 ? windowWidth : windowHeight;
-        //Math.max(windowHeight, windowWidth);
     let portraitOrientation = activeImageWidth/activeImageHeight >= 1 ? true : false;
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
