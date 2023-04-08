@@ -13,7 +13,6 @@ import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
-import {event} from "eventemitter2";
 
 
 function NjGallery(props: GalleryInputs) {
