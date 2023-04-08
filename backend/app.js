@@ -6,12 +6,12 @@ const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const {sessionOptions} = require('./common/sessionOptions');
+require('dotenv').config()
 
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin/_admin');
 const leafletRouter = require('./routes/leaflet/leaflet');
 const galleryRouter = require("./routes/gallery");
-const {serverURL, frontendURL} = require("./common/variables");
 
 const app = express();
 const cc = console.log;
@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 */
 
 app.use(cors({
-  origin: frontendURL,
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 

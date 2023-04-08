@@ -1,4 +1,15 @@
 # Backend
+## env
+
+Create .env file in `backend` (relative root) folder.
+
+Sample contents: 
+
+```
+SERVER_URL = http://localhost:3002
+FRONTEND_URL = http://localhost:3000
+```
+
 ## Pool
 
 ```
