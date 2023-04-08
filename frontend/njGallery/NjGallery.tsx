@@ -157,7 +157,7 @@ function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): Image
     let lightboxImagesCopy = {...lightboxImages};
 
     for (let entry of lightboxImages){
-        if (entry?.date.length < 12) continue;
+        if (entry?.date?.length === undefined || entry?.date?.length < 12) continue;
         entry.date = entry.date.slice(0, 10)
     }
 
