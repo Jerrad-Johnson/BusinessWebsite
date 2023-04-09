@@ -85,7 +85,9 @@ function NjGallery(props: GalleryInputs) {
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
 
-    /*TODO Add lightbox image-shift on key press. Change Lightbox "Date" format. CSS Transition.*/
+    /*TODO Add lightbox image-shift on key press. blurDataURL not working on lightbox images. CSS Transition.*/
+
+
     let lightbox = (
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
@@ -97,6 +99,7 @@ function NjGallery(props: GalleryInputs) {
                         <Image
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
+                            placeholder={"blur"}
                             className={"lightbox__image"}
                             width={ imageWidth }
                             height={ imageHeight }

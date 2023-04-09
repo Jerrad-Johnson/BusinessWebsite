@@ -25,6 +25,8 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
         let ratio = +(e.boxHeight / e.boxWidth).toFixed(3);
 
+        cc(e.imgBlurSrc, imgBlurSrc)
+
         return (
             <div
                 style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
