@@ -6,7 +6,7 @@ function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] 
                        galleryInputsWithDefaults: GalleryInputsWithDefaults,
                        galleryElementRef: GalleryElementRef,
                        setLightboxState: Dispatch<SetStateAction<number | null>>,
-                       setLightboxEverOpened,
+                       setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
                        ){
 
     useEffect(() => {

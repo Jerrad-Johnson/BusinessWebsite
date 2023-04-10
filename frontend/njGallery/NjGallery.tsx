@@ -44,11 +44,13 @@ function NjGallery(props: GalleryInputs) {
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
 
+    //@ts-ignore
     useEffect(() => {
         if (lightboxEverOpened){
             window.addEventListener('click', (e) => {
                 if (lightboxState !== null) {
                     const elem = document.getElementById("lightboxArea");
+                    //@ts-ignore
                     if (!elem?.contains(e.target)){
                         setLightboxState(null);
                     }
@@ -59,6 +61,7 @@ function NjGallery(props: GalleryInputs) {
                 window.removeEventListener('click', (e) => {
                     if (lightboxState !== null) {
                         const elem = document.getElementById("lightboxArea");
+                        //@ts-ignore
                         if (!elem?.contains(e.target)){
                             setLightboxState(null);
                         }
@@ -84,9 +87,7 @@ function NjGallery(props: GalleryInputs) {
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
-
-    /*TODO Add lightbox image-shift on key press. blurDataURL not working on lightbox images. CSS Transition.*/
-
+    /*TODO Add lightbox image-shift on key press. CSS Transition.*/
 
     let lightbox = (
         <div className={"lightbox"}>
@@ -165,7 +166,7 @@ function NjGallery(props: GalleryInputs) {
     );
 }
 
-export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened){
+export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>){
     //@ts-ignore
     let url = event.target.getAttribute("data-largeimg")
     let position = galleryInputsWithDefaults.images.findIndex((elem) => {
