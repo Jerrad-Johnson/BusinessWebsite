@@ -1,3 +1,7 @@
 node_modules
 common/session_secret.js
 public/backgrounds
+backend/photographs
+backend/public/galleries
+backend2
+frontend/public/backgrounds
