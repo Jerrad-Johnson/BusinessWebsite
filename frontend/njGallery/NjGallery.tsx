@@ -87,7 +87,7 @@ function NjGallery(props: GalleryInputs) {
     let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. ... Testing pull*/
+    /*TODO Add lightbox image-shift on key press. CSS Transition. ... Testing pull v2*/
 
     let lightbox = (
         <div className={"lightbox"}>
