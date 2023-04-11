@@ -507,6 +507,10 @@ span.galleryFolderSelectors::first-letter{
         @apply
         mt-2
     }
+
+    .lightbox__backdrop{
+        padding: 10px 20px 10px 20px;
+    }
 }
 
 @media screen and (min-width: 800px) {

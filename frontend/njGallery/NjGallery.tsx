@@ -74,8 +74,6 @@ function NjGallery(props: GalleryInputs) {
 
     const [windowHeight, windowWidth] = useWindowDimensions();
 
-    cc(windowWidth)
-
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
     lightboxImages = changeDateFormatLightboxImages(lightboxImages);
 
@@ -87,14 +85,15 @@ function NjGallery(props: GalleryInputs) {
 
     let max = windowHeight > windowWidth ? windowWidth : windowHeight
     let portraitOrientation = activeImageWidth/activeImageHeight >= 1 ? true : false;
-    let imageWidth = /*(portraitOrientation === true && windowWidth < 801)*/
 
-        portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
-    let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
+    const imageWidth = getImageWidth(portraitOrientation, max, ratio, windowWidth);
+    const imageHeight = getImageHeight(portraitOrientation, max, ratio, windowWidth);
+
+    cc(imageWidth, windowWidth);
+    /*const imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
+    const imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);*/
 
     /*TODO Add lightbox image-shift on key press. CSS Transition. */
-
-    cc(lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url)
 
     let lightbox = (
         <div className={"lightbox"}>
@@ -194,6 +193,30 @@ function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): Image
     }
 
     return lightboxImagesCopy;
+}
+
+export function getImageWidth(portraitOrientation, max, ratio, windowWidth){
+    if (portraitOrientation === true && windowWidth < 801){
+        return max * (.9);
+    } else if (portraitOrientation === true && windowWidth < 801){
+        return max * (.9) * (ratio)
+    } else if (portraitOrientation === true){
+        return max * (.8);
+    } else {
+        return max * (.8) * (ratio);
+    }
+}
+
+export function getImageHeight(portraitOrientation, max, ratio, windowWidth){
+    if (portraitOrientation === true && windowWidth < 801){
+        return max * (.9) * (ratio);
+    } else if (portraitOrientation === true && windowWidth < 801){
+        return max * (.9);
+    } else if (portraitOrientation === true){
+        return max * (.8) * (ratio);
+    } else {
+        return max * (.8);
+    }
 }
 
 export default NjGallery;
