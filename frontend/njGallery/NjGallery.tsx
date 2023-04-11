@@ -14,6 +14,7 @@ import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
+import useScreenWidth from "../hooks/useScreenWidth";
 
 
 function NjGallery(props: GalleryInputs) {
@@ -73,6 +74,8 @@ function NjGallery(props: GalleryInputs) {
 
     const [windowHeight, windowWidth] = useWindowDimensions();
 
+    cc(windowWidth)
+
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
     lightboxImages = changeDateFormatLightboxImages(lightboxImages);
 
@@ -84,10 +87,14 @@ function NjGallery(props: GalleryInputs) {
 
     let max = windowHeight > windowWidth ? windowWidth : windowHeight
     let portraitOrientation = activeImageWidth/activeImageHeight >= 1 ? true : false;
-    let imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
+    let imageWidth = /*(portraitOrientation === true && windowWidth < 801)*/
+
+        portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     let imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. ... Testing pull v4*/
+    /*TODO Add lightbox image-shift on key press. CSS Transition. */
+
+    cc(lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url)
 
     let lightbox = (
         <div className={"lightbox"}>
@@ -98,6 +105,7 @@ function NjGallery(props: GalleryInputs) {
                 <div className={"lightbox__middle-row"}>
                     <div className={"lightbox__image--subcontainer"}>
                         <Image
+                            key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
                             placeholder={"blur"}
