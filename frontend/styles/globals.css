@@ -490,7 +490,8 @@ span.galleryFolderSelectors::first-letter{
     border-style: solid;
     padding: 15px;
     max-height: 100%;
-    overflow: hidden;
+    overflow: auto;
+    z-index: 10;
 
 }
 
