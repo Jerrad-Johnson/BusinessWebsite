@@ -16,8 +16,10 @@ import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
 import InfoIcon from '@mui/icons-material/Info';
+import {showGalleryData} from "./utils/variables";
 
 function NjGallery(props: GalleryInputs) {
+
     checkInputForErrors(props);
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
@@ -27,13 +29,11 @@ function NjGallery(props: GalleryInputs) {
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
+    const [lightboxGalleryDataToShow, setLightboxGalleryDataToShow] = useState(showGalleryData);
 
-    const styles = {
-        largeIcon: {
-            width: 90,
-            height: 90,
-        },
-    }
+    useEffect(() => {
+        showGalleryData.imageData = ( localStorage.getItem("imageData") === "false" ) ? false : true;
+    }, []);
 
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
@@ -158,6 +158,9 @@ function NjGallery(props: GalleryInputs) {
                 <div className={"lightbox__top-row"}>
                     <InfoIcon
                         style={{fontSize: "200%"}}
+                        onClick={() => {
+                            handleLightboxButtons(showGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow);
+                        }}
                     />
                 </div>
 
@@ -183,7 +186,7 @@ function NjGallery(props: GalleryInputs) {
                                 setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                             } className={"lightbox__image--move-right"}>
                         </div>
-                        {imageData}
+                        {lightboxGalleryDataToShow.imageData === true && imageData}
                     </div>
                 </div>
 
@@ -225,6 +228,11 @@ export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[])
     }
 
     return lightboxImagesCopy;
+}
+
+export function handleLightboxButtons(showGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow){
+    const showGalleryDataCopy = {...showGalleryData}
+    setLightboxGalleryDataToShow({...showGalleryDataCopy, imageData: true});
 }
 
 export default NjGallery;
