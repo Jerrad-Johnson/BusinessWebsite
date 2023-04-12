@@ -17,7 +17,7 @@ import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
 import InfoIcon from '@mui/icons-material/Info';
 import {initialShowGalleryData, lightboxDataSelectorTypes} from "./utils/variables";
-import {lightboxDataSelectorReducer} from "./utils/reducers";
+import {lightboxButtonReducer} from "./utils/reducers";
 
 function NjGallery(props: GalleryInputs) {
 
@@ -50,8 +50,8 @@ function NjGallery(props: GalleryInputs) {
         }
     }, [lightboxState]);
 
-    const [showGalleryData, galleryDataDispatch] = useReducer(lightboxDataSelectorReducer, initialShowGalleryData);
-    cc(showGalleryData)
+    const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
+    cc(lightboxButtonsActive)
 
 
 
@@ -166,7 +166,7 @@ function NjGallery(props: GalleryInputs) {
                     <InfoIcon
                         style={{fontSize: "200%"}}
                         onClick={() => {
-                            handleLightboxButtons(initialShowGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow, galleryDataDispatch);
+                            handleLightboxButtons(lightboxButtonDispatch);
                         }}
                     />
                 </div>
@@ -193,7 +193,7 @@ function NjGallery(props: GalleryInputs) {
                                 setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                             } className={"lightbox__image--move-right"}>
                         </div>
-                        {lightboxGalleryDataToShow.imageData === true && imageData}
+                        {lightboxButtonsActive.imageData === true && imageData}
                     </div>
                 </div>
 
@@ -237,10 +237,8 @@ export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[])
     return lightboxImagesCopy;
 }
 
-export function handleLightboxButtons(showGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow, galleryDataDispatch){
-    const lightboxGalleryDataToShowCopy = {...lightboxGalleryDataToShow}
-    setLightboxGalleryDataToShow({...lightboxGalleryDataToShowCopy, imageData: !lightboxGalleryDataToShowCopy.imageData});
-    galleryDataDispatch({type: lightboxDataSelectorTypes.imageData})
+export function handleLightboxButtons(lightboxDataDispatch){
+    lightboxDataDispatch({type: lightboxDataSelectorTypes.imageData})
 }
 
 export default NjGallery;
