@@ -218,32 +218,4 @@ function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): Image
     return lightboxImagesCopy;
 }
 
-/*export function getImageWidth(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation){
-    if (portraitImageOrientation === true && windowWidth < 801 && portraitScreenOrientation){
-        return windowWidth * (.8);
-    } else if (portraitImageOrientation === true && windowWidth < 801 && !portraitScreenOrientation){
-        return max * (.9) * (ratio);
-    } else if (portraitImageOrientation === false && windowWidth < 801){
-        return windowWidth * (.9);
-    } else if (portraitImageOrientation === true){
-        return max * (.8);
-    } else {
-        return max * (.8);
-    }
-}
-
-export function getImageHeight(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation){
-    if (portraitImageOrientation === true && windowWidth < 801 && portraitScreenOrientation){
-        return windowWidth * (1 / ratio) * .8;
-    } else if (portraitImageOrientation === true && windowWidth < 801 && !portraitScreenOrientation){
-        return max * (.9);
-    } else if (portraitImageOrientation === false && windowWidth < 801){
-        return windowWidth * (.9) * (ratio);
-    } else if (portraitImageOrientation === true){
-        return max * (1/ratio) * .8;
-    } else {
-        return max * (.8) * (ratio);
-    }
-}*/
-
 export default NjGallery;
