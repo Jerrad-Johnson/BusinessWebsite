@@ -484,7 +484,6 @@ span.galleryFolderSelectors::first-letter{
 }
 
 .lightbox__image-data--right-container, .lightbox__image-data--left-container{
-    background-color: #000;
     opacity: 0.5;
     border-radius: 15px;
     border-style: solid;
@@ -492,7 +491,6 @@ span.galleryFolderSelectors::first-letter{
     max-height: 100%;
     overflow: auto;
     z-index: 10;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
 }
 
 .lightbox__bottom-row{
