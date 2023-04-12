@@ -148,7 +148,9 @@ function NjGallery(props: GalleryInputs) {
     let lightbox = (
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
-                <div className={"lightbox__top-row"}></div>
+                <div className={"lightbox__top-row"}>
+                    Exif
+                </div>
 
                 <div className={"lightbox__middle-row"}>
                     <div className={"lightbox__image--subcontainer"} style={imageDimensionsStyle}>
