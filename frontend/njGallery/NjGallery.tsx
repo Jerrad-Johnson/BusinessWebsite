@@ -81,8 +81,8 @@ function NjGallery(props: GalleryInputs) {
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
     if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
-    let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
 
+    let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
     let imageIsPortraitOrientation = activeImageWidth < activeImageHeight ? true : false;
     let unitsToTopOfLightbox = 0;
     let unitsToSideOfLightbox = 0;
