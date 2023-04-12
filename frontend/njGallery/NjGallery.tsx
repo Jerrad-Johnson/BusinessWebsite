@@ -16,7 +16,7 @@ import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
 import InfoIcon from '@mui/icons-material/Info';
-import {initialShowGalleryData, lightboxDataSelectorTypes} from "./utils/variables";
+import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
 import {lightboxButtonReducer} from "./utils/reducers";
 
 function NjGallery(props: GalleryInputs) {
@@ -32,9 +32,9 @@ function NjGallery(props: GalleryInputs) {
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
     const [lightboxGalleryDataToShow, setLightboxGalleryDataToShow] = useState(initialShowGalleryData);
 
-    useEffect(() => {
+    /*useEffect(() => {
         initialShowGalleryData.imageData = ( localStorage.getItem("imageData") === "false" ) ? false : true;
-    }, []);
+    }, []);*/
 
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
@@ -51,7 +51,11 @@ function NjGallery(props: GalleryInputs) {
     }, [lightboxState]);
 
     const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
-    cc(lightboxButtonsActive)
+
+    useEffect(() => {
+        lightboxButtonDispatch({type: lightboxInitialValueCase})
+
+    }, []);
 
 
 
@@ -193,7 +197,7 @@ function NjGallery(props: GalleryInputs) {
                                 setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                             } className={"lightbox__image--move-right"}>
                         </div>
-                        {lightboxButtonsActive.imageData === true && imageData}
+                        {lightboxButtonsActive?.imageData === true && imageData}
                     </div>
                 </div>
 
