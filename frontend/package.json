@@ -10,9 +10,10 @@
     "prod": "next export"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.11.6",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.0",
     "@react-leaflet/core": "^2.1.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@types/leaflet": "^1.8.0",
