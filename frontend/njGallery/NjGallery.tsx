@@ -114,9 +114,7 @@ function NjGallery(props: GalleryInputs) {
                         <li>
                             Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
                         </li>
-                        <li>
-                            Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "Not Listed" }
-                        </li>
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
                     </ul>
                 </div>
             </div>
@@ -145,7 +143,7 @@ function NjGallery(props: GalleryInputs) {
         </>
     )
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. */
+    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data.*/
 
     let lightbox = (
         <div className={"lightbox"}>
