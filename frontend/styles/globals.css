@@ -421,6 +421,7 @@ span.galleryFolderSelectors::first-letter{
 .lightbox__top-row{
     justify-content: flex-end;
     display: flex;
+    padding: 0 10px 15px 0;
 }
 
 .lightbox__middle-row{
@@ -466,8 +467,8 @@ span.galleryFolderSelectors::first-letter{
     width: 50%;
     height: 100%;
     display: flex;
-    justify-content: start;
-    align-items: end;
+    justify-content: flex-start;
+    align-items: flex-end;
     padding: 20px;
 }
 
@@ -478,8 +479,8 @@ span.galleryFolderSelectors::first-letter{
     width: 50%;
     height: 100%;
     display: flex;
-    justify-content: end;
-    align-items: end;
+    justify-content: flex-end;
+    align-items: flex-end;
     padding: 20px;
 }
 
@@ -499,9 +500,6 @@ span.galleryFolderSelectors::first-letter{
 .lightbox__exif-data{
 
 }
-
-
-
 
 
 /* Leaflet  */

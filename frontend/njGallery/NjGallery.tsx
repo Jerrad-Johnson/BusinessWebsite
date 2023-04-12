@@ -15,7 +15,7 @@ import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
-
+import InfoIcon from '@mui/icons-material/Info';
 
 function NjGallery(props: GalleryInputs) {
     checkInputForErrors(props);
@@ -27,6 +27,13 @@ function NjGallery(props: GalleryInputs) {
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
+
+    const styles = {
+        largeIcon: {
+            width: 90,
+            height: 90,
+        },
+    }
 
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
@@ -149,7 +156,9 @@ function NjGallery(props: GalleryInputs) {
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                 <div className={"lightbox__top-row"}>
-                    Exif
+                    <InfoIcon
+                        style={{fontSize: "200%"}}
+                    />
                 </div>
 
                 <div className={"lightbox__middle-row"}>
