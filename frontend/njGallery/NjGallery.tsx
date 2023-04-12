@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useReducer, useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
 import addGalleryDefaults from "./utils/galleryDefaults";
@@ -16,7 +16,8 @@ import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
 import InfoIcon from '@mui/icons-material/Info';
-import {showGalleryData} from "./utils/variables";
+import {initialShowGalleryData, lightboxDataSelectorTypes} from "./utils/variables";
+import {lightboxDataSelectorReducer} from "./utils/reducers";
 
 function NjGallery(props: GalleryInputs) {
 
@@ -29,10 +30,10 @@ function NjGallery(props: GalleryInputs) {
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
-    const [lightboxGalleryDataToShow, setLightboxGalleryDataToShow] = useState(showGalleryData);
+    const [lightboxGalleryDataToShow, setLightboxGalleryDataToShow] = useState(initialShowGalleryData);
 
     useEffect(() => {
-        showGalleryData.imageData = ( localStorage.getItem("imageData") === "false" ) ? false : true;
+        initialShowGalleryData.imageData = ( localStorage.getItem("imageData") === "false" ) ? false : true;
     }, []);
 
     useEffect(() => {
@@ -48,6 +49,12 @@ function NjGallery(props: GalleryInputs) {
             if (navbarElem !== null) navbarElem.style.zIndex = "1";
         }
     }, [lightboxState]);
+
+    const [showGalleryData, galleryDataDispatch] = useReducer(lightboxDataSelectorReducer, initialShowGalleryData);
+    cc(showGalleryData)
+
+
+
 
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
@@ -159,7 +166,7 @@ function NjGallery(props: GalleryInputs) {
                     <InfoIcon
                         style={{fontSize: "200%"}}
                         onClick={() => {
-                            handleLightboxButtons(showGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow);
+                            handleLightboxButtons(initialShowGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow, galleryDataDispatch);
                         }}
                     />
                 </div>
@@ -230,9 +237,10 @@ export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[])
     return lightboxImagesCopy;
 }
 
-export function handleLightboxButtons(showGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow){
-    const showGalleryDataCopy = {...showGalleryData}
-    setLightboxGalleryDataToShow({...showGalleryDataCopy, imageData: true});
+export function handleLightboxButtons(showGalleryData, lightboxGalleryDataToShow, setLightboxGalleryDataToShow, galleryDataDispatch){
+    const lightboxGalleryDataToShowCopy = {...lightboxGalleryDataToShow}
+    setLightboxGalleryDataToShow({...lightboxGalleryDataToShowCopy, imageData: !lightboxGalleryDataToShowCopy.imageData});
+    galleryDataDispatch({type: lightboxDataSelectorTypes.imageData})
 }
 
 export default NjGallery;
