@@ -77,7 +77,6 @@ function NjGallery(props: GalleryInputs) {
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
     lightboxImages = changeDateFormatLightboxImages(lightboxImages);
 
-
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -93,9 +92,8 @@ function NjGallery(props: GalleryInputs) {
         unitsToSideOfLightbox = windowWidth / (80*ratio);
     } else {
         unitsToTopOfLightbox = windowHeight / (80*ratio);
-        unitsToSideOfLightbox = windowWidth / 80
+        unitsToSideOfLightbox = windowWidth / 80;
     }
-
 
     let imageDimensionsStyle;
     if (unitsToTopOfLightbox < unitsToSideOfLightbox && !imageIsPortraitOrientation){
@@ -107,24 +105,6 @@ function NjGallery(props: GalleryInputs) {
     } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && imageIsPortraitOrientation){
         imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
     }
-
-
-
-
-    //cc(unitsToSideOfLightbox, unitsToTopOfLightbox)
-/*    let viewportRatio = (80*ratio)/100;
-    let max = windowHeight > windowWidth ? windowWidth : windowHeight*/
-    //let imageDimensionsStyle = (activeImageHeight > activeImageWidth) ? {height: max*.8, width: max*viewportRatio} : {width: max*.8, height: max*viewportRatio}
-
-/*
-    let portraitImageOrientation = activeImageWidth/activeImageHeight >= 1 ? false : true;
-    let portraitScreenOrientation = windowWidth/windowHeight >= 1 ? false : true;
-
-    const imageWidth = getImageWidth(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation);
-    const imageHeight = getImageHeight(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation);*/
-
-    /*const imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
-    const imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);*/
 
     /*TODO Add lightbox image-shift on key press. CSS Transition. */
 
