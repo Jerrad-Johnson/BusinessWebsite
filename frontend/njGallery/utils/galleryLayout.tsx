@@ -11,7 +11,7 @@ import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
 import {handleLightbox} from "../NjGallery";
 
-function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     //@ts-ignore
@@ -25,16 +25,20 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
         let ratio = +(e.boxHeight / e.boxWidth).toFixed(3);
 
+        cc(e.imgBlurSrc, imgBlurSrc)
+
         return (
             <div
                 style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
                 key={e.imgSrc}
             >
                 <Image
+                    key={e.imgSrc}
                     src={e.imgSrc}
                     onClick={((event) => {
-                        handleLightbox(event, galleryInputsWithDefaults, setLightboxState); })
-                    }
+                        event.stopPropagation();
+                        handleLightbox(event, galleryInputsWithDefaults, setLightboxState, setLightboxEverOpened);
+                    })}
                     data-ratio={ratio}
                     data-largeimg={e.lg_img_url}
                     blurDataURL={e.imgBlurSrc}
