@@ -447,6 +447,7 @@ span.galleryFolderSelectors::first-letter{
     left: 0;
     width: 50%;
     height:100%;
+    z-index: 5;
 }
 
 .lightbox__image--move-right{
@@ -455,6 +456,7 @@ span.galleryFolderSelectors::first-letter{
     right: 0;
     width: 50%;
     height:100%;
+    z-index: 5;
 }
 
 .lightbox__image-data--left{
@@ -484,6 +486,12 @@ span.galleryFolderSelectors::first-letter{
 .lightbox__image-data--right-container, .lightbox__image-data--left-container{
     background-color: #000;
     opacity: 0.5;
+    border-radius: 15px;
+    border-style: solid;
+    padding: 15px;
+    max-height: 100%;
+    overflow: hidden;
+
 }
 
 .lightbox__bottom-row{

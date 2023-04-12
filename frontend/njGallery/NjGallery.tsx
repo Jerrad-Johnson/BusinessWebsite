@@ -207,7 +207,7 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
     setLightboxEverOpened(true);
 }
 
-function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
+export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
     let lightboxImagesCopy = {...lightboxImages};
 
     for (let entry of lightboxImages){
