@@ -106,19 +106,54 @@ function NjGallery(props: GalleryInputs) {
         imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
     }
 
+    const imageData = (
+        <>
+            <div className={"lightbox__image-data--left"}>
+                <div className={"lightbox__image-data--left-container"}>
+                    <ul>
+                        <li>
+                            Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
+                        </li>
+                        <li>
+                            Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "Not Listed" }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div className={"lightbox__image-data--right"}>
+                <div className={"lightbox__image-data--right-container"}>
+                    <ul>
+                        <li>
+                            Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
+                        </li>
+                        <li>
+                            Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
+                        </li>
+                        <li>
+                            Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
+                        </li>
+                        <li>
+                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
+                        </li>
+                        <li>
+                            ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </>
+    )
+
     /*TODO Add lightbox image-shift on key press. CSS Transition. */
 
     let lightbox = (
         <div className={"lightbox"}>
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
-                <div className={"lightbox__top-row"}>
-                </div>
+                <div className={"lightbox__top-row"}></div>
 
                 <div className={"lightbox__middle-row"}>
-                    <div
-                        className={"lightbox__image--subcontainer"}
-                        style={imageDimensionsStyle}
-                    >
+                    <div className={"lightbox__image--subcontainer"} style={imageDimensionsStyle}>
                         <Image
                             key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
@@ -131,47 +166,19 @@ function NjGallery(props: GalleryInputs) {
                         />
 
                         <div onClick={(e) => {
-                            setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
-                        } className={"lightbox__image--move-left"}></div>
+                                setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
+                            } className={"lightbox__image--move-left"}>
+                        </div>
 
                         <div onClick={(e) => {
-                            setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
-                        } className={"lightbox__image--move-right"}></div>
+                                setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            } className={"lightbox__image--move-right"}>
+                        </div>
+                        {imageData}
                     </div>
                 </div>
 
-                <div className={"lightbox__bottom-row"}>
-{/*                    <div className={"lightbox__bottom-row--left"}>
-                        <ul>
-                            <li>
-                                Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
-                            </li>
-                            <li>
-                                Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "Not Listed" }
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className={"lightbox__bottom-row--right"}>
-                        <ul>
-                            <li>
-                                Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
-                            </li>
-                            <li>
-                                Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
-                            </li>
-                            <li>
-                                Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
-                            </li>
-                            <li>
-                                Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
-                            </li>
-                            <li>
-                                ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
-                            </li>
-                        </ul>
-                    </div>*/}
-                </div>
+                <div className={"lightbox__bottom-row"}></div>
             </div>
         </div>
     );

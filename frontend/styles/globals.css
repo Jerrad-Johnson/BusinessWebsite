@@ -457,6 +457,35 @@ span.galleryFolderSelectors::first-letter{
     height:100%;
 }
 
+.lightbox__image-data--left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    padding: 20px;
+}
+
+.lightbox__image-data--right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding: 20px;
+}
+
+.lightbox__image-data--right-container, .lightbox__image-data--left-container{
+    background-color: #000;
+    opacity: 0.5;
+}
+
 .lightbox__bottom-row{
 }
 
@@ -507,7 +536,13 @@ span.galleryFolderSelectors::first-letter{
     }
 
     .lightbox__backdrop{
-        padding: 15px 15px 15px 15px;
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .lightbox__backdrop{
+        padding: 5px;
     }
 }
 
