@@ -77,19 +77,52 @@ function NjGallery(props: GalleryInputs) {
     let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
     lightboxImages = changeDateFormatLightboxImages(lightboxImages);
 
+
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
     if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
     let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
 
-    let max = windowHeight > windowWidth ? windowWidth : windowHeight
-    let portraitOrientation = activeImageWidth/activeImageHeight >= 1 ? true : false;
+    let imageIsPortraitOrientation = activeImageWidth < activeImageHeight ? true : false;
+    let unitsToTopOfLightbox = 0;
+    let unitsToSideOfLightbox = 0;
 
-    const imageWidth = getImageWidth(portraitOrientation, max, ratio, windowWidth);
-    const imageHeight = getImageHeight(portraitOrientation, max, ratio, windowWidth);
+    if (imageIsPortraitOrientation){
+        unitsToTopOfLightbox = windowHeight / 80;
+        unitsToSideOfLightbox = windowWidth / (80*ratio);
+    } else {
+        unitsToTopOfLightbox = windowHeight / (80*ratio);
+        unitsToSideOfLightbox = windowWidth / 80
+    }
 
-    cc(imageWidth, windowWidth);
+
+    let imageDimensionsStyle;
+    if (unitsToTopOfLightbox < unitsToSideOfLightbox && !imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowHeight*.8}px`, width: `${windowHeight*(.8*(1/ratio))}px`};
+    } else if (unitsToTopOfLightbox < unitsToSideOfLightbox && imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowHeight*(.8)}px`, width: `${windowHeight*(.8*ratio)}px`};
+    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && !imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowWidth*(.8*(ratio))}px`, width: `${windowWidth*(.8)}px`};
+    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
+    }
+
+
+
+
+    //cc(unitsToSideOfLightbox, unitsToTopOfLightbox)
+/*    let viewportRatio = (80*ratio)/100;
+    let max = windowHeight > windowWidth ? windowWidth : windowHeight*/
+    //let imageDimensionsStyle = (activeImageHeight > activeImageWidth) ? {height: max*.8, width: max*viewportRatio} : {width: max*.8, height: max*viewportRatio}
+
+/*
+    let portraitImageOrientation = activeImageWidth/activeImageHeight >= 1 ? false : true;
+    let portraitScreenOrientation = windowWidth/windowHeight >= 1 ? false : true;
+
+    const imageWidth = getImageWidth(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation);
+    const imageHeight = getImageHeight(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation);*/
+
     /*const imageWidth = portraitOrientation === true ? max * (.8) : max * (.8) * (ratio);
     const imageHeight = portraitOrientation === true ? max * (.8) * (ratio) : max * (.8);*/
 
@@ -102,15 +135,18 @@ function NjGallery(props: GalleryInputs) {
                 </div>
 
                 <div className={"lightbox__middle-row"}>
-                    <div className={"lightbox__image--subcontainer"}>
+                    <div
+                        className={"lightbox__image--subcontainer"}
+                        style={imageDimensionsStyle}
+                    >
                         <Image
                             key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
                             placeholder={"blur"}
                             className={"lightbox__image"}
-                            width={ imageWidth }
-                            height={ imageHeight }
+                            layout={"fill"}
+                            objectFit={"contain"}
                             alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                         />
 
@@ -125,7 +161,7 @@ function NjGallery(props: GalleryInputs) {
                 </div>
 
                 <div className={"lightbox__bottom-row"}>
-                    <div className={"lightbox__bottom-row--left"}>
+{/*                    <div className={"lightbox__bottom-row--left"}>
                         <ul>
                             <li>
                                 Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
@@ -154,7 +190,7 @@ function NjGallery(props: GalleryInputs) {
                                 ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
                             </li>
                         </ul>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         </div>
@@ -195,28 +231,32 @@ function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): Image
     return lightboxImagesCopy;
 }
 
-export function getImageWidth(portraitOrientation, max, ratio, windowWidth){
-    if (portraitOrientation === true && windowWidth < 801){
-        return max * (.9);
-    } else if (portraitOrientation === true && windowWidth < 801){
-        return max * (.9) * (ratio)
-    } else if (portraitOrientation === true){
+/*export function getImageWidth(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation){
+    if (portraitImageOrientation === true && windowWidth < 801 && portraitScreenOrientation){
+        return windowWidth * (.8);
+    } else if (portraitImageOrientation === true && windowWidth < 801 && !portraitScreenOrientation){
+        return max * (.9) * (ratio);
+    } else if (portraitImageOrientation === false && windowWidth < 801){
+        return windowWidth * (.9);
+    } else if (portraitImageOrientation === true){
         return max * (.8);
     } else {
-        return max * (.8) * (ratio);
+        return max * (.8);
     }
 }
 
-export function getImageHeight(portraitOrientation, max, ratio, windowWidth){
-    if (portraitOrientation === true && windowWidth < 801){
-        return max * (.9) * (ratio);
-    } else if (portraitOrientation === true && windowWidth < 801){
+export function getImageHeight(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation){
+    if (portraitImageOrientation === true && windowWidth < 801 && portraitScreenOrientation){
+        return windowWidth * (1 / ratio) * .8;
+    } else if (portraitImageOrientation === true && windowWidth < 801 && !portraitScreenOrientation){
         return max * (.9);
-    } else if (portraitOrientation === true){
-        return max * (.8) * (ratio);
+    } else if (portraitImageOrientation === false && windowWidth < 801){
+        return windowWidth * (.9) * (ratio);
+    } else if (portraitImageOrientation === true){
+        return max * (1/ratio) * .8;
     } else {
-        return max * (.8);
+        return max * (.8) * (ratio);
     }
-}
+}*/
 
 export default NjGallery;

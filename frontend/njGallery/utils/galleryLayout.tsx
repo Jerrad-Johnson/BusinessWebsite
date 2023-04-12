@@ -33,6 +33,7 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
                 key={e.imgSrc}
             >
                 <Image
+                    key={e.imgSrc}
                     src={e.imgSrc}
                     onClick={((event) => {
                         event.stopPropagation();
