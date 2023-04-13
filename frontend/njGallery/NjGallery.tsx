@@ -7,7 +7,7 @@ import {
     GalleryStylesEssential,
     GalleryElementRef,
     GalleryInputsWithDefaults,
-    GalleryInputs, ImageArrayData
+    GalleryInputs, ImageArrayData, Action
 } from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
@@ -279,13 +279,14 @@ export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[])
     return lightboxImagesCopy;
 }
 
-export function handleLightboxButtons(lightboxDataDispatch){
+export function handleLightboxButtons(lightboxDataDispatch: Dispatch<Action>){
     lightboxDataDispatch({type: lightboxDataSelectorTypes.imageData})
 }
 
 export function handleFullScreenButton(){
 
 }
+
 
 export default NjGallery;
 
