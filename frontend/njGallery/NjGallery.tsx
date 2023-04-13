@@ -166,13 +166,26 @@ function NjGallery(props: GalleryInputs) {
 
     const fullscreenLightbox = (
         <>
-            <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }>
+            <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+            >
                 <div className={"lightbox__fullscreen--image-container" + (lightboxButtonsActive.fullScreen === true ? " active" : "" )}
                     onClick={(e) => {
-                    e.stopPropagation();
                     if (lightboxButtonsActive.fullScreen === false) return;
                     lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
                 }}>
+                    <Image
+                        key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                        src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                        blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
+                        placeholder={"blur"}
+                        className={"lightbox__image"}
+                        layout={"fill"}
+                        objectFit={"contain"}
+                        alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
+                    />
                 </div>
             </div>
         </>
