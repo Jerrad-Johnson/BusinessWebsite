@@ -1,4 +1,4 @@
-import {MutableRefObject} from "react";
+import {Dispatch, MutableRefObject} from "react";
 
 export interface GalleryInputs {
     images: ImageArrayData[];
@@ -70,6 +70,16 @@ export interface GalleryStylesEssential {
     display: "flex";
     flexWrap: "wrap";
     padding: string;
+}
+
+export interface LightboxOptions {
+    fullScreen: boolean;
+    imageData: boolean;
+}
+
+export interface Action {
+    type: string;
+    payload?: any;
 }
 
 export type GalleryElementRef = MutableRefObject<null | HTMLDivElement>;

@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useReducer, useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
 import addGalleryDefaults from "./utils/galleryDefaults";
@@ -7,7 +7,7 @@ import {
     GalleryStylesEssential,
     GalleryElementRef,
     GalleryInputsWithDefaults,
-    GalleryInputs, ImageArrayData
+    GalleryInputs, ImageArrayData, Action
 } from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
@@ -15,9 +15,13 @@ import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
-
+import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
+import {lightboxButtonReducer} from "./utils/reducers";
+import InfoIcon from '@mui/icons-material/Info';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 function NjGallery(props: GalleryInputs) {
+
     checkInputForErrors(props);
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
@@ -27,6 +31,11 @@ function NjGallery(props: GalleryInputs) {
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
+    const [lightboxGalleryDataToShow, setLightboxGalleryDataToShow] = useState(initialShowGalleryData);
+
+    /*useEffect(() => {
+        initialShowGalleryData.imageData = ( localStorage.getItem("imageData") === "false" ) ? false : true;
+    }, []);*/
 
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
@@ -42,8 +51,18 @@ function NjGallery(props: GalleryInputs) {
         }
     }, [lightboxState]);
 
+    const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
+
+    useEffect(() => {
+        lightboxButtonDispatch({type: lightboxInitialValueCase})
+    }, []);
+
+
+
+
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
+
 
     //@ts-ignore
     useEffect(() => {
@@ -52,7 +71,7 @@ function NjGallery(props: GalleryInputs) {
                 if (lightboxState !== null) {
                     const elem = document.getElementById("lightboxArea");
                     //@ts-ignore
-                    if (!elem?.contains(e.target)){
+                    if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
                         setLightboxState(null);
                     }
                 }
@@ -63,7 +82,7 @@ function NjGallery(props: GalleryInputs) {
                     if (lightboxState !== null) {
                         const elem = document.getElementById("lightboxArea");
                         //@ts-ignore
-                        if (!elem?.contains(e.target)){
+                        if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
                             setLightboxState(null);
                         }
                     }
@@ -83,7 +102,7 @@ function NjGallery(props: GalleryInputs) {
     if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
 
     let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
-    let imageIsPortraitOrientation = activeImageWidth < activeImageHeight ? true : false;
+    let imageIsPortraitOrientation = activeImageWidth < activeImageHeight;
     let unitsToTopOfLightbox = 0;
     let unitsToSideOfLightbox = 0;
 
@@ -106,19 +125,96 @@ function NjGallery(props: GalleryInputs) {
         imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
     }
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. */
+    const imageData = (
+        <>
+            <div className={"lightbox__image-data--left"}>
+                <div className={"lightbox__image-data--left-container"}>
+                    <ul>
+                        <li>
+                            Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
+                        </li>
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
+                    </ul>
+                </div>
+            </div>
+
+            <div className={"lightbox__image-data--right"}>
+                <div className={"lightbox__image-data--right-container"}>
+                    <ul>
+                        <li>
+                            Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
+                        </li>
+                        <li>
+                            Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
+                        </li>
+                        <li>
+                            Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
+                        </li>
+                        <li>
+                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
+                        </li>
+                        <li>
+                            ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </>
+    )
+    cc(lightboxButtonsActive )
+
+
+    const fullscreenLightbox = (
+        <>
+            <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+            >
+                <div className={"lightbox__fullscreen--image-container" + (lightboxButtonsActive.fullScreen === true ? " active" : "" )}
+                    onClick={(e) => {
+                    if (lightboxButtonsActive.fullScreen === false) return;
+                    lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+
+                }}>
+                    <Image
+                        key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                        src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                        blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
+                        placeholder={"blur"}
+                        className={"lightbox__image"}
+                        layout={"fill"}
+                        objectFit={"contain"}
+                        alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
+                    />
+                </div>
+            </div>
+        </>
+    );
+
+    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data. Add button to darken background. Auto-play. Close. Randomizer. Add image dragging.*/
 
     let lightbox = (
         <div className={"lightbox"}>
+            {fullscreenLightbox}
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                 <div className={"lightbox__top-row"}>
+                    <FullscreenIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                        }}
+                    />
+                    <InfoIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            handleLightboxButtons(lightboxButtonDispatch);
+                        }}
+                    />
                 </div>
 
                 <div className={"lightbox__middle-row"}>
-                    <div
-                        className={"lightbox__image--subcontainer"}
-                        style={imageDimensionsStyle}
-                    >
+                    <div className={"lightbox__image--subcontainer"} style={imageDimensionsStyle}>
                         <Image
                             key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
@@ -131,47 +227,19 @@ function NjGallery(props: GalleryInputs) {
                         />
 
                         <div onClick={(e) => {
-                            setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
-                        } className={"lightbox__image--move-left"}></div>
+                                setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
+                            } className={"lightbox__image--move-left"}>
+                        </div>
 
                         <div onClick={(e) => {
-                            setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
-                        } className={"lightbox__image--move-right"}></div>
+                                setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            } className={"lightbox__image--move-right"}>
+                        </div>
+                        {lightboxButtonsActive?.imageData === true && imageData}
                     </div>
                 </div>
 
-                <div className={"lightbox__bottom-row"}>
-{/*                    <div className={"lightbox__bottom-row--left"}>
-                        <ul>
-                            <li>
-                                Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
-                            </li>
-                            <li>
-                                Date: { lightboxState !== null && lightboxImages?.[lightboxState]?.date || "Not Listed" }
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className={"lightbox__bottom-row--right"}>
-                        <ul>
-                            <li>
-                                Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
-                            </li>
-                            <li>
-                                Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
-                            </li>
-                            <li>
-                                Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
-                            </li>
-                            <li>
-                                Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
-                            </li>
-                            <li>
-                                ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
-                            </li>
-                        </ul>
-                    </div>*/}
-                </div>
+                <div className={"lightbox__bottom-row"}></div>
             </div>
         </div>
     );
@@ -200,7 +268,7 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
     setLightboxEverOpened(true);
 }
 
-function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
+export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
     let lightboxImagesCopy = {...lightboxImages};
 
     for (let entry of lightboxImages){
@@ -211,32 +279,14 @@ function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): Image
     return lightboxImagesCopy;
 }
 
-/*export function getImageWidth(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation){
-    if (portraitImageOrientation === true && windowWidth < 801 && portraitScreenOrientation){
-        return windowWidth * (.8);
-    } else if (portraitImageOrientation === true && windowWidth < 801 && !portraitScreenOrientation){
-        return max * (.9) * (ratio);
-    } else if (portraitImageOrientation === false && windowWidth < 801){
-        return windowWidth * (.9);
-    } else if (portraitImageOrientation === true){
-        return max * (.8);
-    } else {
-        return max * (.8);
-    }
+export function handleLightboxButtons(lightboxDataDispatch: Dispatch<Action>){
+    lightboxDataDispatch({type: lightboxDataSelectorTypes.imageData})
 }
 
-export function getImageHeight(portraitImageOrientation, max, ratio, windowWidth, windowHeight, portraitScreenOrientation){
-    if (portraitImageOrientation === true && windowWidth < 801 && portraitScreenOrientation){
-        return windowWidth * (1 / ratio) * .8;
-    } else if (portraitImageOrientation === true && windowWidth < 801 && !portraitScreenOrientation){
-        return max * (.9);
-    } else if (portraitImageOrientation === false && windowWidth < 801){
-        return windowWidth * (.9) * (ratio);
-    } else if (portraitImageOrientation === true){
-        return max * (1/ratio) * .8;
-    } else {
-        return max * (.8) * (ratio);
-    }
-}*/
+export function handleFullScreenButton(){
+
+}
+
 
 export default NjGallery;
+
