@@ -4,15 +4,15 @@ import {booleanAsString, lightboxDataSelectorTypes, lightboxInitialValueCase} fr
 export function lightboxButtonReducer(state, action){
     switch (action.type) {
         case lightboxDataSelectorTypes.imageData:
-            const stateCopy = performBasics(state, lightboxDataSelectorTypes.imageData);
-            return {...stateCopy, imageData: !state.imageData}
+            return {...performBasics(state, lightboxDataSelectorTypes.imageData), imageData: !state.imageData}
         case lightboxInitialValueCase:
             return activeButtonIfSet(state);
+        case lightboxDataSelectorTypes.fullScreen:
+            return {...state, fullScreen: !state.fullScreen}
         default:
-            break;
+            return {...state};
     }
 }
-
 
 function performBasics(state, dataSelector){
     setAllStorageValuesToFalse();

@@ -15,9 +15,10 @@ import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import * as querystring from "querystring";
 import useScreenWidth from "../hooks/useScreenWidth";
-import InfoIcon from '@mui/icons-material/Info';
 import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
 import {lightboxButtonReducer} from "./utils/reducers";
+import InfoIcon from '@mui/icons-material/Info';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 function NjGallery(props: GalleryInputs) {
 
@@ -54,7 +55,6 @@ function NjGallery(props: GalleryInputs) {
 
     useEffect(() => {
         lightboxButtonDispatch({type: lightboxInitialValueCase})
-
     }, []);
 
 
@@ -63,6 +63,7 @@ function NjGallery(props: GalleryInputs) {
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
 
+
     //@ts-ignore
     useEffect(() => {
         if (lightboxEverOpened){
@@ -70,7 +71,7 @@ function NjGallery(props: GalleryInputs) {
                 if (lightboxState !== null) {
                     const elem = document.getElementById("lightboxArea");
                     //@ts-ignore
-                    if (!elem?.contains(e.target)){
+                    if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
                         setLightboxState(null);
                     }
                 }
@@ -81,7 +82,7 @@ function NjGallery(props: GalleryInputs) {
                     if (lightboxState !== null) {
                         const elem = document.getElementById("lightboxArea");
                         //@ts-ignore
-                        if (!elem?.contains(e.target)){
+                        if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
                             setLightboxState(null);
                         }
                     }
@@ -160,13 +161,36 @@ function NjGallery(props: GalleryInputs) {
             </div>
         </>
     )
+    cc(lightboxButtonsActive )
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data.*/
+
+    const fullscreenLightbox = (
+        <>
+            <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }>
+                <div className={"lightbox__fullscreen--image-container" + (lightboxButtonsActive.fullScreen === true ? " active" : "" )}
+                    onClick={(e) => {
+                    e.stopPropagation();
+                    if (lightboxButtonsActive.fullScreen === false) return;
+                    lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                }}>
+                </div>
+            </div>
+        </>
+    );
+
+    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data. Add button to darken background.*/
 
     let lightbox = (
         <div className={"lightbox"}>
+            {fullscreenLightbox}
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                 <div className={"lightbox__top-row"}>
+                    <FullscreenIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                        }}
+                    />
                     <InfoIcon
                         style={{fontSize: "200%"}}
                         onClick={() => {
@@ -245,4 +269,9 @@ export function handleLightboxButtons(lightboxDataDispatch){
     lightboxDataDispatch({type: lightboxDataSelectorTypes.imageData})
 }
 
+export function handleFullScreenButton(){
+
+}
+
 export default NjGallery;
+

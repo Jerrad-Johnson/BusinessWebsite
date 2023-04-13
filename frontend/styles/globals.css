@@ -402,7 +402,6 @@ span.galleryFolderSelectors::first-letter{
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .lightbox__backdrop{
@@ -499,6 +498,47 @@ span.galleryFolderSelectors::first-letter{
 
 .lightbox__exif-data{
 
+}
+
+.lightbox__fullscreen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+}
+
+.lightbox__fullscreen.active{
+    z-index: 30;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+.lightbox__fullscreen--image-container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, .6);
+    transition: all 0.5s ease-in-out;
+}
+
+.lightbox__fullscreen--image-container.active{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    z-index: 50;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
 }
 
 
