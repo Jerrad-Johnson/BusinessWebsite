@@ -192,7 +192,7 @@ function NjGallery(props: GalleryInputs) {
         </>
     );
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data. Add button to darken background.*/
+    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data. Add button to darken background. Auto-play. Close. Randomizer. Add image dragging.*/
 
     let lightbox = (
         <div className={"lightbox"}>

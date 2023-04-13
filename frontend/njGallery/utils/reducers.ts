@@ -45,7 +45,7 @@ function setAllStorageValuesToFalse(){
 }
 
 function activeButtonIfSet(state){
-    const findActiveButton = setInitialValue(state);
+    const findActiveButton = setInitialValue();
     if (findActiveButton !== null){
         return {...state, [findActiveButton]: true}
     } else {

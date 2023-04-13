@@ -432,6 +432,7 @@ span.galleryFolderSelectors::first-letter{
 
 .lightbox__image--subcontainer{
     position: relative;
+    /*transition: all .6s ease-in;*/ /*Make this optional*/
 /*    width: 80vw;
     height: 80vh;*/
     /*min-height: 10vh;*/
