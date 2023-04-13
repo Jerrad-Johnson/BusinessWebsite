@@ -511,7 +511,6 @@ span.galleryFolderSelectors::first-letter{
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: all 0.5s ease-in-out;
 }
 
 .lightbox__fullscreen.active{
@@ -525,10 +524,8 @@ span.galleryFolderSelectors::first-letter{
     display: flex;
     justify-content: center;
     align-items: center;
-
     z-index: 20;
     opacity: 1;
-    transition: all 0.5s ease-in-out;
 }
 
 .lightbox__fullscreen--image-container{
