@@ -175,6 +175,7 @@ function NjGallery(props: GalleryInputs) {
                     onClick={(e) => {
                     if (lightboxButtonsActive.fullScreen === false) return;
                     lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+
                 }}>
                     <Image
                         key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
