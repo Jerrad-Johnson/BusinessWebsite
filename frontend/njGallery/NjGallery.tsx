@@ -28,6 +28,7 @@ function NjGallery(props: GalleryInputs) {
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
 
+
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
@@ -64,6 +65,7 @@ function NjGallery(props: GalleryInputs) {
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
 
+let x = 100;
 
     //@ts-ignore
     useEffect(() => {
@@ -91,6 +93,26 @@ function NjGallery(props: GalleryInputs) {
             }
         }
     }, [lightboxEverOpened]);
+
+    useEffect(() => {
+        if (lightboxState !== null){
+            window.addEventListener('keydown', (e) => {
+                if (lightboxState !== null && e.keyCode === 39 && lightboxState < lightboxImages.length-1) {
+                    console.log(lightboxImages.length-1)
+                    console.log(lightboxState)
+                }
+            });
+
+            return () => {
+                window.removeEventListener('keydown', (e) => {
+                    if (lightboxState !== null && e.keyCode === 39 && lightboxState < lightboxImages.length-1) {
+                        console.log(lightboxImages.length-1)
+                        console.log(lightboxState)
+                    }
+                })
+            }
+        }
+    }, [lightboxState]);
 
     const [windowHeight, windowWidth] = useWindowDimensions();
 
@@ -162,7 +184,6 @@ function NjGallery(props: GalleryInputs) {
             </div>
         </>
     )
-    cc(lightboxButtonsActive )
 
 
     const fullscreenLightbox = (
@@ -196,9 +217,9 @@ function NjGallery(props: GalleryInputs) {
     /*TODO
        Add lightbox image-shift on key press.
        CSS Transition.
+       Add zoom to full size image.
        Add button to darken background... curtain icon? brightness icon? eye icon?
        Auto-play.
-       Close.
        Randomizer.
        Add image dragging.
        Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset. Lightbox Base64 images get vertically stretched.
@@ -222,6 +243,7 @@ function NjGallery(props: GalleryInputs) {
                         style={{fontSize: "200%"}}
                         onClick={() => {
                             handleLightboxButtons(lightboxButtonDispatch);
+                            cc(lightboxState)
                         }}
                     />
                     <CloseIcon
@@ -252,7 +274,8 @@ function NjGallery(props: GalleryInputs) {
 
                         <div onClick={(e) => {
                                 setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
-                            } className={"lightbox__image--move-right"}>
+                            }
+                             className={"lightbox__image--move-right"}>
                         </div>
                         {lightboxButtonsActive?.imageData === true && imageData}
                     </div>
@@ -288,9 +311,9 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
 }
 
 export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
-    let lightboxImagesCopy = {...lightboxImages};
+    let lightboxImagesCopy = [...lightboxImages];
 
-    for (let entry of lightboxImages){
+    for (let entry in lightboxImages){
         if (entry?.date?.length === undefined || entry?.date?.length < 12) continue;
         entry.date = entry.date.slice(0, 10)
     }
