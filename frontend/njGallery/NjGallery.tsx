@@ -75,8 +75,7 @@ function NjGallery(props: GalleryInputs) {
     );
 }
 
-export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>){
-    //@ts-ignore
+export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galleryInputsWithDefaults: GalleryInputsWithDefaults, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>){    //@ts-ignore
     let url = event.target.getAttribute("data-largeimg")
     let position = galleryInputsWithDefaults.images.findIndex((elem) => {
         return elem.lg_img_url === url;
@@ -108,8 +107,7 @@ export function handleFullScreenButton(){
 export function lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened){
     const lightboxCloseOnClickOutsideElemListener = (e) => {
         if (lightboxState !== null) {
-            const elem = document.getElementById("lightboxArea");
-            //@ts-ignore
+            const elem = document.getElementById("lightboxArea"); //@ts-ignore
             if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
                 setLightboxState(null);
             }

@@ -13,10 +13,8 @@ import {handleLightbox} from "../NjGallery";
 
 function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
-    const {images, imagePadding} = galleryInputsWithDefaultsCopy;
-    //@ts-ignore
+    const {images, imagePadding} = galleryInputsWithDefaultsCopy; //@ts-ignore
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);
-
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
 
     return reformattedGalleryLayout.map((e) => {
@@ -87,12 +85,5 @@ function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArra
 
     return reformattedGalleryLayout;
 }
-
-/*function handleLightbox(event, galleryInputsWithDefaults){
-    let url = event.target.getAttribute("data-largeimg")
-    let position = galleryInputsWithDefaults.images.findIndex((elem) => {
-        return elem.lg_img_url === url;
-    });
-}*/
 
 export default createGalleryLayout;
