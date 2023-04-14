@@ -19,6 +19,7 @@ import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueC
 import {lightboxButtonReducer} from "./utils/reducers";
 import InfoIcon from '@mui/icons-material/Info';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import CloseIcon from '@mui/icons-material/Close';
 
 function NjGallery(props: GalleryInputs) {
 
@@ -192,7 +193,19 @@ function NjGallery(props: GalleryInputs) {
         </>
     );
 
-    /*TODO Add lightbox image-shift on key press. CSS Transition. Use localstorage to remember whether the user wants to display exif data. Add button to darken background. Auto-play. Close. Randomizer. Add image dragging.*/
+    /*TODO
+       Add lightbox image-shift on key press.
+       CSS Transition.
+       Add button to darken background... curtain icon? brightness icon? eye icon?
+       Auto-play.
+       Close.
+       Randomizer.
+       Add image dragging.
+       Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset. Lightbox Base64 images get vertically stretched.
+       Make tooltip single-column if screen is very narrow, and increase font size.
+       Do not print both lens *and* focal length when they're identical.
+       Add aperture to tooltip.
+     */
 
     let lightbox = (
         <div className={"lightbox"}>
@@ -209,6 +222,12 @@ function NjGallery(props: GalleryInputs) {
                         style={{fontSize: "200%"}}
                         onClick={() => {
                             handleLightboxButtons(lightboxButtonDispatch);
+                        }}
+                    />
+                    <CloseIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            setLightboxState(null);
                         }}
                     />
                 </div>
