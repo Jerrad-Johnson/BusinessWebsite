@@ -23,7 +23,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import useEventListener from "@use-it/event-listener";
 
 function NjGallery(props: GalleryInputs) {
-
     checkInputForErrors(props);
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
@@ -38,46 +37,18 @@ function NjGallery(props: GalleryInputs) {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
     }, [props]);
 
-    useEffect(() => {
-        if (lightboxState === null){
-            const navbarElem: HTMLElement | null = document.querySelector(".navbar");
-            if (navbarElem !== null) navbarElem.style.zIndex = "10";
-        } else {
-            const navbarElem: HTMLElement | null = document.querySelector(".navbar");
-            if (navbarElem !== null) navbarElem.style.zIndex = "1";
-        }
-    }, [lightboxState]);
+    hideNavbarWhenLightboxOpen(lightboxState);
 
     const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
-
-    useEffect(() => {
-        lightboxButtonDispatch({type: lightboxInitialValueCase})
-    }, []);
-
+    onMountSetLightboxDefaults(lightboxButtonDispatch);
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
-
-
-    const lightboxEverOpenedListener = createLightboxEverOpenedListener(lightboxState, setLightboxState, lightboxButtonsActive); //@ts-ignore
-    useEffect(() => {
-        if (lightboxEverOpened) {
-            window.addEventListener('click', lightboxEverOpenedListener);
-            return () => window.removeEventListener('click', lightboxEverOpenedListener);
-        }
-    }, [lightboxEverOpened]);
-
-    const lightboxForwardKeyPress = (e) => {
-        if (lightboxState !== null){
-            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1) setLightboxState((prev) => prev+1);
-            if (e.keyCode === 37 && lightboxState > 0) setLightboxState((prev) => prev-1);
-        }
-    }
-
-    useEventListener("keydown", lightboxForwardKeyPress);
+    lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
 
     const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxImages: ImageArrayData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
-    const [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox, imageDimensionsStyle] = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
+    const lightboxDimensionsStyle = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
+    lightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
 
     const imageData = (
         <>
@@ -187,7 +158,7 @@ function NjGallery(props: GalleryInputs) {
                 </div>
 
                 <div className={"lightbox__middle-row"}>
-                    <div className={"lightbox__image--subcontainer"} style={imageDimensionsStyle}>
+                    <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
                         <Image
                             key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
@@ -261,8 +232,8 @@ export function handleFullScreenButton(){
 
 }
 
-export function createLightboxEverOpenedListener(lightboxState, setLightboxState, lightboxButtonsActive){
-    return (e) => {
+export function lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened){
+    const lightboxCloseOnClickOutsideElemListener = (e) => {
         if (lightboxState !== null) {
             const elem = document.getElementById("lightboxArea");
             //@ts-ignore
@@ -271,6 +242,14 @@ export function createLightboxEverOpenedListener(lightboxState, setLightboxState
             }
         }
     }
+
+    useEffect(() => {
+        if (lightboxEverOpened) {
+            window.addEventListener('click', lightboxCloseOnClickOutsideElemListener);
+            return () => window.removeEventListener('click', lightboxCloseOnClickOutsideElemListener);
+        }
+    }, [lightboxEverOpened]);
+
 }
 
 export function calculateImageDimensionStyle(unitsToTopOfLightbox, unitsToSideOfLightbox, imageIsPortraitOrientation, windowHeight, windowWidth, ratio){
@@ -319,7 +298,36 @@ export function calculateImageSpecsForLightbox(lightboxState, lightboxImages, wi
         imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
     }
 
-    return [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox, imageDimensionsStyle];
+    return imageDimensionsStyle;
+}
+
+export function hideNavbarWhenLightboxOpen(lightboxState){
+    useEffect(() => {
+        if (lightboxState === null){
+            const navbarElem: HTMLElement | null = document.querySelector(".navbar");
+            if (navbarElem !== null) navbarElem.style.zIndex = "10";
+        } else {
+            const navbarElem: HTMLElement | null = document.querySelector(".navbar");
+            if (navbarElem !== null) navbarElem.style.zIndex = "1";
+        }
+    }, [lightboxState]);
+}
+
+export function onMountSetLightboxDefaults(lightboxButtonDispatch){
+    useEffect(() => {
+        lightboxButtonDispatch({type: lightboxInitialValueCase})
+    }, []);
+}
+
+export function lightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState){
+    const lightboxKeyPressListener = (e) => {
+        if (lightboxState !== null){
+            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1) setLightboxState((prev) => prev+1);
+            if (e.keyCode === 37 && lightboxState > 0) setLightboxState((prev) => prev-1);
+        }
+    }
+
+    useEventListener("keydown", lightboxKeyPressListener);
 }
 
 export default NjGallery;
