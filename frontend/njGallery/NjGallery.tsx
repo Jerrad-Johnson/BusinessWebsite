@@ -13,8 +13,6 @@ import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
-import * as querystring from "querystring";
-import useScreenWidth from "../hooks/useScreenWidth";
 import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
 import {lightboxButtonReducer} from "./utils/reducers";
 import InfoIcon from '@mui/icons-material/Info';
@@ -22,172 +20,47 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseIcon from '@mui/icons-material/Close';
 import useEventListener from "@use-it/event-listener";
 
+/*TODO
+   Add Fullscreen lightbox image-shift click areas.
+   CSS Transition.
+   Add zoom to full size image.
+   Add button to darken background... curtain icon? brightness icon? eye icon?
+   Auto-play.
+   Randomizer.
+   Add image dragging.
+   Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset. Lightbox Base64 images get vertically stretched.
+   Make tooltip single-column if screen is very narrow, and increase font size.
+   Do not print both lens *and* focal length when they're identical.
+   Add aperture to tooltip.
+   Blur does not render corretly in lgihtbvox or FS lightbox
+   Use loading icon and do CSS transition when switching between images. Or fix blur.
+ */
+
 function NjGallery(props: GalleryInputs) {
     checkInputForErrors(props);
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
+    const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
+    const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
-    const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
 
-    useEffect(() => {
-        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
-    }, [props]);
-
-    hideNavbarWhenLightboxOpen(lightboxState);
-
-    const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
-    onMountSetLightboxDefaults(lightboxButtonDispatch);
-    //@ts-ignore
+    onPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
+    onMount(lightboxButtonDispatch); //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
     lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
+    hideNavbarWhenLightboxOpen(lightboxState);
 
-    const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxImages: ImageArrayData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
-    const lightboxDimensionsStyle = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
+    const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, ...useWindowDimensions());
     lightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
 
-    const imageData = (
-        <>
-            <div className={"lightbox__image-data--left"}>
-                <div className={"lightbox__image-data--left-container"}>
-                    <ul>
-                        <li>
-                            Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
-                        </li>
-                        { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
-                    </ul>
-                </div>
-            </div>
-
-            <div className={"lightbox__image-data--right"}>
-                <div className={"lightbox__image-data--right-container"}>
-                    <ul>
-                        <li>
-                            Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
-                        </li>
-                        <li>
-                            Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
-                        </li>
-                        <li>
-                            Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
-                        </li>
-                        <li>
-                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
-                        </li>
-                        <li>
-                            ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </>
-    )
-
-
-    const fullscreenLightbox = (
-        <>
-            <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }
-                onClick={(e) => {
-                    e.stopPropagation();
-                }}
-            >
-                <div className={"lightbox__fullscreen--image-container" + (lightboxButtonsActive.fullScreen === true ? " active" : "" )}
-                    onClick={(e) => {
-                    if (lightboxButtonsActive.fullScreen === false) return;
-                    lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
-
-                }}>
-                    <Image
-                        key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                        src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                        blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
-                        placeholder={"blur"}
-                        className={"lightbox__image"}
-                        layout={"fill"}
-                        objectFit={"contain"}
-                        alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
-                    />
-                </div>
-            </div>
-        </>
-    );
-
-    /*TODO
-       Add Fullscreen lightbox image-shift click areas.
-       CSS Transition.
-       Add zoom to full size image.
-       Add button to darken background... curtain icon? brightness icon? eye icon?
-       Auto-play.
-       Randomizer.
-       Add image dragging.
-       Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset. Lightbox Base64 images get vertically stretched.
-       Make tooltip single-column if screen is very narrow, and increase font size.
-       Do not print both lens *and* focal length when they're identical.
-       Add aperture to tooltip.
-       Blur does not render corretly in lgihtbvox or FS lightbox
-       Use loading icon and do CSS transition when switching between images. Or fix blur.
-     */
-
-    let lightbox = (
-        <div className={"lightbox"}>
-            {fullscreenLightbox}
-            <div className={"lightbox__backdrop"} id={"lightboxArea"}>
-                <div className={"lightbox__top-row"}>
-                    <FullscreenIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-                            lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
-                        }}
-                    />
-                    <InfoIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-                            handleLightboxButtons(lightboxButtonDispatch);
-                        }}
-                    />
-                    <CloseIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-                            setLightboxState(null);
-                        }}
-                    />
-                </div>
-
-                <div className={"lightbox__middle-row"}>
-                    <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
-                        <Image
-                            key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                            src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                            blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
-                            placeholder={"blur"}
-                            className={"lightbox__image"}
-                            layout={"fill"}
-                            objectFit={"contain"}
-                            alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
-                        />
-
-                        <div onClick={(e) => {
-                                setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
-                            } className={"lightbox__image--move-left"}>
-                        </div>
-
-                        <div onClick={(e) => {
-                                setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
-                            }
-                             className={"lightbox__image--move-right"}>
-                        </div>
-                        {lightboxButtonsActive?.imageData === true && imageData}
-                    </div>
-                </div>
-
-                <div className={"lightbox__bottom-row"}></div>
-            </div>
-        </div>
-    );
+    const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages);
+    const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxButtonsActive, lightboxButtonDispatch, lightboxState, lightboxImages);
+    const lightbox = createLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxButtonsActive, tooltipsElems, fullscreenLightboxElems, imageElements);
 
     return (
         <>
@@ -252,22 +125,6 @@ export function lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState,
 
 }
 
-export function calculateImageDimensionStyle(unitsToTopOfLightbox, unitsToSideOfLightbox, imageIsPortraitOrientation, windowHeight, windowWidth, ratio){
-    let imageDimensionsStyle;
-
-    if (unitsToTopOfLightbox < unitsToSideOfLightbox && !imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowHeight*.8}px`, width: `${windowHeight*(.8*(1/ratio))}px`};
-    } else if (unitsToTopOfLightbox < unitsToSideOfLightbox && imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowHeight*(.8)}px`, width: `${windowHeight*(.8*ratio)}px`};
-    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && !imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowWidth*(.8*(ratio))}px`, width: `${windowWidth*(.8)}px`};
-    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
-    }
-
-    return imageDimensionsStyle;
-}
-
 export function calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth){
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
@@ -313,10 +170,16 @@ export function hideNavbarWhenLightboxOpen(lightboxState){
     }, [lightboxState]);
 }
 
-export function onMountSetLightboxDefaults(lightboxButtonDispatch){
+export function onMount(lightboxButtonDispatch){
     useEffect(() => {
         lightboxButtonDispatch({type: lightboxInitialValueCase})
     }, []);
+}
+
+export function onPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements){
+    useEffect(() => {
+        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
+    }, [props]);
 }
 
 export function lightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState){
@@ -328,6 +191,134 @@ export function lightboxKeyPressHandler(lightboxImages, lightboxState, setLightb
     }
 
     useEventListener("keydown", lightboxKeyPressListener);
+}
+
+export function createTooltipsElems(lightboxState, lightboxImages){
+    return (
+        <>
+            <div className={"lightbox__image-data--left"}>
+                <div className={"lightbox__image-data--left-container"}>
+                    <ul>
+                        <li>
+                            Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
+                        </li>
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
+                    </ul>
+                </div>
+            </div>
+
+            <div className={"lightbox__image-data--right"}>
+                <div className={"lightbox__image-data--right-container"}>
+                    <ul>
+                        <li>
+                            Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
+                        </li>
+                        <li>
+                            Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
+                        </li>
+                        <li>
+                            Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
+                        </li>
+                        <li>
+                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
+                        </li>
+                        <li>
+                            ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export function createFullscreenLightboxElems(lightboxButtonsActive, lightboxButtonDispatch, lightboxState, lightboxImages){
+    return (
+            <>
+                <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }
+                     onClick={(e) => {
+                         e.stopPropagation();
+                     }}
+                >
+                    <div className={"lightbox__fullscreen--image-container" + (lightboxButtonsActive.fullScreen === true ? " active" : "" )}
+                         onClick={(e) => {
+                             if (lightboxButtonsActive.fullScreen === false) return;
+                             lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+
+                         }}>
+                        <Image
+                            key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                            src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                            blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
+                            placeholder={"blur"}
+                            className={"lightbox__image"}
+                            layout={"fill"}
+                            objectFit={"contain"}
+                            alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
+                        />
+                    </div>
+                </div>
+            </>
+    );
+}
+
+export function createLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsStyle, lightboxState, lightboxButtonsActive, tooltipsElems, fullscreenLightboxElems, imageElements){
+    return (
+        <div className={"lightbox"}>
+            {fullscreenLightboxElems}
+            <div className={"lightbox__backdrop"} id={"lightboxArea"}>
+                <div className={"lightbox__top-row"}>
+                    <FullscreenIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                        }}
+                    />
+                    <InfoIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            handleLightboxButtons(lightboxButtonDispatch);
+                        }}
+                    />
+                    <CloseIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+                            setLightboxState(null);
+                        }}
+                    />
+                </div>
+
+                <div className={"lightbox__middle-row"}>
+                    <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
+                        <Image
+                            key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                            src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                            blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
+                            placeholder={"blur"}
+                            className={"lightbox__image"}
+                            layout={"fill"}
+                            objectFit={"contain"}
+                            alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
+                        />
+
+                        <div onClick={(e) => {
+                            setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
+                        } className={"lightbox__image--move-left"}>
+                        </div>
+
+                        <div onClick={(e) => {
+                            setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                        }
+                             className={"lightbox__image--move-right"}>
+                        </div>
+                        {lightboxButtonsActive?.imageData === true && tooltipsElems}
+                    </div>
+                </div>
+
+                <div className={"lightbox__bottom-row"}></div>
+            </div>
+        </div>
+    );
 }
 
 export default NjGallery;
