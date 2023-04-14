@@ -29,16 +29,10 @@ function NjGallery(props: GalleryInputs) {
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
 
-
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
-    const [lightboxGalleryDataToShow, setLightboxGalleryDataToShow] = useState(initialShowGalleryData);
-
-    /*useEffect(() => {
-        initialShowGalleryData.imageData = ( localStorage.getItem("imageData") === "false" ) ? false : true;
-    }, []);*/
 
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
@@ -60,44 +54,21 @@ function NjGallery(props: GalleryInputs) {
         lightboxButtonDispatch({type: lightboxInitialValueCase})
     }, []);
 
-
-
-
     //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
 
-let x = 100;
 
-    //@ts-ignore
+    const lightboxEverOpenedListener = createLightboxEverOpenedListener(lightboxState, setLightboxState, lightboxButtonsActive); //@ts-ignore
     useEffect(() => {
-        if (lightboxEverOpened){
-            window.addEventListener('click', (e) => {
-                if (lightboxState !== null) {
-                    const elem = document.getElementById("lightboxArea");
-                    //@ts-ignore
-                    if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
-                        setLightboxState(null);
-                    }
-                }
-            })
-
-            return () => {
-                window.removeEventListener('click', (e) => {
-                    if (lightboxState !== null) {
-                        const elem = document.getElementById("lightboxArea");
-                        //@ts-ignore
-                        if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
-                            setLightboxState(null);
-                        }
-                    }
-                })
-            }
+        if (lightboxEverOpened) {
+            window.addEventListener('click', lightboxEverOpenedListener);
+            return () => window.removeEventListener('click', lightboxEverOpenedListener);
         }
     }, [lightboxEverOpened]);
 
     const lightboxForwardKeyPress = (e) => {
         if (lightboxState !== null){
-            if (e.keyCode === 39 && lightboxState < lightboxImages.length-1) setLightboxState((prev) => prev+1);
+            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1) setLightboxState((prev) => prev+1);
             if (e.keyCode === 37 && lightboxState > 0) setLightboxState((prev) => prev-1);
         }
     }
@@ -206,7 +177,7 @@ let x = 100;
     );
 
     /*TODO
-       Add lightbox image-shift on key press.
+       Add Fullscreen lightbox image-shift click areas.
        CSS Transition.
        Add zoom to full size image.
        Add button to darken background... curtain icon? brightness icon? eye icon?
@@ -217,6 +188,7 @@ let x = 100;
        Make tooltip single-column if screen is very narrow, and increase font size.
        Do not print both lens *and* focal length when they're identical.
        Add aperture to tooltip.
+       Blur does not render corretly in lgihtbvox or FS lightbox
      */
 
     let lightbox = (
@@ -320,6 +292,17 @@ export function handleFullScreenButton(){
 
 }
 
+export function createLightboxEverOpenedListener(lightboxState, setLightboxState, lightboxButtonsActive){
+    return (e) => {
+        if (lightboxState !== null) {
+            const elem = document.getElementById("lightboxArea");
+            //@ts-ignore
+            if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
+                setLightboxState(null);
+            }
+        }
+    }
+}
 
 export default NjGallery;
 
