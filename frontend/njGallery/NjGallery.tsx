@@ -77,8 +77,7 @@ function NjGallery(props: GalleryInputs) {
 
     const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxImages: ImageArrayData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
-    const [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox] = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
-    const imageDimensionsStyle = calculateImageDimensionStyle(unitsToTopOfLightbox, unitsToSideOfLightbox, imageIsPortraitOrientation, windowHeight, windowWidth, ratio);
+    const [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox, imageDimensionsStyle] = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
 
     const imageData = (
         <>
@@ -309,8 +308,18 @@ export function calculateImageSpecsForLightbox(lightboxState, lightboxImages, wi
         unitsToSideOfLightbox = windowWidth / 80;
     }
 
-    return [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox];
+    let imageDimensionsStyle;
+    if (unitsToTopOfLightbox < unitsToSideOfLightbox && !imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowHeight*.8}px`, width: `${windowHeight*(.8*(1/ratio))}px`};
+    } else if (unitsToTopOfLightbox < unitsToSideOfLightbox && imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowHeight*(.8)}px`, width: `${windowHeight*(.8*ratio)}px`};
+    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && !imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowWidth*(.8*(ratio))}px`, width: `${windowWidth*(.8)}px`};
+    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
+    }
+
+    return [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox, imageDimensionsStyle];
 }
 
 export default NjGallery;
-
