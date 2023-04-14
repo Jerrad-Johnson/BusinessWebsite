@@ -20,6 +20,7 @@ import {lightboxButtonReducer} from "./utils/reducers";
 import InfoIcon from '@mui/icons-material/Info';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseIcon from '@mui/icons-material/Close';
+import useEventListener from "@use-it/event-listener";
 
 function NjGallery(props: GalleryInputs) {
 
@@ -94,25 +95,15 @@ let x = 100;
         }
     }, [lightboxEverOpened]);
 
-    useEffect(() => {
+    const lightboxForwardKeyPress = (e) => {
         if (lightboxState !== null){
-            window.addEventListener('keydown', (e) => {
-                if (lightboxState !== null && e.keyCode === 39 && lightboxState < lightboxImages.length-1) {
-                    console.log(lightboxImages.length-1)
-                    console.log(lightboxState)
-                }
-            });
-
-            return () => {
-                window.removeEventListener('keydown', (e) => {
-                    if (lightboxState !== null && e.keyCode === 39 && lightboxState < lightboxImages.length-1) {
-                        console.log(lightboxImages.length-1)
-                        console.log(lightboxState)
-                    }
-                })
-            }
+            if (e.keyCode === 39 && lightboxState < lightboxImages.length-1) setLightboxState((prev) => prev+1);
+            if (e.keyCode === 37 && lightboxState > 0) setLightboxState((prev) => prev-1);
         }
-    }, [lightboxState]);
+    }
+
+    useEventListener("keydown", lightboxForwardKeyPress);
+
 
     const [windowHeight, windowWidth] = useWindowDimensions();
 
