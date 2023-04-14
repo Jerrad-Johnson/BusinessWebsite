@@ -75,40 +75,10 @@ function NjGallery(props: GalleryInputs) {
 
     useEventListener("keydown", lightboxForwardKeyPress);
 
-
     const [windowHeight, windowWidth] = useWindowDimensions();
-
-    let lightboxImages: ImageArrayData[] = galleryInputsWithDefaults.images;
-    lightboxImages = changeDateFormatLightboxImages(lightboxImages);
-
-    let activeImageWidth = 0;
-    if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
-    let activeImageHeight = 0 ;
-    if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
-
-    let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
-    let imageIsPortraitOrientation = activeImageWidth < activeImageHeight;
-    let unitsToTopOfLightbox = 0;
-    let unitsToSideOfLightbox = 0;
-
-    if (imageIsPortraitOrientation){
-        unitsToTopOfLightbox = windowHeight / 80;
-        unitsToSideOfLightbox = windowWidth / (80*ratio);
-    } else {
-        unitsToTopOfLightbox = windowHeight / (80*ratio);
-        unitsToSideOfLightbox = windowWidth / 80;
-    }
-
-    let imageDimensionsStyle;
-    if (unitsToTopOfLightbox < unitsToSideOfLightbox && !imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowHeight*.8}px`, width: `${windowHeight*(.8*(1/ratio))}px`};
-    } else if (unitsToTopOfLightbox < unitsToSideOfLightbox && imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowHeight*(.8)}px`, width: `${windowHeight*(.8*ratio)}px`};
-    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && !imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowWidth*(.8*(ratio))}px`, width: `${windowWidth*(.8)}px`};
-    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && imageIsPortraitOrientation){
-        imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
-    }
+    const lightboxImages: ImageArrayData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
+    const [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox] = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
+    const imageDimensionsStyle = calculateImageDimensionStyle(unitsToTopOfLightbox, unitsToSideOfLightbox, imageIsPortraitOrientation, windowHeight, windowWidth, ratio);
 
     const imageData = (
         <>
@@ -189,6 +159,7 @@ function NjGallery(props: GalleryInputs) {
        Do not print both lens *and* focal length when they're identical.
        Add aperture to tooltip.
        Blur does not render corretly in lgihtbvox or FS lightbox
+       Use loading icon and do CSS transition when switching between images. Or fix blur.
      */
 
     let lightbox = (
@@ -206,7 +177,6 @@ function NjGallery(props: GalleryInputs) {
                         style={{fontSize: "200%"}}
                         onClick={() => {
                             handleLightboxButtons(lightboxButtonDispatch);
-                            cc(lightboxState)
                         }}
                     />
                     <CloseIcon
@@ -302,6 +272,44 @@ export function createLightboxEverOpenedListener(lightboxState, setLightboxState
             }
         }
     }
+}
+
+export function calculateImageDimensionStyle(unitsToTopOfLightbox, unitsToSideOfLightbox, imageIsPortraitOrientation, windowHeight, windowWidth, ratio){
+    let imageDimensionsStyle;
+
+    if (unitsToTopOfLightbox < unitsToSideOfLightbox && !imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowHeight*.8}px`, width: `${windowHeight*(.8*(1/ratio))}px`};
+    } else if (unitsToTopOfLightbox < unitsToSideOfLightbox && imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowHeight*(.8)}px`, width: `${windowHeight*(.8*ratio)}px`};
+    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && !imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowWidth*(.8*(ratio))}px`, width: `${windowWidth*(.8)}px`};
+    } else if (unitsToTopOfLightbox > unitsToSideOfLightbox && imageIsPortraitOrientation){
+        imageDimensionsStyle = {height: `${windowWidth*(.8*(1/ratio))}px`, width: `${windowWidth*(.8)}px`};
+    }
+
+    return imageDimensionsStyle;
+}
+
+export function calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth){
+    let activeImageWidth = 0;
+    if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
+    let activeImageHeight = 0 ;
+    if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
+
+    let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
+    let imageIsPortraitOrientation = activeImageWidth < activeImageHeight;
+    let unitsToTopOfLightbox = 0;
+    let unitsToSideOfLightbox = 0;
+
+    if (imageIsPortraitOrientation){
+        unitsToTopOfLightbox = windowHeight / 80;
+        unitsToSideOfLightbox = windowWidth / (80*ratio);
+    } else {
+        unitsToTopOfLightbox = windowHeight / (80*ratio);
+        unitsToSideOfLightbox = windowWidth / 80;
+    }
+
+    return [ratio, imageIsPortraitOrientation, unitsToTopOfLightbox, unitsToSideOfLightbox];
 }
 
 export default NjGallery;

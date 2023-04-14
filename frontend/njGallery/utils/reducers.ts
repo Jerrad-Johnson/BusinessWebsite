@@ -4,7 +4,6 @@ import {Action, LightboxOptions} from "../types/njGallery";
 import {FunctionComponent} from "react";
 
 export function lightboxButtonReducer(state: LightboxOptions, action: Action){
-    cc(state)
     switch (action.type) {
         case lightboxDataSelectorTypes.imageData:
             return {...performBasics(state, lightboxDataSelectorTypes.imageData), imageData: !state.imageData}
