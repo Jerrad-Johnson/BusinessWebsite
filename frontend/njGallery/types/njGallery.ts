@@ -1,4 +1,4 @@
-import {Dispatch, MutableRefObject} from "react";
+import {Dispatch, MutableRefObject, SetStateAction} from "react";
 
 export interface GalleryInputs {
     images: ImageArrayData[];
@@ -82,4 +82,8 @@ export interface Action {
     payload?: any;
 }
 
+export type LightboxState = null | number;
+export type LightboxEverOpened = boolean;
+export type SetLightboxState = Dispatch<SetStateAction<LightboxState>>;
 export type GalleryElementRef = MutableRefObject<null | HTMLDivElement>;
+export type SetLightboxEverOpened = Dispatch<SetStateAction<boolean>>;

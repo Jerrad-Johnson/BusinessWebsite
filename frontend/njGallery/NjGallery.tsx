@@ -7,7 +7,13 @@ import {
     GalleryStylesEssential,
     GalleryElementRef,
     GalleryInputsWithDefaults,
-    GalleryInputs, ImageArrayData, Action
+    GalleryInputs,
+    ImageArrayData,
+    Action,
+    LightboxState,
+    SetLightboxState,
+    LightboxOptions,
+    LightboxEverOpened, SetLightboxEverOpened
 } from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
@@ -48,15 +54,16 @@ function NjGallery(props: GalleryInputs) {
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
 
-    onPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
-    onMount(lightboxButtonDispatch); //@ts-ignore
+    OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
+    OnMount(lightboxButtonDispatch); //@ts-ignore
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
-    lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
-    hideNavbarWhenLightboxOpen(lightboxState);
+    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
+    HideNavbarWhenLightboxOpen(lightboxState);
 
     const lightboxImages: ImageArrayData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
-    const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, ...useWindowDimensions());
-    lightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
+    const [windowHeight, windowWidth] = useWindowDimensions();
+    const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
+    LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
 
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages);
     const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxButtonsActive, lightboxButtonDispatch, lightboxState, lightboxImages);
@@ -86,9 +93,9 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
 }
 
 export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
-    let lightboxImagesCopy = [...lightboxImages];
+    let lightboxImagesCopy: ImageArrayData[] = [...lightboxImages];
 
-    for (let entry in lightboxImages){
+    for (let entry of lightboxImages){
         if (entry?.date?.length === undefined || entry?.date?.length < 12) continue;
         entry.date = entry.date.slice(0, 10)
     }
@@ -104,26 +111,24 @@ export function handleFullScreenButton(){
 
 }
 
-export function lightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened){
-    const lightboxCloseOnClickOutsideElemListener = (e) => {
+export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState, setLightboxState: SetLightboxState, lightboxOptionsActive: LightboxOptions, lightboxEverOpened: LightboxEverOpened){
+    const lightboxCloseOnClickOutsideElemListener = (e: MouseEvent) => {
         if (lightboxState !== null) {
             const elem = document.getElementById("lightboxArea"); //@ts-ignore
-            if (!elem?.contains(e.target) && lightboxButtonsActive.fullScreen !== true){
+            if (!elem?.contains(e.target) && lightboxOptionsActive.fullScreen !== true){
                 setLightboxState(null);
             }
         }
     }
 
     useEffect(() => {
-        if (lightboxEverOpened) {
-            window.addEventListener('click', lightboxCloseOnClickOutsideElemListener);
-            return () => window.removeEventListener('click', lightboxCloseOnClickOutsideElemListener);
-        }
+        if (lightboxEverOpened) window.addEventListener('click', lightboxCloseOnClickOutsideElemListener);
+        return () => window.removeEventListener('click', lightboxCloseOnClickOutsideElemListener);
     }, [lightboxEverOpened]);
 
 }
 
-export function calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth){
+export function calculateImageSpecsForLightbox(lightboxState: LightboxState, lightboxImages, windowHeight: number, windowWidth: number){
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -156,7 +161,7 @@ export function calculateImageSpecsForLightbox(lightboxState, lightboxImages, wi
     return imageDimensionsStyle;
 }
 
-export function hideNavbarWhenLightboxOpen(lightboxState){
+export function HideNavbarWhenLightboxOpen(lightboxState: LightboxState){
     useEffect(() => {
         if (lightboxState === null){
             const navbarElem: HTMLElement | null = document.querySelector(".navbar");
@@ -168,30 +173,30 @@ export function hideNavbarWhenLightboxOpen(lightboxState){
     }, [lightboxState]);
 }
 
-export function onMount(lightboxButtonDispatch){
+export function OnMount(lightboxButtonDispatch){
     useEffect(() => {
         lightboxButtonDispatch({type: lightboxInitialValueCase})
     }, []);
 }
 
-export function onPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements){
+export function OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState: SetLightboxState, setLightboxEverOpened: SetLightboxEverOpened, setImageElements){
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
     }, [props]);
 }
 
-export function lightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState){
-    const lightboxKeyPressListener = (e) => {
+export function LightboxKeyPressHandler(lightboxImages, lightboxState: LightboxState, setLightboxState: SetLightboxState){
+    const lightboxKeyPressListener = (e: KeyboardEvent) => {
         if (lightboxState !== null){
-            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1) setLightboxState((prev) => prev+1);
-            if (e.keyCode === 37 && lightboxState > 0) setLightboxState((prev) => prev-1);
+            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1 && lightboxState !== null) setLightboxState((prev) => { return (prev !== null ? prev+1 : prev) });
+            if (e.keyCode === 37 && lightboxState > 0 && lightboxState !== null) setLightboxState((prev) => { return (prev !== null ? prev-1 : prev) } );
         }
     }
 
     useEventListener("keydown", lightboxKeyPressListener);
 }
 
-export function createTooltipsElems(lightboxState, lightboxImages){
+export function createTooltipsElems(lightboxState: LightboxState, lightboxImages){
     return (
         <>
             <div className={"lightbox__image-data--left"}>
@@ -230,17 +235,17 @@ export function createTooltipsElems(lightboxState, lightboxImages){
     )
 }
 
-export function createFullscreenLightboxElems(lightboxButtonsActive, lightboxButtonDispatch, lightboxState, lightboxImages){
+export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions, lightboxButtonDispatch, lightboxState: LightboxState, lightboxImages){
     return (
             <>
-                <div className={"lightbox__fullscreen" + (lightboxButtonsActive.fullScreen === true ? " active" : "") }
+                <div className={"lightbox__fullscreen" + (lightboxOptionsActive.fullScreen === true ? " active" : "") }
                      onClick={(e) => {
                          e.stopPropagation();
                      }}
                 >
-                    <div className={"lightbox__fullscreen--image-container" + (lightboxButtonsActive.fullScreen === true ? " active" : "" )}
+                    <div className={"lightbox__fullscreen--image-container" + (lightboxOptionsActive.fullScreen === true ? " active" : "" )}
                          onClick={(e) => {
-                             if (lightboxButtonsActive.fullScreen === false) return;
+                             if (lightboxOptionsActive.fullScreen === false) return;
                              lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
 
                          }}>
@@ -260,7 +265,7 @@ export function createFullscreenLightboxElems(lightboxButtonsActive, lightboxBut
     );
 }
 
-export function createLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsStyle, lightboxState, lightboxButtonsActive, tooltipsElems, fullscreenLightboxElems, imageElements){
+export function createLightbox(lightboxButtonDispatch, setLightboxState: SetLightboxState, lightboxImages, lightboxDimensionsStyle, lightboxState, lightboxButtonsActive, tooltipsElems, fullscreenLightboxElems: JSX.Element, imageElements){
     return (
         <div className={"lightbox"}>
             {fullscreenLightboxElems}
@@ -300,12 +305,12 @@ export function createLightbox(lightboxButtonDispatch, setLightboxState, lightbo
                         />
 
                         <div onClick={(e) => {
-                            setLightboxState(prev => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
+                            setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
                         } className={"lightbox__image--move-left"}>
                         </div>
 
                         <div onClick={(e) => {
-                            setLightboxState(prev => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
                         }
                              className={"lightbox__image--move-right"}>
                         </div>
