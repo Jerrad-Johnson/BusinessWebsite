@@ -84,22 +84,6 @@ export interface Action {
     payload?: any;
 }
 
-/*export interface LightboxImage {
-    alt?: string;
-    blurSrc?: string;
-    camera_model?: string;
-    date?: string;
-    exposure?: string;
-    focal?: string;
-    iso?: number;
-    lens?: string;
-    lg_img_url?: string;
-    src: string;
-    height: number;
-    width: number;
-}*/
-/*export type LightboxImages = LightboxImage[];*/
-
 export type LightboxState = null | number;
 export type LightboxEverOpened = boolean;
 export type SetLightboxState = Dispatch<SetStateAction<LightboxState>>;

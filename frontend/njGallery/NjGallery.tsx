@@ -21,10 +21,11 @@ import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
 import {lightboxButtonReducer} from "./utils/reducers";
+import useEventListener from "@use-it/event-listener";
 import InfoIcon from '@mui/icons-material/Info';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseIcon from '@mui/icons-material/Close';
-import useEventListener from "@use-it/event-listener";
+import ShuffleIcon from '@mui/icons-material/Shuffle';
 
 /*TODO
    Add Fullscreen lightbox image-shift click areas.
@@ -298,6 +299,13 @@ export function createLightbox(lightboxButtonDispatch: Dispatch<Action>,
             {fullscreenLightboxElems}
             <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                 <div className={"lightbox__top-row"}>
+                    <ShuffleIcon
+                        style={{fontSize: "200%"}}
+                        onClick={() => {
+
+                        }}
+                    />
+
                     <FullscreenIcon
                         style={{fontSize: "200%"}}
                         onClick={() => {
