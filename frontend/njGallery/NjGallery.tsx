@@ -55,7 +55,7 @@ function NjGallery(props: GalleryInputs) {
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
 
     OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
-    OnMount(lightboxButtonDispatch); //@ts-ignore
+    OnMount(lightboxButtonDispatch);
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
     LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
     HideNavbarWhenLightboxOpen(lightboxState);
@@ -85,9 +85,10 @@ function NjGallery(props: GalleryInputs) {
 export function handleLightbox(event: React.MouseEvent<HTMLImageElement>,
                                galleryInputsWithDefaults: GalleryInputsWithDefaults,
                                setLightboxState: Dispatch<SetStateAction<number | null>>,
-                               setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): void{    //@ts-ignore
-    let url = event.target.getAttribute("data-largeimg")
-    let position = galleryInputsWithDefaults.images.findIndex((elem) => {
+                               setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): void{
+    const eventTarget = event.target as HTMLDivElement;
+    const url: string | null = eventTarget.getAttribute("data-largeimg");
+    const position = galleryInputsWithDefaults.images.findIndex((elem) => {
         return elem.lg_img_url === url;
     });
 
@@ -117,8 +118,9 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
                                                 lightboxEverOpened: LightboxEverOpened): void{
     const lightboxCloseOnClickOutsideElemListener = (e: MouseEvent) => {
         if (lightboxState !== null) {
-            const elem = document.getElementById("lightboxArea"); //@ts-ignore
-            if (!elem?.contains(e.target) && lightboxOptionsActive.fullScreen !== true){
+            const elem = document.getElementById("lightboxArea");
+            const eventTarget = e.target as HTMLDivElement | null;
+            if (!elem?.contains(eventTarget) && lightboxOptionsActive.fullScreen !== true){
                 setLightboxState(null);
             }
         }
