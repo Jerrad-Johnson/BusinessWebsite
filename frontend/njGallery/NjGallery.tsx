@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useEffect, useReducer, useRef, useState} from 'react';
+import {Dispatch, MutableRefObject, SetStateAction, useEffect, useReducer, useRef, useState} from 'react';
 import {checkInputForErrors} from "./utils/errorChecker";
 import useResizeHook from "./hooks/useResizeHook";
 import addGalleryDefaults from "./utils/galleryDefaults";
@@ -8,12 +8,12 @@ import {
     GalleryElementRef,
     GalleryInputsWithDefaults,
     GalleryInputs,
-    ImageArrayData,
+    ImageData,
     Action,
     LightboxState,
     SetLightboxState,
     LightboxOptions,
-    LightboxEverOpened, SetLightboxEverOpened
+    LightboxEverOpened, SetLightboxEverOpened, ImagesData, LightboxDimensionsStyle
 } from "./types/njGallery";
 import {cc} from "../common/variables";
 import createGalleryLayout from "./utils/galleryLayout";
@@ -60,7 +60,7 @@ function NjGallery(props: GalleryInputs) {
     LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
     HideNavbarWhenLightboxOpen(lightboxState);
 
-    const lightboxImages: ImageArrayData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
+    const lightboxImages: ImageData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
     const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
@@ -92,8 +92,8 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>, galler
     setLightboxEverOpened(true);
 }
 
-export function changeDateFormatLightboxImages(lightboxImages: ImageArrayData[]): ImageArrayData[]{
-    let lightboxImagesCopy: ImageArrayData[] = [...lightboxImages];
+export function changeDateFormatLightboxImages(lightboxImages: ImageData[]): ImageData[]{
+    let lightboxImagesCopy: ImageData[] = [...lightboxImages];
 
     for (let entry of lightboxImages){
         if (entry?.date?.length === undefined || entry?.date?.length < 12) continue;
@@ -128,7 +128,8 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState, se
 
 }
 
-export function calculateImageSpecsForLightbox(lightboxState: LightboxState, lightboxImages, windowHeight: number, windowWidth: number){
+export function calculateImageSpecsForLightbox(lightboxState: LightboxState, lightboxImages: ImagesData, windowHeight: number, windowWidth: number){
+    cc(lightboxImages)
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -173,19 +174,19 @@ export function HideNavbarWhenLightboxOpen(lightboxState: LightboxState){
     }, [lightboxState]);
 }
 
-export function OnMount(lightboxButtonDispatch){
+export function OnMount(lightboxButtonDispatch: Dispatch<Action>){
     useEffect(() => {
         lightboxButtonDispatch({type: lightboxInitialValueCase})
     }, []);
 }
 
-export function OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState: SetLightboxState, setLightboxEverOpened: SetLightboxEverOpened, setImageElements){
+export function OnPropsChange(props: GalleryInputs, galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: MutableRefObject<HTMLDivElement | null>, setLightboxState: SetLightboxState, setLightboxEverOpened: SetLightboxEverOpened, setImageElements: Dispatch<SetStateAction<JSX.Element[] | null>>){
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
     }, [props]);
 }
 
-export function LightboxKeyPressHandler(lightboxImages, lightboxState: LightboxState, setLightboxState: SetLightboxState){
+export function LightboxKeyPressHandler(lightboxImages: ImagesData, lightboxState: LightboxState, setLightboxState: SetLightboxState){
     const lightboxKeyPressListener = (e: KeyboardEvent) => {
         if (lightboxState !== null){
             if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1 && lightboxState !== null) setLightboxState((prev) => { return (prev !== null ? prev+1 : prev) });
@@ -196,7 +197,7 @@ export function LightboxKeyPressHandler(lightboxImages, lightboxState: LightboxS
     useEventListener("keydown", lightboxKeyPressListener);
 }
 
-export function createTooltipsElems(lightboxState: LightboxState, lightboxImages){
+export function createTooltipsElems(lightboxState: LightboxState, lightboxImages: ImagesData){
     return (
         <>
             <div className={"lightbox__image-data--left"}>
@@ -235,7 +236,7 @@ export function createTooltipsElems(lightboxState: LightboxState, lightboxImages
     )
 }
 
-export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions, lightboxButtonDispatch, lightboxState: LightboxState, lightboxImages){
+export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions, lightboxButtonDispatch: Dispatch<Action>, lightboxState: LightboxState, lightboxImages: ImagesData){
     return (
             <>
                 <div className={"lightbox__fullscreen" + (lightboxOptionsActive.fullScreen === true ? " active" : "") }
@@ -265,7 +266,7 @@ export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
     );
 }
 
-export function createLightbox(lightboxButtonDispatch, setLightboxState: SetLightboxState, lightboxImages, lightboxDimensionsStyle, lightboxState, lightboxButtonsActive, tooltipsElems, fullscreenLightboxElems: JSX.Element, imageElements){
+export function createLightbox(lightboxButtonDispatch: Dispatch<Action>, setLightboxState: SetLightboxState, lightboxImages: ImagesData, lightboxDimensionsStyle: LightboxDimensionsStyle, lightboxState: LightboxState, LightboxOptionsActive: LightboxOptions, tooltipsElems: JSX.Element, fullscreenLightboxElems: JSX.Element, imageElements: JSX.Element[] | null){
     return (
         <div className={"lightbox"}>
             {fullscreenLightboxElems}
@@ -314,7 +315,7 @@ export function createLightbox(lightboxButtonDispatch, setLightboxState: SetLigh
                         }
                              className={"lightbox__image--move-right"}>
                         </div>
-                        {lightboxButtonsActive?.imageData === true && tooltipsElems}
+                        {LightboxOptionsActive?.imageData === true && tooltipsElems}
                     </div>
                 </div>
 

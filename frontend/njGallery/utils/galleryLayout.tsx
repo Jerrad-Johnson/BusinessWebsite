@@ -3,7 +3,7 @@ import {
     GalleryElementRef,
     GalleryInputsWithDefaults,
     GalleryLayoutData,
-    ImageArrayData, ReformattedGalleryLayout
+    ImageData, ReformattedGalleryLayout
 } from "../types/njGallery";
 import {Dispatch, ReactElement, SetStateAction} from "react";
 import {cc} from "../../common/variables";
@@ -69,7 +69,7 @@ function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWith
     );
 }
 
-function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArrayData[]): ReformattedGalleryLayout[] | []{
+function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageData[]): ReformattedGalleryLayout[] | []{
     const imagesCopy = [...images];
     let reformattedGalleryLayout = [];
 
