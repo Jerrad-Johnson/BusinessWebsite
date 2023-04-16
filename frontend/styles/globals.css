@@ -632,7 +632,6 @@ span.galleryFolderSelectors::first-letter{
     .lightbox__top-row{
         padding-top: 10px;
     }
-
 }
 
 @media screen and (max-width: 500px) {
