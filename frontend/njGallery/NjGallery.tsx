@@ -66,28 +66,9 @@ function NjGallery(props: GalleryInputs) {
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
 
-    const shuffleImages = () => {
-        if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.shuffleDisable});
-        const currentPosition = lightboxState;
-        setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition))
-    }
-
-    function getRandomWholeNumber(num, currentNum = null){
-        const random = Math.floor(Math.random() * num);
-        if (random === currentNum) return getRandomWholeNumber(num, currentNum);
-        return random;
-    }
-
-    const autoplayImages = () => {
-        if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.autoplayDisable});
-        const currentPosition = lightboxState;
-        const end = lightboxImages.length-1, beginning = 0;
-        currentPosition === end ? setLightboxState(0) : setLightboxState((prev) => prev+1)
-    }
-
     const lightbox = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements);
-    useInterval(shuffleImages, lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
-    useInterval(autoplayImages, lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
+    useInterval(() => shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber), lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
+    useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
     return (
         <>
@@ -469,6 +450,25 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
             </div>
         </>
     );
+}
+
+export const autoplayImages = (lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState) => {
+    if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.autoplayDisable});
+    const currentPosition = lightboxState;
+    const end = lightboxImages.length-1, beginning = 0;
+    currentPosition === end ? setLightboxState(0) : setLightboxState((prev) => prev+1)
+}
+
+export const shuffleImages = (lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber) => {
+    if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.shuffleDisable});
+    const currentPosition = lightboxState;
+    setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition))
+}
+
+export function getRandomWholeNumber(num, currentNum = null){
+    const random = Math.floor(Math.random() * num);
+    if (random === currentNum) return getRandomWholeNumber(num, currentNum);
+    return random;
 }
 
 export default NjGallery;
