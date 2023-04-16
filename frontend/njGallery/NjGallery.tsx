@@ -36,9 +36,6 @@ import {CircularProgress} from "@mui/material";
    CSS Transition.
    Add zoom to full size image.
    Add image dragging.
-   Rapid-clickers may close the lightbox before the fullscreen animation finishes... Handle this reset.
-   Base64 images get stretched.
-   Add Fullscreen loading indicator.
    Add animation to show that buttons have been clicked, or are active.
    Fullscreen Close button moves when going from portrait to landscape images.
  */
@@ -58,7 +55,7 @@ function NjGallery(props: GalleryInputs) {
     OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
     OnMount(lightboxOptionsActiveDispatch);
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
-    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened);
+    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch);
     HideNavbarWhenLightboxOpen(lightboxState);
 
     const lightboxImages: ImageData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
@@ -139,13 +136,15 @@ export function handleLightboxButtons(lightboxDataDispatch: Dispatch<Action>): v
 export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
                                                 setLightboxState: SetLightboxState,
                                                 lightboxOptionsActive: LightboxOptions,
-                                                lightboxEverOpened: LightboxEverOpened): void{
+                                                lightboxEverOpened: LightboxEverOpened,
+                                                lightboxOptionsActiveDispatch): void{
     const lightboxCloseOnClickOutsideElemListener = (e: MouseEvent) => {
         if (lightboxState !== null) {
             const elem = document.getElementById("lightboxArea");
             const eventTarget = e.target as HTMLDivElement | null;
             if (!elem?.contains(eventTarget) && lightboxOptionsActive.fullScreen !== true){
                 setLightboxState(null);
+                lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.fullScreenDisable})
             }
         }
     }

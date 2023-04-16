@@ -8,7 +8,8 @@ export let initialShowGalleryData = {
 
 export const lightboxDataSelectorTypes = {
     tooltip: "tooltip",
-    fullScreen: "fullscreen",
+    fullScreen: "fullScreen",
+    fullScreenDisable: "fullScreenDisable",
     shuffle: "shuffle",
     shuffleDisable: "shuffleDisable",
     autoplay: "autoplay",
