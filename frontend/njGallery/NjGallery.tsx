@@ -21,12 +21,13 @@ import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
 import {lightboxButtonReducer} from "./utils/reducers";
+import {useInterval, useTimeout} from "usehooks-ts";
 import useEventListener from "@use-it/event-listener";
 import InfoIcon from '@mui/icons-material/Info';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseIcon from '@mui/icons-material/Close';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
-import {useInterval, useTimeout} from "usehooks-ts";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 /*TODO
    Add Fullscreen lightbox image-shift click areas.
@@ -72,8 +73,8 @@ function NjGallery(props: GalleryInputs) {
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages);
     const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxOptionsActive, lightboxButtonDispatch, lightboxState, lightboxImages);
 
-    const shuffleFunction = () => {
-        if (lightboxImages.length === 1) lightboxButtonDispatch({type: lightboxDataSelectorTypes.shuffleDisable})
+    const shuffleImages = () => {
+        if (lightboxImages.length === 1) lightboxButtonDispatch({type: lightboxDataSelectorTypes.shuffleDisable});
         const currentPosition = lightboxState;
         setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition))
     }
@@ -84,9 +85,16 @@ function NjGallery(props: GalleryInputs) {
         return random;
     }
 
-    const lightbox = CreateLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements, setShuffleState);
+    const autoplayImages = () => {
+        if (lightboxImages.length === 1) lightboxButtonDispatch({type: lightboxDataSelectorTypes.autoplayDisable});
+        const currentPosition = lightboxState;
+        const end = lightboxImages.length-1, beginning = 0;
+        currentPosition === end ? setLightboxState(0) : setLightboxState((prev) => prev+1)
+    }
 
-    useInterval(shuffleFunction, lightboxState !== null && lightboxOptionsActive.shuffle ? 5000 : null);
+    const lightbox = CreateLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements, setShuffleState);
+    useInterval(shuffleImages, lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
+    useInterval(autoplayImages, lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
     return (
         <>
@@ -309,7 +317,7 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                lightboxImages: ImagesData,
                                lightboxDimensionsStyle: LightboxDimensionsStyle,
                                lightboxState: LightboxState,
-                               LightboxOptionsActive: LightboxOptions,
+                               lightboxOptionsActive: LightboxOptions,
                                tooltipsElems: JSX.Element,
                                fullscreenLightboxElems: JSX.Element,
                                imageElements: JSX.Element[] | null,
@@ -321,6 +329,13 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                 {fullscreenLightboxElems}
                 <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                     <div className={"lightbox__top-row"}>
+                        <PlayCircleIcon
+                            style={{fontSize: "200%"}}
+                            onClick={() => {
+                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.autoplay});
+                                cc(lightboxOptionsActive)
+                            }}
+                        />
                         <ShuffleIcon
                             style={{fontSize: "200%"}}
                             onClick={() => {
@@ -370,7 +385,7 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                             }
                                  className={"lightbox__image--move-right"}>
                             </div>
-                            {LightboxOptionsActive?.imageData === true && tooltipsElems}
+                            {lightboxOptionsActive?.imageData === true && tooltipsElems}
                         </div>
                     </div>
 
