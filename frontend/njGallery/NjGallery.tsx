@@ -35,12 +35,12 @@ import CurtainsIcon from '@mui/icons-material/Curtains';
    CSS Transition.
    Add zoom to full size image.
    Add image dragging.
-   Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset.
+   Rapid-clickers may close the lightbox before the fullscreen animation finishes... Handle this reset.
    Lightbox Base64 images get stretched.
    Make tooltip single-column if screen is very narrow, and increase font size.
-   Blur does not render corretly in lgihtbvox or FS lightbox
+   Blur does not render corretly in lgihtbvox or FS lightbox.
    Use loading icon and do CSS transition when switching between images. Or fix blur.
-   Add sweetalerts, shuffle enable/disable, etc.
+   Add animation to show that buttons have been clicked, or are active.
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -308,7 +308,7 @@ export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         <div className={"lightbox__fullscreen-image--move-left"} onClick={(e) => {
                              setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}}
                         />
-                        <div className={"lightbox__image-fullscreen-image--move-right"} onClick={(e) => {
+                        <div className={"lightbox__fullscreen-image--move-right"} onClick={(e) => {
                             setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}}
                         />
                         <div className={"lightbox__fullscreen--top-row"}>

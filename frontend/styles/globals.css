@@ -560,7 +560,7 @@ span.galleryFolderSelectors::first-letter{
     z-index: 20;
 }
 
-.lightbox__image-fullscreen-image--move-right{
+.lightbox__fullscreen-image--move-right{
     position: absolute;
     top: 0;
     right: 0;
