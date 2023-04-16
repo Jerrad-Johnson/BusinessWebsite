@@ -1,5 +1,5 @@
 export let initialShowGalleryData = {
-    imageData: false,
+    tooltip: false,
     fullScreen: false,
     shuffle: false,
     autoplay: false,
@@ -7,7 +7,7 @@ export let initialShowGalleryData = {
 }
 
 export const lightboxDataSelectorTypes = {
-    imageData: "imageData",
+    tooltip: "tooltip",
     fullScreen: "fullscreen",
     shuffle: "shuffle",
     shuffleDisable: "shuffleDisable",

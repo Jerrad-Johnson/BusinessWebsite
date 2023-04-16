@@ -132,7 +132,7 @@ export function changeDateFormatLightboxImages(lightboxImages: ImageData[]): Ima
 }
 
 export function handleLightboxButtons(lightboxDataDispatch: Dispatch<Action>): void{
-    lightboxDataDispatch({type: lightboxDataSelectorTypes.imageData})
+    lightboxDataDispatch({type: lightboxDataSelectorTypes.tooltip})
 }
 
 
@@ -408,7 +408,7 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                             }
                                  className={"lightbox__image--move-right"}>
                             </div>
-                            {lightboxOptionsActive?.imageData === true && tooltipsElems}
+                            {lightboxOptionsActive?.tooltip === true && tooltipsElems}
                         </div>
                     </div>
 

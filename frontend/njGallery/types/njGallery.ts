@@ -43,6 +43,7 @@ export interface ImageData {
     focal: string | null;
     exposure: string | null;
     iso: string | null;
+    aperture: string | null;
 }
 export type ImagesData = ImageData[];
 
@@ -76,7 +77,7 @@ export interface GalleryStylesEssential {
 
 export interface LightboxOptions {
     fullScreen: boolean;
-    imageData: boolean;
+    tooltip: boolean;
     shuffle: boolean;
     autoplay: boolean;
     curtain: boolean;

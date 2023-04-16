@@ -5,8 +5,9 @@ import {FunctionComponent} from "react";
 
 export function lightboxButtonReducer(state: LightboxOptions, action: Action){
     switch (action.type) {
-        case lightboxDataSelectorTypes.imageData:
-            return {...performBasics(state, lightboxDataSelectorTypes.imageData), imageData: !state.imageData}
+        case lightboxDataSelectorTypes.tooltip:
+            performBasics(state, lightboxDataSelectorTypes.tooltip);
+            return {...state, tooltip: !state.tooltip}
         case lightboxInitialValueCase:
             return activeButtonIfSet(state);
         case lightboxDataSelectorTypes.fullScreen:
@@ -27,10 +28,17 @@ export function lightboxButtonReducer(state: LightboxOptions, action: Action){
 }
 
 function performBasics(state: LightboxOptions, dataSelector: string){
-    setAllStorageValuesToFalse();
-    localStorage.setItem(dataSelector, String(!state.imageData));
-    return setAllStateValuesToFalse(state);
+    //setAllStorageValuesToFalse();
+    localStorage.setItem(dataSelector, String(!state[dataSelector]));
+    //return setAllStateValuesToFalse(state);
 }
+
+function setAllStorageValuesToFalse(){
+    for (let entry in lightboxDataSelectorTypes){
+        localStorage.setItem(entry, booleanAsString.false);
+    }
+}
+
 
 function setAllStateValuesToFalse(state: LightboxOptions) {
     let stateCopy = {...state};
@@ -50,11 +58,6 @@ function setInitialValue(){
     return null;
 }
 
-function setAllStorageValuesToFalse(){
-    for (let entry in lightboxDataSelectorTypes){
-        localStorage.setItem(entry, booleanAsString.false);
-    }
-}
 
 function activeButtonIfSet(state: LightboxOptions){
     const findActiveButton = setInitialValue();
