@@ -32,11 +32,10 @@ import CurtainsIcon from '@mui/icons-material/Curtains';
 import {CircularProgress} from "@mui/material";
 
 /*TODO
-   Make it possible pass-in data for tooltips.
+   Make it possible to pass-in data for tooltips.
    Add zoom to full size image.
    Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Add margins to MUI buttons
-   Set local storage for options
  */
 
 function NjGallery(props: GalleryInputs) {
