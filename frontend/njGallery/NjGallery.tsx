@@ -29,16 +29,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import CurtainsIcon from '@mui/icons-material/Curtains';
+import {CircularProgress} from "@mui/material";
 
 /*TODO
    Make it possible pass-in data for tooltips.
-   Add close lightbox on Escape keypress
    CSS Transition.
    Add zoom to full size image.
    Add image dragging.
    Rapid-clickers may close the lightbox before the fullscreen animation finishes... Handle this reset.
-   Lightbox Base64 images get stretched.
-   Blur does not render corretly in lgihtbvox or FS lightbox.
+   Base64 images get stretched.
    Use loading icon and do CSS transition when switching between images. Or fix blur.
    Add animation to show that buttons have been clicked, or are active.
  */
@@ -242,9 +241,6 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
 export function createTooltipsElems(lightboxState: LightboxState,
                                     lightboxImages: ImagesData,
                                     windowWidth: number): ReactElement{
-    cc(windowWidth)
-
-    let elems;
 
     return (
         <>
@@ -381,6 +377,9 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                imageElements: JSX.Element[] | null,
                                ): ReactElement{
 
+    const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
+    const test = (num) => {  cc(num); }
+
     return (
         <>
             <div className={"lightbox" + (lightboxOptionsActive.curtain && " curtain" || "")}>
@@ -391,7 +390,6 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                             style={{fontSize: "200%"}}
                             onClick={() => {
                                 lightboxButtonDispatch({type: lightboxDataSelectorTypes.autoplay});
-                                cc(lightboxOptionsActive)
                             }}
                         />
                         <ShuffleIcon
@@ -428,12 +426,18 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
 
                     <div className={"lightbox__middle-row"}>
                         <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
+                            {lightboxImageIsLoadingState && (
+                                <div className={"lightbox__loading-indicator"}>
+                                    <CircularProgress/>
+                                </div>
+                            )} {/*Note: Rare case, but if a user's cache is disabled, selecting the same image twice will result in no loading indicator the second (and subsequent) times.*/}
+
                             <Image
                                 key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                                 src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                                blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
-                                placeholder={"blur"}
                                 className={"lightbox__image"}
+                                onLoad={() => setLightboxImageIsLoadingState(true)}
+                                onLoadingComplete={() => setLightboxImageIsLoadingState(false)}
                                 layout={"fill"}
                                 objectFit={"contain"}
                                 alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
