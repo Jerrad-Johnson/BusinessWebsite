@@ -504,11 +504,15 @@ span.galleryFolderSelectors::first-letter{
 .lightbox__exif-data{
 }
 
-.lightbox__loading-indicator{
+.lightbox__loading-indicator, .lightbox__fullscreen-loading-indicator{
     position: absolute;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.lightbox__fullscreen-loading-indicator {
+    top: 50%;
 }
 
 .lightbox__fullscreen{

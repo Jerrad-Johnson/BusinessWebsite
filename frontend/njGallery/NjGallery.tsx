@@ -67,7 +67,7 @@ function NjGallery(props: GalleryInputs) {
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
 
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
-    const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
+    const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
 
     const shuffleImages = () => {
         if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.shuffleDisable});
@@ -318,12 +318,14 @@ export function createTooltipsElems(lightboxState: LightboxState,
     )
 }
 
-export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions,
+export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions,
                                               lightboxButtonDispatch: Dispatch<Action>,
                                               lightboxState: LightboxState,
                                               lightboxImages: ImagesData,
                                               setLightboxState: SetLightboxState,
                                               imageElements): ReactElement{
+    const [fullscreenImageIsLoading, setFullscreenImageIsLoading] = useState(true);
+
     return (
             <>
                 <div className={"lightbox__fullscreen" + (lightboxOptionsActive.fullScreen === true ? " active" : "") }
@@ -337,11 +339,16 @@ export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                              //lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen}); Closes lightbox if user clicks anywhere in the window.
 
                          }}>
+                        {fullscreenImageIsLoading && (
+                            <div className={"lightbox__loading-indicator"}>
+                                <CircularProgress/>
+                            </div>
+                        )}
                         <Image
                             key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                             src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                            blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
-                            placeholder={"blur"}
+                            onLoad={() => setFullscreenImageIsLoading(true)}
+                            onLoadingComplete={() => setFullscreenImageIsLoading(false)}
                             className={"lightbox__image"}
                             layout={"fill"}
                             objectFit={"contain"}
