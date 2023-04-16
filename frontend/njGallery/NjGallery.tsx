@@ -36,6 +36,7 @@ import {CircularProgress} from "@mui/material";
    Add zoom to full size image.
    Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Add margins to MUI buttons
+   Colorize MUI buttons
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -227,8 +228,8 @@ export function createTooltipsElems(lightboxState: LightboxState,
         <>
             {windowWidth > 800 && (
                 <>
-                <div className={"lightbox__image-data--left"}>
-                    <div className={"lightbox__image-data--left-container"}>
+                <div className={"lightbox__tooltip--left"}>
+                    <div className={"lightbox__tooltip--left-container"}>
                         <ul>
                             <li>
                                 Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
@@ -238,8 +239,8 @@ export function createTooltipsElems(lightboxState: LightboxState,
                     </div>
                 </div>
 
-                <div className={"lightbox__image-data--right"}>
-                    <div className={"lightbox__image-data--right-container"}>
+                <div className={"lightbox__tooltip--right"}>
+                    <div className={"lightbox__tooltip--right-container"}>
                         <ul>
                             <li>
                                 Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
@@ -264,8 +265,8 @@ export function createTooltipsElems(lightboxState: LightboxState,
                 )}
 
             {windowWidth <= 800 && (
-                <div className={"lightbox__image-data--right"}>
-                    <div className={"lightbox__image-data--right-container"}>
+                <div className={"lightbox__tooltip--right"}>
+                    <div className={"lightbox__tooltip--right-container"}>
                         <ul>
                             <li>
                                 Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}

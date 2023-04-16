@@ -57,7 +57,7 @@
     background-color: #fff;
 }
 
-.lightbox__image-data--right-container, .lightbox__image-data--left-container {
+.lightbox__tooltip--right-container, .lightbox__tooltip--left-container {
     color: #000;
     background-color: #fff;
     font-weight: bolder;

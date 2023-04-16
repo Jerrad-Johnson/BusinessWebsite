@@ -37,7 +37,7 @@ body{
     background-color: #111;
 }
 
-.lightbox__image-data--right-container, .lightbox__image-data--left-container {
+.lightbox__tooltip--right-container, .lightbox__tooltip--left-container {
     background-color: #000;
     font-weight: bolder;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px 0px;

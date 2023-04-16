@@ -464,7 +464,7 @@ span.galleryFolderSelectors::first-letter{
     z-index: 5;
 }
 
-.lightbox__image-data--left{
+.lightbox__tooltip--left{
     position: absolute;
     top: 0;
     left: 0;
@@ -476,7 +476,7 @@ span.galleryFolderSelectors::first-letter{
     padding: 20px;
 }
 
-.lightbox__image-data--right{
+.lightbox__tooltip--right{
     position: absolute;
     top: 0;
     right: 0;
@@ -488,7 +488,7 @@ span.galleryFolderSelectors::first-letter{
     padding: 20px;
 }
 
-.lightbox__image-data--right-container, .lightbox__image-data--left-container{
+.lightbox__tooltip--right-container, .lightbox__tooltip--left-container{
     opacity: 0.5;
     border-radius: 15px;
     border-style: solid;
@@ -637,7 +637,7 @@ span.galleryFolderSelectors::first-letter{
         padding: 15px;
     }
 
-    .lightbox__image-data--right{
+    .lightbox__tooltip--right{
         width: 100%;
     }
 
