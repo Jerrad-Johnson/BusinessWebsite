@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {
-    GalleryElementRef,
+    GalleryElemRef,
     GalleryInputsWithDefaults,
     GalleryLayoutData,
     ImageData, ReformattedGalleryLayout
@@ -12,7 +12,7 @@ const layoutGeometry = require('../justified-layout');
 import {handleLightbox} from "../NjGallery";
 
 function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults,
-                             galleryElementRef: GalleryElementRef,
+                             galleryElementRef: GalleryElemRef,
                              setLightboxState: Dispatch<SetStateAction<number | null>>,
                              setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
                              lightboxOptionsActive): ReactElement[]{
@@ -53,7 +53,7 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
     });
 }
 
-function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef): GalleryLayoutData{
+function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElemRef): GalleryLayoutData{
     const {images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows, targetRowHeightTolerance} = galleryInputsWithDefaultsCopy;
     const imagesDimensions = images.map((e) => { return {width: e.width, height: e.height} });
     let galleryContainerWidth = galleryElementRef?.current?.offsetWidth ? galleryElementRef?.current?.offsetWidth-4 : 14; // -4 because otherwise at some widths, the last image in a row jumps to the next row. Total width might be e.g. 0.42 pixels too large.

@@ -5,7 +5,7 @@ import addGalleryDefaults from "./utils/galleryDefaults";
 import createGalleryStyle from "./utils/galleryStyles";
 import {
     GalleryStylesEssential,
-    GalleryElementRef,
+    GalleryElemRef,
     GalleryInputsWithDefaults,
     GalleryInputs,
     ImageData,
@@ -43,8 +43,8 @@ import {CircularProgress} from "@mui/material";
 function NjGallery(props: GalleryInputs) {
     checkInputForErrors(props);
 
-    const galleryElementRef: GalleryElementRef = useRef(null);
-    const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
+    const galleryElemRef: GalleryElemRef = useRef(null);
+    const [imageElems, setImageElems] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
     const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
@@ -52,12 +52,11 @@ function NjGallery(props: GalleryInputs) {
     useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
-    const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
-    const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
-    useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
+    const galleryCSS: GalleryStylesEssential = createGalleryStyle({...galleryInputsWithDefaults.containerPadding}, {...galleryInputsWithDefaults.containerWidth});
+    useResizeHook(setImageElems, galleryInputsWithDefaults, galleryElemRef, setLightboxState, setLightboxEverOpened);
 
     OnMount(lightboxOptionsActiveDispatch);
-    OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
+    OnPropsChange(props, galleryInputsWithDefaults, galleryElemRef, setLightboxState, setLightboxEverOpened, setImageElems);
     HideNavbarWhenLightboxOpen(lightboxState);
     LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch);
 
@@ -66,18 +65,18 @@ function NjGallery(props: GalleryInputs) {
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
-    const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
-    const lightbox = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements);
+    const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElems);
+    const lightbox = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems);
 
     return (
         <>
             {lightboxState !== null && lightbox}
 
             <div className={"njGallery"}
-                 style={galleryStyles}
-                 ref={galleryElementRef}
+                 style={galleryCSS}
+                 ref={galleryElemRef}
             >
-                {imageElements}
+                {imageElems}
             </div>
         </>
     );

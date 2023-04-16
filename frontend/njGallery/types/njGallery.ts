@@ -91,7 +91,7 @@ export interface Action {
 export type LightboxState = null | number;
 export type LightboxEverOpened = boolean;
 export type SetLightboxState = Dispatch<SetStateAction<LightboxState>>;
-export type GalleryElementRef = MutableRefObject<null | HTMLDivElement>;
+export type GalleryElemRef = MutableRefObject<null | HTMLDivElement>;
 export type SetLightboxEverOpened = Dispatch<SetStateAction<boolean>>;
 export interface LightboxDimensionsObject {
     width: string;
