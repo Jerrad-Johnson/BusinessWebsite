@@ -77,6 +77,7 @@ export interface GalleryStylesEssential {
 export interface LightboxOptions {
     fullScreen: boolean;
     imageData: boolean;
+    shuffle: boolean;
 }
 
 export interface Action {

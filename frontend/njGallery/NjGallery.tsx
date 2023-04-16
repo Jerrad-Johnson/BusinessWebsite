@@ -26,6 +26,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseIcon from '@mui/icons-material/Close';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import {useInterval, useTimeout} from "usehooks-ts";
 
 /*TODO
    Add Fullscreen lightbox image-shift click areas.
@@ -41,6 +42,7 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
    Add aperture to tooltip.
    Blur does not render corretly in lgihtbvox or FS lightbox
    Use loading icon and do CSS transition when switching between images. Or fix blur.
+   Add sweetalerts, shuffle enable/disable, etc.
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -49,7 +51,8 @@ function NjGallery(props: GalleryInputs) {
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
-    const [lightboxButtonsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
+    const [lightboxOptionsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
+    const [shuffleState, setShuffleState] = useState(false);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
@@ -58,7 +61,7 @@ function NjGallery(props: GalleryInputs) {
     OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
     OnMount(lightboxButtonDispatch);
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
-    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxButtonsActive, lightboxEverOpened);
+    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened);
     HideNavbarWhenLightboxOpen(lightboxState);
 
     const lightboxImages: ImageData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
@@ -67,12 +70,28 @@ function NjGallery(props: GalleryInputs) {
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
 
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages);
-    const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxButtonsActive, lightboxButtonDispatch, lightboxState, lightboxImages);
-    const lightbox = createLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxButtonsActive, tooltipsElems, fullscreenLightboxElems, imageElements);
+    const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxOptionsActive, lightboxButtonDispatch, lightboxState, lightboxImages);
+
+    const shuffleFunction = () => {
+        if (lightboxImages.length === 1) lightboxButtonDispatch({type: lightboxDataSelectorTypes.shuffleDisable})
+        const currentPosition = lightboxState;
+        setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition))
+    }
+
+    function getRandomWholeNumber(num, currentNum = null){
+        const random = Math.floor(Math.random() * num);
+        if (random === currentNum) return getRandomWholeNumber(num, currentNum);
+        return random;
+    }
+
+    const lightbox = CreateLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements, setShuffleState);
+
+    useInterval(shuffleFunction, lightboxState !== null && lightboxOptionsActive.shuffle ? 5000 : null);
 
     return (
         <>
             {lightboxState !== null && lightbox}
+
             <div className={"njGallery"}
                  style={galleryStyles}
                  ref={galleryElementRef}
@@ -285,7 +304,7 @@ export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
     );
 }
 
-export function createLightbox(lightboxButtonDispatch: Dispatch<Action>,
+export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                setLightboxState: SetLightboxState,
                                lightboxImages: ImagesData,
                                lightboxDimensionsStyle: LightboxDimensionsStyle,
@@ -293,69 +312,72 @@ export function createLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                LightboxOptionsActive: LightboxOptions,
                                tooltipsElems: JSX.Element,
                                fullscreenLightboxElems: JSX.Element,
-                               imageElements: JSX.Element[] | null): ReactElement{
+                               imageElements: JSX.Element[] | null,
+                               setShuffleState): ReactElement{
+
     return (
-        <div className={"lightbox"}>
-            {fullscreenLightboxElems}
-            <div className={"lightbox__backdrop"} id={"lightboxArea"}>
-                <div className={"lightbox__top-row"}>
-                    <ShuffleIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-
-                        }}
-                    />
-
-                    <FullscreenIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-                            lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
-                        }}
-                    />
-                    <InfoIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-                            handleLightboxButtons(lightboxButtonDispatch);
-                        }}
-                    />
-                    <CloseIcon
-                        style={{fontSize: "200%"}}
-                        onClick={() => {
-                            setLightboxState(null);
-                        }}
-                    />
-                </div>
-
-                <div className={"lightbox__middle-row"}>
-                    <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
-                        <Image
-                            key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                            src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                            blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
-                            placeholder={"blur"}
-                            className={"lightbox__image"}
-                            layout={"fill"}
-                            objectFit={"contain"}
-                            alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
+        <>
+            <div className={"lightbox"}>
+                {fullscreenLightboxElems}
+                <div className={"lightbox__backdrop"} id={"lightboxArea"}>
+                    <div className={"lightbox__top-row"}>
+                        <ShuffleIcon
+                            style={{fontSize: "200%"}}
+                            onClick={() => {
+                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.shuffle});
+                            }}
                         />
-
-                        <div onClick={(e) => {
-                            setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
-                        } className={"lightbox__image--move-left"}>
-                        </div>
-
-                        <div onClick={(e) => {
-                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
-                        }
-                             className={"lightbox__image--move-right"}>
-                        </div>
-                        {LightboxOptionsActive?.imageData === true && tooltipsElems}
+                        <FullscreenIcon
+                            style={{fontSize: "200%"}}
+                            onClick={() => {
+                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                            }}
+                        />
+                        <InfoIcon
+                            style={{fontSize: "200%"}}
+                            onClick={() => {
+                                handleLightboxButtons(lightboxButtonDispatch);
+                            }}
+                        />
+                        <CloseIcon
+                            style={{fontSize: "200%"}}
+                            onClick={() => {
+                                setLightboxState(null);
+                            }}
+                        />
                     </div>
-                </div>
 
-                <div className={"lightbox__bottom-row"}></div>
+                    <div className={"lightbox__middle-row"}>
+                        <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
+                            <Image
+                                key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                                src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
+                                blurDataURL={ lightboxState !== null && lightboxImages?.[lightboxState]?.blurSrc || ""}
+                                placeholder={"blur"}
+                                className={"lightbox__image"}
+                                layout={"fill"}
+                                objectFit={"contain"}
+                                alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
+                            />
+
+                            <div onClick={(e) => {
+                                setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
+                            } className={"lightbox__image--move-left"}>
+                            </div>
+
+                            <div onClick={(e) => {
+                                setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
+                            }
+                                 className={"lightbox__image--move-right"}>
+                            </div>
+                            {LightboxOptionsActive?.imageData === true && tooltipsElems}
+                        </div>
+                    </div>
+
+                    <div className={"lightbox__bottom-row"}></div>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

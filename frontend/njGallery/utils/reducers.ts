@@ -11,6 +11,10 @@ export function lightboxButtonReducer(state: LightboxOptions, action: Action){
             return activeButtonIfSet(state);
         case lightboxDataSelectorTypes.fullScreen:
             return {...state, fullScreen: !state.fullScreen}
+        case lightboxDataSelectorTypes.shuffle:
+            return {...state, shuffle: !state.shuffle}
+        case lightboxDataSelectorTypes.shuffleDisable:
+            return {...state, shuffle: false}
         default:
             return {...state};
     }
