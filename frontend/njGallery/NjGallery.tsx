@@ -20,7 +20,7 @@ import createGalleryLayout from "./utils/galleryLayout";
 import Image from "next/image";
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import {initialShowGalleryData, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./utils/variables";
-import {lightboxButtonReducer} from "./utils/reducers";
+import {lightboxOptionsActiveReducer} from "./utils/reducers";
 import {useInterval, useTimeout} from "usehooks-ts";
 import useEventListener from "@use-it/event-listener";
 import InfoIcon from '@mui/icons-material/Info';
@@ -33,11 +33,10 @@ import {CircularProgress} from "@mui/material";
 
 /*TODO
    Make it possible pass-in data for tooltips.
-   CSS Transition.
    Add zoom to full size image.
-   Add image dragging.
-   Add animation to show that buttons have been clicked, or are active.
+   Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Add margins to MUI buttons
+   Set local storage for options
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -47,7 +46,7 @@ function NjGallery(props: GalleryInputs) {
     const [imageElems, setImageElems] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
-    const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
+    const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer, initialShowGalleryData);
     useInterval(() => shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber), lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
     useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
@@ -61,16 +60,16 @@ function NjGallery(props: GalleryInputs) {
     LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch);
 
     const [windowHeight, windowWidth] = useWindowDimensions();
-    const lightboxImages: ImageData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
+    const lightboxImages: ImageData[] = changeLightboxImagesDateFormat(galleryInputsWithDefaults.images);
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElems);
-    const lightbox = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems);
+    const lightboxElems = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems);
 
     return (
         <>
-            {lightboxState !== null && lightbox}
+            {lightboxState !== null && lightboxElems}
 
             <div className={"njGallery"}
                  style={galleryCSS}
@@ -86,6 +85,7 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>,
                                galleryInputsWithDefaults: GalleryInputsWithDefaults,
                                setLightboxState: Dispatch<SetStateAction<number | null>>,
                                setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): void{
+
     const eventTarget = event.target as HTMLDivElement;
     const url: string | null = eventTarget.getAttribute("data-largeimg");
     const position = galleryInputsWithDefaults.images.findIndex((elem) => {
@@ -96,7 +96,7 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>,
     setLightboxEverOpened(true);
 }
 
-export function changeDateFormatLightboxImages(lightboxImages: ImageData[]): ImageData[]{
+export function changeLightboxImagesDateFormat(lightboxImages: ImageData[]): ImageData[]{
     let lightboxImagesCopy: ImageData[] = [...lightboxImages];
 
     for (let entry of lightboxImages){
@@ -111,17 +111,17 @@ export function handleLightboxButtons(lightboxDataDispatch: Dispatch<Action>): v
     lightboxDataDispatch({type: lightboxDataSelectorTypes.tooltip})
 }
 
-
 export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
                                                 setLightboxState: SetLightboxState,
                                                 lightboxOptionsActive: LightboxOptions,
                                                 lightboxEverOpened: LightboxEverOpened,
                                                 lightboxOptionsActiveDispatch): void{
-    const lightboxCloseOnClickOutsideElemListener = (e: MouseEvent) => {
+
+    const listener = (e: MouseEvent) => {
         if (lightboxState !== null) {
             const elem = document.getElementById("lightboxArea");
-            const eventTarget = e.target as HTMLDivElement | null;
-            if (!elem?.contains(eventTarget) && lightboxOptionsActive.fullScreen !== true){
+            const target = e.target as HTMLDivElement | null;
+            if (!elem?.contains(target) && lightboxOptionsActive.fullScreen !== true){
                 setLightboxState(null);
                 lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.fullScreenDisable})
             }
@@ -129,8 +129,8 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
     }
 
     useEffect(() => {
-        if (lightboxEverOpened) window.addEventListener('click', lightboxCloseOnClickOutsideElemListener);
-        return () => window.removeEventListener('click', lightboxCloseOnClickOutsideElemListener);
+        if (lightboxEverOpened) window.addEventListener('click', listener);
+        return () => window.removeEventListener('click', listener);
     }, [lightboxEverOpened]);
 
 }
@@ -139,6 +139,7 @@ export function calculateImageSpecsForLightbox(lightboxState: LightboxState,
                                                lightboxImages: ImagesData,
                                                windowHeight: number,
                                                windowWidth: number): LightboxDimensionsStyle{
+
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -183,9 +184,9 @@ export function HideNavbarWhenLightboxOpen(lightboxState: LightboxState): void{
     }, [lightboxState]);
 }
 
-export function OnMount(lightboxButtonDispatch: Dispatch<Action>): void{
+export function OnMount(lightboxOptionsActiveDispatch: Dispatch<Action>): void{
     useEffect(() => {
-        lightboxButtonDispatch({type: lightboxInitialValueCase})
+        lightboxOptionsActiveDispatch({type: lightboxInitialValueCase})
     }, []);
 }
 
@@ -195,6 +196,7 @@ export function OnPropsChange(props: GalleryInputs,
                               setLightboxState: SetLightboxState,
                               setLightboxEverOpened: SetLightboxEverOpened,
                               setImageElements: Dispatch<SetStateAction<JSX.Element[] | null>>): void{
+
     useEffect(() => {
         setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
     }, [props]);
@@ -205,7 +207,8 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
                                         setLightboxState: SetLightboxState,
                                         lightboxOptionsActive,
                                         lightboxOptionsActiveDispatch): void{
-    const lightboxKeyPressListener = (e: KeyboardEvent) => {
+
+    const listener = (e: KeyboardEvent) => {
         if (lightboxState !== null){
             if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1 && lightboxState !== null){ setLightboxState((prev) => { return (prev !== null ? prev+1 : prev)}); return; }
             if (e.keyCode === 37 && lightboxState > 0 && lightboxState !== null){ setLightboxState((prev) => { return (prev !== null ? prev-1 : prev)}); return; }
@@ -214,7 +217,7 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
         }
     }
 
-    useEventListener("keydown", lightboxKeyPressListener);
+    useEventListener("keydown", listener);
 }
 
 export function createTooltipsElems(lightboxState: LightboxState,
@@ -297,25 +300,22 @@ export function createTooltipsElems(lightboxState: LightboxState,
 }
 
 export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions,
-                                              lightboxButtonDispatch: Dispatch<Action>,
+                                              lightboxOptionsActiveDispatch: Dispatch<Action>,
                                               lightboxState: LightboxState,
                                               lightboxImages: ImagesData,
                                               setLightboxState: SetLightboxState,
                                               imageElements): ReactElement{
+
     const [fullscreenImageIsLoading, setFullscreenImageIsLoading] = useState(true);
 
     return (
             <>
                 <div className={"lightbox__fullscreen" + (lightboxOptionsActive.fullScreen === true ? " active" : "") }
-                     onClick={(e) => {
-                         e.stopPropagation();
-                     }}
+                     onClick={(e) => e.stopPropagation() }
                 >
                     <div className={"lightbox__fullscreen--image-container" + (lightboxOptionsActive.fullScreen === true ? " active" : "" )}
                          onClick={(e) => {
                              if (lightboxOptionsActive.fullScreen === false) return;
-                             //lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen}); Closes lightbox if user clicks anywhere in the window.
-
                          }}>
                         {fullscreenImageIsLoading && (
                             <div className={"lightbox__loading-indicator"}>
@@ -341,9 +341,12 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         <div className={"lightbox__fullscreen--top-row"}>
                             <div className={"lightbox__fullscreen--close-button"}
                                 onClick={() => {
-                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                                lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.fullScreen});
                             }}>
-                                <CloseIcon style={{fontSize: "200%"}} />
+                                <CloseIcon
+                                    color={"secondary"}
+                                    style={{fontSize: "200%"}}
+                                />
                             </div>
                         </div>
                     </div>
@@ -352,7 +355,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
     );
 }
 
-export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
+export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                setLightboxState: SetLightboxState,
                                lightboxImages: ImagesData,
                                lightboxDimensionsStyle: LightboxDimensionsStyle,
@@ -364,7 +367,6 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                ): ReactElement{
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
-    const test = (num) => {  cc(num); }
 
     return (
         <>
@@ -374,32 +376,37 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                     <div className={"lightbox__top-row"}>
                         <PlayCircleIcon
                             style={{fontSize: "200%"}}
+                            color={(lightboxOptionsActive.autoplay ? "primary" : "")}
                             onClick={() => {
-                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.autoplay});
+                                lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.autoplay});
                             }}
                         />
                         <ShuffleIcon
                             style={{fontSize: "200%"}}
+                            color={(lightboxOptionsActive.shuffle ? "primary" : "")}
                             onClick={() => {
-                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.shuffle});
+                                lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.shuffle});
                             }}
                         />
                         <FullscreenIcon
                             style={{fontSize: "200%"}}
+                            color={(lightboxOptionsActive.fullScreen ? "primary" : "")}
                             onClick={() => {
-                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                                lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.fullScreen});
                             }}
                         />
                         <CurtainsIcon
                             style={{fontSize: "200%"}}
+                            color={(lightboxOptionsActive.curtain ? "primary" : "")}
                             onClick={() => {
-                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.curtain});
+                                lightboxOptionsActiveDispatch({type: lightboxDataSelectorTypes.curtain});
                             }}
                         />
                         <InfoIcon
                             style={{fontSize: "200%"}}
+                            color={(lightboxOptionsActive.tooltip ? "primary" : "")}
                             onClick={() => {
-                                handleLightboxButtons(lightboxButtonDispatch);
+                                handleLightboxButtons(lightboxOptionsActiveDispatch);
                             }}
                         />
                         <CloseIcon

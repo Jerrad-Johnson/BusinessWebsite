@@ -2,8 +2,8 @@ export let initialShowGalleryData = {
     tooltip: false,
     fullScreen: false,
     shuffle: false,
-    autoplay: false,
-    curtain: false,
+    autoplay: true,
+    curtain: true,
 }
 
 export const lightboxDataSelectorTypes = {

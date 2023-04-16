@@ -3,7 +3,7 @@ import {booleanAsString, lightboxDataSelectorTypes, lightboxInitialValueCase} fr
 import {Action, LightboxOptions} from "../types/njGallery";
 import {FunctionComponent} from "react";
 
-export function lightboxButtonReducer(state: LightboxOptions, action: Action){
+export function lightboxOptionsActiveReducer(state: LightboxOptions, action: Action){
     switch (action.type) {
         case lightboxDataSelectorTypes.tooltip:
             performBasics(state, lightboxDataSelectorTypes.tooltip);
