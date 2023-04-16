@@ -1,7 +1,8 @@
-import {Dispatch, MutableRefObject} from "react";
+import {Dispatch, MutableRefObject, SetStateAction} from "react";
+import {Image} from "react-grid-gallery";
 
 export interface GalleryInputs {
-    images: ImageArrayData[];
+    images: ImageData[];
     containerWidth?: string | number;
     containerPadding?: number;
     imagePadding?: ImagePaddingDirections;
@@ -13,7 +14,7 @@ export interface GalleryInputs {
 }
 
 export interface GalleryInputsWithDefaults {
-    images: ImageArrayData[];
+    images: ImageData[];
     containerWidth: string | number;
     containerPadding: number;
     imagePadding: ImagePaddingDirections;
@@ -29,7 +30,7 @@ type ImagePaddingDirections = {
     horizontal: number;
 }
 
-export interface ImageArrayData {
+export interface ImageData {
     src: string;
     blurSrc?: string;
     height: number;
@@ -43,6 +44,7 @@ export interface ImageArrayData {
     exposure: string | null;
     iso: string | null;
 }
+export type ImagesData = ImageData[];
 
 export interface GalleryLayoutData {
     boxes: {
@@ -75,6 +77,9 @@ export interface GalleryStylesEssential {
 export interface LightboxOptions {
     fullScreen: boolean;
     imageData: boolean;
+    shuffle: boolean;
+    autoplay: boolean;
+    curtain: boolean;
 }
 
 export interface Action {
@@ -82,4 +87,13 @@ export interface Action {
     payload?: any;
 }
 
+export type LightboxState = null | number;
+export type LightboxEverOpened = boolean;
+export type SetLightboxState = Dispatch<SetStateAction<LightboxState>>;
 export type GalleryElementRef = MutableRefObject<null | HTMLDivElement>;
+export type SetLightboxEverOpened = Dispatch<SetStateAction<boolean>>;
+export interface LightboxDimensionsObject {
+    width: string;
+    height: string;
+}
+export type LightboxDimensionsStyle = LightboxDimensionsObject | undefined;

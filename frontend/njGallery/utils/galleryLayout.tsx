@@ -3,7 +3,7 @@ import {
     GalleryElementRef,
     GalleryInputsWithDefaults,
     GalleryLayoutData,
-    ImageArrayData, ReformattedGalleryLayout
+    ImageData, ReformattedGalleryLayout
 } from "../types/njGallery";
 import {Dispatch, ReactElement, SetStateAction} from "react";
 import {cc} from "../../common/variables";
@@ -13,10 +13,8 @@ import {handleLightbox} from "../NjGallery";
 
 function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
-    const {images, imagePadding} = galleryInputsWithDefaultsCopy;
-    //@ts-ignore
+    const {images, imagePadding} = galleryInputsWithDefaultsCopy; //@ts-ignore
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);
-
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
 
     return reformattedGalleryLayout.map((e) => {
@@ -71,7 +69,7 @@ function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWith
     );
 }
 
-function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArrayData[]): ReformattedGalleryLayout[] | []{
+function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageData[]): ReformattedGalleryLayout[] | []{
     const imagesCopy = [...images];
     let reformattedGalleryLayout = [];
 
@@ -87,12 +85,5 @@ function reformatGalleryData(galleryLayout: GalleryLayoutData, images: ImageArra
 
     return reformattedGalleryLayout;
 }
-
-/*function handleLightbox(event, galleryInputsWithDefaults){
-    let url = event.target.getAttribute("data-largeimg")
-    let position = galleryInputsWithDefaults.images.findIndex((elem) => {
-        return elem.lg_img_url === url;
-    });
-}*/
 
 export default createGalleryLayout;

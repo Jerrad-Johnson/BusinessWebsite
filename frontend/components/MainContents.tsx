@@ -3,7 +3,7 @@ import {orientations} from "../hooks/useOrientation";
 import ThemeSlice, {darkTheme, lightTheme} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
-import {GalleryInputs, ImageArrayData} from "../njGallery/types/njGallery";
+import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
 import indexStyles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
@@ -15,7 +15,7 @@ import {GalleryFolderSpans, IsLoading} from "../common/types";
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                             {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
-    const [photos, setPhotos] = useState<ImageArrayData[]>([]);
+    const [photos, setPhotos] = useState<ImageData[]>([]);
     const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
 
     useEffect(() => {
@@ -265,13 +265,13 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
     );
 }
 
-async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>, folder: string): Promise<void>{
+async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageData[]>>, folder: string): Promise<void>{
     const results = await httpClient.post(`${process.env.SERVERURL}/gallery/getThisFolder`, {gallerySize: "sm", galleryName: folder});
     if (results?.data?.error === true || results.data === undefined) return;
     let imageData = results.data.data;
     if (imageData.length < 0) return;
 
-    let formattedImageData: ImageArrayData[] = [];
+    let formattedImageData: ImageData[] = [];
     for (let image of imageData){
         formattedImageData.push(
             {
@@ -294,7 +294,7 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageArray
     setPhotos(formattedImageData);
 }
 
-async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
+async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageData[]>>){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`);
     const elements = folders.data.data.map((elem: {folder: string}) => {
       return (
@@ -307,7 +307,7 @@ async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSp
     setGalleryFolders(elements);
 }
 
-function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<ImageArrayData[]>>){
+function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<ImageData[]>>){
     handleGalleryImages(setPhotos, folder);
 }
 
