@@ -1,10 +1,10 @@
 import {Dispatch, ReactElement, SetStateAction, useEffect} from "react";
-import {GalleryElementRef, GalleryInputsWithDefaults} from "../types/njGallery";
+import {GalleryElemRef, GalleryInputsWithDefaults} from "../types/njGallery";
 import createGalleryLayout from "../utils/galleryLayout";
 
 function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] | null>>,
                        galleryInputsWithDefaults: GalleryInputsWithDefaults,
-                       galleryElementRef: GalleryElementRef,
+                       galleryElementRef: GalleryElemRef,
                        setLightboxState: Dispatch<SetStateAction<number | null>>,
                        setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
                        ){

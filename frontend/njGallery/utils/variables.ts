@@ -1,19 +1,35 @@
-export let initialShowGalleryData = {
-    tooltip: false,
-    fullScreen: false,
-    shuffle: false,
-    autoplay: false,
-    curtain: false,
+export const lightboxOptions = {
+    tooltip: "tooltip",
+    fullscreen: "fullscreen",
+    shuffle: "shuffle",
+    autoplay: "autoplay",
+    curtain: "curtain",
 }
 
-export const lightboxDataSelectorTypes = {
-    tooltip: "tooltip",
-    fullScreen: "fullscreen",
-    shuffle: "shuffle",
-    shuffleDisable: "shuffleDisable",
-    autoplay: "autoplay",
+const lightboxOperations = {
+    fullscreenDisable: "fullscreenDisable",
+    shuffleDisable: "fullscreenDisable",
     autoplayDisable: "autoplayDisable",
-    curtain: "curtain",
+    initialValue: "initialValue",
+}
+
+export const initialShowGalleryData = {
+    tooltip: true,
+    fullscreen: false,
+    shuffle: false,
+    autoplay: true,
+    curtain: true,
+}
+
+export const lightboxReducerCases = {
+    tooltip: lightboxOptions.tooltip,
+    fullScreen: lightboxOptions.fullscreen,
+    fullScreenDisable: lightboxOperations.fullscreenDisable,
+    shuffle: lightboxOptions.shuffle,
+    shuffleDisable: lightboxOperations.shuffleDisable,
+    autoplay: lightboxOptions.autoplay,
+    autoplayDisable: lightboxOperations.autoplayDisable,
+    curtain: lightboxOptions.curtain,
 }
 
 export const lightboxInitialValueCase = "initialValue";

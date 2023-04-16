@@ -1,68 +1,63 @@
 import {cc} from "../../common/variables";
-import {booleanAsString, lightboxDataSelectorTypes, lightboxInitialValueCase} from "./variables";
+import {
+    booleanAsString,
+    lightboxReducerCases,
+    lightboxInitialValueCase, lightboxOptions
+} from "./variables";
 import {Action, LightboxOptions} from "../types/njGallery";
-import {FunctionComponent} from "react";
 
-export function lightboxButtonReducer(state: LightboxOptions, action: Action){
+export function lightboxOptionsActiveReducer(state: LightboxOptions, action: Action){
     switch (action.type) {
-        case lightboxDataSelectorTypes.tooltip:
-            performBasics(state, lightboxDataSelectorTypes.tooltip);
+        case lightboxReducerCases.tooltip:
+            setLocalStorage(state, String(lightboxReducerCases.tooltip));
             return {...state, tooltip: !state.tooltip}
         case lightboxInitialValueCase:
-            return activeButtonIfSet(state);
-        case lightboxDataSelectorTypes.fullScreen:
+            return {...setInitialValues(state)};
+        case lightboxReducerCases.fullScreen:
+            setLocalStorage(state, String(lightboxReducerCases.fullScreen));
             return {...state, fullScreen: !state.fullScreen}
-        case lightboxDataSelectorTypes.shuffle:
+        case lightboxReducerCases.fullScreenDisable:
+            return {...state, fullScreen: false}
+        case lightboxReducerCases.shuffle:
+            setLocalStorage(state, String(lightboxReducerCases.shuffle));
+            if (state.autoplay && !state.shuffle) setLocalStorageEntry(lightboxReducerCases.autoplay, booleanAsString.false);
             return {...state, shuffle: !state.shuffle, autoplay: false}
-        case lightboxDataSelectorTypes.shuffleDisable:
+        case lightboxReducerCases.shuffleDisable:
             return {...state, shuffle: false}
-        case lightboxDataSelectorTypes.autoplay:
+        case lightboxReducerCases.autoplay:
+            if (state.shuffle && !state.autoplay) setLocalStorageEntry(lightboxReducerCases.shuffle, booleanAsString.false);
+            setLocalStorage(state, String(lightboxReducerCases.autoplay));
             return {...state, autoplay: !state.autoplay, shuffle: false}
-        case lightboxDataSelectorTypes.autoplayDisable:
+        case lightboxReducerCases.autoplayDisable:
             return {...state, autoplay: false}
-        case lightboxDataSelectorTypes.curtain:
+        case lightboxReducerCases.curtain:
+            setLocalStorage(state, String(lightboxReducerCases.curtain));
             return {...state, curtain: !state.curtain}
         default:
             return {...state};
     }
 }
 
-function performBasics(state: LightboxOptions, dataSelector: string){
-    //setAllStorageValuesToFalse();
+function setLocalStorage(state: LightboxOptions, dataSelector: string) {
     localStorage.setItem(dataSelector, String(!state[dataSelector]));
-    //return setAllStateValuesToFalse(state);
 }
 
-function setAllStorageValuesToFalse(){
-    for (let entry in lightboxDataSelectorTypes){
-        localStorage.setItem(entry, booleanAsString.false);
-    }
-}
-
-
-function setAllStateValuesToFalse(state: LightboxOptions) {
+function setInitialValues(state){
     let stateCopy = {...state};
 
-    for (let entry in stateCopy){ //@ts-ignore
-        stateCopy[entry] = false;
+    for (let entry in lightboxOptions){
+        if (localStorage.getItem(entry) === booleanAsString.true){
+            stateCopy[entry] = true;
+        } else if (localStorage.getItem(entry) === booleanAsString.false){
+            stateCopy[entry] = false;
+        } else if (localStorage.getItem(entry) === null){
+          localStorage.setItem(entry, stateCopy[entry])
+        }
     }
 
     return stateCopy;
 }
 
-function setInitialValue(){
-    for (let entry in lightboxDataSelectorTypes){
-        if (localStorage.getItem(entry) === booleanAsString.true) return entry;
-    }
-
-    return null;
-}
-
-function activeButtonIfSet(state: LightboxOptions){
-    const findActiveButton = setInitialValue();
-    if (findActiveButton !== null){
-        return {...state, [findActiveButton]: true}
-    } else {
-        return {...state}
-    }
+function setLocalStorageEntry(item, bool){
+    localStorage.setItem(item, bool);
 }
