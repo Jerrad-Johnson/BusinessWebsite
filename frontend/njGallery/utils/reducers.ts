@@ -58,7 +58,6 @@ function setInitialValue(){
     return null;
 }
 
-
 function activeButtonIfSet(state: LightboxOptions){
     const findActiveButton = setInitialValue();
     if (findActiveButton !== null){

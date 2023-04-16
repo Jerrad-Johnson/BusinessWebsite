@@ -624,6 +624,15 @@ span.galleryFolderSelectors::first-letter{
     .lightbox__backdrop{
         padding: 15px;
     }
+
+    .lightbox__image-data--right{
+        width: 100%;
+    }
+
+    .lightbox__top-row{
+        padding-top: 10px;
+    }
+
 }
 
 @media screen and (max-width: 500px) {

@@ -66,7 +66,7 @@ function NjGallery(props: GalleryInputs) {
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
 
-    const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages);
+    const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxOptionsActive, lightboxButtonDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
 
     const shuffleImages = () => {
@@ -236,42 +236,83 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
 }
 
 export function createTooltipsElems(lightboxState: LightboxState,
-                                    lightboxImages: ImagesData): ReactElement{
+                                    lightboxImages: ImagesData,
+                                    windowWidth: number): ReactElement{
+    cc(windowWidth)
+
+    let elems;
+
     return (
         <>
-            <div className={"lightbox__image-data--left"}>
-                <div className={"lightbox__image-data--left-container"}>
-                    <ul>
-                        <li>
-                            Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
-                        </li>
-                        { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
-                    </ul>
+            {windowWidth > 800 && (
+                <>
+                <div className={"lightbox__image-data--left"}>
+                    <div className={"lightbox__image-data--left-container"}>
+                        <ul>
+                            <li>
+                                Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
+                            </li>
+                            { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div className={"lightbox__image-data--right"}>
-                <div className={"lightbox__image-data--right-container"}>
-                    <ul>
-                        <li>
-                            Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
-                        </li>
-                            { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
-                        <li>
-                            Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
-                        </li>
-                        <li>
-                            Aperture:  {lightboxState !== null && "f/" + lightboxImages?.[lightboxState]?.aperture}
-                        </li>
-                        <li>
-                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure + "s"}
-                        </li>
-                        <li>
-                            ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
-                        </li>
-                    </ul>
+                <div className={"lightbox__image-data--right"}>
+                    <div className={"lightbox__image-data--right-container"}>
+                        <ul>
+                            <li>
+                                Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
+                            </li>
+                                { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
+                            <li>
+                                Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
+                            </li>
+                            <li>
+                                Aperture:  {lightboxState !== null && "f/" + lightboxImages?.[lightboxState]?.aperture}
+                            </li>
+                            <li>
+                                Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure + "s"}
+                            </li>
+                            <li>
+                                ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+                </>
+                )}
+
+            {windowWidth <= 800 && (
+                <div className={"lightbox__image-data--right"}>
+                    <div className={"lightbox__image-data--right-container"}>
+                        <ul>
+                            <li>
+                                Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
+                            </li>
+                            { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
+                            <li>
+
+                            <br />
+
+                                Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
+                            </li>
+                            { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
+                            <li>
+                                Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
+                            </li>
+                            <li>
+                                Aperture:  {lightboxState !== null && "f/" + lightboxImages?.[lightboxState]?.aperture}
+                            </li>
+                            <li>
+                                Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure + "s"}
+                            </li>
+                            <li>
+                                ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            )}
         </>
     )
 }
