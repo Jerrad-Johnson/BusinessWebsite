@@ -38,8 +38,9 @@ import {CircularProgress} from "@mui/material";
    Add image dragging.
    Rapid-clickers may close the lightbox before the fullscreen animation finishes... Handle this reset.
    Base64 images get stretched.
-   Use loading icon and do CSS transition when switching between images. Or fix blur.
+   Add Fullscreen loading indicator.
    Add animation to show that buttons have been clicked, or are active.
+   Fullscreen Close button moves when going from portrait to landscape images.
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -430,7 +431,7 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                 <div className={"lightbox__loading-indicator"}>
                                     <CircularProgress/>
                                 </div>
-                            )} {/*Note: Rare case, but if a user's cache is disabled, selecting the same image twice will result in no loading indicator the second (and subsequent) times.*/}
+                            )} {/*Note: Rare case, but if a user's cache is disabled, selecting the same image twice will result in no loading indicator the second (and subsequent) times. With cache, the image loads instantly and no loading indicator is needed.*/}
 
                             <Image
                                 key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
