@@ -262,7 +262,10 @@ export function createTooltipsElems(lightboxState: LightboxState,
                             Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
                         </li>
                         <li>
-                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure}
+                            Aperture:  {lightboxState !== null && "f/" + lightboxImages?.[lightboxState]?.aperture}
+                        </li>
+                        <li>
+                            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure + "s"}
                         </li>
                         <li>
                             ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}

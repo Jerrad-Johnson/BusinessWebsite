@@ -287,6 +287,7 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageData[
                 iso: image.iso || null,
                 lens: image.lens_model || null,
                 date: image.photo_capture || null,
+                aperture: image.aperture || null,
             }
         )
     }
