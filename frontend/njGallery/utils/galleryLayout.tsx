@@ -11,7 +11,11 @@ import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
 import {handleLightbox} from "../NjGallery";
 
-function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults, galleryElementRef: GalleryElementRef, setLightboxState: Dispatch<SetStateAction<number | null>>, setLightboxEverOpened: Dispatch<SetStateAction<boolean>>): ReactElement[]{
+function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults,
+                             galleryElementRef: GalleryElementRef,
+                             setLightboxState: Dispatch<SetStateAction<number | null>>,
+                             setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
+                             lightboxOptionsActive): ReactElement[]{
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy; //@ts-ignore
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);

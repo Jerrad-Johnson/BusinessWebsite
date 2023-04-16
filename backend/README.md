@@ -98,6 +98,7 @@ create table gallery_lg_images
     photo_capture  datetime     null,
     height         varchar(255) null,
     width          varchar(255) null,
+    aperture       varchar(255) null,
     constraint id
         unique (id)
 );
@@ -120,6 +121,7 @@ create table gallery_sm_images
     photo_capture  datetime     null,
     height         varchar(255) null,
     width          varchar(255) null,
+    aperture       varchar(255) null,
     constraint id
         unique (id)
 );
@@ -142,6 +144,7 @@ create table gallery_tiny_images
     photo_capture  datetime     null,
     height         varchar(255) null,
     width          varchar(255) null,
+    aperture       varchar(255) null,
     constraint id
         unique (id)
 );

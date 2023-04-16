@@ -44,6 +44,7 @@
 
 .navbar__menu.navOpen {
     box-shadow: none;
+    transition: all 0.5s ease-in-out;
 }
 
 /* TODO Make this BG color fade */
