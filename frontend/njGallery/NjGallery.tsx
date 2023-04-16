@@ -47,8 +47,8 @@ function NjGallery(props: GalleryInputs) {
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
     const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer, initialShowGalleryData);
-    useInterval(() => shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber), lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
-    useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
+    useInterval(() => shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber), lightboxState !== null && lightboxOptionsActive.shuffle ? 3000 : null);
+    useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 3000 : null);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const galleryCSS: GalleryStylesEssential = createGalleryStyle({...galleryInputsWithDefaults.containerPadding}, {...galleryInputsWithDefaults.containerWidth});
