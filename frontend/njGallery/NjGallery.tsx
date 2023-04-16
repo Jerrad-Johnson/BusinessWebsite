@@ -37,38 +37,37 @@ import {CircularProgress} from "@mui/material";
    Add zoom to full size image.
    Add image dragging.
    Add animation to show that buttons have been clicked, or are active.
-   Fullscreen Close button moves when going from portrait to landscape images.
+   Add margins to MUI buttons
  */
 
 function NjGallery(props: GalleryInputs) {
     checkInputForErrors(props);
+
     const galleryElementRef: GalleryElementRef = useRef(null);
     const [imageElements, setImageElements] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
     const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
+    useInterval(() => shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber), lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
+    useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
     const galleryStyles: GalleryStylesEssential = createGalleryStyle(containerPadding, containerWidth);
-
-    OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
-    OnMount(lightboxOptionsActiveDispatch);
     useResizeHook(setImageElements, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened);
-    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch);
-    HideNavbarWhenLightboxOpen(lightboxState);
 
-    const lightboxImages: ImageData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
+    OnMount(lightboxOptionsActiveDispatch);
+    OnPropsChange(props, galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, setImageElements);
+    HideNavbarWhenLightboxOpen(lightboxState);
+    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch);
+
     const [windowHeight, windowWidth] = useWindowDimensions();
+    const lightboxImages: ImageData[] = changeDateFormatLightboxImages(galleryInputsWithDefaults.images);
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
-
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
-
     const lightbox = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements);
-    useInterval(() => shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber), lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
-    useInterval(() => autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState), lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
     return (
         <>
