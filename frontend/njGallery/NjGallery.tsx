@@ -31,14 +31,13 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import CurtainsIcon from '@mui/icons-material/Curtains';
 
 /*TODO
-   Add Fullscreen lightbox image-shift click areas.
+   Add close lightbox on Escape keypress
    CSS Transition.
    Add zoom to full size image.
    Add image dragging.
    Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset.
    Lightbox Base64 images get stretched.
    Make tooltip single-column if screen is very narrow, and increase font size.
-   Add aperture to tooltip.
    Blur does not render corretly in lgihtbvox or FS lightbox
    Use loading icon and do CSS transition when switching between images. Or fix blur.
    Add sweetalerts, shuffle enable/disable, etc.
@@ -68,7 +67,7 @@ function NjGallery(props: GalleryInputs) {
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState);
 
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages);
-    const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxOptionsActive, lightboxButtonDispatch, lightboxState, lightboxImages);
+    const fullscreenLightboxElems = createFullscreenLightboxElems(lightboxOptionsActive, lightboxButtonDispatch, lightboxState, lightboxImages, setLightboxState, imageElements);
 
     const shuffleImages = () => {
         if (lightboxImages.length === 1) lightboxButtonDispatch({type: lightboxDataSelectorTypes.shuffleDisable});
@@ -280,7 +279,9 @@ export function createTooltipsElems(lightboxState: LightboxState,
 export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOptions,
                                               lightboxButtonDispatch: Dispatch<Action>,
                                               lightboxState: LightboxState,
-                                              lightboxImages: ImagesData): ReactElement{
+                                              lightboxImages: ImagesData,
+                                              setLightboxState: SetLightboxState,
+                                              imageElements): ReactElement{
     return (
             <>
                 <div className={"lightbox__fullscreen" + (lightboxOptionsActive.fullScreen === true ? " active" : "") }
@@ -291,7 +292,7 @@ export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                     <div className={"lightbox__fullscreen--image-container" + (lightboxOptionsActive.fullScreen === true ? " active" : "" )}
                          onClick={(e) => {
                              if (lightboxOptionsActive.fullScreen === false) return;
-                             lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                             //lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
 
                          }}>
                         <Image
@@ -304,6 +305,24 @@ export function createFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                             objectFit={"contain"}
                             alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                         />
+                        <div className={"lightbox__fullscreen-image--move-left"} onClick={(e) => {
+                             setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}}
+                        />
+                        <div className={"lightbox__image-fullscreen-image--move-right"} onClick={(e) => {
+                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}}
+                        />
+                        <div className={"lightbox__fullscreen--top-row"}>
+                            <div className={"lightbox__fullscreen--close-button"}
+                                onClick={() => {
+                                cc(5)
+                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                            }}>
+                                <CloseIcon
+                                    style={{fontSize: "200%"}}
+
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </>

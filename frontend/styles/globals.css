@@ -551,6 +551,37 @@ span.galleryFolderSelectors::first-letter{
     object-fit: contain;
 }
 
+.lightbox__fullscreen-image--move-left{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height:100%;
+    z-index: 20;
+}
+
+.lightbox__image-fullscreen-image--move-right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height:100%;
+    z-index: 20;
+}
+
+.lightbox__fullscreen--top-row{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.lightbox__fullscreen--close-button{
+    padding: 1em;
+    position: relative;
+    z-index: 30;
+}
+
+
+
 
 /* Leaflet  */
 #map {
