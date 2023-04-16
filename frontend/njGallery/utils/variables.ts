@@ -3,6 +3,7 @@ export let initialShowGalleryData = {
     fullScreen: false,
     shuffle: false,
     autoplay: false,
+    curtain: false,
 }
 
 export const lightboxDataSelectorTypes = {
@@ -12,6 +13,7 @@ export const lightboxDataSelectorTypes = {
     shuffleDisable: "shuffleDisable",
     autoplay: "autoplay",
     autoplayDisable: "autoplayDisable",
+    curtain: "curtain",
 }
 
 export const lightboxInitialValueCase = "initialValue";

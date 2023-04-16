@@ -19,6 +19,8 @@ export function lightboxButtonReducer(state: LightboxOptions, action: Action){
             return {...state, autoplay: !state.autoplay, shuffle: false}
         case lightboxDataSelectorTypes.autoplayDisable:
             return {...state, autoplay: false}
+        case lightboxDataSelectorTypes.curtain:
+            return {...state, curtain: !state.curtain}
         default:
             return {...state};
     }

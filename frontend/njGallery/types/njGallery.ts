@@ -78,6 +78,8 @@ export interface LightboxOptions {
     fullScreen: boolean;
     imageData: boolean;
     shuffle: boolean;
+    autoplay: boolean;
+    curtain: boolean;
 }
 
 export interface Action {

@@ -403,6 +403,9 @@ span.galleryFolderSelectors::first-letter{
     justify-content: center;
     align-items: center;
 }
+.lightbox.curtain {
+    background-color: rgba(0, 0, 0, .9);
+}
 
 .lightbox__backdrop{
     display: flex;

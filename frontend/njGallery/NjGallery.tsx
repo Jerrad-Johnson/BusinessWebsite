@@ -28,18 +28,16 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import CloseIcon from '@mui/icons-material/Close';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import CurtainsIcon from '@mui/icons-material/Curtains';
 
 /*TODO
    Add Fullscreen lightbox image-shift click areas.
    CSS Transition.
    Add zoom to full size image.
-   Add button to darken background... curtain icon? brightness icon? eye icon?
-   Auto-play.
-   Randomizer.
    Add image dragging.
-   Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset. Lightbox Base64 images get vertically stretched.
+   Rapid-clickers may close the lightbox before the fullscreen animation finishes, handle this reset.
+   Lightbox Base64 images get stretched.
    Make tooltip single-column if screen is very narrow, and increase font size.
-   Do not print both lens *and* focal length when they're identical.
    Add aperture to tooltip.
    Blur does not render corretly in lgihtbvox or FS lightbox
    Use loading icon and do CSS transition when switching between images. Or fix blur.
@@ -53,7 +51,6 @@ function NjGallery(props: GalleryInputs) {
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
     const [lightboxOptionsActive, lightboxButtonDispatch] = useReducer(lightboxButtonReducer, initialShowGalleryData);
-    const [shuffleState, setShuffleState] = useState(false);
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
@@ -92,7 +89,7 @@ function NjGallery(props: GalleryInputs) {
         currentPosition === end ? setLightboxState(0) : setLightboxState((prev) => prev+1)
     }
 
-    const lightbox = CreateLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements, setShuffleState);
+    const lightbox = CreateLightbox(lightboxButtonDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElements);
     useInterval(shuffleImages, lightboxState !== null && lightboxOptionsActive.shuffle ? 4000 : null);
     useInterval(autoplayImages, lightboxState !== null && lightboxOptionsActive.autoplay ? 4000 : null);
 
@@ -260,9 +257,7 @@ export function createTooltipsElems(lightboxState: LightboxState,
                         <li>
                             Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
                         </li>
-                        <li>
-                            Lens: { lightboxState !== null && lightboxImages?.[lightboxState]?.lens}
-                        </li>
+                            { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
                         <li>
                             Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
                         </li>
@@ -321,11 +316,11 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                                tooltipsElems: JSX.Element,
                                fullscreenLightboxElems: JSX.Element,
                                imageElements: JSX.Element[] | null,
-                               setShuffleState): ReactElement{
+                               ): ReactElement{
 
     return (
         <>
-            <div className={"lightbox"}>
+            <div className={"lightbox" + (lightboxOptionsActive.curtain && " curtain" || "")}>
                 {fullscreenLightboxElems}
                 <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                     <div className={"lightbox__top-row"}>
@@ -346,6 +341,12 @@ export function CreateLightbox(lightboxButtonDispatch: Dispatch<Action>,
                             style={{fontSize: "200%"}}
                             onClick={() => {
                                 lightboxButtonDispatch({type: lightboxDataSelectorTypes.fullScreen});
+                            }}
+                        />
+                        <CurtainsIcon
+                            style={{fontSize: "200%"}}
+                            onClick={() => {
+                                lightboxButtonDispatch({type: lightboxDataSelectorTypes.curtain});
                             }}
                         />
                         <InfoIcon
