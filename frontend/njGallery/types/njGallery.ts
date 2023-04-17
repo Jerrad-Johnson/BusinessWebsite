@@ -76,7 +76,8 @@ export interface GalleryStylesEssential {
 }
 
 export interface LightboxOptions {
-    fullScreen: boolean;
+    [key: string]: boolean;
+    fullscreen: boolean;
     tooltip: boolean;
     shuffle: boolean;
     autoplay: boolean;

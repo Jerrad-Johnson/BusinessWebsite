@@ -23,8 +23,8 @@ export const initialShowGalleryData = {
 
 export const lightboxReducerCases = {
     tooltip: lightboxOptions.tooltip,
-    fullScreen: lightboxOptions.fullscreen,
-    fullScreenDisable: lightboxOperations.fullscreenDisable,
+    fullscreen: lightboxOptions.fullscreen,
+    fullscreenDisable: lightboxOperations.fullscreenDisable,
     shuffle: lightboxOptions.shuffle,
     shuffleDisable: lightboxOperations.shuffleDisable,
     autoplay: lightboxOptions.autoplay,
