@@ -1,5 +1,4 @@
 import {Dispatch, MutableRefObject, SetStateAction} from "react";
-import {Image} from "react-grid-gallery";
 
 export interface GalleryInputs {
     images: ImageData[];
