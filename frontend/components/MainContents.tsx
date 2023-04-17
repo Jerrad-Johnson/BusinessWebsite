@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {orientations} from "../hooks/useOrientation";
-import ThemeSlice, {darkTheme, lightTheme} from "../features/theme/themeSlice";
+import ThemeSlice, {darkTheme, lightTheme, themeOptions} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
@@ -9,8 +9,21 @@ import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {images} from "next/dist/build/webpack/config/blocks/images";
-import {CircularProgress, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {
+    CircularProgress,
+    createTheme,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select, styled,
+    Tabs,
+    ThemeProvider
+} from "@mui/material";
 import {GalleryFolderSpans, IsLoading} from "../common/types";
+import {Box} from "@mui/system";
+import Tab from '@mui/material/Tab';
+import {useSelector} from "react-redux";
+import {RootState} from "../app/store";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                             {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
@@ -39,59 +52,93 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         targetRowHeightTolerance: .2,
     }
 
+    const themeType: string = useSelector((state: RootState) => state.theme.value);
+    let styledTab = null;
+
+    if (themeType === themeOptions.dark){
+        styledTab = createTheme({
+            components: {
+                MuiTab: {
+                    styleOverrides: {
+                        root: {
+                            color: "#ffffff",
+                        }
+                    }
+                }
+            }
+         });
+    } else {
+        styledTab = createTheme({
+            components: {
+                MuiTab: {
+                    styleOverrides: {
+                        root: {
+                            color: "#000000",
+                        }
+                    }
+                }
+            }
+        });
+    }
 
     return (
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'} alt={'Cover Portrait'}/>
-                    <div className={"main__overlay"}>
-                        <div className={"main__content"}>
-                            <div className={"main__content--headline"}>Gallery</div>
-                            <hr/>
-                            {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
-                            <hr/>
-                            <NjGallery
-                                {...galleryInputs}
-                            />
+                    <ThemeProvider theme={styledTab}>
+                        <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
+                               objectPosition={'center'} alt={'Cover Portrait'}/>
+                        <div className={"main__overlay"}>
+                            <div className={"main__content"}>
+                                <div className={"main__content--headline"}>Gallery</div>
+                                <hr/>
+                                <Box>
+                                    <Tabs>
+                                        {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
+                                    </Tabs>
+                                </Box>
+                                <hr/>
+                                <NjGallery
+                                    {...galleryInputs}
+                                />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                {lipsum}
+                                <br />
+                                <br />
+                            </div>
                         </div>
-                    </div>
+                    </ThemeProvider>
                 </header>
             </div>
     );
@@ -297,15 +344,23 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageData[
 
 async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageData[]>>){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`);
-    const elements = folders.data.data.map((elem: {folder: string}) => {
+    const tabElements = folders.data.data.map((elem: {folder: string}) => {
       return (
-          <span key={elem.folder} className={"galleryFolderSelectors"} onClick={(event) => {
-            handleFolderChange(elem.folder, setPhotos);
-          }}>{elem.folder}</span>
+          <Tab label={elem.folder} onClick={(event) => {
+              handleFolderChange(elem.folder, setPhotos);
+          }}/>
       );
     });
 
-    setGalleryFolders(elements);
+    const elements = (
+        <Box>
+            <Tabs>
+                {tabElements}
+            </Tabs>
+        </Box>
+    );
+
+    setGalleryFolders(tabElements);
 }
 
 function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<ImageData[]>>){
@@ -313,9 +368,13 @@ function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<I
 }
 
 
+/*<span key={elem.folder} className={"galleryFolderSelectors"}
+      onClick={(event) => {
+          handleFolderChange(elem.folder, setPhotos);
+      }}>{elem.folder}</span>*/
 
 
-
+/**/
 
 
 
