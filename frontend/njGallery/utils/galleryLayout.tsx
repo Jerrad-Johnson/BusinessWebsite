@@ -9,7 +9,7 @@ import {Dispatch, ReactElement, SetStateAction} from "react";
 import {cc} from "../../common/variables";
 import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
-import {handleLightbox} from "../NjGallery";
+import {handleLightbox} from "./lightbox";
 
 function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults,
                              galleryElementRef: GalleryElemRef,
