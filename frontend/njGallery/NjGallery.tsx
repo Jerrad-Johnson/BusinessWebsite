@@ -39,7 +39,6 @@ import {themeOptions} from "../features/theme/themeSlice";
    Add zoom to full size image.
    Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Add margins to MUI buttons
-   Colorize MUI buttons
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -383,6 +382,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                ): ReactElement{
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
+    const standardMargin = {ml: 1};
 
     return (
         <>
@@ -391,6 +391,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                 <div className={"lightbox__backdrop"} id={"lightboxArea"}>
                     <div className={"lightbox__top-row"}>
                         <PlayCircleIcon
+                            sx={standardMargin}
                             style={{fontSize: "200%"}}
                             color={(lightboxOptionsActive.autoplay ? "primary" : "secondary")}
                             theme={muiTheme}
@@ -399,6 +400,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             }}
                         />
                         <ShuffleIcon
+                            sx={standardMargin}
                             style={{fontSize: "200%"}}
                             color={(lightboxOptionsActive.shuffle ? "primary" : "secondary")}
                             theme={muiTheme}
@@ -407,6 +409,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             }}
                         />
                         <FullscreenIcon
+                            sx={standardMargin}
                             style={{fontSize: "200%"}}
                             color={(lightboxOptionsActive.fullScreen ? "primary" : "secondary")}
                             theme={muiTheme}
@@ -415,6 +418,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             }}
                         />
                         <CurtainsIcon
+                            sx={standardMargin}
                             style={{fontSize: "200%"}}
                             color={(lightboxOptionsActive.curtain ? "primary" : "secondary")}
                             theme={muiTheme}
@@ -423,6 +427,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             }}
                         />
                         <InfoIcon
+                            sx={standardMargin}
                             style={{fontSize: "200%"}}
                             color={(lightboxOptionsActive.tooltip ? "primary" : "secondary")}
                             theme={muiTheme}
@@ -431,6 +436,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             }}
                         />
                         <CloseIcon
+                            sx={{ml: 4}}
                             style={{fontSize: "200%"}}
                             color={"primary"}
                             theme={muiTheme}
@@ -501,6 +507,7 @@ export function getRandomWholeNumber(num, currentNum = null){
 
 export function createMUITheme(){
     const themeType: string = useSelector((state: RootState) => state.theme.value);
+
     if (themeType === themeOptions.dark){
         return createTheme({
             palette: {
