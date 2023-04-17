@@ -29,7 +29,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import CurtainsIcon from '@mui/icons-material/Curtains';
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, createTheme} from "@mui/material";
+import {AppDispatch, RootState} from "../app/store";
+import {useDispatch, useSelector} from "react-redux";
+import {themeOptions} from "../features/theme/themeSlice";
 
 /*TODO
    Make it possible to pass-in data for tooltips.
@@ -62,10 +65,11 @@ function NjGallery(props: GalleryInputs) {
     const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxImages: ImageData[] = changeLightboxImagesDateFormat(galleryInputsWithDefaults.images);
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
+    const muiTheme = createMUITheme();
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch, lightboxState, lightboxImages, setLightboxState, imageElems);
-    const lightboxElems = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems);
+    const lightboxElems = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems, muiTheme);
 
     return (
         <>
@@ -304,7 +308,17 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                               lightboxState: LightboxState,
                                               lightboxImages: ImagesData,
                                               setLightboxState: SetLightboxState,
-                                              imageElements): ReactElement{
+                                              imageElements,
+                                              ): ReactElement{
+
+    const muiTheme = {
+        palette: {
+            primary: {
+                main: '#dddddd',
+                contrastText: '#fff',
+            },
+        }
+    }
 
     const [fullscreenImageIsLoading, setFullscreenImageIsLoading] = useState(true);
 
@@ -344,7 +358,8 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullScreen});
                             }}>
                                 <CloseIcon
-                                    color={"secondary"}
+                                    theme={muiTheme}
+                                    color={"primary"}
                                     style={{fontSize: "200%"}}
                                 />
                             </div>
@@ -364,6 +379,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                tooltipsElems: JSX.Element,
                                fullscreenLightboxElems: JSX.Element,
                                imageElements: JSX.Element[] | null,
+                               muiTheme,
                                ): ReactElement{
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
@@ -376,41 +392,48 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                     <div className={"lightbox__top-row"}>
                         <PlayCircleIcon
                             style={{fontSize: "200%"}}
-                            color={(lightboxOptionsActive.autoplay ? "primary" : "")}
+                            color={(lightboxOptionsActive.autoplay ? "primary" : "secondary")}
+                            theme={muiTheme}
                             onClick={() => {
                                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplay});
                             }}
                         />
                         <ShuffleIcon
                             style={{fontSize: "200%"}}
-                            color={(lightboxOptionsActive.shuffle ? "primary" : "")}
+                            color={(lightboxOptionsActive.shuffle ? "primary" : "secondary")}
+                            theme={muiTheme}
                             onClick={() => {
                                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffle});
                             }}
                         />
                         <FullscreenIcon
                             style={{fontSize: "200%"}}
-                            color={(lightboxOptionsActive.fullScreen ? "primary" : "")}
+                            color={(lightboxOptionsActive.fullScreen ? "primary" : "secondary")}
+                            theme={muiTheme}
                             onClick={() => {
                                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullScreen});
                             }}
                         />
                         <CurtainsIcon
                             style={{fontSize: "200%"}}
-                            color={(lightboxOptionsActive.curtain ? "primary" : "")}
+                            color={(lightboxOptionsActive.curtain ? "primary" : "secondary")}
+                            theme={muiTheme}
                             onClick={() => {
                                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.curtain});
                             }}
                         />
                         <InfoIcon
                             style={{fontSize: "200%"}}
-                            color={(lightboxOptionsActive.tooltip ? "primary" : "")}
+                            color={(lightboxOptionsActive.tooltip ? "primary" : "secondary")}
+                            theme={muiTheme}
                             onClick={() => {
                                 handleLightboxButtons(lightboxOptionsActiveDispatch);
                             }}
                         />
                         <CloseIcon
                             style={{fontSize: "200%"}}
+                            color={"primary"}
+                            theme={muiTheme}
                             onClick={() => {
                                 setLightboxState(null);
                             }}
@@ -474,6 +497,37 @@ export function getRandomWholeNumber(num, currentNum = null){
     const random = Math.floor(Math.random() * num);
     if (random === currentNum) return getRandomWholeNumber(num, currentNum);
     return random;
+}
+
+export function createMUITheme(){
+    const themeType: string = useSelector((state: RootState) => state.theme.value);
+    if (themeType === themeOptions.dark){
+        return createTheme({
+            palette: {
+                primary: {
+                    main: '#dddddd',
+                    contrastText: '#fff',
+                },
+                secondary: {
+                    main: '#555555',
+                    contrastText: '#000',
+                },
+            },
+        });
+    } else {
+        return createTheme({
+            palette: {
+                primary: {
+                    main: '#333333',
+                    contrastText: '#fff',
+                },
+                secondary: {
+                    main: '#bbbbbb',
+                    contrastText: '#000',
+                },
+            },
+        });
+    }
 }
 
 export default NjGallery;
