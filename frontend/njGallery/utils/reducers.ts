@@ -13,11 +13,11 @@ export function lightboxOptionsActiveReducer(state: LightboxOptions, action: Act
             return {...state, tooltip: !state.tooltip}
         case lightboxInitialValueCase:
             return {...setInitialValues(state)};
-        case lightboxReducerCases.fullScreen:
-            setLocalStorage(state, String(lightboxReducerCases.fullScreen));
-            return {...state, fullScreen: !state.fullScreen}
-        case lightboxReducerCases.fullScreenDisable:
-            return {...state, fullScreen: false}
+        case lightboxReducerCases.fullscreen:
+            setLocalStorage(state, String(lightboxReducerCases.fullscreen));
+            return {...state, fullscreen: !state.fullscreen}
+        case lightboxReducerCases.fullscreenDisable:
+            return {...state, fullscreen: false}
         case lightboxReducerCases.shuffle:
             setLocalStorage(state, String(lightboxReducerCases.shuffle));
             if (state.autoplay && !state.shuffle) setLocalStorageEntry(lightboxReducerCases.autoplay, booleanAsString.false);
@@ -42,8 +42,8 @@ function setLocalStorage(state: LightboxOptions, dataSelector: string) {
     localStorage.setItem(dataSelector, String(!state[dataSelector]));
 }
 
-function setInitialValues(state){
-    let stateCopy = {...state};
+function setInitialValues(state: LightboxOptions){
+    let stateCopy: LightboxOptions = {...state};
 
     for (let entry in lightboxOptions){
         if (localStorage.getItem(entry) === booleanAsString.true){
@@ -51,13 +51,13 @@ function setInitialValues(state){
         } else if (localStorage.getItem(entry) === booleanAsString.false){
             stateCopy[entry] = false;
         } else if (localStorage.getItem(entry) === null){
-          localStorage.setItem(entry, stateCopy[entry])
+          localStorage.setItem(entry, String(stateCopy[entry]));
         }
     }
 
     return stateCopy;
 }
 
-function setLocalStorageEntry(item, bool){
-    localStorage.setItem(item, bool);
+function setLocalStorageEntry(item: string, bool: string){
+    localStorage.setItem(item, String(bool));
 }

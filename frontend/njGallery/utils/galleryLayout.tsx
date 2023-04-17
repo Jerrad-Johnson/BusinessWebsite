@@ -3,7 +3,7 @@ import {
     GalleryElemRef,
     GalleryInputsWithDefaults,
     GalleryLayoutData,
-    ImageData, ReformattedGalleryLayout
+    ImageData, LightboxOptions, ReformattedGalleryLayout
 } from "../types/njGallery";
 import {Dispatch, ReactElement, SetStateAction} from "react";
 import {cc} from "../../common/variables";
@@ -15,7 +15,8 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
                              galleryElementRef: GalleryElemRef,
                              setLightboxState: Dispatch<SetStateAction<number | null>>,
                              setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
-                             lightboxOptionsActive): ReactElement[]{
+                             ): ReactElement[]{
+
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
     const {images, imagePadding} = galleryInputsWithDefaultsCopy; //@ts-ignore
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);

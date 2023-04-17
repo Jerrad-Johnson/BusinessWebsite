@@ -1,5 +1,4 @@
 import {Dispatch, MutableRefObject, SetStateAction} from "react";
-import {Image} from "react-grid-gallery";
 
 export interface GalleryInputs {
     images: ImageData[];
@@ -76,7 +75,8 @@ export interface GalleryStylesEssential {
 }
 
 export interface LightboxOptions {
-    fullScreen: boolean;
+    [key: string]: boolean;
+    fullscreen: boolean;
     tooltip: boolean;
     shuffle: boolean;
     autoplay: boolean;
