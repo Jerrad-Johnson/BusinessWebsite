@@ -92,7 +92,13 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 <div className={"main__content--headline"}>Gallery</div>
                                 <hr/>
                                 <Box>
-                                    <Tabs>
+                                    <Tabs
+                                        TabIndicatorProps={{ sx: { display: 'none' } }}
+                                        sx={{
+                                            '& .MuiTabs-flexContainer': {
+                                                flexWrap: 'wrap',
+                                            },
+                                        }}>
                                         {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
                                     </Tabs>
                                 </Box>
