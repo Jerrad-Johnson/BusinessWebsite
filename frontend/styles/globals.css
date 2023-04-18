@@ -592,6 +592,10 @@ span.galleryFolderSelectors::first-letter{
     z-index: 30;
 }
 
+.test{
+    overflow: auto;
+}
+
 
 /* Leaflet  */
 #map {

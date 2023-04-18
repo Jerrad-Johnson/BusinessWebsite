@@ -37,8 +37,9 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         handleGalleryImages(setPhotos, galleryFolders[0].key);
     }, [galleryFolders]);
 
+    const [galleryTabSelected, setGalleryTabSelected] = useState(0);
     useEffect(() => {
-        getGalleryFolderNames(setGalleryFolders, setPhotos);
+        getGalleryFolderNames(setGalleryFolders, setPhotos, setGalleryTabSelected);
         //handleGalleryImages(setPhotos);
     }, []);
 
@@ -81,6 +82,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         });
     }
 
+
     return (
             <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
@@ -92,7 +94,14 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 <div className={"main__content--headline"}>Gallery</div>
                                 <hr/>
                                 <Box>
-                                    <Tabs>
+                                    <Tabs
+                                        value={galleryTabSelected}
+                                        TabIndicatorProps={{ sx: { display: 'none' } }}
+                                        sx={{
+                                            '& .MuiTabs-flexContainer': {
+                                                flexWrap: 'wrap',
+                                            },
+                                        }}>
                                         {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
                                     </Tabs>
                                 </Box>
@@ -342,12 +351,13 @@ async function handleGalleryImages(setPhotos: Dispatch<SetStateAction<ImageData[
     setPhotos(formattedImageData);
 }
 
-async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageData[]>>){
+async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSpans[]>, setPhotos: Dispatch<SetStateAction<ImageData[]>>, setGalleryTabSelected: Dispatch<SetStateAction<number>>){
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`);
-    const tabElements = folders.data.data.map((elem: {folder: string}) => {
+    const tabElements = folders.data.data.map((elem: {folder: string}, key: number) => {
       return (
-          <Tab label={elem.folder} onClick={(event) => {
+          <Tab label={elem.folder} key={elem.folder} value={key} onClick={(event) => {
               handleFolderChange(elem.folder, setPhotos);
+              setGalleryTabSelected(key);
           }}/>
       );
     });
