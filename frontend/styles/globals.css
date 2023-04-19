@@ -453,6 +453,7 @@ span.galleryFolderSelectors::first-letter{
     width: 50%;
     height:100%;
     z-index: 5;
+    cursor: pointer;
 }
 
 .lightbox__image--move-right{
@@ -462,6 +463,7 @@ span.galleryFolderSelectors::first-letter{
     width: 50%;
     height:100%;
     z-index: 5;
+    cursor: pointer;
 }
 
 .lightbox__tooltip--left{
@@ -570,6 +572,7 @@ span.galleryFolderSelectors::first-letter{
     width: 50%;
     height:100%;
     z-index: 20;
+    cursor: pointer;
 }
 
 .lightbox__fullscreen-image--move-right{
@@ -579,6 +582,7 @@ span.galleryFolderSelectors::first-letter{
     width: 50%;
     height:100%;
     z-index: 20;
+    cursor: pointer;
 }
 
 .lightbox__fullscreen--top-row{
@@ -590,6 +594,7 @@ span.galleryFolderSelectors::first-letter{
     padding: 1em;
     position: relative;
     z-index: 30;
+    cursor: pointer;
 }
 
 .test{

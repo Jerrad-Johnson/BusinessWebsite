@@ -36,7 +36,6 @@ import {changeLightboxImagesDateFormat,
    Add zoom to full size image.
    Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Make moving to next-or-prev image reset the interval if autoplay is enabled.
-   Major Bug: lightbox__fullscreen is hidden when not in full screen mode, but still blocks clicking.
    Major Bug: When mobile users stretch the screen e.g. via reaching the end and continuing, all gallery images disappear.
  */
 

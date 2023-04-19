@@ -384,6 +384,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
     const standardMargin = {ml: 1};
+    const buttonStyle = {fontSize: "200%", cursor: "pointer"}
 
     return (
         <>
@@ -394,7 +395,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                         <ThemeProvider theme={muiTheme}>
                             <PlayCircleIcon
                                 sx={standardMargin}
-                                style={{fontSize: "200%"}}
+                                style={buttonStyle}
                                 color={(lightboxOptionsActive.autoplay ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplay});
@@ -402,7 +403,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <ShuffleIcon
                                 sx={standardMargin}
-                                style={{fontSize: "200%"}}
+                                style={buttonStyle}
                                 color={(lightboxOptionsActive.shuffle ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffle});
@@ -410,7 +411,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <FullscreenIcon
                                 sx={standardMargin}
-                                style={{fontSize: "200%"}}
+                                style={buttonStyle}
                                 color={(lightboxOptionsActive.fullscreen ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
@@ -418,7 +419,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <CurtainsIcon
                                 sx={standardMargin}
-                                style={{fontSize: "200%"}}
+                                style={buttonStyle}
                                 color={(lightboxOptionsActive.curtain ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.curtain});
@@ -426,7 +427,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <InfoIcon
                                 sx={standardMargin}
-                                style={{fontSize: "200%"}}
+                                style={buttonStyle}
                                 color={(lightboxOptionsActive.tooltip ? "primary" : "secondary")}
                                 onClick={() => {
                                     handleLightboxButtons(lightboxOptionsActiveDispatch);
@@ -434,7 +435,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <CloseIcon
                                 sx={{ml: 4}}
-                                style={{fontSize: "200%"}}
+                                style={buttonStyle}
                                 color={"primary"}
                                 onClick={() => {
                                     setLightboxState(null);
