@@ -15,7 +15,8 @@ import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import {initialShowGalleryData} from "./utils/variables";
 import {lightboxOptionsActiveReducer} from "./utils/reducers";
 /*import {useInterval} from "usehooks-ts";*/
-import useInterval from "beautiful-react-hooks/useInterval";
+/*import useInterval from "beautiful-react-hooks/useInterval";*/
+import useInterval from "../hooks/useInterval";
 import {changeLightboxImagesDateFormat,
     LightboxCloseOnClickOutsideElem,
     calculateImageSpecsForLightbox,
@@ -49,12 +50,14 @@ function NjGallery(props: GalleryInputs) {
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
     const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer, initialShowGalleryData);
-    useInterval(() => {
+
+    const [shuffleReset] = useInterval(() => {
         shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber)
     }, lightboxState !== null && lightboxOptionsActive.shuffle ? 3000 : null);
-    useInterval(() => {
+    const [autoplayReset] = useInterval(() => {
         autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState)
     }, lightboxState !== null && lightboxOptionsActive.autoplay ? 3000 : null);
+
 
     const galleryInputsWithDefaults: GalleryInputsWithDefaults = addGalleryDefaults(props); // TODO Design script to add original URL if large-img URL is not provided.
     const {containerPadding, containerWidth} = {...galleryInputsWithDefaults};
@@ -73,9 +76,9 @@ function NjGallery(props: GalleryInputs) {
     LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch,
-        lightboxState, lightboxImages, setLightboxState, imageElems);
+        lightboxState, lightboxImages, setLightboxState, imageElems, shuffleReset, autoplayReset);
     const lightboxElems = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS,
-        lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems, muiTheme);
+        lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems, muiTheme, shuffleReset, autoplayReset);
 
     return (
         <>

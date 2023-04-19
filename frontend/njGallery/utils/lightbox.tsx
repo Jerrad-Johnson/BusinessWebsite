@@ -21,6 +21,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store";
 import {themeOptions} from "../../features/theme/themeSlice";
+import {cc} from "../../common/variables";
 
 export function handleLightbox(event: React.MouseEvent<HTMLImageElement>,
                                galleryInputsWithDefaults: GalleryInputsWithDefaults,
@@ -309,7 +310,10 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                               lightboxState: LightboxState,
                                               lightboxImages: ImagesData,
                                               setLightboxState: SetLightboxState,
-                                              imageElements: JSX.Element[] | null): ReactElement{
+                                              imageElements: JSX.Element[] | null,
+                                              shuffleReset,
+                                              autoplayReset,
+                                              ): ReactElement{
 
     const muiTheme = {
         palette: {
@@ -350,13 +354,13 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         className={"lightbox__fullscreen-image--move-left"}
                         onClick={(e) => {
                             setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
-                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
                         }} />
                     <div
                         className={"lightbox__fullscreen-image--move-right"}
                         onClick={(e) => {
                             setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
-                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
                         }} />
                     <div className={"lightbox__fullscreen--top-row"}>
                         <div className={"lightbox__fullscreen--close-button"}
@@ -386,7 +390,10 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                tooltipsElems: JSX.Element,
                                fullscreenLightboxElems: JSX.Element,
                                imageElements: JSX.Element[] | null,
-                               muiTheme: Theme): ReactElement{
+                               muiTheme: Theme,
+                               shuffleReset,
+                               autoplayReset,
+                               ): ReactElement{
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
     const standardMargin = {ml: 1};
@@ -472,7 +479,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             <div
                                 onClick={(e) => {
                                     setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
-                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
                             }}
                                 className={"lightbox__image--move-left"}>
                             </div>
@@ -480,7 +487,10 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             <div
                                 onClick={(e) => {
                                     setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
-                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
+                                    shuffleReset(true);
+                                    cc(4)
+                                    /*resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);*/
                                 }}
                                 className={"lightbox__image--move-right"}>
                             </div>
@@ -495,15 +505,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
     );
 }
 
-function resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive){ //TODO This does not reset the timer. Needs another solution.
-    if (lightboxOptionsActive.autoplay){
-        lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplayDisable})
-        lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplay})
-    }
-
-    if (lightboxOptionsActive.shuffle){
-        lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffleDisable})
-        lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffle});
-    }
-
+function resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset){ //TODO This does not reset the timer. Needs another solution.
+    if (lightboxOptionsActive.autoplay) autoplayReset(true);
+    if (lightboxOptionsActive.shuffle) shuffleReset(true);
 }
