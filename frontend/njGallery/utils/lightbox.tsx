@@ -139,7 +139,7 @@ export function OnPropsChange(props: GalleryInputs,
                               lightboxOptionsActiveDispatch: Dispatch<Action>): void{
 
     useEffect(() => {
-        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened));
+        setImageElements((prevElements) => createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, prevElements));
     }, [props]);
 }
 
@@ -346,12 +346,18 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         objectFit={"contain"}
                         alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                     />
-                    <div className={"lightbox__fullscreen-image--move-left"} onClick={(e) => {
-                        setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}}
-                    />
-                    <div className={"lightbox__fullscreen-image--move-right"} onClick={(e) => {
-                        setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}}
-                    />
+                    <div
+                        className={"lightbox__fullscreen-image--move-left"}
+                        onClick={(e) => {
+                            setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
+                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                        }} />
+                    <div
+                        className={"lightbox__fullscreen-image--move-right"}
+                        onClick={(e) => {
+                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
+                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                        }} />
                     <div className={"lightbox__fullscreen--top-row"}>
                         <div className={"lightbox__fullscreen--close-button"}
                              onClick={() => {
@@ -463,15 +469,20 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                 alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                             />
 
-                            <div onClick={(e) => {
-                                setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)}
-                            } className={"lightbox__image--move-left"}>
+                            <div
+                                onClick={(e) => {
+                                    setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                            }}
+                                className={"lightbox__image--move-left"}>
                             </div>
 
-                            <div onClick={(e) => {
-                                setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)}
-                            }
-                                 className={"lightbox__image--move-right"}>
+                            <div
+                                onClick={(e) => {
+                                    setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);
+                                }}
+                                className={"lightbox__image--move-right"}>
                             </div>
                             {lightboxOptionsActive?.tooltip === true && tooltipsElems}
                         </div>
@@ -482,4 +493,17 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
             </div>
         </>
     );
+}
+
+function resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive){ //TODO This does not reset the timer. Needs another solution.
+    if (lightboxOptionsActive.autoplay){
+        lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplayDisable})
+        lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplay})
+    }
+
+    if (lightboxOptionsActive.shuffle){
+        lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffleDisable})
+        lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffle});
+    }
+
 }

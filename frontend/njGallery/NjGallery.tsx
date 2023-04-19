@@ -14,7 +14,8 @@ import {
 import {useWindowDimensions} from "../hooks/useWindowDimensions";
 import {initialShowGalleryData} from "./utils/variables";
 import {lightboxOptionsActiveReducer} from "./utils/reducers";
-import {useInterval} from "usehooks-ts";
+/*import {useInterval} from "usehooks-ts";*/
+import useInterval from "beautiful-react-hooks/useInterval";
 import {changeLightboxImagesDateFormat,
     LightboxCloseOnClickOutsideElem,
     calculateImageSpecsForLightbox,
@@ -37,6 +38,7 @@ import {changeLightboxImagesDateFormat,
    Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Make moving to next-or-prev image reset the interval if autoplay is enabled.
    Major Bug: When mobile users stretch the screen e.g. via reaching the end and continuing, all gallery images disappear.
+   Add conditional cursor rendering to image-next/last.
  */
 
 function NjGallery(props: GalleryInputs) {
