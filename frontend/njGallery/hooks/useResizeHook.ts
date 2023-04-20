@@ -7,13 +7,16 @@ function useResizeHook(setImageElements: Dispatch<SetStateAction<ReactElement[] 
                        galleryElementRef: GalleryElemRef,
                        setLightboxState: Dispatch<SetStateAction<number | null>>,
                        setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
-                       ){
+                       ): void{
+
+    const listener = () => {
+        setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState,
+            setLightboxEverOpened));
+    }
 
     useEffect(() => {
-        window.addEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened)));
-        return () => {
-            window.removeEventListener('resize', () => setImageElements(createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened)));
-        }
+        window.addEventListener('resize', listener);
+        return () => { window.removeEventListener('resize', listener); }
     }, []);
 }
 

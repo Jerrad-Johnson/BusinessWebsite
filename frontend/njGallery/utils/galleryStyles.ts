@@ -5,7 +5,8 @@ function createGalleryStyle(containerPadding: number, containerWidth: number | s
         "width": (containerWidth),
         "display": "flex",
         "flexWrap": "wrap",
-        "padding": (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px " + (containerPadding/2) + "px",
+        "padding": (containerPadding/2) + "px " + (containerPadding/2) + "px "
+            + (containerPadding/2) + "px " + (containerPadding/2) + "px",
     }
 }
 

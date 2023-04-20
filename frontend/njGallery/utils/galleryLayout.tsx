@@ -30,7 +30,8 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
 
         return (
             <div
-                style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px " + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
+                style={{ "margin": (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px "
+                        + (imagePadding.vertical/2) + "px " + (imagePadding.horizontal/2) + "px", }}
                 key={e.imgSrc}
             >
                 <Image
@@ -58,10 +59,14 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
     return prevElements;
 }
 
-function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElemRef): GalleryLayoutData{
-    const {images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows, targetRowHeightTolerance} = galleryInputsWithDefaultsCopy;
+function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults,
+                                galleryElementRef: GalleryElemRef
+                                ): GalleryLayoutData{
+    const {images, containerPadding, targetRowHeight, imagePadding, maxRows, showIncompleteRows,
+        targetRowHeightTolerance} = galleryInputsWithDefaultsCopy;
     const imagesDimensions = images.map((e) => { return {width: e.width, height: e.height} });
-    let galleryContainerWidth = galleryElementRef?.current?.offsetWidth ? galleryElementRef?.current?.offsetWidth-4 : 14; // -4 because otherwise at some widths, the last image in a row jumps to the next row. Total width might be e.g. 0.42 pixels too large.
+    let galleryContainerWidth = galleryElementRef?.current?.offsetWidth
+        ? galleryElementRef?.current?.offsetWidth-4 : 14; // -4 because otherwise at some widths, the last image in a row jumps to the next row. Total width might be e.g. 0.42 pixels too large.
     if ((galleryContainerWidth - containerPadding) < 14) galleryContainerWidth = 14 + containerPadding;
     const galleryContainerCalculatedWidth = Math.trunc(galleryContainerWidth);
 

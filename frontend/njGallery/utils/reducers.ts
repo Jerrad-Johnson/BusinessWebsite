@@ -20,12 +20,16 @@ export function lightboxOptionsActiveReducer(state: LightboxOptions, action: Act
             return {...state, fullscreen: false}
         case lightboxReducerCases.shuffle:
             setLocalStorage(state, String(lightboxReducerCases.shuffle));
-            if (state.autoplay && !state.shuffle) setLocalStorageEntry(lightboxReducerCases.autoplay, booleanAsString.false);
+            if (state.autoplay && !state.shuffle) {
+                setLocalStorageEntry(lightboxReducerCases.autoplay, booleanAsString.false);
+            }
             return {...state, shuffle: !state.shuffle, autoplay: false}
         case lightboxReducerCases.shuffleDisable:
             return {...state, shuffle: false}
         case lightboxReducerCases.autoplay:
-            if (state.shuffle && !state.autoplay) setLocalStorageEntry(lightboxReducerCases.shuffle, booleanAsString.false);
+            if (state.shuffle && !state.autoplay) {
+                setLocalStorageEntry(lightboxReducerCases.shuffle, booleanAsString.false);
+            }
             setLocalStorage(state, String(lightboxReducerCases.autoplay));
             return {...state, autoplay: !state.autoplay, shuffle: false}
         case lightboxReducerCases.autoplayDisable:

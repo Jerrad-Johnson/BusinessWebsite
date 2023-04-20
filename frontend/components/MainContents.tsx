@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {orientations} from "../hooks/useOrientation";
-import ThemeSlice, {darkTheme, lightTheme, themeOptions} from "../features/theme/themeSlice";
+import {themeOptions} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
@@ -8,14 +8,13 @@ import indexStyles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {images} from "next/dist/build/webpack/config/blocks/images";
 import {
     CircularProgress,
     createTheme,
     FormControl,
     InputLabel,
     MenuItem,
-    Select, styled,
+    Select,
     Tabs,
     ThemeProvider
 } from "@mui/material";
@@ -102,8 +101,9 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                                 flexWrap: 'wrap',
                                             },
                                         }}>
-                                        {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
+                                        {galleryFolders !== isLoading && galleryFolders }
                                     </Tabs>
+                                        {galleryFolders === isLoading && <CircularProgress/> }
                                 </Box>
                                 <hr/>
                                 <NjGallery
@@ -126,25 +126,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 <br />
                                 <br />
 
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
                             </div>
                         </div>
                     </ThemeProvider>

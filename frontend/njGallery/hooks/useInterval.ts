@@ -6,7 +6,7 @@ const defaultOptions = {
     cancelOnUnmount: true
 };
 
-const useInterval = (fn, milliseconds, options = defaultOptions) => {
+const useInterval = (fn: () => any, milliseconds: number | null, options = defaultOptions) => {
     const opts = Object.assign(Object.assign({}, defaultOptions), (options || {}));
     const timeout = useRef();
     const callback = useRef(fn);
