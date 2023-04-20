@@ -57,7 +57,10 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
                                                 setLightboxState: SetLightboxState,
                                                 lightboxOptionsActive: LightboxOptions,
                                                 lightboxEverOpened: LightboxEverOpened,
-                                                lightboxOptionsActiveDispatch: Dispatch<Action>): void{
+                                                lightboxOptionsActiveDispatch: Dispatch<Action>,
+                                                shuffleReset,
+                                                autoplayReset,
+                                                ): void{
 
     const listener = (e: MouseEvent) => {
         if (lightboxState !== null) {
@@ -65,6 +68,7 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
             const target = e.target as HTMLDivElement | null;
             if (!elem?.contains(target) && lightboxOptionsActive.fullscreen !== true){
                 setLightboxState(null);
+                resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreenDisable})
             }
         }
@@ -247,10 +251,12 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
             }
             if (e.keyCode === 27 && lightboxState !== null && lightboxOptionsActive.fullscreen){
                 lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
+                resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
                 return;
             }
             if (e.keyCode === 27 && lightboxState !== null && !lightboxOptionsActive.fullscreen){
                 setLightboxState(null);
+                resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
                 return;
             }
         }
@@ -386,6 +392,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         <div className={"lightbox__fullscreen--close-button"}
                              onClick={() => {
                                  lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
+                                 resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
                              }}>
                             <ThemeProvider theme={muiTheme}>
                                 <CloseIcon
@@ -448,6 +455,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                 color={(lightboxOptionsActive.fullscreen ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
                                 }}
                             />
                             <CurtainsIcon
@@ -472,6 +480,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                 color={"primary"}
                                 onClick={() => {
                                     setLightboxState(null);
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
                                 }}
                             />
                         </ThemeProvider>

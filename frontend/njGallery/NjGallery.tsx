@@ -34,16 +34,13 @@ import {changeLightboxImagesDateFormat,
 /*TODO
    Make it possible to pass-in data for tooltips.
    Major Bug: When mobile users stretch the screen e.g. via reaching the end and continuing, all gallery images disappear. ... May be resolved, untested.
-   Add shuffle and autoplay reset on keypress.
    Replace CircularProgress in order to remove React c.log errors.
  */
 
 /* Features
-
     Possibly undesirable:
         Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
-        Add zoom to full size image.
-
+        Add zoom to full screen image.
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -70,7 +67,7 @@ function NjGallery(props: GalleryInputs) {
     OnMount(lightboxOptionsActiveDispatch);
     OnPropsChange(props, galleryInputsWithDefaults, galleryElemRef, setLightboxState, setLightboxEverOpened, setImageElems, lightboxOptionsActiveDispatch);
     HideNavbarWhenLightboxOpen(lightboxState);
-    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch);
+    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch, shuffleReset, autoplayReset);
 
     const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxImages: ImageData[] = changeLightboxImagesDateFormat(galleryInputsWithDefaults.images);
