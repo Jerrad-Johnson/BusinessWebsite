@@ -58,10 +58,9 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
                                                 lightboxOptionsActive: LightboxOptions,
                                                 lightboxEverOpened: LightboxEverOpened,
                                                 lightboxOptionsActiveDispatch: Dispatch<Action>,
-                                                shuffleReset,
-                                                autoplayReset,
+                                                shuffleReset: Dispatch<SetStateAction<boolean>>,
+                                                autoplayReset: Dispatch<SetStateAction<boolean>>,
                                                 ): void{
-
     const listener = (e: MouseEvent) => {
         if (lightboxState !== null) {
             const elem = document.getElementById("lightboxArea");
@@ -83,8 +82,8 @@ export function LightboxCloseOnClickOutsideElem(lightboxState: LightboxState,
 export function calculateImageSpecsForLightbox(lightboxState: LightboxState,
                                                lightboxImages: ImagesData,
                                                windowHeight: number,
-                                               windowWidth: number): LightboxDimensionsStyle{
-
+                                               windowWidth: number
+                                               ): LightboxDimensionsStyle{
     let activeImageWidth = 0;
     if (lightboxState !== null) activeImageWidth = lightboxImages?.[lightboxState]?.width;
     let activeImageHeight = 0 ;
@@ -141,8 +140,8 @@ export function OnPropsChange(props: GalleryInputs,
                               setLightboxState: SetLightboxState,
                               setLightboxEverOpened: SetLightboxEverOpened,
                               setImageElements: Dispatch<SetStateAction<JSX.Element[] | null>>,
-                              lightboxOptionsActiveDispatch: Dispatch<Action>): void{
-
+                              lightboxOptionsActiveDispatch: Dispatch<Action>
+                              ): void{
     useEffect(() => {
         setImageElements((prevElements) => createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, prevElements));
     }, [props]);
@@ -232,8 +231,8 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
                                         setLightboxState: SetLightboxState,
                                         lightboxOptionsActive: LightboxOptions,
                                         lightboxOptionsActiveDispatch: Dispatch<Action>,
-                                        shuffleReset,
-                                        autoplayReset
+                                        shuffleReset: Dispatch<SetStateAction<boolean>>,
+                                        autoplayReset: Dispatch<SetStateAction<boolean>>,
                                         ): void{
 
     const listener = (e: KeyboardEvent) => {
@@ -268,8 +267,8 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
 export const autoplayImages = (lightboxImages: ImagesData,
                                lightboxOptionsActiveDispatch: Dispatch<Action>,
                                setLightboxState: SetLightboxState,
-                               lightboxState: LightboxState): void => {
-
+                               lightboxState: LightboxState
+                               ): void => {
     if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplayDisable});
     const currentPosition = lightboxState;
     const end = lightboxImages.length-1, beginning = 0;
@@ -283,14 +282,16 @@ export const shuffleImages = (lightboxImages: ImagesData,
                               lightboxState: LightboxState,
                               setLightboxState: SetLightboxState,
                               lightboxOptionsActiveDispatch: Dispatch<Action>,
-                              getRandomWholeNumber: (num: number, currentNum?: number | null) => number) => {
-
+                              getRandomWholeNumber: (num: number, currentNum?: number | null) => number
+                              ) => {
     if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffleDisable});
     const currentPosition = lightboxState;
     setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition))
 }
 
-export function getRandomWholeNumber(num: number, currentNum: number | null = null): number{
+export function getRandomWholeNumber(num: number,
+                                     currentNum: number | null = null
+                                     ): number{
     const random = Math.floor(Math.random() * num);
     if (random === currentNum) return getRandomWholeNumber(num, currentNum);
     return random;
@@ -335,10 +336,9 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                               lightboxImages: ImagesData,
                                               setLightboxState: SetLightboxState,
                                               imageElements: JSX.Element[] | null,
-                                              shuffleReset,
-                                              autoplayReset,
+                                              shuffleReset: Dispatch<SetStateAction<boolean>>,
+                                              autoplayReset: Dispatch<SetStateAction<boolean>>,
                                               ): ReactElement{
-
     const muiTheme = {
         palette: {
             primary: {
@@ -418,8 +418,8 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                fullscreenLightboxElems: JSX.Element,
                                imageElements: JSX.Element[] | null,
                                muiTheme: Theme,
-                               shuffleReset,
-                               autoplayReset,
+                               shuffleReset: Dispatch<SetStateAction<boolean>>,
+                               autoplayReset: Dispatch<SetStateAction<boolean>>,
                                ): ReactElement{
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
@@ -534,12 +534,19 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
     );
 }
 
-function resetAutoplayIfTrue(lightboxOptionsActiveDispatch: Dispatch<Action>, lightboxOptionsActive: LightboxOptions, shuffleReset, autoplayReset){ //TODO This does not reset the timer. Needs another solution.
+function resetAutoplayIfTrue(lightboxOptionsActiveDispatch: Dispatch<Action>,
+                             lightboxOptionsActive: LightboxOptions,
+                             shuffleReset: Dispatch<SetStateAction<boolean>>,
+                             autoplayReset: Dispatch<SetStateAction<boolean>>,
+                             ): void{
     if (lightboxOptionsActive.autoplay) autoplayReset(true);
     if (lightboxOptionsActive.shuffle) shuffleReset(true);
 }
 
-function checkSubsequentImageExists(lightboxImageCount: number, lightboxState: LightboxState, direction: number){
+function checkSubsequentImageExists(lightboxImageCount: number,
+                                    lightboxState: LightboxState,
+                                    direction: number,
+                                    ): boolean{
     if (lightboxState === null) return false;
     const range = Array.from({length: lightboxImageCount}, (v, i) => i);
     if (range[lightboxState + direction] !== undefined) return true;
