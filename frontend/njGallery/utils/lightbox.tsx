@@ -352,11 +352,13 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                     />
                     <div
                         className={"lightbox__fullscreen-image--move-left"}
+                        style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1)) ? {cursor: "pointer"} : {})}
                         onClick={(e) => {
                             setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
                             resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
                         }} />
                     <div
+                        style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, +1)) ? {cursor: "pointer"} : {})}
                         className={"lightbox__fullscreen-image--move-right"}
                         onClick={(e) => {
                             setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
@@ -397,7 +399,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
 
     const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
     const standardMargin = {ml: 1};
-    const buttonStyle = {fontSize: "200%", cursor: "pointer"}
+    const buttonStyleWithCursor = {fontSize: "200%", cursor: "pointer"}
 
     return (
         <>
@@ -408,7 +410,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                         <ThemeProvider theme={muiTheme}>
                             <PlayCircleIcon
                                 sx={standardMargin}
-                                style={buttonStyle}
+                                style={(buttonStyleWithCursor)}
                                 color={(lightboxOptionsActive.autoplay ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.autoplay});
@@ -416,7 +418,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <ShuffleIcon
                                 sx={standardMargin}
-                                style={buttonStyle}
+                                style={buttonStyleWithCursor}
                                 color={(lightboxOptionsActive.shuffle ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffle});
@@ -424,7 +426,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <FullscreenIcon
                                 sx={standardMargin}
-                                style={buttonStyle}
+                                style={buttonStyleWithCursor}
                                 color={(lightboxOptionsActive.fullscreen ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
@@ -432,7 +434,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <CurtainsIcon
                                 sx={standardMargin}
-                                style={buttonStyle}
+                                style={buttonStyleWithCursor}
                                 color={(lightboxOptionsActive.curtain ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.curtain});
@@ -440,7 +442,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <InfoIcon
                                 sx={standardMargin}
-                                style={buttonStyle}
+                                style={buttonStyleWithCursor}
                                 color={(lightboxOptionsActive.tooltip ? "primary" : "secondary")}
                                 onClick={() => {
                                     handleLightboxButtons(lightboxOptionsActiveDispatch);
@@ -448,7 +450,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
                             <CloseIcon
                                 sx={{ml: 4}}
-                                style={buttonStyle}
+                                style={buttonStyleWithCursor}
                                 color={"primary"}
                                 onClick={() => {
                                     setLightboxState(null);
@@ -477,6 +479,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
 
                             <div
+                                style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1)) ? {cursor: "pointer"} : {})}
                                 onClick={(e) => {
                                     setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
                                     resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
@@ -485,12 +488,11 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             </div>
 
                             <div
+                                style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, +1)) ? {cursor: "pointer"} : {})}
                                 onClick={(e) => {
                                     setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
                                     resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
                                     shuffleReset(true);
-                                    cc(4)
-                                    /*resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive);*/
                                 }}
                                 className={"lightbox__image--move-right"}>
                             </div>
@@ -508,4 +510,10 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
 function resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset){ //TODO This does not reset the timer. Needs another solution.
     if (lightboxOptionsActive.autoplay) autoplayReset(true);
     if (lightboxOptionsActive.shuffle) shuffleReset(true);
+}
+
+function checkSubsequentImageExists(lightboxImageCount, lightboxState, direction){
+    const range = Array.from({length: lightboxImageCount}, (v, i) => i);
+    if (range[lightboxState + direction] !== undefined) return true;
+    return false;
 }
