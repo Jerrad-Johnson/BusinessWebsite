@@ -534,12 +534,13 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
     );
 }
 
-function resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset){ //TODO This does not reset the timer. Needs another solution.
+function resetAutoplayIfTrue(lightboxOptionsActiveDispatch: Dispatch<Action>, lightboxOptionsActive: LightboxOptions, shuffleReset, autoplayReset){ //TODO This does not reset the timer. Needs another solution.
     if (lightboxOptionsActive.autoplay) autoplayReset(true);
     if (lightboxOptionsActive.shuffle) shuffleReset(true);
 }
 
-function checkSubsequentImageExists(lightboxImageCount, lightboxState, direction){
+function checkSubsequentImageExists(lightboxImageCount: number, lightboxState: LightboxState, direction: number){
+    if (lightboxState === null) return false;
     const range = Array.from({length: lightboxImageCount}, (v, i) => i);
     if (range[lightboxState + direction] !== undefined) return true;
     return false;

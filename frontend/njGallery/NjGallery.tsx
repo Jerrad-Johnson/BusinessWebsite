@@ -34,7 +34,6 @@ import {changeLightboxImagesDateFormat,
 /*TODO
    Make it possible to pass-in data for tooltips.
    Major Bug: When mobile users stretch the screen e.g. via reaching the end and continuing, all gallery images disappear. ... May be resolved, untested.
-   Replace CircularProgress in order to remove React c.log errors.
  */
 
 /* Features
