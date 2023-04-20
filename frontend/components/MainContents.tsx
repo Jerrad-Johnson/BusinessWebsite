@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {orientations} from "../hooks/useOrientation";
-import ThemeSlice, {darkTheme, lightTheme, themeOptions} from "../features/theme/themeSlice";
+import {themeOptions} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
@@ -14,7 +14,7 @@ import {
     FormControl,
     InputLabel,
     MenuItem,
-    Select, styled,
+    Select,
     Tabs,
     ThemeProvider
 } from "@mui/material";

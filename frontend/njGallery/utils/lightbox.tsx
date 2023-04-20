@@ -387,7 +387,8 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1))
                             ? {cursor: "pointer"} : {})}
                         onClick={(e) => {
-                            setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
+                            setLightboxState((prev: LightboxState) =>
+                                (prev !== null && prev-1 > -1) ? prev-1 : prev)
                             resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset,
                                 autoplayReset);
                         }} />
@@ -396,7 +397,8 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                             ? {cursor: "pointer"} : {})}
                         className={"lightbox__fullscreen-image--move-right"}
                         onClick={(e) => {
-                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements)
+                            setLightboxState((prev: LightboxState) => (prev !== null
+                                && Array.isArray(imageElements)
                                 && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
                             resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset,
                                 autoplayReset);
