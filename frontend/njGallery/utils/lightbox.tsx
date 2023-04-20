@@ -227,14 +227,32 @@ export function LightboxKeyPressHandler(lightboxImages: ImagesData,
                                         lightboxState: LightboxState,
                                         setLightboxState: SetLightboxState,
                                         lightboxOptionsActive: LightboxOptions,
-                                        lightboxOptionsActiveDispatch: Dispatch<Action>): void{
+                                        lightboxOptionsActiveDispatch: Dispatch<Action>,
+                                        shuffleReset,
+                                        autoplayReset
+                                        ): void{
 
     const listener = (e: KeyboardEvent) => {
         if (lightboxState !== null){
-            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1 && lightboxState !== null){ setLightboxState((prev) => { return (prev !== null ? prev+1 : prev)}); return; }
-            if (e.keyCode === 37 && lightboxState > 0 && lightboxState !== null){ setLightboxState((prev) => { return (prev !== null ? prev-1 : prev)}); return; }
-            if (e.keyCode === 27 && lightboxState !== null && lightboxOptionsActive.fullscreen){ lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen}); return; }
-            if (e.keyCode === 27 && lightboxState !== null && !lightboxOptionsActive.fullscreen){ setLightboxState(null); return; }
+            //27 == escape key, 39 == right arrow, 37 == left arrow.
+            if (e.keyCode === 39 && lightboxState < lightboxImages?.length-1 && lightboxState !== null){
+                setLightboxState((prev) => { return (prev !== null ? prev+1 : prev)});
+                resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
+                return;
+            }
+            if (e.keyCode === 37 && lightboxState > 0 && lightboxState !== null){
+                setLightboxState((prev) => { return (prev !== null ? prev-1 : prev)});
+                resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
+                return;
+            }
+            if (e.keyCode === 27 && lightboxState !== null && lightboxOptionsActive.fullscreen){
+                lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
+                return;
+            }
+            if (e.keyCode === 27 && lightboxState !== null && !lightboxOptionsActive.fullscreen){
+                setLightboxState(null);
+                return;
+            }
         }
     }
 

@@ -33,12 +33,17 @@ import {changeLightboxImagesDateFormat,
 
 /*TODO
    Make it possible to pass-in data for tooltips.
-   Add zoom to full size image.
-   Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
    Major Bug: When mobile users stretch the screen e.g. via reaching the end and continuing, all gallery images disappear. ... May be resolved, untested.
-   Add conditional cursor rendering to image-next/last.
    Add shuffle and autoplay reset on keypress.
    Replace CircularProgress in order to remove React c.log errors.
+ */
+
+/* Features
+
+    Possibly undesirable:
+        Add portrait-landscape button, which will remove all non-landscape or non-portrait images from the gallery.
+        Add zoom to full size image.
+
  */
 
 function NjGallery(props: GalleryInputs) {
@@ -71,7 +76,7 @@ function NjGallery(props: GalleryInputs) {
     const lightboxImages: ImageData[] = changeLightboxImagesDateFormat(galleryInputsWithDefaults.images);
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     const muiTheme = CreateMUITheme();
-    LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch);
+    LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch, shuffleReset, autoplayReset);
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch,
         lightboxState, lightboxImages, setLightboxState, imageElems, shuffleReset, autoplayReset);
