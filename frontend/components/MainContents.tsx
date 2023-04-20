@@ -8,7 +8,6 @@ import indexStyles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
 import httpClient from "../common/httpClient";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {images} from "next/dist/build/webpack/config/blocks/images";
 import {
     CircularProgress,
     createTheme,
@@ -102,8 +101,9 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                                 flexWrap: 'wrap',
                                             },
                                         }}>
-                                        {galleryFolders === isLoading ? <CircularProgress/> : galleryFolders }
+                                        {galleryFolders !== isLoading && galleryFolders }
                                     </Tabs>
+                                        {galleryFolders === isLoading && <CircularProgress/> }
                                 </Box>
                                 <hr/>
                                 <NjGallery
@@ -126,25 +126,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 <br />
                                 <br />
 
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
                             </div>
                         </div>
                     </ThemeProvider>

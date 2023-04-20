@@ -361,7 +361,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                      }}>
                     {fullscreenImageIsLoading && (
                         <div className={"lightbox__loading-indicator"}>
-                            <CircularProgress/>
+                            <CircularProgress />
                         </div>
                     )}
                     <Image
