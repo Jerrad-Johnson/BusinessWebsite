@@ -15,14 +15,14 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
                              galleryElementRef: GalleryElemRef,
                              setLightboxState: Dispatch<SetStateAction<number | null>>,
                              setLightboxEverOpened: Dispatch<SetStateAction<boolean>>,
+                             prevElements: ReactElement[] | null = null,
                              ): ReactElement[]{
 
     const galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults = {...galleryInputsWithDefaults}
-    const {images, imagePadding} = galleryInputsWithDefaultsCopy; //@ts-ignore
+    const {images, imagePadding} = galleryInputsWithDefaultsCopy;
     const galleryLayout = calculateGalleryLayout(galleryInputsWithDefaultsCopy, galleryElementRef);
     const reformattedGalleryLayout = reformatGalleryData(galleryLayout, images);
-
-    return reformattedGalleryLayout.map((e) => {
+    const galleryElems = reformattedGalleryLayout.map((e) => {
         const boxHeight = Math.trunc(+e.boxHeight);
         const boxWidth = Math.trunc(+e.boxWidth);
         const imgBlurSrc = e.imgBlurSrc ? "blur" : undefined;
@@ -52,6 +52,10 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
             </div>
         );
     });
+
+    if (galleryElems.length > 0) return galleryElems; // This hopefully solves cases when stretching the browser window, and doing other unknown actions, causes the gallery to permanently disappear.
+    // @ts-ignore
+    return prevElements;
 }
 
 function calculateGalleryLayout(galleryInputsWithDefaultsCopy: GalleryInputsWithDefaults, galleryElementRef: GalleryElemRef): GalleryLayoutData{

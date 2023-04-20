@@ -33,7 +33,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 
     useEffect(() => {
         if (galleryFolders === isLoading) return;
-        if (!("key" in galleryFolders[0])) return;
+        if (!("key" in galleryFolders[0])) return; //TODO This causes the script to crash if the server doesn't respond.
         handleGalleryImages(setPhotos, galleryFolders[0].key);
     }, [galleryFolders]);
 
