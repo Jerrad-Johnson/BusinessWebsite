@@ -49,10 +49,12 @@ function NjGallery(props: GalleryInputs) {
     const [imageElems, setImageElems] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
-    const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer, initialShowGalleryData);
+    const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer,
+        initialShowGalleryData);
 
     const [shuffleReset] = useInterval(() => {
-        shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch, getRandomWholeNumber)
+        shuffleImages(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActiveDispatch,
+            getRandomWholeNumber)
     }, lightboxState !== null && lightboxOptionsActive.shuffle ? 3000 : null);
     const [autoplayReset] = useInterval(() => {
         autoplayImages(lightboxImages, lightboxOptionsActiveDispatch, setLightboxState, lightboxState)
@@ -64,20 +66,24 @@ function NjGallery(props: GalleryInputs) {
     useResizeHook(setImageElems, galleryInputsWithDefaults, galleryElemRef, setLightboxState, setLightboxEverOpened);
 
     OnMount(lightboxOptionsActiveDispatch);
-    OnPropsChange(props, galleryInputsWithDefaults, galleryElemRef, setLightboxState, setLightboxEverOpened, setImageElems, lightboxOptionsActiveDispatch);
+    OnPropsChange(props, galleryInputsWithDefaults, galleryElemRef, setLightboxState, setLightboxEverOpened,
+        setImageElems, lightboxOptionsActiveDispatch);
     HideNavbarWhenLightboxOpen(lightboxState);
-    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened, lightboxOptionsActiveDispatch, shuffleReset, autoplayReset);
+    LightboxCloseOnClickOutsideElem(lightboxState, setLightboxState, lightboxOptionsActive, lightboxEverOpened,
+        lightboxOptionsActiveDispatch, shuffleReset, autoplayReset);
 
     const [windowHeight, windowWidth] = useWindowDimensions();
     const lightboxImages: ImageData[] = changeLightboxImagesDateFormat(galleryInputsWithDefaults.images);
     const lightboxDimensionsCSS = calculateImageSpecsForLightbox(lightboxState, lightboxImages, windowHeight, windowWidth);
     const muiTheme = CreateMUITheme();
-    LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive, lightboxOptionsActiveDispatch, shuffleReset, autoplayReset);
+    LightboxKeyPressHandler(lightboxImages, lightboxState, setLightboxState, lightboxOptionsActive,
+        lightboxOptionsActiveDispatch, shuffleReset, autoplayReset);
     const tooltipsElems = createTooltipsElems(lightboxState, lightboxImages, windowWidth);
     const fullscreenLightboxElems = CreateFullscreenLightboxElems(lightboxOptionsActive, lightboxOptionsActiveDispatch,
         lightboxState, lightboxImages, setLightboxState, imageElems, shuffleReset, autoplayReset);
-    const lightboxElems = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages, lightboxDimensionsCSS,
-        lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems, imageElems, muiTheme, shuffleReset, autoplayReset);
+    const lightboxElems = CreateLightbox(lightboxOptionsActiveDispatch, setLightboxState, lightboxImages,
+        lightboxDimensionsCSS, lightboxState, lightboxOptionsActive, tooltipsElems, fullscreenLightboxElems,
+        imageElems, muiTheme, shuffleReset, autoplayReset);
 
     return (
         <>

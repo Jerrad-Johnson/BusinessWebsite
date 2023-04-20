@@ -89,7 +89,8 @@ export function calculateImageSpecsForLightbox(lightboxState: LightboxState,
     let activeImageHeight = 0 ;
     if (lightboxState !== null) activeImageHeight = lightboxImages?.[lightboxState]?.height;
 
-    let ratio = activeImageHeight/activeImageWidth <= 1 ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
+    let ratio = activeImageHeight/activeImageWidth <= 1
+        ? activeImageHeight/activeImageWidth : activeImageWidth/activeImageHeight;
     let imageIsPortraitOrientation = activeImageWidth < activeImageHeight;
     let unitsToTopOfLightbox = 0;
     let unitsToSideOfLightbox = 0;
@@ -143,7 +144,8 @@ export function OnPropsChange(props: GalleryInputs,
                               lightboxOptionsActiveDispatch: Dispatch<Action>
                               ): void{
     useEffect(() => {
-        setImageElements((prevElements) => createGalleryLayout(galleryInputsWithDefaults, galleryElementRef, setLightboxState, setLightboxEverOpened, prevElements));
+        setImageElements((prevElements) => createGalleryLayout(galleryInputsWithDefaults,
+            galleryElementRef, setLightboxState, setLightboxEverOpened, prevElements));
     }, [props]);
 }
 
@@ -161,7 +163,8 @@ export function createTooltipsElems(lightboxState: LightboxState,
                     <li>
                         Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
     </li>
-    { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
+    { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li>
+        Date: {lightboxImages?.[lightboxState]?.date} </li>) }
     </ul>
     </div>
     </div>
@@ -172,7 +175,8 @@ export function createTooltipsElems(lightboxState: LightboxState,
             <li>
                 Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
         </li>
-        { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
+        { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal
+            && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
         <li>
         Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
             </li>
@@ -198,14 +202,17 @@ export function createTooltipsElems(lightboxState: LightboxState,
                     <li>
                         Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
             </li>
-            { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
+            { lightboxState !== null && lightboxImages?.[lightboxState]?.date &&
+                (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
             <li>
 
             <br />
 
             Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
                 </li>
-                { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
+                { lightboxState !== null && lightboxImages?.[lightboxState]?.lens
+                    !== lightboxImages?.[lightboxState]?.focal
+                    && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
                 <li>
                 Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
                     </li>
@@ -355,7 +362,8 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
             <div className={"lightbox__fullscreen" + (lightboxOptionsActive.fullscreen === true ? " active" : "") }
                  onClick={(e) => e.stopPropagation() }
             >
-                <div className={"lightbox__fullscreen--image-container" + (lightboxOptionsActive.fullscreen === true ? " active" : "" )}
+                <div className={"lightbox__fullscreen--image-container"
+                    + (lightboxOptionsActive.fullscreen === true ? " active" : "" )}
                      onClick={(e) => {
                          if (lightboxOptionsActive.fullscreen === false) return;
                      }}>
@@ -376,23 +384,29 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                     />
                     <div
                         className={"lightbox__fullscreen-image--move-left"}
-                        style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1)) ? {cursor: "pointer"} : {})}
+                        style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1))
+                            ? {cursor: "pointer"} : {})}
                         onClick={(e) => {
                             setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
-                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
+                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset,
+                                autoplayReset);
                         }} />
                     <div
-                        style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, +1)) ? {cursor: "pointer"} : {})}
+                        style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, +1))
+                            ? {cursor: "pointer"} : {})}
                         className={"lightbox__fullscreen-image--move-right"}
                         onClick={(e) => {
-                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
-                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
+                            setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements)
+                                && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
+                            resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset,
+                                autoplayReset);
                         }} />
                     <div className={"lightbox__fullscreen--top-row"}>
                         <div className={"lightbox__fullscreen--close-button"}
                              onClick={() => {
                                  lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
-                                 resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
+                                 resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset,
+                                     autoplayReset)
                              }}>
                             <ThemeProvider theme={muiTheme}>
                                 <CloseIcon
@@ -455,7 +469,8 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                 color={(lightboxOptionsActive.fullscreen ? "primary" : "secondary")}
                                 onClick={() => {
                                     lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
-                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive,
+                                        shuffleReset, autoplayReset)
                                 }}
                             />
                             <CurtainsIcon
@@ -480,7 +495,8 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                 color={"primary"}
                                 onClick={() => {
                                     setLightboxState(null);
-                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset)
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive,
+                                        shuffleReset, autoplayReset)
                                 }}
                             />
                         </ThemeProvider>
@@ -506,19 +522,26 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                             />
 
                             <div
-                                style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1)) ? {cursor: "pointer"} : {})}
+                                style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, -1))
+                                    ? {cursor: "pointer"} : {})}
                                 onClick={(e) => {
-                                    setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1) ? prev-1 : prev)
-                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
+                                    setLightboxState((prev: LightboxState) => (prev !== null && prev-1 > -1)
+                                        ? prev-1 : prev)
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive,
+                                        shuffleReset, autoplayReset);
                             }}
                                 className={"lightbox__image--move-left"}>
                             </div>
 
                             <div
-                                style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, +1)) ? {cursor: "pointer"} : {})}
+                                style={((checkSubsequentImageExists(lightboxImages.length, lightboxState, +1))
+                                    ? {cursor: "pointer"} : {})}
                                 onClick={(e) => {
-                                    setLightboxState((prev: LightboxState) => (prev !== null && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1) ? prev+1 : prev)
-                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive, shuffleReset, autoplayReset);
+                                    setLightboxState((prev: LightboxState) => (prev !== null
+                                        && Array.isArray(imageElements) && prev+1 <= imageElements?.length-1)
+                                        ? prev+1 : prev)
+                                    resetAutoplayIfTrue(lightboxOptionsActiveDispatch, lightboxOptionsActive,
+                                        shuffleReset, autoplayReset);
                                     shuffleReset(true);
                                 }}
                                 className={"lightbox__image--move-right"}>
