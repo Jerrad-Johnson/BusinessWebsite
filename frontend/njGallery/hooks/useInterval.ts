@@ -39,7 +39,7 @@ const useInterval = (fn: () => any, milliseconds: number | null, options = defau
                 callback.current();
             }, milliseconds);
         }
-        //return clear;
+        return clear;
     }, [milliseconds, isReset]);
 
     useEffect(() => () => {
