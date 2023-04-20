@@ -34,12 +34,12 @@ const useInterval = (fn: () => any, milliseconds: number | null, options = defau
     }, [isReset])
 
     useEffect(() => {
-        if (typeof milliseconds === 'number') {
+        if (typeof milliseconds === 'number') {//@ts-ignore
             timeout.current = setInterval(() => {
                 callback.current();
             }, milliseconds);
         }
-        return clear;
+        //return clear;
     }, [milliseconds, isReset]);
 
     useEffect(() => () => {
