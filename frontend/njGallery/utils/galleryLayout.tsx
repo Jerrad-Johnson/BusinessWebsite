@@ -3,13 +3,12 @@ import {
     GalleryElemRef,
     GalleryInputsWithDefaults,
     GalleryLayoutData,
-    ImageData, LightboxOptions, ReformattedGalleryLayout
+    ImageData, ReformattedGalleryLayout
 } from "../types/njGallery";
 import {Dispatch, ReactElement, SetStateAction} from "react";
-import {cc} from "../../common/variables";
-import gallery from "../../pages/gallery";
 const layoutGeometry = require('../justified-layout');
 import {handleLightbox} from "./lightbox";
+const cc = console.log;
 
 function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefaults,
                              galleryElementRef: GalleryElemRef,
@@ -49,6 +48,7 @@ function createGalleryLayout(galleryInputsWithDefaults: GalleryInputsWithDefault
                     width={boxWidth}
                     height={boxHeight}
                     alt={e.alt}
+                    style={{cursor: "pointer"}}
                 />
             </div>
         );

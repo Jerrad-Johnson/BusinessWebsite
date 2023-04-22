@@ -10,10 +10,13 @@ export interface GalleryInputs {
     targetRowHeightTolerance?: number;
     justifyFinalRow?: boolean;
     maxRows?: number;
+    tooltip_left?: JSX.Element[];
+    tooltip_right?: JSX.Element[];
+    lightboxMuiButtonTheme?: any;
+    lightboxFullscreenMuiCloseButtonTheme?: any;
 }
 
-export interface GalleryInputsWithDefaults {
-    images: ImageData[];
+export interface GalleryInputsWithDefaults extends GalleryInputs{
     containerWidth: string | number;
     containerPadding: number;
     imagePadding: ImagePaddingDirections;
@@ -22,6 +25,8 @@ export interface GalleryInputsWithDefaults {
     targetRowHeightTolerance: number;
     justifyFinalRow: boolean;
     maxRows: number;
+    lightboxMuiButtonTheme: any;
+    lightboxFullscreenMuiCloseButtonTheme: any;
 }
 
 type ImagePaddingDirections = {
@@ -36,13 +41,8 @@ export interface ImageData {
     width: number;
     alt?: string;
     lg_img_url?: string;
-    date: string | null;
-    lens: string | null;
-    camera_model: string | null;
-    focal: string | null;
-    exposure: string | null;
-    iso: string | null;
-    aperture: string | null;
+    tooltip_left?: JSX.Element[];
+    tooltip_right?: JSX.Element[];
 }
 export type ImagesData = ImageData[];
 

@@ -6,6 +6,24 @@
 
 ```require ...```
 
+
+### Setup
+
+Run
+
+```npx @next/codemod next-image-to-legacy-image```
+
+Set remote image access in `next.js.config`, e.g. 
+
+```
+module.exports = {
+    reactStrictMode: true,
+    images: {
+        domains: ['localhost', 'businessbackend.jerradjohnson.com'],
+    },
+}
+```
+
 ### Sample Gallery call
 
 ```

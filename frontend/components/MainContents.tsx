@@ -53,8 +53,27 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
     }
 
     const themeType: string = useSelector((state: RootState) => state.theme.value);
-    let styledTab = null;
 
+    for (let image of galleryInputs.images){
+        image.tooltip_left = (
+            <ul>
+                {image.alt && (<li>Title: {image.alt}</li>)}
+                {image.date && (<li>Date: {image.date.slice(0, 10)}</li>)}
+            </ul>
+        )
+        image.tooltip_right = (
+            <ul>
+                {image.camera_model && (<li>Camera: {image.camera_model}</li>)}
+                {image.lens !== image.focal && (<li>Lens: {image.lens}</li>)}
+                {image.focal && (<li>Focal Length: {image.focal}</li>)}
+                {image.aperture && (<li>Aperture: f/{image.aperture}</li>)}
+                {image.iso && (<li>ISO: {image.iso}</li>)}
+                {image.exposure && (<li>Shutter Speed: {image.exposure}</li>)}
+            </ul>
+        )
+    }
+
+    let styledTab = null;
     if (themeType === themeOptions.dark){
         styledTab = createTheme({
             components: {
