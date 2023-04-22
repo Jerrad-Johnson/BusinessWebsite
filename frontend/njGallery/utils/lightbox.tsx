@@ -142,7 +142,7 @@ export function createTooltipsElems(lightboxState: LightboxState,
         <>
             { windowWidth > 800 && (
             <>
-                { lightboxImages?.[lightboxState]?.tooltip_left &&
+                { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left &&
                 <div className={"lightbox__tooltip--left"}>
                     <div className={"lightbox__tooltip--left-container"}>
                          {lightboxImages?.[lightboxState]?.tooltip_left}
@@ -150,7 +150,7 @@ export function createTooltipsElems(lightboxState: LightboxState,
                 </div>
                 }
 
-                { lightboxImages?.[lightboxState]?.tooltip_right &&
+                { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_right &&
                 <div className={"lightbox__tooltip--right"}>
                     <div className={"lightbox__tooltip--right-container"}>
                         {lightboxImages?.[lightboxState]?.tooltip_right}
@@ -160,12 +160,12 @@ export function createTooltipsElems(lightboxState: LightboxState,
             </>
         )}
 
-            { windowWidth <= 800 && (lightboxImages?.[lightboxState]?.tooltip_left || lightboxImages?.[lightboxState]?.tooltip_left) &&
+            { windowWidth <= 800 && ( lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left ||  lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left) &&
 
                 <div className={"lightbox__tooltip--combined"}>
                     <div className={"lightbox__tooltip--combined-container"}>
-                        {lightboxImages?.[lightboxState]?.tooltip_left && lightboxImages?.[lightboxState]?.tooltip_left}
-                        {lightboxImages?.[lightboxState]?.tooltip_right && lightboxImages?.[lightboxState]?.tooltip_right}
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left && lightboxImages?.[lightboxState]?.tooltip_left}
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_right && lightboxImages?.[lightboxState]?.tooltip_right}
                     </div>
                 </div>
             }
@@ -229,9 +229,9 @@ export const shuffleImages = (lightboxImages: ImagesData,
                               lightboxState: LightboxState,
                               setLightboxState: SetLightboxState,
                               lightboxOptionsActiveDispatch: Dispatch<Action>,
-                              getRandomWholeNumber: (num: number, currentNum?: number | null) => number
+                              getRandomWholeNumber: (num: number, currentNum: number | null, lightboxImages: ImagesData) => number
                               ) => {
-    if (lightboxImages.length === 1) return 0;
+    if (lightboxImages.length === 1) return; /*was return 0*/
     const currentPosition = lightboxState;
     setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition, lightboxImages));
 }
@@ -259,7 +259,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                               imageElements: JSX.Element[] | null,
                                               shuffleReset: Dispatch<SetStateAction<boolean>>,
                                               autoplayReset: Dispatch<SetStateAction<boolean>>,
-                                              lightboxFullscreenMuiCloseButtonTheme,
+                                              lightboxFullscreenMuiCloseButtonTheme: any,
                                               ): ReactElement{
     const muiTheme = createTheme(lightboxFullscreenMuiCloseButtonTheme);
 
@@ -281,7 +281,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                         src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                         className={"lightbox__image"}
                         layout={"fill"}
-                        style={{objectFit: "contain", }}
+                        objectFit={"contain"}
                         alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                     />
                     <div
@@ -416,7 +416,7 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                 src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                                 className={"lightbox__image"}
                                 layout={"fill"}
-                                style={{objectFit: "contain", }}
+                                objectFit={"contain"}
                                 alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
                             />
 

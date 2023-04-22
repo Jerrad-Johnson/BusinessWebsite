@@ -49,7 +49,7 @@ function NjGallery(props: GalleryInputs) {
     const [imageElems, setImageElems] = useState<JSX.Element[] | null>(null);
     const [lightboxState, setLightboxState] = useState<number | null>(null);
     const [lightboxEverOpened, setLightboxEverOpened] = useState(false);
-    const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer,
+    const [lightboxOptionsActive, lightboxOptionsActiveDispatch] = useReducer(lightboxOptionsActiveReducer, //@ts-ignore
         initialShowGalleryData as ReducerState<LightboxOptions>);
 
     const [shuffleReset] = useInterval(() => { //@ts-ignore

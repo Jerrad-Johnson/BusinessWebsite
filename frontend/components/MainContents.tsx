@@ -102,7 +102,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 
 
     return (
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <ThemeProvider theme={styledTab}>
                         <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
@@ -157,10 +157,10 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                           {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
     return(
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'}/>
+                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')}
+                           layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
                     <div className={indexStyles.overlay + " homeOverlay"}>
                         <div className={indexStyles.inner}>
                             {/*<h2 className={"title"}>Promo video to come</h2>*/}
@@ -180,7 +180,7 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
 
     return (
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
@@ -279,7 +279,7 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
 export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
     return (
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
