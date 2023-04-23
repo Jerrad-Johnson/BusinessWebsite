@@ -25,10 +25,11 @@ import {useSelector} from "react-redux";
 import {RootState} from "../app/store";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
-                            {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+                                {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos] = useState<ImageData[]>([]);
     const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
+    const themeType: string = useSelector((state: RootState) => state.theme.value);
 
     useEffect(() => {
         if (galleryFolders === isLoading) return;
@@ -42,6 +43,33 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         //handleGalleryImages(setPhotos);
     }, []);
 
+
+    let lightboxMuiButtonsTheme;
+    if (themeType === themeOptions.dark) {
+        lightboxMuiButtonsTheme = {
+            palette: {
+                primary: {
+                    main: '#dddddd',
+                },
+                secondary: {
+                    main: '#555555',
+                },
+            },
+        }
+    } else if (themeType === themeOptions.light) {
+        lightboxMuiButtonsTheme = {
+            palette: {
+                primary: {
+                    main: '#555555',
+                },
+                secondary: {
+                    main: '#cccccc',
+                },
+            },
+        }
+    }
+
+
     const galleryInputs: GalleryInputs = {
         images: photos,
         containerWidth: "100%",
@@ -50,9 +78,11 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         targetRowHeight: 300,
         showIncompleteRows: true,
         targetRowHeightTolerance: .2,
+        lightboxMuiButtonTheme: lightboxMuiButtonsTheme,
     }
 
-    const themeType: string = useSelector((state: RootState) => state.theme.value);
+
+
 
     for (let image of galleryInputs.images){
         image.tooltip_left = (
@@ -86,7 +116,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                 }
             }
          });
-    } else {
+    } else if (themeType === themeOptions.light){
         styledTab = createTheme({
             components: {
                 MuiTab: {
@@ -99,7 +129,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
             }
         });
     }
-
 
     return (
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
