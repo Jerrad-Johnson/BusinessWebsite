@@ -126,6 +126,18 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                 }
             }
         });
+    } else { // default case, if theme not set.
+        styledTab = createTheme({
+            components: {
+                MuiTab: {
+                    styleOverrides: {
+                        root: {
+                            color: "#ffffff",
+                        }
+                    }
+                }
+            }
+        });
     }
 
     return (
