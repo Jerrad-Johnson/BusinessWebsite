@@ -2,8 +2,8 @@ import Image from "next/legacy/image";
 import {orientations} from "../hooks/useOrientation";
 import {themeOptions} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
-import {NjGallery} from 'njGallery'
-/*import NjGallery from "../njGallery/NjGallery";*/
+/*import {NjGallery} from 'njGallery'*/
+import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
 import indexStyles from "../styles/Index.module.css";
 import {OrientationOptions} from "../types/layout";
@@ -70,7 +70,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         }
     }
 
-
     const galleryInputs: GalleryInputs = {
         images: photos,
         containerWidth: "100%",
@@ -81,9 +80,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         targetRowHeightTolerance: .2,
         lightboxMuiButtonTheme: lightboxMuiButtonsTheme,
     }
-
-
-
 
     for (let image of galleryInputs.images){
         image.tooltip_left = (
