@@ -7,6 +7,9 @@ const nextConfig = {
 //TODO Update DOMAIN before build
 module.exports = {
   reactStrictMode: true,
+  experimental: {
+    newNextLinkBehavior: false,
+  },
   images: {
     domains: ['localhost', 'businessbackend.jerradjohnson.com'],
 /*    remotePatterns: [

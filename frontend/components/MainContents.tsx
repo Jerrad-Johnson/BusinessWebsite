@@ -155,9 +155,9 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                         {galleryFolders === isLoading && <CircularProgress/> }
                                 </Box>
                                 <hr/>
-                                <NjGallery
+{/*                                <NjGallery
                                     {...galleryInputs}
-                                />
+                                />*/}
 
                                 {lipsum}
                                 <br />
