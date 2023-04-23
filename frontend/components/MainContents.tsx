@@ -25,6 +25,8 @@ import {Box} from "@mui/system";
 import Tab from '@mui/material/Tab';
 import {useSelector} from "react-redux";
 import {RootState} from "../app/store";
+import {reviews} from "../common/reviews";
+import useInterval from "beautiful-react-hooks/useInterval";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
@@ -194,6 +196,13 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 
 export function IndexMain({isUserMobile, width, screenOrientation}:
                           {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+
+    const [reviewNumber, setReviewNumber] = useState(0);
+    const changeReview = () => {
+        reviews.length-1 > reviewNumber ? setReviewNumber((prev) => prev+1) : setReviewNumber(0);
+    }
+    useInterval(changeReview, 8000);
+
     return(
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -202,8 +211,14 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                            layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
                     <div className={indexStyles.overlay + " homeOverlay"}>
                         <div className={indexStyles.inner}>
-                            {/*<h2 className={"title"}>Promo video to come</h2>*/}
-                            {/*<button className={"btn"}>Read more</button>*/}
+                            <div className={"review--container"}>
+                                <div className={"review--content"}>
+                                    {reviews[reviewNumber].content}
+                                </div>                                
+                                <div className={"review--name"}>
+                                    {reviews[reviewNumber].name}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>
