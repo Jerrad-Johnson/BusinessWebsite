@@ -1,8 +1,8 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {orientations} from "../hooks/useOrientation";
 import {themeOptions} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
-import NjGallery from 'njgallery';
+import {NjGallery} from 'njGallery'
 /*import NjGallery from "../njGallery/NjGallery";*/
 import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
 import indexStyles from "../styles/Index.module.css";
@@ -155,9 +155,9 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                         {galleryFolders === isLoading && <CircularProgress/> }
                                 </Box>
                                 <hr/>
-{/*                                <NjGallery
+                                <NjGallery
                                     {...galleryInputs}
-                                />*/}
+                                />
 
                                 {lipsum}
                                 <br />

@@ -7,7 +7,7 @@ import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import httpClient from "../common/httpClient";
 import {LatLngExpression} from "leaflet";
 import {mapDefaultLocation} from "../common/variables";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {LeafletPinImageDataArray} from "../types/leaflet";
 const cc = console.log;
 
