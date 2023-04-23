@@ -598,10 +598,14 @@ span.galleryFolderSelectors::first-letter{
 }
 
 .lightbox__fullscreen--close-button{
-    padding: 1em;
+    padding: 0.5em;
+    margin: 10px 10px 0px 0px;
     position: relative;
     z-index: 30;
     cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 5px 15px 0px;
+    border-radius: 20px;
 }
 
 .lightbox__backdrop{
