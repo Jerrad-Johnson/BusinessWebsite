@@ -202,8 +202,7 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
             setInstances((prev) => prev+1)
         }
     }
-    useInterval(changeReview, 2000);
-
+    useInterval(changeReview, 1700);
 
     return(
         <div className={"main-container"}>
@@ -569,37 +568,3 @@ function BackgroundImage({screenOrientation}){
                layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
     );
 }
-
-
-/*<span key={elem.folder} className={"galleryFolderSelectors"}
-      onClick={(event) => {
-          handleFolderChange(elem.folder, setPhotos);
-      }}>{elem.folder}</span>*/
-
-
-/**/
-
-
-
-
-
-/*[
-    {
-        src: "http://localhost:3001/temp/162A2061.jpg",
-        blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
-        height: 300,
-        width: 300,
-        alt: "Butterfly!",
-    }, {
-        src: "http://localhost:3001/temp/162A2061.jpg",
-        blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
-        height: 200,
-        width: 300,
-    }, {
-        src: "http://localhost:3001/temp/162A2061.jpg",
-        blurSrc: "http://localhost:3001/leaflet/base64_thumbnails/macro/162A2078.jpg",
-        height: 300,
-        width: 200,
-    }
-];*/
-

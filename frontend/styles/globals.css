@@ -463,7 +463,7 @@ ul {
     width: 650px;
     max-width: 60vw;
     transition: all 1s ease-in;
-    opacity: 1;
+    opacity: 0;
     border-style: groove;
     border-width: 2px;
     border-color: #777;
