@@ -1,10 +1,10 @@
-import {cc} from "../../common/variables";
 import {
     booleanAsString,
     lightboxReducerCases,
     lightboxInitialValueCase, lightboxOptions
 } from "./variables";
 import {Action, LightboxOptions} from "../types/njGallery";
+const cc = console.log;
 
 export function lightboxOptionsActiveReducer(state: LightboxOptions, action: Action){
     switch (action.type) {

@@ -1,7 +1,9 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {orientations} from "../hooks/useOrientation";
 import {themeOptions} from "../features/theme/themeSlice";
 import {cc, isLoading, lipsum} from "../common/variables";
+/*import {NjGallery} from 'njGallery'*/
+/*import "njgallery/styles/lightbox.css";*/
 import NjGallery from "../njGallery/NjGallery";
 import {GalleryInputs, ImageData} from "../njGallery/types/njGallery";
 import indexStyles from "../styles/Index.module.css";
@@ -23,12 +25,15 @@ import {Box} from "@mui/system";
 import Tab from '@mui/material/Tab';
 import {useSelector} from "react-redux";
 import {RootState} from "../app/store";
+import {reviews} from "../common/reviews";
+import useInterval from "beautiful-react-hooks/useInterval";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
-                            {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+                                {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
     const [photos, setPhotos] = useState<ImageData[]>([]);
     const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
+    const themeType: string = useSelector((state: RootState) => state.theme.value);
 
     useEffect(() => {
         if (galleryFolders === isLoading) return;
@@ -42,6 +47,32 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         //handleGalleryImages(setPhotos);
     }, []);
 
+
+    let lightboxMuiButtonsTheme;
+    if (themeType === themeOptions.dark) {
+        lightboxMuiButtonsTheme = {
+            palette: {
+                primary: {
+                    main: '#dddddd',
+                },
+                secondary: {
+                    main: '#555555',
+                },
+            },
+        }
+    } else if (themeType === themeOptions.light) {
+        lightboxMuiButtonsTheme = {
+            palette: {
+                primary: {
+                    main: '#555555',
+                },
+                secondary: {
+                    main: '#cccccc',
+                },
+            },
+        }
+    }
+
     const galleryInputs: GalleryInputs = {
         images: photos,
         containerWidth: "100%",
@@ -50,11 +81,29 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
         targetRowHeight: 300,
         showIncompleteRows: true,
         targetRowHeightTolerance: .2,
+        lightboxMuiButtonTheme: lightboxMuiButtonsTheme,
     }
 
-    const themeType: string = useSelector((state: RootState) => state.theme.value);
-    let styledTab = null;
+    for (let image of galleryInputs.images){
+        image.tooltip_left = (
+            <ul>
+                {image.alt && (<li>Title: {image.alt}</li>)}
+                {image.date && (<li>Date: {image.date.slice(0, 10)}</li>)}
+            </ul>
+        )
+        image.tooltip_right = (
+            <ul>
+                {image.camera_model && (<li>Camera: {image.camera_model}</li>)}
+                {image.lens !== image.focal && (<li>Lens: {image.lens}</li>)}
+                {image.focal && (<li>Focal Length: {image.focal}</li>)}
+                {image.aperture && (<li>Aperture: f/{image.aperture}</li>)}
+                {image.iso && (<li>ISO: {image.iso}</li>)}
+                {image.exposure && (<li>Shutter Speed: {image.exposure}</li>)}
+            </ul>
+        )
+    }
 
+    let styledTab = null;
     if (themeType === themeOptions.dark){
         styledTab = createTheme({
             components: {
@@ -67,7 +116,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                 }
             }
          });
-    } else {
+    } else if (themeType === themeOptions.light){
         styledTab = createTheme({
             components: {
                 MuiTab: {
@@ -79,11 +128,22 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                 }
             }
         });
+    } else { // default case, if theme not set.
+        styledTab = createTheme({
+            components: {
+                MuiTab: {
+                    styleOverrides: {
+                        root: {
+                            color: "#ffffff",
+                        }
+                    }
+                }
+            }
+        });
     }
 
-
     return (
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <ThemeProvider theme={styledTab}>
                         <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
@@ -136,16 +196,38 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 
 export function IndexMain({isUserMobile, width, screenOrientation}:
                           {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+
+    const animationStates = Array.from({length: 6}).map((e, i) => `animationInstance${i}`);
+    const [reviewNumber, setReviewNumber] = useState(0);
+    const [instances, setInstances] = useState(0);
+    const changeReview = () => {
+        if (instances === animationStates.length-1){
+            reviews.length-1 > reviewNumber ? setReviewNumber((prev) => prev+1) : setReviewNumber(0);
+            setInstances(1);
+        } else {
+            setInstances((prev) => prev+1)
+        }
+    }
+    useInterval(changeReview, 2000);
+
+
     return(
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'}/>
+                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')}
+                           layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
                     <div className={indexStyles.overlay + " homeOverlay"}>
                         <div className={indexStyles.inner}>
-                            {/*<h2 className={"title"}>Promo video to come</h2>*/}
-                            {/*<button className={"btn"}>Read more</button>*/}
+                            <div className={"review--container " + animationStates[instances]}>
+                                <div className={"review--comment"}>
+                                    {`"`}{reviews[reviewNumber].content}{`"`}
+                                </div>
+
+                                <div className={"review--name"}>
+                                    - {reviews[reviewNumber].name}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -161,7 +243,7 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
 
     return (
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
@@ -260,7 +342,7 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
 export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
     return (
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile === true ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
                            objectPosition={'center'} alt={'Cover Portrait'}/>
@@ -336,7 +418,8 @@ async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSp
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`);
     const tabElements = folders.data.data.map((elem: {folder: string}, key: number) => {
       return (
-          <Tab label={elem.folder} key={elem.folder} value={key} onClick={(event) => {
+          <Tab label={elem.folder} key={elem.folder} value={key} style={{fontFamily: "EB Garamond"}}
+               onClick={(event) => {
               handleFolderChange(elem.folder, setPhotos);
               setGalleryTabSelected(key);
           }}/>

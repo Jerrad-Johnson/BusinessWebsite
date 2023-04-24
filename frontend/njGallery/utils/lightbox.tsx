@@ -1,7 +1,7 @@
 import {
     Action, GalleryInputs,
     GalleryInputsWithDefaults,
-    ImageData, ImagesData, LightboxDimensionsStyle, LightboxEverOpened,
+    ImagesData, LightboxDimensionsStyle, LightboxEverOpened,
     LightboxOptions,
     LightboxState, SetLightboxEverOpened,
     SetLightboxState
@@ -11,18 +11,14 @@ import {lightboxInitialValueCase, lightboxReducerCases} from "./variables";
 import createGalleryLayout from "./galleryLayout";
 import useEventListener from "@use-it/event-listener";
 import {CircularProgress, createTheme, Theme, ThemeProvider} from "@mui/material";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import CurtainsIcon from "@mui/icons-material/Curtains";
 import InfoIcon from "@mui/icons-material/Info";
-import {useSelector} from "react-redux";
-import {RootState} from "../../app/store";
-import {themeOptions} from "../../features/theme/themeSlice";
-import {cc} from "../../common/variables";
-
+const cc = console.log;
 export function handleLightbox(event: React.MouseEvent<HTMLImageElement>,
                                galleryInputsWithDefaults: GalleryInputsWithDefaults,
                                setLightboxState: Dispatch<SetStateAction<number | null>>,
@@ -36,17 +32,6 @@ export function handleLightbox(event: React.MouseEvent<HTMLImageElement>,
 
     setLightboxState(position);
     setLightboxEverOpened(true);
-}
-
-export function changeLightboxImagesDateFormat(lightboxImages: ImageData[]): ImageData[]{
-    let lightboxImagesCopy: ImageData[] = [...lightboxImages];
-
-    for (let entry of lightboxImages){
-        if (entry?.date?.length === undefined || entry?.date?.length < 12) continue;
-        entry.date = entry.date.slice(0, 10)
-    }
-
-    return lightboxImagesCopy;
 }
 
 export function handleLightboxButtons(lightboxDataDispatch: Dispatch<Action>): void{
@@ -155,80 +140,35 @@ export function createTooltipsElems(lightboxState: LightboxState,
 
     return (
         <>
-            {windowWidth > 800 && (
+            { windowWidth > 800 && (
             <>
+                { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left &&
                 <div className={"lightbox__tooltip--left"}>
-            <div className={"lightbox__tooltip--left-container"}>
-                <ul>
-                    <li>
-                        Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
-    </li>
-    { lightboxState !== null && lightboxImages?.[lightboxState]?.date && (<li>
-        Date: {lightboxImages?.[lightboxState]?.date} </li>) }
-    </ul>
-    </div>
-    </div>
+                    <div className={"lightbox__tooltip--left-container"}>
+                         {lightboxImages?.[lightboxState]?.tooltip_left}
+                    </div>
+                </div>
+                }
 
-    <div className={"lightbox__tooltip--right"}>
-    <div className={"lightbox__tooltip--right-container"}>
-        <ul>
-            <li>
-                Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
-        </li>
-        { lightboxState !== null && lightboxImages?.[lightboxState]?.lens !== lightboxImages?.[lightboxState]?.focal
-            && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
-        <li>
-        Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
-            </li>
-            <li>
-            Aperture:  {lightboxState !== null && "f/" + lightboxImages?.[lightboxState]?.aperture}
-            </li>
-            <li>
-            Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure + "s"}
-            </li>
-            <li>
-            ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
-            </li>
-            </ul>
-            </div>
-            </div>
+                { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_right &&
+                <div className={"lightbox__tooltip--right"}>
+                    <div className={"lightbox__tooltip--right-container"}>
+                        {lightboxImages?.[lightboxState]?.tooltip_right}
+                    </div>
+                </div>
+                }
             </>
         )}
 
-        {windowWidth <= 800 && (
-            <div className={"lightbox__tooltip--right"}>
-            <div className={"lightbox__tooltip--right-container"}>
-                <ul>
-                    <li>
-                        Title: { lightboxState !== null && lightboxImages?.[lightboxState]?.alt}
-            </li>
-            { lightboxState !== null && lightboxImages?.[lightboxState]?.date &&
-                (<li> Date: {lightboxImages?.[lightboxState]?.date} </li>) }
-            <li>
+            { windowWidth <= 800 && ( lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left ||  lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left) &&
 
-            <br />
-
-            Camera: { lightboxState !== null && lightboxImages?.[lightboxState]?.camera_model}
-                </li>
-                { lightboxState !== null && lightboxImages?.[lightboxState]?.lens
-                    !== lightboxImages?.[lightboxState]?.focal
-                    && (<li>Lens: {lightboxImages?.[lightboxState]?.lens}</li>) }
-                <li>
-                Focal Length: { lightboxState !== null && lightboxImages?.[lightboxState]?.focal}
-                    </li>
-                    <li>
-                    Aperture:  {lightboxState !== null && "f/" + lightboxImages?.[lightboxState]?.aperture}
-                    </li>
-                    <li>
-                    Exposure Time: { lightboxState !== null && lightboxImages?.[lightboxState]?.exposure + "s"}
-                    </li>
-                    <li>
-                    ISO: { lightboxState !== null && lightboxImages?.[lightboxState]?.iso}
-                    </li>
-                    </ul>
+                <div className={"lightbox__tooltip--combined"}>
+                    <div className={"lightbox__tooltip--combined-container"}>
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_left && lightboxImages?.[lightboxState]?.tooltip_left}
+                        { lightboxState !== null && lightboxImages?.[lightboxState]?.tooltip_right && lightboxImages?.[lightboxState]?.tooltip_right}
                     </div>
-                    </div>
-                )}
+                </div>
+            }
         </>
     )
 }
@@ -289,51 +229,25 @@ export const shuffleImages = (lightboxImages: ImagesData,
                               lightboxState: LightboxState,
                               setLightboxState: SetLightboxState,
                               lightboxOptionsActiveDispatch: Dispatch<Action>,
-                              getRandomWholeNumber: (num: number, currentNum?: number | null) => number
+                              getRandomWholeNumber: (num: number, currentNum: number | null, lightboxImages: ImagesData) => number
                               ) => {
-    if (lightboxImages.length === 1) lightboxOptionsActiveDispatch({type: lightboxReducerCases.shuffleDisable});
+    if (lightboxImages.length === 1) return; /*was return 0*/
     const currentPosition = lightboxState;
-    setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition))
+    setLightboxState(getRandomWholeNumber(lightboxImages.length, currentPosition, lightboxImages));
 }
 
 export function getRandomWholeNumber(num: number,
-                                     currentNum: number | null = null
+                                     currentNum: number | null = null,
+                                     lightboxImages: ImagesData
                                      ): number{
+    if (lightboxImages.length === 1) return 0;
     const random = Math.floor(Math.random() * num);
-    if (random === currentNum) return getRandomWholeNumber(num, currentNum);
+    if (random === currentNum) return getRandomWholeNumber(num, currentNum, lightboxImages);
     return random;
 }
 
-export function CreateMUITheme(){
-    const themeType: string = useSelector((state: RootState) => state.theme.value);
-
-    if (themeType === themeOptions.dark){
-        return createTheme({
-            palette: {
-                primary: {
-                    main: '#dddddd',
-                    contrastText: '#fff',
-                },
-                secondary: {
-                    main: '#555555',
-                    contrastText: '#000',
-                },
-            },
-        });
-    } else {
-        return createTheme({
-            palette: {
-                primary: {
-                    main: '#333333',
-                    contrastText: '#fff',
-                },
-                secondary: {
-                    main: '#bbbbbb',
-                    contrastText: '#000',
-                },
-            },
-        });
-    }
+export function CreateMUITheme(muiLightboxButtonTheme: any){
+    return createTheme(muiLightboxButtonTheme);
 }
 
 
@@ -345,17 +259,9 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                               imageElements: JSX.Element[] | null,
                                               shuffleReset: Dispatch<SetStateAction<boolean>>,
                                               autoplayReset: Dispatch<SetStateAction<boolean>>,
+                                              lightboxFullscreenMuiCloseButtonTheme: any,
                                               ): ReactElement{
-    const muiTheme = {
-        palette: {
-            primary: {
-                main: '#dddddd',
-                contrastText: '#fff',
-            },
-        }
-    }
-
-    const [fullscreenImageIsLoading, setFullscreenImageIsLoading] = useState(true);
+    const muiTheme = createTheme(lightboxFullscreenMuiCloseButtonTheme);
 
     return (
         <>
@@ -367,16 +273,12 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                      onClick={(e) => {
                          if (lightboxOptionsActive.fullscreen === false) return;
                      }}>
-                    {fullscreenImageIsLoading && (
                         <div className={"lightbox__loading-indicator"}>
                             <CircularProgress />
                         </div>
-                    )}
                     <Image
                         key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                         src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
-                        onLoad={() => setFullscreenImageIsLoading(true)}
-                        onLoadingComplete={() => setFullscreenImageIsLoading(false)}
                         className={"lightbox__image"}
                         layout={"fill"}
                         objectFit={"contain"}
@@ -438,7 +340,6 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
                                autoplayReset: Dispatch<SetStateAction<boolean>>,
                                ): ReactElement{
 
-    const [lightboxImageIsLoadingState, setLightboxImageIsLoadingState] = useState(true);
     const standardMargin = {ml: 1};
     const buttonStyleWithCursor = {fontSize: "200%", cursor: "pointer"}
 
@@ -506,18 +407,14 @@ export function CreateLightbox(lightboxOptionsActiveDispatch: Dispatch<Action>,
 
                     <div className={"lightbox__middle-row"}>
                         <div className={"lightbox__image--subcontainer"} style={lightboxDimensionsStyle}>
-                            {lightboxImageIsLoadingState && (
                                 <div className={"lightbox__loading-indicator"}>
                                     <CircularProgress/>
                                 </div>
-                            )} {/*Note: Rare case, but if a user's cache is disabled, selecting the same image twice will result in no loading indicator the second (and subsequent) times. With cache, the image loads instantly and no loading indicator is needed.*/}
 
                             <Image
                                 key={lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                                 src={ lightboxState !== null && lightboxImages?.[lightboxState]?.lg_img_url || ""}
                                 className={"lightbox__image"}
-                                onLoad={() => setLightboxImageIsLoadingState(true)}
-                                onLoadingComplete={() => setLightboxImageIsLoadingState(false)}
                                 layout={"fill"}
                                 objectFit={"contain"}
                                 alt={ lightboxState !== null && lightboxImages?.[lightboxState]?.alt || ""}
