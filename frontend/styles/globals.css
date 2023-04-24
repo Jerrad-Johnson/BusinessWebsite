@@ -54,9 +54,11 @@ button {
     transform-origin: left;
     transform-style: preserve-3d;
     transition: 0.5s;
+    font-size: 18px;
 }
 
 .main__content{
+    font-family: 'Alegreya'; /* Lato is also good, but very straight */
     width: 100%;
     max-width: 1100px;
     background-color: #fff;
@@ -84,11 +86,13 @@ button {
     width: 100%;
     display: block;
     text-align: center;
-    font-size: 25px;
+    font-size: 36px;
+    font-family: "EB Garamond"; /* EB Garamond is a good alt */
 
     @apply
     pt-2
     pb-2
+    mt-2
 }
 
 header {
@@ -167,6 +171,7 @@ header {
 }
 
 .navbar__logo {
+    font-family: 'EB Garamond';
     font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;

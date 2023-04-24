@@ -418,7 +418,8 @@ async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSp
     const folders = await httpClient.get(`${process.env.SERVERURL}/gallery/getGalleryFolders`);
     const tabElements = folders.data.data.map((elem: {folder: string}, key: number) => {
       return (
-          <Tab label={elem.folder} key={elem.folder} value={key} onClick={(event) => {
+          <Tab label={elem.folder} key={elem.folder} value={key} style={{fontFamily: "EB Garamond"}}
+               onClick={(event) => {
               handleFolderChange(elem.folder, setPhotos);
               setGalleryTabSelected(key);
           }}/>

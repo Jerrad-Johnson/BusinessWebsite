@@ -7,6 +7,7 @@ import {IndexMain} from "../components/MainContents";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
 import HomeStyle from "../styles/Index.module.css";
+import {createTheme} from "@mui/material";
 const cc = console.log;
 
 function Home<NextPage>(): ReactElement{
