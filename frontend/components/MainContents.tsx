@@ -35,6 +35,9 @@ import {useSelector} from "react-redux";
 import {RootState} from "../app/store";
 import {reviews} from "../common/reviews";
 import useInterval from "beautiful-react-hooks/useInterval";
+import portraitBackground from 'public/backgrounds/mw.jpg';
+import landscapeBackground from 'public/backgrounds/hp.jpg';
+
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
@@ -154,8 +157,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
                     <ThemeProvider theme={styledTab}>
-                        <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                               objectPosition={'center'} alt={'Cover Portrait'}/>
+                        <BackgroundImage screenOrientation={screenOrientation}/>
                         <div className={"main__overlay"}>
                             <div className={"main__content"}>
                                 <div className={"main__content--headline"}>Gallery</div>
@@ -207,8 +209,7 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')}
-                           layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
+                    <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={indexStyles.overlay + " homeOverlay"}>
                         <div className={indexStyles.inner}>
                             <div className={"review--container " + animationStates[instances]}>
@@ -237,8 +238,7 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'} alt={'Cover Portrait'}/>
+                    <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
                             <div className={"main__content--headline"}></div>
@@ -342,8 +342,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'} alt={'Cover Portrait'}/>
+                    <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
                             <div className={"main__content--headline"}>Intro</div>
@@ -432,8 +431,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
                 <header>
-                    <Image src={(screenOrientation === orientations.landscape ? '/backgrounds/hp.jpg' : '/backgrounds/mw.jpg')} layout={'fill'} objectFit={'cover'}
-                           objectPosition={'center'} alt={'Cover Portrait'}/>
+                    <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
 
@@ -563,6 +561,13 @@ async function getGalleryFolderNames(setGalleryFolders: Dispatch<GalleryFolderSp
 
 function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<ImageData[]>>){
     handleGalleryImages(setPhotos, folder);
+}
+
+function BackgroundImage({screenOrientation}){
+    return (
+        <Image src={(screenOrientation === orientations.landscape ? landscapeBackground : portraitBackground)}
+               layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
+    );
 }
 
 
