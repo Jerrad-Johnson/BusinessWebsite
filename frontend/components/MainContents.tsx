@@ -3,7 +3,6 @@ import {orientations} from "../hooks/useOrientation";
 import {themeOptions} from "../features/theme/themeSlice";
 import {
     businessName,
-    cameraBodies,
     cc,
     isLoading,
     lipsum,
@@ -179,22 +178,6 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                     {...galleryInputs}
                                 />
 
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
-                                {lipsum}
-                                <br />
-                                <br />
-
                             </div>
                         </div>
                     </ThemeProvider>
@@ -349,11 +332,11 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
 }
 
 export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
-    const photoBodyElems = photoBodies.map((e) => (<li>{e}</li>));
-    const photoLensesElems = photoLenses.map((e) => (<li>{e}</li>));
-    const photoLightingElems = photoLighting.map((e) => (<li>{e}</li>));
-    const videoBodyElems = videoBodies.map((e) => (<li>{e}</li>));
-    const videoOtherElems = videoOther.map((e) => (<li>{e}</li>));
+    const photoBodyElems = photoBodies.map((e, k) => (<li key={k}>{e}</li>));
+    const photoLensesElems = photoLenses.map((e, k) => (<li key={k}>{e}</li>));
+    const photoLightingElems = photoLighting.map((e, k) => (<li key={k}>{e}</li>));
+    const videoBodyElems = videoBodies.map((e, k) => (<li key={k}>{e}</li>));
+    const videoOtherElems = videoOther.map((e, k) => (<li key={k}>{e}</li>));
 
     return (
         <div className={"main-container"}>
@@ -373,7 +356,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                             </p>
 
                             <p>
-                                My photo edits are typically mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I’m not a fan of the cake-like-skin style.
+                                My photo edits are usually mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I’m not a fan of the cake-like-skin style.
                             </p>
 
                             <div className={"main__content--headline"}>Contact</div>
@@ -386,16 +369,16 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
 
                             <div className={"main__content--headline"}>Photography Equipment</div>
                             <div className={"main__content--equipment--main-container"}>
-                                <div className={"main__content--equipment--sub-container"}>
+                                <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>
-                                        <div className={"main__content--equipment-headline"}>
+                                        <div className={"main__content--two-col-list--subheading"}>
                                             Cameras
                                         </div>
                                         <ul>
                                             {photoBodyElems}
                                         </ul>
 
-                                        <div className={"main__content--equipment-headline"}>
+                                        <div className={"main__content--two-col-list--subheading"}>
                                             Lighting
                                         </div>
                                         <ul>
@@ -403,7 +386,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                                         </ul>
                                     </div>
                                     <div className={"main__content--equipment--sub-right"}>
-                                        <div className={"main__content--equipment-headline"}>
+                                        <div className={"main__content--two-col-list--subheading"}>
                                             Lenses
                                         </div>
                                         <ul>
@@ -415,9 +398,9 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
 
                             <div className={"main__content--headline"}>Videography Equipment</div>
                             <div className={"main__content--equipment--main-container"}>
-                                <div className={"main__content--equipment--sub-container"}>
+                                <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>
-                                        <div className={"main__content--equipment-headline"}>
+                                        <div className={"main__content--two-col-list--subheading"}>
                                             Cameras
                                         </div>
                                         <ul>
@@ -426,7 +409,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
 
                                     </div>
                                     <div className={"main__content--equipment--sub-right"}>
-                                        <div className={"main__content--equipment-headline"}>
+                                        <div className={"main__content--two-col-list--subheading"}>
                                             Other
                                         </div>
                                         <ul>
@@ -456,7 +439,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--headline"}>Sessions</div>
-                                <div className={"main__content--equipment-super-headline"}>Standard Portraits</div>
+                                <div className={"main__content--subheading"}>Standard Portraits</div>
                                     <p>
                                         Senior portraits, business headshots, couples photos, etc.
                                     </p>
@@ -465,23 +448,22 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                                         On-location only, I do not currently have a studio.
                                     </p>
                                     <p>
-                                        Although you're allowed to change your outfit as many times as you want, keep in mind that you could receive fewer than the quoted number of pictures if changing takes too long.
+                                        Although you{"'"}re allowed to change your outfit as many times as you want, keep in mind that you could receive fewer than the quoted number of pictures if changing takes too long.
                                     </p>
                                     <p>
                                         I encourage you to bring props. They help show your personality, and add variety to your portraits.
                                     </p>
-                                <div className={"main__content--equipment--sub-container"}>
+                                <div className={"main__content--two-col-list--sub-container"}>
                                     <li>Price: $435</li>
                                     <li>Time: 1.25hr</li>
                                 </div>
-                                <div className={"main__content--equipment--sub-container"}>
+                                <div className={"main__content--two-col-list--sub-container"}>
                                     <li>Digital Photos: 10-15</li>
                                     <li>Outfits: Unlimited</li>
                                 </div>
                                 <br/>
 
-                                <div className={"main__content--equipment-super-headline"}>Other Sessions</div>
-                                <div className={"main__content--equipment--sub-container"}>
+                                <div className={"main__content--subheading"}>Other Sessions</div>
                                     <div className={"main__content--equipment--sub-left"}>
                                         {/*<div className={"main__content--equipment-headline"}>
                                             About
@@ -489,7 +471,6 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                                             Wedding photography or videography, special events, large groups, etc.
                                             <br/><br/>
                                             Contact me to discuss details and pricing.
-                                    </div>
                                 </div>
                             </div>
 
@@ -499,23 +480,23 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
                             <p>Check or cash payment is due before your session begins. Refunds will be granted only if I lose your photos before delivering them to you, or if I am unhappy with the results and unwilling to deliver substandard photos.</p>
 
-                            <p>If you're unhappy with your portraits, please explain why and request a reshoot.</p>
+                            <p>If you{"'"}re unhappy with your portraits, please explain why and request a reshoot.</p>
 
-                            <p>You (or your parent) will have to sign a model release, which allows me to use the photos e.g. in this website's gallery.</p>
+                            <p>You (or your parent) will have to sign a model release, which allows me to use the photos e.g. in this website{"'"}s gallery.</p>
 
-                            <p>Within two weeks, your portraits should be edited and ready for delivery. My watermark may be present on your pictures, but I believe you'll agree that the way I use it is subtle.</p>
+                            <p>Within two weeks, your portraits should be edited and ready for delivery. My watermark may be present on your pictures, but I believe you{"'"}ll agree that the way I use it is subtle.</p>
 
                             <div className={"main__content--headline"}>Preparation</div>
-                            <div className={"main__content--equipment-super-headline"}>Clothing</div>
-                            <p>As a general rule, avoid articles of clothing that are all-white, all-black, or strongly-colored. This is especially true if you have white skin, because you'll look washed-out. Pastels are good. Greens and yellows are generally bad.</p>
+                            <div className={"main__content--subheading"}>Clothing</div>
+                            <p>As a general rule, avoid articles of clothing that are all-white, all-black, or strongly-colored. This is especially true if you have white skin, because you{"'"}ll look washed-out. Pastels are good. Greens and yellows are generally bad.</p>
                             <p>Close-cut outfits look nicer than very loose-fit ones.</p>
 
-                            <div className={"main__content--equipment-super-headline"}>Makeup</div>
-                            <p>If you do not wear makeup, please wash your face before your session to remove skin oils -- they're glossy.</p>
-                            <p>If you wear makeup, please be extremely careful to keep it smooth. If it's blotchy, I may not be able to edit your photos enough to save them.</p>
+                            <div className={"main__content--subheading"}>Makeup</div>
+                            <p>If you do not wear makeup, please wash your face before your session to remove skin oils -- they{"'"}re glossy.</p>
+                            <p>If you wear makeup, please be extremely careful to keep it smooth. If it{"'"}s blotchy, I may not be able to edit your photos enough to save them.</p>
                             <p>And I highly recommend that you bring your finishing powder. Even if your makeup stays smooth, your skin could be glossy, and your finishing powder should be able to solve that.</p>
 
-                            <div className={"main__content--equipment-super-headline"}>Skin</div>
+                            <div className={"main__content--subheading"}>Skin</div>
                             <p>Remove tight-fit articles such as wrist watches in advance, as they may leave red skin marks.</p>
                             <p>If you have dry, flaky skin, a moisturizer such as those offered by CeraVe may be very beneficial. However it is glossy so do not apply it before your session. And similarly, consider using a lip moisturizer.</p>
 

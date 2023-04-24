@@ -7,7 +7,7 @@ const linkRel = ( <link rel="icon" href="/favicon.ico" /> );
 export function GenericHead({metaName, content}: GenericHeadAttributes){ // TODO Update all pages to use this format; param. metaName is no longer used.
 
     let fontFamilies = "Arapey Libre+Baskerville Taviraj Alegreya Allura Alegreya+Sans Lato Poppins Noto+Serif EB+Garamond";
-    function getGoogleFonts(list){
+    function getGoogleFonts(list: string[]){
         let fontFamiliesURL = ["https://fonts.googleapis.com/css2?"];
         for (let entry of list){
             fontFamiliesURL.push(`&family=${entry}`);

@@ -43,3 +43,21 @@ body{
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px 0px;
     color: #ddd;
 }
+
+.main__content--subheading{
+    text-align: center;
+    font-size: 28px;
+    color: #797545;
+    font-family: "EB Garamond";
+    @apply
+    mt-6
+    mb-4
+}
+
+.main__content--two-col-list--subheading{
+    text-align: center;
+    font-size: 28px;
+    color: #797545;
+    font-family: "EB Garamond";
+    margin: 10px 0px 4px 0px;
+}

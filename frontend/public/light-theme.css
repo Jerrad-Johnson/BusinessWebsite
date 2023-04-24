@@ -6,6 +6,28 @@
     background-color: rgba(255, 255, 255, .97);
 }
 
+.main__content--headline{
+    color: #1179e7;
+}
+
+.main__content--subheading{
+    text-align: center;
+    font-size: 28px;
+    font-family: "EB Garamond";
+    color: #093E76;
+    @apply
+    mt-6
+    mb-4
+}
+
+.main__content--two-col-list--subheading{
+    text-align: center;
+    font-size: 28px;
+    color: #093E76;
+    font-family: "EB Garamond";
+    margin: 10px 0px 4px 0px;
+}
+
 /*
 .overlay {
     background-color: rgba(255, 255, 255, 0.2);

@@ -81,7 +81,7 @@ button {
 
 .main__content p{
     @apply
-    px-12
+    px-20
     mb-8
 }
 
@@ -107,45 +107,20 @@ button {
     mt-2
 }
 
-.main__content--equipment--sub-container{
+.main__content--two-col-list--sub-container{
     display: flex;
     justify-content: space-around;
 
     @apply
-    px-12
     mx-10
 }
 
-main__content--equipment--sub-container li{
+.main__content--two-col-list--sub-container li{
     min-width: 200px;
-}
-
-.main__content--equipment-super-headline{
-    text-align: center;
-    font-size: 28px;
-    color: #797545;
-    font-family: "EB Garamond";
-    @apply
-    mt-6
-    mb-4
-}
-
-.main__content--equipment-headline{
-    text-align: center;
-    font-size: 120%;
-    color: #797545;
-    @apply
-    mt-6;
 }
 
 .main__content--equipment-headline:first-of-type{
     margin-top: 8px;
-}
-
-.main__content--equipment--left-container{
-}
-
-.main__content--equipment--right-container{
 }
 
 .main__content--equipment--sub-right,.main__content--equipment--sub-left {
@@ -658,6 +633,7 @@ span.galleryFolderSelectors::first-letter{
     background-color: #fff;
     font-weight: bolder;
     box-shadow: rgba(255, 255, 255, 0.45) 0px 5px 15px 0px;
+    font-size: 18px;
 }
 
 .lightbox__tooltip--left-container ul li, .lightbox__tooltip--right-container ul li, .lightbox__tooltip--combined-container ul li{
@@ -762,6 +738,12 @@ span.galleryFolderSelectors::first-letter{
 }
 
 /* Media Queries */
+@media screen and (max-width: 1250px){
+    .main__content p{
+        padding: 0px 20px 10px 20px;
+    }
+}
+
 @media screen and (max-width: 800px){
     .main__content {
         padding: 60px 30px 30px 30px;
@@ -770,6 +752,11 @@ span.galleryFolderSelectors::first-letter{
     .main__overlay {
         padding-right: 0%;
         padding-left: 0%;
+    }
+
+    .main__content--two-col-list--sub-container{
+        margin: auto;
+        padding: 0px 10px 0px 10px;
     }
 
     .review--container{
@@ -819,6 +806,10 @@ span.galleryFolderSelectors::first-letter{
 @media screen and (max-width: 500px) {
     .lightbox__backdrop{
         padding: 5px;
+    }
+
+    .main__content--two-col-list--sub-container{
+        display: block;
     }
 }
 

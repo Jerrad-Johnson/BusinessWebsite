@@ -26,7 +26,7 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/sessions"}>
+                    <Link href={"/sessions"}>{/*@ts-ignore*/}
                         <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.20s"}}>Sessions</a>
                     </Link>
                 </li>
