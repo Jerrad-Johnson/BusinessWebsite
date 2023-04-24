@@ -161,7 +161,7 @@ header {
 
 .navbar__bar {
     width: 1.9rem;
-    height: 1.5px;
+    height: 1.5px; /*TODO Check this*/
     border-radius: 2px;
     background-color: #eee;
     transition: 0.5s;
@@ -544,7 +544,7 @@ span.galleryFolderSelectors::first-letter{
 }
 
 .lightbox__tooltip--right-container, .lightbox__tooltip--left-container, .lightbox__tooltip--combined-container{
-    opacity: 0.5;
+    opacity: 0.6;
     border-radius: 15px;
     border-width: 1px;
     padding: 15px;
