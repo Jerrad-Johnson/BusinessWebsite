@@ -197,7 +197,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 export function IndexMain({isUserMobile, width, screenOrientation}:
                           {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
-    const [reviewPair, setReviewPair] = useState({positions: [0,1], flip: false});
+/*    const [reviewPair, setReviewPair] = useState({positions: [0,1], flip: false});
     const changeReview = () => {
         let right = reviewPair.positions[1];
         let left = reviewPair.positions[0];
@@ -216,15 +216,13 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
 
         setReviewPair((prev) => { return ({positions: [left, right], flip: !prev.flip})});
     }
-    useInterval(changeReview, 2000);
+    useInterval(changeReview, 2000);*/
 
-    /*
     const [reviewNumber, setReviewNumber] = useState(0);
     const changeReview = () => {
         reviews.length-1 > reviewNumber ? setReviewNumber((prev) => prev+1) : setReviewNumber(0);
     }
-    useInterval(changeReview, 2000);
-    */
+    useInterval(changeReview, 3000);
 
 /*    const reviewElems = reviews.map((e) => {
        return (
@@ -249,7 +247,6 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                         <div className={indexStyles.inner}>
                             <div className={"review--container"}>
                                 <div className={"review--comment"}>
-
                                 </div>
 
                                 <div className={"review--name"}>
