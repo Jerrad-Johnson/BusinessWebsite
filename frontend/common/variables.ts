@@ -21,7 +21,7 @@ export const photoBodies = [
 ];
 
 export const photoLenses = [
-    "70-200/2.8L II",
+    "70-200/2.8L II Canon",
     "135/2 Zeiss Sonnar",
     "85/1.4 Zeiss Otus",
     "85/1.4 Sigma Art",

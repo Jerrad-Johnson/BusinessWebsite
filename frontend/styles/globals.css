@@ -59,6 +59,7 @@ button {
 
 .main__content{
     font-family: 'Alegreya'; /* Lato is also good, but very straight */
+    font-size: 20px;
     width: 100%;
     max-width: 1100px;
     background-color: #fff;
@@ -98,6 +99,7 @@ button {
     text-align: center;
     font-size: 36px;
     font-family: "EB Garamond";
+    color: darkkhaki;
 
     @apply
     pt-2
@@ -114,10 +116,24 @@ button {
     mx-10
 }
 
+main__content--equipment--sub-container li{
+    min-width: 200px;
+}
+
+.main__content--equipment-super-headline{
+    text-align: center;
+    font-size: 28px;
+    color: #797545;
+    font-family: "EB Garamond";
+    @apply
+    mt-6
+    mb-4
+}
+
 .main__content--equipment-headline{
     text-align: center;
     font-size: 120%;
-    color: gold;
+    color: #797545;
     @apply
     mt-6;
 }
@@ -134,7 +150,18 @@ button {
 
 .main__content--equipment--sub-right,.main__content--equipment--sub-left {
     text-align: center;
+    min-width: 180px;
 }
+
+.main__content--equipment--sub-left {
+    margin-right: 8px;
+}
+
+.main__content--equipment--sub-right{
+    margin-left: 8px;
+}
+
+
 
 
 header {
