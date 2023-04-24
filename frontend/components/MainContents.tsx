@@ -567,6 +567,10 @@ function BackgroundImage({screenOrientation}: {screenOrientation: orientations.l
     cc(orientations)
     return (
         <Image src={(screenOrientation === orientations.landscape ? landscapeBackground : portraitBackground)}
-               layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
+               placeholder={"blur"}
+               layout={'fill'}
+               objectFit={'cover'}
+               objectPosition={'center'}
+               alt={'Website Background Portrait'}/>
     );
 }
