@@ -562,7 +562,9 @@ function handleFolderChange(folder: string, setPhotos: Dispatch<SetStateAction<I
     handleGalleryImages(setPhotos, folder);
 }
 
-function BackgroundImage({screenOrientation}){
+//@ts-ignore
+function BackgroundImage({screenOrientation}: {screenOrientation: orientations.landscape | orientations.portrait}){
+    cc(orientations)
     return (
         <Image src={(screenOrientation === orientations.landscape ? landscapeBackground : portraitBackground)}
                layout={'fill'} objectFit={'cover'} objectPosition={'center'} alt={'Website Background Portrait'}/>
