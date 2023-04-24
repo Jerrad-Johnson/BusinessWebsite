@@ -248,30 +248,11 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                     <div className={indexStyles.overlay + " homeOverlay"}>
                         <div className={indexStyles.inner}>
                             <div className={"review--container"}>
-                                <div className={"review--comment"} style={{
-                                    display: (reviewPair.flip ? "none" : "inline-block"),
-                                    opacity: (reviewPair.flip ? "0" : "1")
-                                }}>
-                                    {reviews[reviewPair.positions[1]].content}
-                                </div>
-                                <div className={"review--name"} style={{
-                                    display: (reviewPair.flip ? "none" : "inline-block"),
-                                    opacity: (reviewPair.flip ? "0" : "1")
-                                }}>
-                                    - {reviews[reviewPair.positions[1]].name}
+                                <div className={"review--comment"}>
+
                                 </div>
 
-                                <div className={"review--comment"} style={{
-                                    display: (!reviewPair.flip ? "none" : "inline-block"),
-                                    opacity: (!reviewPair.flip ? "0" : "1")
-                                }}>
-                                    {reviews[reviewPair.positions[0]].content}
-                                </div>
-                                <div className={"review--name"} style={{
-                                    display: (!reviewPair.flip ? "none" : "inline-block"),
-                                    opacity: (!reviewPair.flip ? "0" : "1")
-                                }}>
-                                    - {reviews[reviewPair.positions[0]].name}
+                                <div className={"review--name"}>
                                 </div>
                             </div>
                         </div>
