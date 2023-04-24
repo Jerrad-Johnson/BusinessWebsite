@@ -16,9 +16,32 @@ button {
     font-family: "Poppins", sans-serif;
 }
 
-#map{
-    width: 100%;
+/* Leaflet  */
+#map {
     height: 80%;
+    width: 100%;
+}
+
+.marker-cluster {
+    background: #555;
+    border: 3px solid #ededed;
+    border-radius: 50%;
+    color: #ededed;
+    height: 40px;
+    line-height: 37px;
+    text-align: center;
+    width: 40px;
+}
+
+.leaflet-popup{
+    min-width:280px;
+}
+
+.leaflet-popup-content-wrapper{
+    width: 100%;
+}
+
+.leaflet-popup-content{
 }
 
 /* Main */
