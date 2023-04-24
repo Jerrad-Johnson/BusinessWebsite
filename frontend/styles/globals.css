@@ -377,14 +377,18 @@ ul {
 
 .review--container{
     display: inline-block;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 60px;
+    padding: 30px;
     background-color: rgba(0, 0, 0, 0.7);
-    box-shadow: 0px 0px 18px 2px rgba(51,51,51,1);
-    max-width: 200px;
-    max-height: 600px;
-    transition: all 1s ease-in-out;
+    /*background: radial-gradient(circle, rgba(88,88,88,.35) 0%, rgba(0,0,0,0) 100%);*/
+    box-shadow: 0px 0px 82px 19px rgba(0,0,0,0.58);
+    width: 650px;
+    max-width: 60vw;
+    transition: all 1s ease-in;
     opacity: 1;
+    border-style: groove;
+    border-width: 2px;
+    border-color: #777;
 }
 
 .review--container.animationInstance1, .review--container.animationInstance2,
@@ -396,15 +400,21 @@ ul {
     opacity: 0;
 }
 
-
-
 .review--comment{
     display: inline-block;
+    font-family: Arapay;
+    font-size: 25px;
     transition: all 0.5s ease-out;
+    font-style: italic;
 }
 
 .review--name{
-
+    text-align: right;
+    font-family: Allura;
+    font-size: 50px;
+    @apply
+        mt-4
+        mr-4
 }
 
 /* Gallery Page */
@@ -657,6 +667,19 @@ span.galleryFolderSelectors::first-letter{
     .main__overlay {
         padding-right: 0%;
         padding-left: 0%;
+    }
+
+    .review--container{
+        width: 70vw;
+        max-width: 90vw;
+    }
+
+    .review--comment{
+        font-size: 22px;
+    }
+
+    .review--name{
+        font-size: 40px;
     }
 
     .navbar{

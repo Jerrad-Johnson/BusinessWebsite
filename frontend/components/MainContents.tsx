@@ -221,10 +221,11 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                         <div className={indexStyles.inner}>
                             <div className={"review--container " + animationStates[instances]}>
                                 <div className={"review--comment"}>
-                                    {reviews[reviewNumber].content}
+                                    "{reviews[reviewNumber].content}"
                                 </div>
 
                                 <div className={"review--name"}>
+                                    - {reviews[reviewNumber].name}
                                 </div>
                             </div>
                         </div>
