@@ -197,11 +197,47 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 export function IndexMain({isUserMobile, width, screenOrientation}:
                           {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
+    const [reviewPair, setReviewPair] = useState({positions: [0,1], flip: false});
+    const changeReview = () => {
+        let right = reviewPair.positions[1];
+        let left = reviewPair.positions[0];
+
+        if (reviewPair.positions[1] === reviews.length-1){
+            right = 0;
+        } else {
+            right++;
+        }
+
+        if (reviewPair.positions[0] === reviews.length-1){
+            left = 0;
+        } else {
+            left++;
+        }
+
+        setReviewPair((prev) => { return ({positions: [left, right], flip: !prev.flip})});
+    }
+    useInterval(changeReview, 2000);
+
+    /*
     const [reviewNumber, setReviewNumber] = useState(0);
     const changeReview = () => {
         reviews.length-1 > reviewNumber ? setReviewNumber((prev) => prev+1) : setReviewNumber(0);
     }
-    useInterval(changeReview, 8000);
+    useInterval(changeReview, 2000);
+    */
+
+/*    const reviewElems = reviews.map((e) => {
+       return (
+           <>
+               <div className={"review--comment"}>
+                   {e.content}
+               </div>
+               <div className={"review--name"}>
+                    - {e.name}
+               </div>
+           </>
+       )
+    });*/
 
     return(
         <div className={"main-container"}>
@@ -212,11 +248,30 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                     <div className={indexStyles.overlay + " homeOverlay"}>
                         <div className={indexStyles.inner}>
                             <div className={"review--container"}>
-                                <div className={"review--content"}>
-                                    {reviews[reviewNumber].content}
-                                </div>                                
-                                <div className={"review--name"}>
-                                    {reviews[reviewNumber].name}
+                                <div className={"review--comment"} style={{
+                                    display: (reviewPair.flip ? "none" : "inline-block"),
+                                    opacity: (reviewPair.flip ? "0" : "1")
+                                }}>
+                                    {reviews[reviewPair.positions[1]].content}
+                                </div>
+                                <div className={"review--name"} style={{
+                                    display: (reviewPair.flip ? "none" : "inline-block"),
+                                    opacity: (reviewPair.flip ? "0" : "1")
+                                }}>
+                                    - {reviews[reviewPair.positions[1]].name}
+                                </div>
+
+                                <div className={"review--comment"} style={{
+                                    display: (!reviewPair.flip ? "none" : "inline-block"),
+                                    opacity: (!reviewPair.flip ? "0" : "1")
+                                }}>
+                                    {reviews[reviewPair.positions[0]].content}
+                                </div>
+                                <div className={"review--name"} style={{
+                                    display: (!reviewPair.flip ? "none" : "inline-block"),
+                                    opacity: (!reviewPair.flip ? "0" : "1")
+                                }}>
+                                    - {reviews[reviewPair.positions[0]].name}
                                 </div>
                             </div>
                         </div>
