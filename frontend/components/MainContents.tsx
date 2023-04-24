@@ -1,7 +1,16 @@
 import Image from "next/legacy/image";
 import {orientations} from "../hooks/useOrientation";
 import {themeOptions} from "../features/theme/themeSlice";
-import {cc, isLoading, lipsum} from "../common/variables";
+import {
+    businessName,
+    cameraBodies,
+    cc,
+    isLoading,
+    lipsum,
+    photoBodies,
+    photoLenses,
+    photoLighting, videoBodies, videoOther
+} from "../common/variables";
 /*import {NjGallery} from 'njGallery'*/
 /*import "njgallery/styles/lightbox.css";*/
 import NjGallery from "../njGallery/NjGallery";
@@ -340,6 +349,12 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
 }
 
 export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+    const photoBodyElems = photoBodies.map((e) => (<li>{e}</li>));
+    const photoLensesElems = photoLenses.map((e) => (<li>{e}</li>));
+    const photoLightingElems = photoLighting.map((e) => (<li>{e}</li>));
+    const videoBodyElems = videoBodies.map((e) => (<li>{e}</li>));
+    const videoOtherElems = videoOther.map((e) => (<li>{e}</li>));
+
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
@@ -348,34 +363,78 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                            objectPosition={'center'} alt={'Cover Portrait'}/>
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
-                            <div className={"main__content--headline"}>About</div>
-                            {lipsum}
-                            <br />
-                            <br />
+                            <div className={"main__content--headline"}>Intro</div>
+                            <p>
+                                Welcome to the {businessName} website. My name is Jerrad Johnson, and my portraits generally have a very traditional style. My models are posed to accentuate their most flattering features, present personality or mood, and complement the scene. I rarely capture candids, I believe my models should have the opportunity to present themselves to the world in intentional ways.
+                            </p>
 
-                            {lipsum}
-                            <br />
-                            <br />
+                            <p>
+                                While this may sound difficult for you, it’s not – except for a bit of muscle fatigue! Because I will guide your pose, it’s quite simple.
+                            </p>
 
-                            {lipsum}
-                            <br />
-                            <br />
+                            <p>
+                                My photo edits are typically mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I’m not a fan of the cake-like-skin style.
+                            </p>
 
-                            {lipsum}
-                            <br />
-                            <br />
+                            <div className={"main__content--headline"}>Contact</div>
+                            <p>
+                                <a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a>
+                            </p>
+                            <p>
+                                <a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.
+                            </p>
 
-                            {lipsum}
-                            <br />
-                            <br />
+                            <div className={"main__content--headline"}>Photography Equipment</div>
+                            <div className={"main__content--equipment--main-container"}>
+                                <div className={"main__content--equipment--sub-container"}>
+                                    <div className={"main__content--equipment--sub-left"}>
+                                        <div className={"main__content--equipment-headline"}>
+                                            Cameras
+                                        </div>
+                                        <ul>
+                                            {photoBodyElems}
+                                        </ul>
 
-                            {lipsum}
-                            <br />
-                            <br />
+                                        <div className={"main__content--equipment-headline"}>
+                                            Lighting
+                                        </div>
+                                        <ul>
+                                            {photoLightingElems}
+                                        </ul>
+                                    </div>
+                                    <div className={"main__content--equipment--sub-right"}>
+                                        <div className={"main__content--equipment-headline"}>
+                                            Lenses
+                                        </div>
+                                        <ul>
+                                            {photoLensesElems}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
-                            {lipsum}
-                            <br />
-                            <br />
+                            <div className={"main__content--headline"}>Videography Equipment</div>
+                            <div className={"main__content--equipment--main-container"}>
+                                <div className={"main__content--equipment--sub-container"}>
+                                    <div className={"main__content--equipment--sub-left"}>
+                                        <div className={"main__content--equipment-headline"}>
+                                            Cameras
+                                        </div>
+                                        <ul>
+                                            {videoBodyElems}
+                                        </ul>
+
+                                    </div>
+                                    <div className={"main__content--equipment--sub-right"}>
+                                        <div className={"main__content--equipment-headline"}>
+                                            Other
+                                        </div>
+                                        <ul>
+                                            {videoOtherElems}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>

@@ -78,6 +78,16 @@ button {
     pr-16
 }
 
+.main__content p{
+    @apply
+    px-12
+    mb-8
+}
+
+.main__content p a{
+    color: #1179e7;
+}
+
 .main__content::-webkit-scrollbar {
     display: none;
 }
@@ -87,13 +97,45 @@ button {
     display: block;
     text-align: center;
     font-size: 36px;
-    font-family: "EB Garamond"; /* EB Garamond is a good alt */
+    font-family: "EB Garamond";
 
     @apply
     pt-2
     pb-2
     mt-2
 }
+
+.main__content--equipment--sub-container{
+    display: flex;
+    justify-content: space-around;
+
+    @apply
+    px-12
+    mx-10
+}
+
+.main__content--equipment-headline{
+    text-align: center;
+    font-size: 120%;
+    color: gold;
+    @apply
+    mt-6;
+}
+
+.main__content--equipment-headline:first-of-type{
+    margin-top: 8px;
+}
+
+.main__content--equipment--left-container{
+}
+
+.main__content--equipment--right-container{
+}
+
+.main__content--equipment--sub-right,.main__content--equipment--sub-left {
+    text-align: center;
+}
+
 
 header {
     min-height: 100vh;
