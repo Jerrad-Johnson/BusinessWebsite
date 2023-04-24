@@ -16,6 +16,11 @@ button {
     font-family: "Poppins", sans-serif;
 }
 
+#map{
+    width: 100%;
+    height: 80%;
+}
+
 /* Main */
 .main {
     position: relative;
