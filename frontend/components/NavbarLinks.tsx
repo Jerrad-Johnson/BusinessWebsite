@@ -22,12 +22,12 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                 </li>
                 <li>
                     <Link href={"/gallery-map"}>{/*@ts-ignore*/}
-                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.15s"}}>Gallery Map</a>
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.15s"}}>Geo Gallery</a>
                     </Link>
                 </li>
                 <li>
                     <Link href={"/sessions"}>{/*@ts-ignore*/}
-                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.20s"}}>Sessions</a>
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.20s"}}>Services</a>
                     </Link>
                 </li>
                 <li>

@@ -25,7 +25,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                                     Although you{"'"}re allowed to change your outfit as many times as you want, keep in mind that you could receive fewer than the quoted number of pictures if changing takes too long.
                                 </p>
                                 <p>
-                                    I encourage you to bring props. They help show your personality, and add variety to your portraits.
+                                    I encourage you to bring props. They help express your personality, and add variety to your portraits.
                                 </p>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <li>Price: $435</li>
@@ -47,6 +47,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                             </div>
 
                             <br/>
+
                             <div className={"main__content--headline"}>Notes</div>
                             <p>Session fee includes sales tax.</p>
 
@@ -60,17 +61,17 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
                             <div className={"main__content--headline"}>Preparation</div>
                             <div className={"main__content--subheading"}>Clothing</div>
-                            <p>As a general rule, avoid articles of clothing that are all-white, all-black, or strongly-colored. This is especially true if you have white skin, because you{"'"}ll look washed-out. Pastels are good. Greens and yellows are generally bad.</p>
+                            <p>As a general rule, avoid articles of clothing that are all-white, all-black, or strongly-colored. This is especially true if you have white skin, because you may look washed-out. Pastels are good. Greens and yellows are usually bad.</p>
                             <p>Close-cut outfits look nicer than very loose-fit ones.</p>
 
                             <div className={"main__content--subheading"}>Makeup</div>
-                            <p>If you do not wear makeup, please wash your face before your session to remove skin oils -- they{"'"}re glossy.</p>
+                            <p>If you do not wear makeup, please wash your face before your session to remove skin oils -- they{"'"}re shiny.</p>
                             <p>If you wear makeup, please be extremely careful to keep it smooth. If it{"'"}s blotchy, I may not be able to edit your photos enough to save them.</p>
-                            <p>And I highly recommend that you bring your finishing powder. Even if your makeup stays smooth, your skin could be glossy, and your finishing powder should be able to solve that.</p>
+                            <p>And I highly recommend that you bring your finishing powder. Even if you protect your makeup, your skin could be glossy, and your finishing powder should be able to solve that.</p>
 
                             <div className={"main__content--subheading"}>Skin</div>
-                            <p>Remove tight-fit articles such as wrist watches in advance, as they may leave red skin marks.</p>
-                            <p>If you have dry, flaky skin, a moisturizer such as those offered by CeraVe may be very beneficial. However it is glossy so do not apply it before your session. And similarly, consider using a lip moisturizer.</p>
+                            <p>Remove in advance tight-fit articles such as wrist watches, as they may leave red skin marks.</p>
+                            <p>If you have dry, flaky skin, a moisturizer such as those offered by CeraVe may be very beneficial. But moisturizers are glossy, so do not apply any before your session.</p>
 
                         </div>
                     </div>
