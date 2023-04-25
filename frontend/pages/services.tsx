@@ -5,10 +5,10 @@ import Navbar from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
-import {SessionMain} from "../components/mains/Sessions";
+import {SessionMain} from "../components/mains/Services";
 const cc = console.log;
 
-function Sessions<NextPage>(): ReactElement{
+function Services<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
     return (
@@ -37,4 +37,4 @@ function Sessions<NextPage>(): ReactElement{
     );
 }
 
-export default Sessions;
+export default Services;

@@ -71,7 +71,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
                             <div className={"main__content--subheading"}>Skin</div>
                             <p>Remove in advance tight-fit articles such as wrist watches, as they may leave red skin marks.</p>
-                            <p>If you have dry, flaky skin, a moisturizer such as those offered by CeraVe may be very beneficial. But moisturizers are glossy, so do not apply any before your session.</p>
+                            <p>If you have dry, flaky skin, moisturizers such as those offered by CeraVe may be very beneficial. But moisturizers are glossy, so do not apply any before your session.</p>
 
                         </div>
                     </div>
