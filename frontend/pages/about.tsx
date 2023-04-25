@@ -3,7 +3,7 @@ import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
 import Navbar from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
-import {AboutMain, IndexMain} from "../components/MainContents";
+import {AboutMain} from "../components/mains/About";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
 const cc = console.log;

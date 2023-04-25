@@ -1,13 +1,11 @@
 import type {ReactElement} from "react";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
-import Navbar, {HomeNavbar} from "../components/Navbar";
+import {HomeNavbar} from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
-import {IndexMain} from "../components/MainContents";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
-import HomeStyle from "../styles/Index.module.css";
-import {createTheme} from "@mui/material";
+import {IndexMain} from "../components/mains";
 const cc = console.log;
 
 function Home<NextPage>(): ReactElement{

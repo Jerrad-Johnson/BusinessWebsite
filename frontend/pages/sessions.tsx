@@ -3,9 +3,9 @@ import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
 import Navbar from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
-import {SessionMain} from "../components/MainContents";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
+import {SessionMain} from "../components/mains/Sessions";
 const cc = console.log;
 
 function Sessions<NextPage>(): ReactElement{

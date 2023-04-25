@@ -9,8 +9,8 @@ import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
 import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
-import {GalleryMain, GalleryMapMain} from "../components/MainContents";
 import Basics from "../components/forEveryPage";
+import {GalleryMapMain} from "../components/mains/Gallery-Map";
 
 
 function GalleryMap<NextPage>(){

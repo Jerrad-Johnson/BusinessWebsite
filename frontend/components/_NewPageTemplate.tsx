@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
 import OverlayShadows from "../components/OverlayShadows";
-import {GalleryMain} from "../components/MainContents";
+import {GalleryMain} from "./mains/Gallery";
 import {GenericHead} from "./Heads";
 import {NavbarOptions} from "../types/layout";
 import Basics from "./forEveryPage";
