@@ -11,13 +11,7 @@
 }
 
 .main__content--subheading{
-    text-align: center;
-    font-size: 28px;
-    font-family: "EB Garamond";
     color: #093E76;
-    @apply
-    mt-6
-    mb-4
 }
 
 .main__content--two-col-list--subheading{

@@ -79,13 +79,13 @@ button {
     pr-16
 }
 
-.main__content p{
+.main__content p, .main__content span{
     @apply
     px-20
     mb-8
 }
 
-.main__content p a{
+.main__content span a{
     color: #1179e7;
 }
 
@@ -134,6 +134,17 @@ button {
 
 .main__content--equipment--sub-right{
     margin-left: 8px;
+}
+
+.main__content--subheading{
+    text-align: left;
+    font-size: 28px;
+    font-family: "EB Garamond";
+
+    @apply
+    mt-6
+    mb-4
+    px-20
 }
 
 
@@ -740,7 +751,7 @@ span.galleryFolderSelectors::first-letter{
 
 /* Media Queries */
 @media screen and (max-width: 1250px){
-    .main__content p{
+    .main__content p, .main__content span, .main__content--subheading{
         padding: 0px 20px 10px 20px;
     }
 }

@@ -35,10 +35,15 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
                         <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.25s"}}>About</a>
                     </Link>
                 </li>
+                <li>
+                    <Link href={"/contact"}>{/*@ts-ignore*/}
+                        <a onClick={(e) => { navigationDelayHandler(e, setNavbarOpenOrClosed) }} style={{"--i": "0.30s"}}>Contact</a>
+                    </Link>
+                </li>
                 <hr/>
                 <li>{/*@ts-ignore*/}
-                    <a style={{"--i": "0.30s"}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp;{/*@ts-ignore*/}
-                    <a style={{"--i": "0.30s"}} onClick={(e) => { e.preventDefault(); dispatch(darkTheme()); }}>Dark</a>
+                    <a style={{"--i": "0.35s"}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp;{/*@ts-ignore*/}
+                    <a style={{"--i": "0.35s"}} onClick={(e) => { e.preventDefault(); dispatch(darkTheme()); }}>Dark</a>
                 </li>
             </ul>
         </div>

@@ -18,23 +18,15 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                         <div className={"main__content"}>
                             <div className={"main__content--headline"}>Intro</div>
                             <p>
-                                Welcome to the {businessName} website. My name is Jerrad Johnson, and my portraiture style is very traditional. My models are posed to accentuate their most flattering features, present personality or mood, and complement the scene. I rarely capture candids, I believe my models should have the privilege of intentional presentation.
+                                Welcome to {businessName}, currently serving Rapid City, SD. My name is Jerrad Johnson, and my portraiture style is very traditional. My models are posed to accentuate their most flattering features, present personality or mood, and complement the scene. I rarely capture candids, I believe my models should have the privilege of intentional presentation.
                             </p>
 
                             <p>
-                                While this may sound difficult for you, it’s not – except for a bit of muscle fatigue! Because I will guide your pose, it’s quite simple.
+                                While this may sound difficult for you, it’s not – except for a bit of muscle fatigue! Because I will guide your poses, it’s quite simple.
                             </p>
 
                             <p>
                                 My photo edits are usually mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I’m not a fan of the cake-like-skin style.
-                            </p>
-
-                            <div className={"main__content--headline"}>Contact</div>
-                            <p>
-                                <a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a>
-                            </p>
-                            <p>
-                                <a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.
                             </p>
 
                             <div className={"main__content--headline"}>Photography Equipment</div>
