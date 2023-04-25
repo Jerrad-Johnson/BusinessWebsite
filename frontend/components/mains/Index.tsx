@@ -19,7 +19,7 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
             setInstances((prev) => prev+1)
         }
     }
-    useInterval(changeReview, 1750);
+    useInterval(changeReview, 2250);
 
     return(
         <div className={"main-container"}>

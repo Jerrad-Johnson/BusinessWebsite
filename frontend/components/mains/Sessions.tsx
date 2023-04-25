@@ -12,7 +12,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                         <div className={"main__content"}>
 
                             <div className={"main__content--equipment--main-container"}>
-                                <div className={"main__content--headline"}>Sessions</div>
+                                <div className={"main__content--headline"}>Services</div>
                                 <div className={"main__content--subheading"}>Standard Portraits</div>
                                 <p>
                                     Senior portraits, business headshots, couples photos, etc.
@@ -57,7 +57,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
                             <p>You (or your parent) will have to sign a model release, which allows me to use the photos e.g. in this website{"'"}s gallery.</p>
 
-                            <p>Within two weeks, your portraits should be edited and ready for delivery. My watermark may be present on your pictures, but I believe you{"'"}ll agree that the way I use it is subtle.</p>
+                            <p>Within two weeks, your portraits should be edited and ready for delivery. My watermark may be present, but I believe you{"'"}ll agree that it{"'"}s subtle.</p>
 
                             <div className={"main__content--headline"}>Preparation</div>
                             <div className={"main__content--subheading"}>Clothing</div>
