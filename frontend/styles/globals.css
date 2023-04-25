@@ -59,6 +59,7 @@ button {
 
 .main__content{
     font-family: 'Alegreya'; /* Lato is also good, but very straight */
+    font-size: 20px;
     width: 100%;
     max-width: 1100px;
     background-color: #fff;
@@ -78,6 +79,16 @@ button {
     pr-16
 }
 
+.main__content p, .main__content span{
+    @apply
+    px-20
+    mb-4
+}
+
+.main__content span a{
+    color: #1179e7;
+}
+
 .main__content::-webkit-scrollbar {
     display: none;
 }
@@ -87,13 +98,60 @@ button {
     display: block;
     text-align: center;
     font-size: 36px;
-    font-family: "EB Garamond"; /* EB Garamond is a good alt */
-
+    font-family: "EB Garamond";
+    color: darkkhaki;
     @apply
     pt-2
     pb-2
+    mt-6
+}
+.main__content--headline:first-of-type{
+    @apply
     mt-2
 }
+
+.main__content--two-col-list--sub-container{
+    display: flex;
+    justify-content: space-around;
+
+    @apply
+    mx-10
+}
+
+.main__content--two-col-list--sub-container li{
+    min-width: 200px;
+}
+
+.main__content--equipment-headline:first-of-type{
+    margin-top: 8px;
+}
+
+.main__content--equipment--sub-right,.main__content--equipment--sub-left {
+    text-align: center;
+    min-width: 180px;
+}
+
+.main__content--equipment--sub-left {
+    margin-right: 8px;
+}
+
+.main__content--equipment--sub-right{
+    margin-left: 8px;
+}
+
+.main__content--subheading{
+    text-align: left;
+    font-size: 28px;
+    font-family: "EB Garamond";
+
+    @apply
+    mt-6
+    mb-4
+    px-20
+}
+
+
+
 
 header {
     min-height: 100vh;
@@ -419,7 +477,7 @@ ul {
     width: 650px;
     max-width: 60vw;
     transition: all 1s ease-in;
-    opacity: 1;
+    opacity: 0;
     border-style: groove;
     border-width: 2px;
     border-color: #777;
@@ -589,6 +647,7 @@ span.galleryFolderSelectors::first-letter{
     background-color: #fff;
     font-weight: bolder;
     box-shadow: rgba(255, 255, 255, 0.45) 0px 5px 15px 0px;
+    font-size: 18px;
 }
 
 .lightbox__tooltip--left-container ul li, .lightbox__tooltip--right-container ul li, .lightbox__tooltip--combined-container ul li{
@@ -688,11 +747,18 @@ span.galleryFolderSelectors::first-letter{
     border-radius: 20px;
 }
 
+
 .lightbox__backdrop{
     background-color: #fff;
 }
 
 /* Media Queries */
+@media screen and (max-width: 1250px){
+    .main__content p, .main__content span, .main__content--subheading{
+        padding: 0px 20px 10px 20px;
+    }
+}
+
 @media screen and (max-width: 800px){
     .main__content {
         padding: 60px 30px 30px 30px;
@@ -701,6 +767,11 @@ span.galleryFolderSelectors::first-letter{
     .main__overlay {
         padding-right: 0%;
         padding-left: 0%;
+    }
+
+    .main__content--two-col-list--sub-container{
+        margin: auto;
+        padding: 0px 10px 0px 10px;
     }
 
     .review--container{
@@ -750,6 +821,10 @@ span.galleryFolderSelectors::first-letter{
 @media screen and (max-width: 500px) {
     .lightbox__backdrop{
         padding: 5px;
+    }
+
+    .main__content--two-col-list--sub-container{
+        display: block;
     }
 }
 

@@ -1,39 +1,30 @@
-import Head from 'next/head'
-import dynamic from "next/dynamic";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import httpClient from "../common/httpClient";
-import {cc} from "../common/variables";
-import {ReactElement} from "react";
-import Navbar from "../components/Navbar";
+import type {ReactElement} from "react";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
+import Navbar from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
-import {GalleryMapMain} from "../components/mains/Gallery-Map";
+import {ContactMain} from "../components/mains/Contact";
+const cc = console.log;
 
-
-function GalleryMap<NextPage>(){
+function Contact<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
-    const MapWithNoSSR: React.ComponentType = dynamic(() => import("../components/LeafletMap"), {
-        ssr: false,
-    });
 
     return (
-        <div className={'threeDimensionalContainer' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
+        <div className={"threeDimensionalContainer" + (navbarOpenOrClosed === navbarOptions.open ? " active" : "")}>
             <GenericHead
-                content={"Stuff"}
-                metaName={"Image Galleries"}
+                content={"About"}
+                metaName={"About"}
             />
             <Navbar
                 navbarOpenOrClosed={navbarOpenOrClosed}
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
-            <GalleryMapMain
+            <ContactMain
                 isUserMobile={isUserMobile}
                 width={width}
                 screenOrientation={screenOrientation}
-                MapWithNoSSR={MapWithNoSSR}
             />
             <OverlayShadows
                 isUserMobile={isUserMobile}
@@ -46,8 +37,4 @@ function GalleryMap<NextPage>(){
     );
 }
 
-
-
-
-
-export default GalleryMap;
+export default Contact;

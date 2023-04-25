@@ -306,6 +306,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                 autoplayReset);
                         }} />
                     <div className={"lightbox__fullscreen--top-row"}>
+                        {lightboxOptionsActive.fullscreen &&
                         <div className={"lightbox__fullscreen--close-button"}
                              onClick={() => {
                                  lightboxOptionsActiveDispatch({type: lightboxReducerCases.fullscreen});
@@ -319,6 +320,7 @@ export function CreateFullscreenLightboxElems(lightboxOptionsActive: LightboxOpt
                                 />
                             </ThemeProvider>
                         </div>
+                        }
                     </div>
                 </div>
             </div>
