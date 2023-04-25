@@ -4,8 +4,8 @@ import NavbarLinks from "../components/NavbarLinks";
 import {HomeNavbar} from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
-import Basics from "../components/forEveryPage"; //@ts-ignore
-import {IndexMain} from "../components/mains";
+import Basics from "../components/forEveryPage";
+import {IndexMain} from "../components/mains/Index";
 
 const cc = console.log;
 
