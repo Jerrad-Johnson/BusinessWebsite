@@ -82,7 +82,7 @@ button {
 .main__content p, .main__content span{
     @apply
     px-20
-    mb-8
+    mb-4
 }
 
 .main__content span a{
@@ -100,10 +100,13 @@ button {
     font-size: 36px;
     font-family: "EB Garamond";
     color: darkkhaki;
-
     @apply
     pt-2
     pb-2
+    mt-6
+}
+.main__content--headline:first-of-type{
+    @apply
     mt-2
 }
 

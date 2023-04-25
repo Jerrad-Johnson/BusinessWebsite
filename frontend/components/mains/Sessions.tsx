@@ -38,14 +38,12 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                                 <br/>
 
                                 <div className={"main__content--subheading"}>Other Sessions</div>
-                                <div className={"main__content--equipment--sub-left"}>
-                                    {/*<div className={"main__content--equipment-headline"}>
-                                            About
-                                        </div>*/}
+                                <p>
                                     Wedding photography or videography, special events, large groups, etc.
-                                    <br/><br/>
+                                </p>
+                                <p>
                                     Contact me to discuss details and pricing.
-                                </div>
+                                </p>
                             </div>
 
                             <br/>
