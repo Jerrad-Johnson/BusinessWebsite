@@ -18,7 +18,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                         <div className={"main__content"}>
                             <div className={"main__content--headline"}>Intro</div>
                             <p>
-                                Welcome to {businessName}. My name is Jerrad Johnson, and I use a very traditional portraiture style. My clients are posed to accentuate their most flattering features and complement the scene. It's rare for me to capture candids, I believe you should have the privilege of intentional presentation.
+                                Welcome to {businessName}. My name is Jerrad Johnson, and I use a very traditional portraiture style. My clients are posed to accentuate their most flattering features and complement the scene. It{"'"}s rare for me to capture candids, I believe you should have the privilege of intentional presentation.
                             </p>
 
                             <p>
