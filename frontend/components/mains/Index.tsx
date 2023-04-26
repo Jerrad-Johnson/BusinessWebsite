@@ -1,5 +1,5 @@
 import {OrientationOptions} from "../../types/layout";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {reviews} from "../../common/reviews";
 import useInterval from "beautiful-react-hooks/useInterval";
 import indexStyles from "../../styles/Index.module.css";
@@ -43,11 +43,13 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                                 </div>
                             </div>*/}
 
+                            <Link href={"gallery"}><a>
                             <div className={"enter-site__container " + enterVisibility}>
                                 <div className={"enter-site__content"}>
-                                    <Link href={"gallery"}><a>See More</a></Link>
+                                    See More
                                 </div>
                             </div>
+                            </a></Link>
                         </div>
                             <div className={"home__address"}>Photographer serving Rapid City, South Dakota.</div>
                     </div>
