@@ -49,6 +49,9 @@ export const videoOther = [
 
 export const NavbarLinkTitles = [
     {
+        title: "Home",
+        url: "/",
+    }, {
         title: "Gallery",
         url: "gallery",
     }, {
