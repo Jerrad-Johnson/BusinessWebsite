@@ -7,7 +7,12 @@ import Basics from "./forEveryPage";
 
 function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>}){
     const {dispatch} = Basics();
-    const linkTransitionTimes = Array.from({length: NavbarLinkTitles.length+1}).fill(5).map((e, i ) => (((i*5) / 100)  + 0.05).toFixed(2)).map(e => `${e}s`);
+    const linkTransitionTimes = Array.from({length: NavbarLinkTitles.length+1})
+        .fill(5)
+        .map((e, i ) => (((i*5) / 100)  + 0.05)
+        .toFixed(2))
+        .map(e => `${e}s`);
+
     const linkElems = NavbarLinkTitles.map((elem, k) => {
         return (
             <li key={k}> {/*@ts-ignore*/}

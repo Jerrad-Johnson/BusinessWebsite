@@ -20,7 +20,7 @@ export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile:
                             </p>
 
                             <p>
-                                Feeling confident in my ability to at least create images with a beautiful, blurred background, I began working with models who have much more fragile psyches: humans! Shooting as often as five times a week, I practiced my studies of posing and lighting.
+                                Feeling confident in my ability to at least create images with beautiful, blurred backgrounds, I began working with models who have much more fragile psyches: humans! Shooting as often as five times a week, I practiced my studies of posing and lighting.
                             </p>
 
                             <p>
