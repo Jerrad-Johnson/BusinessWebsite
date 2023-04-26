@@ -24,7 +24,7 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
     useInterval(changeReview, 2250);*/
 
     const [enterVisibility, setEnterVisibility] = useState("inactive");
-    useTimeout(() => setEnterVisibility("active"), 1200);
+    useTimeout(() => setEnterVisibility("active"), 800);
 
     return(
         <div className={"main-container"}>
