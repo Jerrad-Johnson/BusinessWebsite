@@ -34,10 +34,10 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                             <div className={"main__content--subheading"}>Subcontract Work</div>
 
                             <p>
-                                For enough compensation, I{"'"}m also open to subcontracting to your media business.
+                                I{"'"}m open to subcontracting to your media business, and we will need to discuss pricing and expectations. Equipment:
                             </p>
 
-                            <div className={"main__content--equipment-headline"}>Photography Equipment</div>
+                            <div className={"main__content--equipment-headline"}>Photography</div>
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>
@@ -66,7 +66,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                                 </div>
                             </div>
 
-                            <div className={"main__content--equipment-headline"}>Videography Equipment</div>
+                            <div className={"main__content--equipment-headline"}>Videography</div>
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>

@@ -70,12 +70,12 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
     }
 
     for (let image of galleryInputs.images){
-        image.tooltip_left = (
+/*        image.tooltip_left = (
             <ul>
                 {image.alt && (<li>Title: {image.alt}</li>)}
                 {image.date && (<li>Date: {image.date.slice(0, 10)}</li>)}
             </ul>
-        )
+        )*/
         image.tooltip_right = (
             <ul>
                 {image.camera_model && (<li>Camera: {image.camera_model}</li>)}
