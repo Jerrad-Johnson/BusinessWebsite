@@ -17,6 +17,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
                             <div className={"main__content--headline"}>Intro</div>
+                            <div className={"main__content--subheading"}>Method</div>
                             <p>
                                 Welcome to {businessName}. My name is Jerrad Johnson, and I use a very traditional portraiture style. My clients are posed to accentuate their most flattering features and complement the scene. It{"'"}s rare for me to capture candids, I believe you should have the privilege of intentional presentation.
                             </p>
@@ -29,7 +30,14 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                                 My photo edits are usually mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I avoid the cake-like-skin style.
                             </p>
 
-                            <div className={"main__content--headline"}>Photography Equipment</div>
+
+                            <div className={"main__content--subheading"}>Subcontract Work</div>
+
+                            <p>
+                                For enough compensation, I'm also open to subcontracting to your media business.
+                            </p>
+
+                            <div className={"main__content--equipment-headline"}>Photography Equipment</div>
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>
@@ -58,7 +66,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                                 </div>
                             </div>
 
-                            <div className={"main__content--headline"}>Videography Equipment</div>
+                            <div className={"main__content--equipment-headline"}>Videography Equipment</div>
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>

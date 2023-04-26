@@ -58,7 +58,7 @@ button {
 }
 
 .main__content{
-    font-family: 'Alegreya'; /* Lato is also good, but very straight */
+    font-family: 'Alegreya+Sans'; /* Lato is also good, but very straight */
     font-size: 20px;
     width: 100%;
     max-width: 1100px;
@@ -85,6 +85,13 @@ button {
     mb-4
 }
 
+.main__content span.font--bold{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    font-weight: 600;
+
+}
+
 .main__content span a{
     color: #1179e7;
 }
@@ -93,7 +100,7 @@ button {
     display: none;
 }
 
-.main__content--headline{
+.main__content--headline, .main__content--equipment-headline{
     width: 100%;
     display: block;
     text-align: center;
@@ -105,6 +112,7 @@ button {
     pb-2
     mt-6
 }
+
 .main__content--headline:first-of-type{
     @apply
     mt-2

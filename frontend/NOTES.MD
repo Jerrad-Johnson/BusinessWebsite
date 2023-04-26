@@ -13,13 +13,18 @@ Create "Portfolio" page and from there link to Gallery (but not Geo Gallery), an
 ### Bio
 
 Selfie
+
 Link to book
-Photo of book
-Photo of gear
+
+Image of book
+
+Photo of gear, dog, car
 
 ### Contact
 
 -- Add map to Contact page.
+
+Replace contact text with buttons (email button, etc.)
 
 Add contact form.
 
