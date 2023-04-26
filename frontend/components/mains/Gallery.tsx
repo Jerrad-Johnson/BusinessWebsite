@@ -12,6 +12,7 @@ import NjGallery from "../../njGallery/NjGallery";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import httpClient from "../../common/httpClient";
 import Tab from "@mui/material/Tab";
+import Link from "next/link";
 
 export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
@@ -150,9 +151,17 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                                 {galleryFolders === isLoading && <CircularProgress/> }
                             </Box>
                             <hr/>
+
+                            <br/>
+                            <p>
+                                Thank you for taking the time to view my gallery. If you love the quality of my work, visit the <Link href={"/services"}><a>services</a></Link> page and consider booking with me.
+                            </p>
+
                             <NjGallery
                                 {...galleryInputs}
                             />
+
+
 
                         </div>
                     </div>

@@ -810,6 +810,11 @@ span.galleryFolderSelectors::first-letter{
         padding: 60px 30px 30px 30px;
     }
 
+    .home__address {
+        position: fixed;
+        bottom: 20px;
+    }
+
     .main__overlay {
         padding-right: 0%;
         padding-left: 0%;
