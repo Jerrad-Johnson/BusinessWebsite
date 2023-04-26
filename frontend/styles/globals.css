@@ -114,8 +114,22 @@ button {
     border-color: #777;
     font-family: Allura;
     font-size: 34px;
-
 }
+
+.home__address{
+    position:fixed;
+    bottom: 28px;
+    font-size: 28px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: "EB Garamond";
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    /*box-shadow: 0px 0px 82px 19px rgba(0,0,0,0.58);*/
+    text-shadow: 2px 2px 2px #000000;
+    text-align: center;
+}
+
 
 .enter-site__container.active{
     opacity: 1;

@@ -49,6 +49,7 @@ export function IndexMain({isUserMobile, width, screenOrientation}:
                                 </div>
                             </div>
                         </div>
+                            <div className={"home__address"}>Photographer serving Rapid City, South Dakota.</div>
                     </div>
                 </header>
             </div>
