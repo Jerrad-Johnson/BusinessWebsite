@@ -24,15 +24,15 @@ export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile:
                             </p>
 
                             <p>
-                                Both my interest in psychology, and my technical mindset played vital roles in the style I developed. On the one hand I wanted to pose my models perfectly, exhibiting impeccable form, and on the other hand I wanted them to show emotion or personality. Later when I studied aesthetic philosophy, I learned that <span className={"font--bold"}>intentional</span> self presentation <i>is</i> traditional portraiture. So my style is traditional! But fair warning, I{"'"}m far from being a traditional character. This is noticeable in my photography too, having captured everything from business headshots and lightbox work, to art nudes and erotica.
+                                Both my interest in psychology, and my technical mindset played vital roles in the style I developed. On the one hand I wanted to pose my models perfectly, exhibiting impeccable form, and on the other hand I wanted them to show emotion or personality. Later when I studied aesthetic philosophy, I learned that <span className={"font--bold"}>intentional</span> self presentation <i>is</i> traditional portraiture. So my style is traditional! But fair warning, I{"'"}m far from being a traditional character. This is apparent in my photography too, having captured everything from business headshots and lightbox work, to art nudes and erotica.
                             </p>
 
                             <p>
-                                I{"'"}m a man of many interests, varied experiences, and unconventional points of view. Although photography is important to me, I{"'"}m primarily a software developer. This website is intended to be my most substantial software portfolio project. And I{"'"}m also a student, triple majoring in psychology, philosophy, and computer science. Some seem to believe that teaching me psychology is akin to infecting humanity with the plague. I{"'"}m not sure why that is, I would never do something like sarcastically telling you that I{"'"}m a saint who would never troll or make off-the-wall comments for sheer amusement.
+                                I{"'"}m a man of many interests, varied experiences, and unconventional points of view. Although photography is important to me, I{"'"}m primarily a software developer. This website is intended to be my most substantial software portfolio project. And I{"'"}m also a student, triple majoring in psychology, philosophy, and computer science. Some seem to believe that teaching me psychology is akin to infecting humanity with the plague. I am not sure why that is, I would never do something like sarcastically telling you that I{"'"}m a saint who would never troll or make off-the-wall comments for sheer amusement.
                             </p>
 
                             <p>
-                                Anyway, there is surprisingly one arena where all three majors intersect, and that is philosophy of mind. I didn{"'"}t even know that until I took the class, so I get no brownie points for relentless dedication to a single cause.
+                                Anyway there is surprisingly one arena where all three majors intersect, and that is philosophy of mind. I didn{"'"}t even know that until I took the class, so I get no brownie points for relentless dedication to a single cause.
                             </p>
 
                             <p>
