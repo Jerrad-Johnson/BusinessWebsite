@@ -43,6 +43,8 @@ Turn each service into a clickable card. Popup with service details.
 
 Add a CTA to each card. CTA links to contact page's form (#)
 
+Move "Equipment" to a card for subcontracting
+
 ### Gallery Page
 
 // Convert selector to a scroll wheel. Add a second wheel, for selecting category (portraits, etc.) ... Actually, I don't want to render my non-portrait images in a lightbox. Too easy to steal high res versions.

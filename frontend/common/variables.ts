@@ -60,10 +60,10 @@ export const NavbarLinkTitles = [
     }, {
         title: "Services",
         url: "services",
-    }, {
+    },/* {
         title: "About",
         url: "about",
-    }, {
+    },*/ {
         title: "Bio",
         url: "bio",
     }, {

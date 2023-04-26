@@ -48,7 +48,12 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
                             <br/>
 
+                            <div className={"main__content--headline"}>Method</div>
+
+                            <p>My portraiture style is traditional. I direct my clients{"'"} poses, and rarely shoot candids. This may sound difficult, but it{"'"}s not -- except for a bit of muscle fatigue! Because I will guide your poses, it{"'"}s quite simple.</p>
+
                             <div className={"main__content--headline"}>Notes</div>
+
                             <p>Session fee includes sales tax.</p>
 
                             <p>Check or cash payment is due before your session begins. Refunds will be granted only if I lose your photos before delivering them to you, or if I am unhappy with the results and unwilling to deliver substandard photos.</p>
