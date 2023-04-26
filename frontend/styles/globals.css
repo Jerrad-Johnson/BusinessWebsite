@@ -96,6 +96,30 @@ button {
     color: #1179e7;
 }
 
+.enter-site__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    /*background: radial-gradient(circle, rgba(88,88,88,.35) 0%, rgba(0,0,0,0) 100%);*/
+    box-shadow: 0px 0px 82px 19px rgba(0,0,0,0.58);
+    width: 160px;
+    padding-top: 5px;
+    height: 80px;
+    transition: all 1s ease-in;
+    opacity: 0;
+    border-style: groove;
+    border-width: 2px;
+    border-color: #777;
+    font-family: Allura;
+    font-size: 34px;
+
+}
+
+.enter-site__container.active{
+    opacity: 1;
+}
 .main__content::-webkit-scrollbar {
     display: none;
 }
