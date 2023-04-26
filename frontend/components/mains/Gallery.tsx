@@ -154,7 +154,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
 
                             <br/>
                             <p>
-                                Thank you for taking the time to view my gallery. If you love my work, visit the <Link href={"/services"}><a>services</a></Link> page and consider booking with me.
+                                Love my work? Visit the <Link href={"/services"}><a>services</a></Link> page next.
                             </p>
 
                             <NjGallery
