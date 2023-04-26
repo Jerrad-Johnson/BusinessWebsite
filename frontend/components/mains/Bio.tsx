@@ -1,5 +1,6 @@
 import {OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
+import Link from "next/link";
 
 export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
@@ -15,7 +16,7 @@ export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile:
                             <div className={"main__content--subheading"}>Jerrad Johnson</div>
 
                             <p>
-                                My journey into photography was fueled by a desire for quality pictures of my many hobbies. Eventually I realized that despite having a long, proven track record of possessing net negative aesthetic talent, I actually had an eye for this. Being the only form of beauty I was capable of producing, I was driven to nurture my talent. Naturally I began with captive models, the implication(link) is a form of witness control. The parrots at Reptile Gardens were the subject of countless artistic blunders, and their sacrifice was honored. That is how I learned to focus on the background and position my model to complement it.
+                                My journey into photography was fueled by a desire for quality pictures of my many hobbies. Eventually I realized that despite having a long, proven track record of possessing net negative aesthetic talent, I actually had an eye for this. Being the only form of beauty I was capable of producing, I was driven to nurture my talent. Naturally I began with captive models, the <Link href={"https://www.youtube.com/watch?v=THvCDn8mGwo"}><a target={"_blank"}>implication</a></Link> is a form of witness control. The parrots at Reptile Gardens were the subject of countless artistic blunders, and their sacrifice was honored. That is how I learned to focus on the background and position my model to complement it.
                             </p>
 
                             <p>
@@ -35,7 +36,7 @@ export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile:
                             </p>
 
                             <p>
-                                I prefer pursuing many causes, so to speak. I have more skills than I have time to cultivate them. I{"'"}ve tried so many other things too, ranging from building speakers all the way to stripping for a bachelorette party. But how I most enjoy spending my time is hanging out with my German Shepherd, watching good movies, capturing beautiful photos, driving fun cars, writing, making people laugh, learning, and going to the gym. Oh, and lap dancing.
+                                Instead I prefer pursuing many causes, so to speak. I have more skills than I have time to cultivate them. I{"'"}ve tried so many other things too, ranging from building speakers all the way to stripping for a bachelorette party. But how I most enjoy spending my time is hanging out with my German Shepherd, watching good movies, capturing beautiful photos, driving fun cars, writing, making people laugh, learning, and going to the gym. Oh, and lap dancing.
                             </p>
 
                         </div>

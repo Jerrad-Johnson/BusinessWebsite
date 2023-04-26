@@ -10,20 +10,19 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
     const linkTransitionTimes = Array.from({length: NavbarLinkTitles.length+1}).fill(5).map((e, i ) => (((i*5) / 100)  + 0.05).toFixed(2)).map(e => `${e}s`);
     const linkElems = NavbarLinkTitles.map((elem, k) => {
         return (
-            <li>
+            <li> {/*@ts-ignore*/}
                 <Link href={elem.url} passHref legacyBehavior><a onClick={(event) => { navigationDelayHandler(event, setNavbarOpenOrClosed) }} style={{"--i": linkTransitionTimes[k]}}>{elem.title}</a></Link>
             </li>
         )
-    })
+    });
 
     return (
         <div className={"links"}>
             <ul>
                 {linkElems}
-
                 <hr/>
-                <li>{/*@ts-ignore*/}
-                    <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp;{/*@ts-ignore*/}
+                <li> {/*@ts-ignore*/}
+                    <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp; {/*@ts-ignore*/}
                     <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(darkTheme()); }}>Dark</a>
                 </li>
             </ul>
