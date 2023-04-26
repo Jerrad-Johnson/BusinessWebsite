@@ -34,7 +34,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                             <div className={"main__content--subheading"}>Subcontract Work</div>
 
                             <p>
-                                For enough compensation, I'm also open to subcontracting to your media business.
+                                For enough compensation, I{"'"}m also open to subcontracting to your media business.
                             </p>
 
                             <div className={"main__content--equipment-headline"}>Photography Equipment</div>

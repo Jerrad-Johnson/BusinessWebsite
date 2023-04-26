@@ -10,7 +10,7 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
     const linkTransitionTimes = Array.from({length: NavbarLinkTitles.length+1}).fill(5).map((e, i ) => (((i*5) / 100)  + 0.05).toFixed(2)).map(e => `${e}s`);
     const linkElems = NavbarLinkTitles.map((elem, k) => {
         return (
-            <li> {/*@ts-ignore*/}
+            <li key={k}> {/*@ts-ignore*/}
                 <Link href={elem.url} passHref legacyBehavior><a onClick={(event) => { navigationDelayHandler(event, setNavbarOpenOrClosed) }} style={{"--i": linkTransitionTimes[k]}}>{elem.title}</a></Link>
             </li>
         )
