@@ -16,19 +16,41 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
     const linkElems = NavbarLinkTitles.map((elem, k) => {
         return (
             <li key={k}> {/*@ts-ignore*/}
-                <Link href={elem.url} passHref legacyBehavior><a onClick={(event) => { navigationDelayHandler(event, setNavbarOpenOrClosed) }} style={{"--i": linkTransitionTimes[k]}}>{elem.title}</a></Link>
+                <Link href={elem.url} passHref legacyBehavior><a onClick={(event) => { navigationDelayHandler(event, setNavbarOpenOrClosed) }}>{elem.title}</a></Link>
             </li>
         )
     });
 
+
     return (
         <div className={"links"}>
+                <div className={"navbar__links--close-button"}
+                     onClick={(e) => {
+                         setNavbarOpenOrClosed(navbarOptions.closed);
+                     }}
+                     style={{cursor: "pointer"}}
+                 >X</div>
             <ul>
+                <hr/>
                 {linkElems}
                 <hr/>
-                <li> {/*@ts-ignore*/}
-                    <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp; {/*@ts-ignore*/}
-                    <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(darkTheme()); }}>Dark</a>
+                <li>
+                    <a style={{cursor: "pointer"}}
+                       onClick={(e) => {
+                           e.preventDefault();
+                           dispatch(lightTheme());
+                           setNavbarOpenOrClosed(navbarOptions.closed);
+                       }}
+                    >Light</a>
+                    &nbsp;
+                    &nbsp;
+                    <a style={{cursor: "pointer"}}
+                       onClick={(e) => {
+                           e.preventDefault();
+                           dispatch(darkTheme());
+                           setNavbarOpenOrClosed(navbarOptions.closed);
+                       }}
+                    >Dark</a>
                 </li>
             </ul>
         </div>
@@ -44,7 +66,7 @@ function navigationDelayHandler(e: MouseEvent, setNavbarOpenOrClosed: Dispatch<S
         const href = target.getAttribute("href");
         if(!href) return;
         window.location.href = href;
-    }, 200);
+    }, 700);
 }
 
 export default NavbarLinks;

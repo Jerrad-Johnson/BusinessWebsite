@@ -12,6 +12,7 @@ export function BackgroundImage({screenOrientation}: {screenOrientation: orienta
                layout={'fill'}
                objectFit={'cover'}
                objectPosition={'center'}
-               alt={'Website Background Portrait'}/>
+               alt={'Website Background Portrait'}
+        />
     );
 }

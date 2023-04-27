@@ -1,6 +1,3 @@
-.threeDimensionalContainer {
-    background-image: linear-gradient(135deg, #485461 0%, #28313b 74%);
-}
 
 .main__content{
     background-color: rgba(255, 255, 255, .97);
@@ -31,47 +28,7 @@
     background-color: rgba(255, 255, 255, 0.2);
 }*/
 
-.navbar__bar{
-    background-color: #000;
-}
 
-.navbar__bar:before,
-.navbar__bar:after {
-    background-color: #000;
-}
-
-.navbar__bar.home{
-    background-color: #eee;
-}
-
-.navbar__bar.home:before,
-.navbar__bar.home:after {
-    background-color: #eee;
-}
-
-.navbar__logo {
-    color: #444;
-}
-
-.navbar__logo.navOpen{
-    color: #fff;
-}
-
-.navbar__bar.navOpen:before,
-.navbar__bar.navOpen:after {
-    background-color: #fff;
-}
-
-.navbar__menu.navOpen {
-    box-shadow: none;
-    transition: all 0.5s ease-in-out;
-}
-
-/* TODO Make this BG color fade */
-.navbar__menu.navOpen{
-    width: 100%;
-    background-color: rgba(0, 0, 0, .0);
-}
 
 .lightbox__backdrop{
     background-color: #fff;
