@@ -71,8 +71,8 @@ button {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     box-shadow: 20px 0 20px -4px rgba(0, 0, 0, 0.4), -20px 0 20px -4px rgba(0, 0, 0, 0.4);
-
     padding-top: 60px;
+    padding-bottom: 30px;
 
     @apply
     pl-16
@@ -130,6 +130,10 @@ button {
     text-align: center;
 }
 
+
+.p.list{
+    padding: 0px 20px 0px 20px;
+}
 
 .enter-site__container.active{
     opacity: 1;
