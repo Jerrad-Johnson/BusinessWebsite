@@ -1,7 +1,36 @@
 import {OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
+import Image from "next/image";
+import seniorPortrait from '../../photos/svc_cards/senior.png';
+import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
 
 export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+
+    const standardCardBottomMessage = "Click for more info.";
+
+    const svcCardData = [
+        {
+            cardTop: "Senior Portraits",
+            cardMiddle: seniorPortrait,
+        }, {
+            cardTop: "Boudoir",
+            cardMiddle: boudoirPortrait,
+        }
+    ];
+
+    const svcCardElems = svcCardData.map((e, k) => {
+        return (
+            <div key={k} className={"services-card__container"}>
+                <div className={"services-card__top-row"}>
+                    {e.cardTop}
+                </div>
+
+                <div className={"services-card__middle-row"}>
+                    <Image src={e.cardMiddle} alt={"test"}/>
+                </div>
+            </div>
+        );
+    });
 
     return (
         <div className={"main-container"}>
@@ -10,8 +39,13 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                     <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
-
                             <div className={"main__content--equipment--main-container"}>
+
+                                <br/>
+                                <div className={"services-cards-spacer"}>
+                                    {svcCardElems}
+                                </div>
+
                                 <div className={"main__content--headline"}>Services</div>
                                 <div className={"main__content--subheading"}>Standard Portraits</div>
                                 <p>
