@@ -3,6 +3,11 @@ import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import Image from "next/image";
 import seniorPortrait from '../../photos/svc_cards/senior.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
+import couplePortrait from '../../photos/svc_cards/couple.png';
+import familyPortrait from '../../photos/svc_cards/family.png';
+import headshotPortrait from '../../photos/svc_cards/headshot.png';
+import themedPortrait from '../../photos/svc_cards/themed.png';
+import otherPortrait from '../../photos/svc_cards/other.png';
 
 export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
@@ -12,10 +17,28 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
         {
             cardTop: "Senior Portraits",
             cardMiddle: seniorPortrait,
-        }, {
+        },{
+            cardTop: "Family Portraits",
+            cardMiddle: familyPortrait,
+        },{
+            cardTop: "Couples Portraits",
+            cardMiddle: couplePortrait,
+        },{
+            cardTop: "Themed Portraits",
+            cardMiddle: themedPortrait,
+        },{
+            cardTop: "Headshot Portraits",
+            cardMiddle: headshotPortrait,
+        },{
             cardTop: "Boudoir",
             cardMiddle: boudoirPortrait,
-        }
+        },{
+            cardTop: "Other Portraits",
+            cardMiddle: otherPortrait,
+        }/*,{
+            cardTop: "Subcontract",
+            cardMiddle: headshotPortrait,
+        }*/
     ];
 
     const svcCardElems = svcCardData.map((e, k) => {
@@ -42,11 +65,13 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                             <div className={"main__content--equipment--main-container"}>
 
                                 <br/>
+
+
+                                <div className={"main__content--headline"}>Services</div>
+                                <p>Scroll past the images to see general session information.</p>
                                 <div className={"services-cards-spacer"}>
                                     {svcCardElems}
                                 </div>
-
-                                <div className={"main__content--headline"}>Services</div>
                                 <div className={"main__content--subheading"}>Standard Portraits</div>
                                 <p>
                                     Senior portraits, business headshots, couples photos, etc.
