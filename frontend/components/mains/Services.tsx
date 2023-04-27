@@ -8,6 +8,7 @@ import familyPortrait from '../../photos/svc_cards/family.png';
 import headshotPortrait from '../../photos/svc_cards/headshot.png';
 import themedPortrait from '../../photos/svc_cards/themed.png';
 import otherPortrait from '../../photos/svc_cards/other.png';
+import weddingPortrait from '../../photos/svc_cards/wedding.png';
 
 export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
@@ -15,25 +16,28 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
     const svcCardData = [
         {
-            cardTop: "Senior Portraits",
+            cardTop: "Wedding",
+            cardMiddle: weddingPortrait,
+        },{
+            cardTop: "Senior",
             cardMiddle: seniorPortrait,
         },{
-            cardTop: "Family Portraits",
+            cardTop: "Family",
             cardMiddle: familyPortrait,
         },{
-            cardTop: "Couples Portraits",
+            cardTop: "Couples",
             cardMiddle: couplePortrait,
         },{
-            cardTop: "Themed Portraits",
+            cardTop: "Themed",
             cardMiddle: themedPortrait,
         },{
-            cardTop: "Headshot Portraits",
+            cardTop: "Headshot",
             cardMiddle: headshotPortrait,
         },{
-            cardTop: "Boudoir",
+            cardTop: "Boudoir & Erotic",
             cardMiddle: boudoirPortrait,
         },{
-            cardTop: "Other Portraits",
+            cardTop: "Other",
             cardMiddle: otherPortrait,
         }/*,{
             cardTop: "Subcontract",
@@ -72,7 +76,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                                 <div className={"services-cards-spacer"}>
                                     {svcCardElems}
                                 </div>
-                                <div className={"main__content--subheading"}>Standard Portraits</div>
+                                {/*<div className={"main__content--subheading"}>Standard Portraits</div>
                                 <p>
                                     Senior portraits, business headshots, couples photos, etc.
                                 </p>
@@ -102,7 +106,7 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
                                 </p>
                                 <p>
                                     Contact me to discuss details and pricing.
-                                </p>
+                                </p>*/}
                             </div>
 
                             <br/>
