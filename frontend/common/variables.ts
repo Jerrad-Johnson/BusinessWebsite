@@ -52,22 +52,19 @@ export const NavbarLinkTitles = [
         title: "Home",
         url: "/",
     }, {
+        title: "Services",
+        url: "/#services",
+    },{
         title: "Gallery",
         url: "gallery",
     }, {
-        title: "Geo Gallery",
+        title: "Photo Map",
         url: "gallery-map",
-    }, {
-        title: "Services",
-        url: "/#services",
-    },/* {
-        title: "About",
-        url: "about",
-    },*/ {
-        title: "Bio",
-        url: "bio",
-    }, {
+    },{
         title: "Contact",
         url: "/#contact",
+    }, {
+        title: "Bio",
+        url: "bio",
     },
 ]
