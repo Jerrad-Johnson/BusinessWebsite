@@ -1,12 +1,19 @@
-import {OrientationOptions} from "../../types/layout";
+import {NavbarOptions, OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import Link from "next/link";
+import {Dispatch, SetStateAction} from "react";
+import MainDiv from "../MainDiv";
 
-export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
-
+export function BioMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
+    isUserMobile: boolean,
+    width: number,
+    screenOrientation: OrientationOptions
+    navbarOpenOrClosed: NavbarOptions,
+    setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>
+}){
     return (
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+            <MainDiv isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
                 <header>
                     <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
@@ -42,7 +49,7 @@ export function BioMain({isUserMobile, width, screenOrientation}: {isUserMobile:
                         </div>
                     </div>
                 </header>
-            </div>
+            </MainDiv>
         </div>
     );
 }

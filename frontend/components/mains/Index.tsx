@@ -10,6 +10,7 @@ import otherPortrait from '../../photos/svc_cards/other.png';
 import weddingPortrait from '../../photos/svc_cards/wedding.png';
 import {businessName, navbarOptions} from "../../common/variables";
 import {Dispatch, SetStateAction} from "react";
+import MainDiv from "../MainDiv";
 const cc = console.log;
 
 export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
@@ -67,10 +68,7 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
 
     return (
         <div className={"main-container"}>
-            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}
-            onClick={(e) => {
-                if (navbarOpenOrClosed === navbarOptions.open) setNavbarOpenOrClosed(navbarOptions.closed);
-            }}>
+            <MainDiv isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
                 <header>
                     <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
@@ -89,7 +87,7 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                             </p>
 
 
-{/*                                    You didn't have anyone to instruct your pose. It's not your fault
+{/*                             You didn't have anyone to instruct your pose. It's not your fault
 
                                 My portraiture style is traditional and as such I choose to pose my models rather than shoot candids -- most of the time. If you've
 
@@ -122,7 +120,7 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                         </div>
                     </div>
                 </header>
-            </div>
+            </MainDiv>
 
 
             {/*<div className={"main__content--subheading"}>Standard Portraits</div>

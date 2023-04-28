@@ -25,6 +25,8 @@ function Contact<NextPage>(): ReactElement{
                 isUserMobile={isUserMobile}
                 width={width}
                 screenOrientation={screenOrientation}
+                navbarOpenOrClosed={navbarOpenOrClosed}
+                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
             <OverlayShadows
                 isUserMobile={isUserMobile}

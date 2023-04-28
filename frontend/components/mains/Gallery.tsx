@@ -1,4 +1,4 @@
-import {OrientationOptions} from "../../types/layout";
+import {NavbarOptions, OrientationOptions} from "../../types/layout";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {GalleryInputs, ImageData} from "../../njGallery/types/njGallery";
 import {GalleryFolderSpans, IsLoading} from "../../common/types";
@@ -13,9 +13,15 @@ import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import httpClient from "../../common/httpClient";
 import Tab from "@mui/material/Tab";
 import Link from "next/link";
+import MainDiv from "../MainDiv";
 
-export function GalleryMain({isUserMobile, width, screenOrientation}:
-                                {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
+    isUserMobile: boolean,
+    width: number,
+    screenOrientation: OrientationOptions
+    navbarOpenOrClosed: NavbarOptions,
+    setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>
+}){
 
     const [photos, setPhotos] = useState<ImageData[]>([]);
     const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
@@ -129,7 +135,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
     }
 
     return (
-        <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
+        <MainDiv isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
             <header>
                 <ThemeProvider theme={styledTab}>
                     <BackgroundImage screenOrientation={screenOrientation}/>
@@ -161,7 +167,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                     </div>
                 </ThemeProvider>
             </header>
-        </div>
+        </MainDiv>
     );
 }
 
