@@ -83,9 +83,11 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                             </div>
                             <p>
                                 Remember those pictures you{"'"}ve seen of yourself that made you ask in exasperation
-                                {'"'}what was I thinking?{'"'} That{"'"}s the reason I use a traditional portraiture style.
+                                {' "'}what was I thinking?{'"'} That{"'"}s the reason I use a traditional portraiture style.
                                 Candids tend to show you in less-than-great light, and you deserve the opportunity
-                                to be seen at your best. When you work with me I{"'"}ll guide your poses, so you won{"'"}t have to practice in front of a mirror and cross your fingers.
+                                to be seen at your best. When you work with me I{"'"}ll guide your poses, so
+                                you won{"'"}t have to practice in front of a mirror and cross your fingers. Instead you{"'"}ll have
+                                flattering pictures you{"'"}ll want to share even decades from now.
                             </p>
 
 
