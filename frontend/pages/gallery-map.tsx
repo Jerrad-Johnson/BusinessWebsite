@@ -33,6 +33,8 @@ function GalleryMap<NextPage>(){
                 isUserMobile={isUserMobile}
                 width={width}
                 screenOrientation={screenOrientation}
+                navbarOpenOrClosed={navbarOpenOrClosed}
+                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
                 MapWithNoSSR={MapWithNoSSR}
             />
             <OverlayShadows

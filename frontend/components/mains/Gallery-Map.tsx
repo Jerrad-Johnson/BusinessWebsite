@@ -1,20 +1,22 @@
-import {OrientationOptions} from "../../types/layout";
-import {useState} from "react";
+import {NavbarOptions, OrientationOptions} from "../../types/layout";
+import {Dispatch, SetStateAction, useState} from "react";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
+import MainDivAndHeader from "../MainDivAndHeader";
 
-export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithNoSSR}:
-                                   {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions, MapWithNoSSR: React.ComponentType}){
+export function GalleryMapMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed, MapWithNoSSR}:{
+    isUserMobile: boolean,
+    width: number,
+    screenOrientation: OrientationOptions,
+    navbarOpenOrClosed: NavbarOptions,
+    setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>,
+    MapWithNoSSR: React.ComponentType
+}){
 
     const [lens, setLens] = useState("");
 
     return (
-        <div className={"main-container"}>
-            <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
-                <header>
-                    <BackgroundImage screenOrientation={screenOrientation}/>
-                    <div className={"main__overlay"}>
-                        <div className={"main__content"}>
+        <MainDivAndHeader isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
                             <div className={"main__content--headline"}></div>
                             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                                 <InputLabel id="demo-simple-select-standard-label">Lens</InputLabel>
@@ -97,10 +99,6 @@ export function GalleryMapMain({isUserMobile, width, screenOrientation, MapWithN
                             <div id={"map"} className={"height: 100px;"}>
                                 <MapWithNoSSR />
                             </div>
-                        </div>
-                    </div>
-                </header>
-            </div>
-        </div>
+        </MainDivAndHeader>
     );
 }

@@ -13,7 +13,8 @@ import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import httpClient from "../../common/httpClient";
 import Tab from "@mui/material/Tab";
 import Link from "next/link";
-import MainDiv from "../MainDiv";
+import MainDivAndHeader from "../MainDivAndHeader";
+import MainContentAndOverlay from "../MainContentAndOverlay";
 
 export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
     isUserMobile: boolean,
@@ -135,39 +136,32 @@ export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenO
     }
 
     return (
-        <MainDiv isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
-            <header>
-                <ThemeProvider theme={styledTab}>
-                    <BackgroundImage screenOrientation={screenOrientation}/>
-                    <div className={"main__overlay"}>
-                        <div className={"main__content"}>
-                            <div className={"main__content--headline"}>Gallery</div>
-                            <hr/>
-                            <Box>
-                                <Tabs
-                                    value={galleryTabSelected}
-                                    TabIndicatorProps={{ sx: { display: 'none' } }}
-                                    sx={{
-                                        '& .MuiTabs-flexContainer': {
-                                            flexWrap: 'wrap',
-                                        },
-                                    }}>
-                                    {galleryFolders !== isLoading && galleryFolders }
-                                </Tabs>
-                                {galleryFolders === isLoading && <CircularProgress/> }
-                            </Box>
-                            <hr/>
+        <MainDivAndHeader isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
+            <ThemeProvider theme={styledTab}>
+                <div className={"main__content--headline"}>Gallery</div>
+                <hr/>
+                <Box>
+                    <Tabs
+                        value={galleryTabSelected}
+                        TabIndicatorProps={{ sx: { display: 'none' } }}
+                        sx={{
+                            '& .MuiTabs-flexContainer': {
+                                flexWrap: 'wrap',
+                            },
+                        }}>
+                        {galleryFolders !== isLoading && galleryFolders }
+                    </Tabs>
+                    {galleryFolders === isLoading && <CircularProgress/> }
+                </Box>
+                <hr/>
 
-                            <br/>
+                <br/>
 
-                            <NjGallery
-                                {...galleryInputs}
-                            />
-                        </div>
-                    </div>
-                </ThemeProvider>
-            </header>
-        </MainDiv>
+                <NjGallery
+                    {...galleryInputs}
+                />
+            </ThemeProvider>
+        </MainDivAndHeader>
     );
 }
 
