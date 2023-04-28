@@ -1,6 +1,6 @@
 import {OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import seniorPortrait from '../../photos/svc_cards/senior2.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
 import couplePortrait from '../../photos/svc_cards/couple2.png';
@@ -191,7 +191,10 @@ export function TestMain({isUserMobile, width, screenOrientation, navbarOpenOrCl
 
                     <a href={e.svcUrl}><div className={"services-card__middle-row"} style={{cursor: "pointer"}}>
                         {/*<img src={e.cardUrl}/>*/}
-                        <Image src={e.cardMiddle} alt={"test"} quality={100} priority={true}/>
+                        <Image src={e.cardMiddle} alt={"test"} quality={100}  priority={true}
+
+                               style={{boxShadow: "0px 0px 50px 15px rgba(0,0,0,0.58)"}}
+                        />
                     </div>
                     </a>
                 </div>
