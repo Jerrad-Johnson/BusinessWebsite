@@ -1,10 +1,10 @@
 import {OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import Image from "next/image";
-import seniorPortrait from '../../photos/svc_cards/senior2.png';
+import seniorPortrait from '../../photos/svc_cards/senior.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
-import couplePortrait from '../../photos/svc_cards/couple2.png';
-import familyPortrait from '../../photos/svc_cards/family2.png';
+import couplePortrait from '../../photos/svc_cards/couple.png';
+import familyPortrait from '../../photos/svc_cards/family.png';
 import headshotPortrait from '../../photos/svc_cards/headshot.png';
 import themedPortrait from '../../photos/svc_cards/themed.png';
 import otherPortrait from '../../photos/svc_cards/other.png';
@@ -12,9 +12,6 @@ import weddingPortrait from '../../photos/svc_cards/wedding.png';
 import Navbar from "../Navbar";
 import {navbarOptions} from "../../common/variables";
 import NavbarLinks from "../NavbarLinks";
-import {orientations} from "../../hooks/useOrientation";
-import landscapeBackground from "../../public/backgrounds/hp.jpg";
-import portraitBackground from "../../public/backgrounds/mw.jpg";
 const cc = console.log;
 
 export function TestMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
@@ -80,15 +77,6 @@ export function TestMain({isUserMobile, width, screenOrientation, navbarOpenOrCl
 
     return (
         <>
-        <div className={"background"}>
-            <Image src={(screenOrientation === orientations.landscape ? landscapeBackground : portraitBackground)}
-                   placeholder={"blur"}
-                   layout={'fill'}
-                   objectFit={'cover'}
-                   objectPosition={'center'}
-                   alt={'Website Background Portrait'}
-            />
-        </div>
             <div className={"navigation-pane__container " +  (navbarOpenOrClosed === navbarOptions.open ? "active " : "")}
                 onClick={(e) => {
                     setNavbarOpenOrClosed(navbarOptions.closed);
