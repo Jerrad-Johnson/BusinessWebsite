@@ -5,7 +5,6 @@ import seniorPortrait from '../../photos/svc_cards/senior2.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
 import couplePortrait from '../../photos/svc_cards/couple2.png';
 import familyPortrait from '../../photos/svc_cards/family2.png';
-import headshotPortrait from '../../photos/svc_cards/headshot.png';
 import themedPortrait from '../../photos/svc_cards/themed.png';
 import otherPortrait from '../../photos/svc_cards/other.png';
 import weddingPortrait from '../../photos/svc_cards/wedding.png';
@@ -34,22 +33,21 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
             cardTop: "Couples",
             cardMiddle: couplePortrait,
         },{
-            cardTop: "Themed",
+/*            cardTop: "Themed",
             cardMiddle: themedPortrait,
-        },{
+        },{*/
 /*            cardTop: "Headshot Portraits",
             cardMiddle: headshotPortrait,
         },{*/
-            cardTop: "Other",
-            cardMiddle: otherPortrait,
-        },{
 
             cardTop: "Wedding",
             cardMiddle: weddingPortrait,
         },{
-
             cardTop: "Boudoir & Erotic",
             cardMiddle: boudoirPortrait,
+        },{
+            cardTop: "Other",
+            cardMiddle: otherPortrait,
         }
     ];
 
