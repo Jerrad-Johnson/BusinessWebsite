@@ -1,6 +1,6 @@
 import {OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import seniorPortrait from '../../photos/svc_cards/senior.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
 import couplePortrait from '../../photos/svc_cards/couple.png';
