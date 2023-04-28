@@ -53,14 +53,14 @@ export const NavbarLinkTitles = [
         url: "/",
     }, {
         title: "Gallery",
-        url: "/testindex#gallery",
+        url: "gallery",
     }, {
         title: "Geo Gallery",
         url: "gallery-map",
-    },/* {
+    }, {
         title: "Services",
-        url: "/testindex#services",
-    },*//* {
+        url: "services",
+    },/* {
         title: "About",
         url: "about",
     },*/ {
@@ -68,6 +68,6 @@ export const NavbarLinkTitles = [
         url: "bio",
     }, {
         title: "Contact",
-        url: "/testindex#contact",
+        url: "contact",
     },
 ]

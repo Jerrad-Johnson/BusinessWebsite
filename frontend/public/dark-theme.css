@@ -1,13 +1,36 @@
+.threeDimensionalContainer {
+    background-image: linear-gradient(135deg, #222 0%, #111 74%);
+}
+
 .main__overlay {
     /*background-color: rgba(0, 0, 0, 0.4);*/
 }
 
-.main__content, .navbar{
+.homeOverlay{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.main__content{
     background-color: rgba(20, 20, 20, .98);
 }
 
 body{
     color: #ccc;
+}
+
+.navbar__menu{
+    background-color: rgba(20, 20, 20, .98);
+}
+
+.navbar__menu.navOpen {
+    box-shadow: none;
+    transition: all 0.5s ease-in-out;
+}
+
+/* TODO Make this BG color fade */
+.navbar__menu.navOpen{
+    width: 100%;
+    background-color: rgba(0, 0, 0, .0);
 }
 
 .lightbox__backdrop{
@@ -36,8 +59,5 @@ body{
 .main__content--equipment-headline{
     color: #797545;
     font-size: 30px;
-}
 
-.navbar__bar, .navbar__bar:before, .navbar__bar:after {
-    background-color: #ccc;
 }
