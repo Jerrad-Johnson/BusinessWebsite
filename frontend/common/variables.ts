@@ -46,3 +46,28 @@ export const videoOther = [
     "(3) Zoom H1n",
     "Ronin-S",
 ]
+
+export const NavbarLinkTitles = [
+    {
+        title: "Home",
+        url: "/",
+    }, {
+        title: "Gallery",
+        url: "gallery",
+    }, {
+        title: "Geo Gallery",
+        url: "gallery-map",
+    }, {
+        title: "Services",
+        url: "/#services",
+    },/* {
+        title: "About",
+        url: "about",
+    },*/ {
+        title: "Bio",
+        url: "bio",
+    }, {
+        title: "Contact",
+        url: "/#contact",
+    },
+]

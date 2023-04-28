@@ -1,4 +1,4 @@
-import {OrientationOptions} from "../../types/layout";
+import {NavbarOptions, OrientationOptions} from "../../types/layout";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {GalleryInputs, ImageData} from "../../njGallery/types/njGallery";
 import {GalleryFolderSpans, IsLoading} from "../../common/types";
@@ -9,12 +9,17 @@ import {themeOptions} from "../../features/theme/themeSlice";
 import {CircularProgress, createTheme, Tabs, ThemeProvider} from "@mui/material";
 import {Box} from "@mui/system";
 import NjGallery from "../../njGallery/NjGallery";
-import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import httpClient from "../../common/httpClient";
 import Tab from "@mui/material/Tab";
+import MainLayout from "../MainLayout";
 
-export function GalleryMain({isUserMobile, width, screenOrientation}:
-                                {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
+    isUserMobile: boolean,
+    width: number,
+    screenOrientation: OrientationOptions
+    navbarOpenOrClosed: NavbarOptions,
+    setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>
+}){
 
     const [photos, setPhotos] = useState<ImageData[]>([]);
     const [galleryFolders, setGalleryFolders] = useState<IsLoading | GalleryFolderSpans[]>(isLoading);
@@ -70,12 +75,12 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
     }
 
     for (let image of galleryInputs.images){
-        image.tooltip_left = (
+/*        image.tooltip_left = (
             <ul>
                 {image.alt && (<li>Title: {image.alt}</li>)}
                 {image.date && (<li>Date: {image.date.slice(0, 10)}</li>)}
             </ul>
-        )
+        )*/
         image.tooltip_right = (
             <ul>
                 {image.camera_model && (<li>Camera: {image.camera_model}</li>)}
@@ -128,37 +133,32 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
     }
 
     return (
-        <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}>
-            <header>
-                <ThemeProvider theme={styledTab}>
-                    <BackgroundImage screenOrientation={screenOrientation}/>
-                    <div className={"main__overlay"}>
-                        <div className={"main__content"}>
-                            <div className={"main__content--headline"}>Gallery</div>
-                            <hr/>
-                            <Box>
-                                <Tabs
-                                    value={galleryTabSelected}
-                                    TabIndicatorProps={{ sx: { display: 'none' } }}
-                                    sx={{
-                                        '& .MuiTabs-flexContainer': {
-                                            flexWrap: 'wrap',
-                                        },
-                                    }}>
-                                    {galleryFolders !== isLoading && galleryFolders }
-                                </Tabs>
-                                {galleryFolders === isLoading && <CircularProgress/> }
-                            </Box>
-                            <hr/>
-                            <NjGallery
-                                {...galleryInputs}
-                            />
+        <MainLayout isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
+            <ThemeProvider theme={styledTab}>
+                <div className={"main__content--headline"}>Gallery</div>
+                <hr/>
+                <Box>
+                    <Tabs
+                        value={galleryTabSelected}
+                        TabIndicatorProps={{ sx: { display: 'none' } }}
+                        sx={{
+                            '& .MuiTabs-flexContainer': {
+                                flexWrap: 'wrap',
+                            },
+                        }}>
+                        {galleryFolders !== isLoading && galleryFolders }
+                    </Tabs>
+                    {galleryFolders === isLoading && <CircularProgress/> }
+                </Box>
+                <hr/>
 
-                        </div>
-                    </div>
-                </ThemeProvider>
-            </header>
-        </div>
+                <br/>
+
+                <NjGallery
+                    {...galleryInputs}
+                />
+            </ThemeProvider>
+        </MainLayout>
     );
 }
 

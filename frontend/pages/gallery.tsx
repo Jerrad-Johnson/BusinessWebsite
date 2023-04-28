@@ -1,5 +1,4 @@
 import {ReactElement} from "react";
-import {cc} from "../common/variables";
 import Navbar from "../components/Navbar";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
@@ -12,7 +11,6 @@ function Gallery<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
     return (
-
         <div className={'threeDimensionalContainer' + (navbarOpenOrClosed === navbarOptions.open ? " active" : "") }>
             <GenericHead
                 content={"Stuff"}
@@ -26,6 +24,8 @@ function Gallery<NextPage>(): ReactElement{
                 isUserMobile={isUserMobile}
                 width={width}
                 screenOrientation={screenOrientation}
+                navbarOpenOrClosed={navbarOpenOrClosed}
+                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
             <OverlayShadows
                 isUserMobile={isUserMobile}

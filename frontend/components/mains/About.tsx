@@ -17,8 +17,9 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                     <div className={"main__overlay"}>
                         <div className={"main__content"}>
                             <div className={"main__content--headline"}>Intro</div>
+                            <div className={"main__content--subheading"}>Method</div>
                             <p>
-                                Welcome to {businessName}, currently serving Rapid City, SD. My name is Jerrad Johnson, and my portraiture style is very traditional. My models are posed to accentuate their most flattering features, present personality or mood, and complement the scene. I rarely capture candids, I believe my models should have the privilege of intentional presentation.
+                                Welcome to {businessName}. My name is Jerrad Johnson, and I use a very traditional portraiture style. My clients are posed to accentuate their most flattering features and complement the scene. It{"'"}s rare for me to capture candids, I believe you should have the privilege of intentional presentation.
                             </p>
 
                             <p>
@@ -26,10 +27,17 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                             </p>
 
                             <p>
-                                My photo edits are usually mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I’m not a fan of the cake-like-skin style.
+                                My photo edits are usually mild. I may remove some blemishes and clear your skin, but I want my models to look <i>human</i>. I avoid the cake-like-skin style.
                             </p>
 
-                            <div className={"main__content--headline"}>Photography Equipment</div>
+
+                            <div className={"main__content--subheading"}>Subcontract Work</div>
+
+                            <p>
+                                I{"'"}m open to subcontracting to your media business, and we will need to discuss pricing and expectations. Equipment:
+                            </p>
+
+                            <div className={"main__content--equipment-headline"}>Photography</div>
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>
@@ -58,7 +66,7 @@ export function AboutMain({isUserMobile, width, screenOrientation}: {isUserMobil
                                 </div>
                             </div>
 
-                            <div className={"main__content--headline"}>Videography Equipment</div>
+                            <div className={"main__content--equipment-headline"}>Videography</div>
                             <div className={"main__content--equipment--main-container"}>
                                 <div className={"main__content--two-col-list--sub-container"}>
                                     <div className={"main__content--equipment--sub-left"}>

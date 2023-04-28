@@ -14,10 +14,10 @@ const lightboxOperations = {
 }
 
 export const initialShowGalleryData = {
-    tooltip: true,
+    tooltip: false,
     fullscreen: false,
     shuffle: false,
-    autoplay: true,
+    autoplay: false,
     curtain: true,
 }
 

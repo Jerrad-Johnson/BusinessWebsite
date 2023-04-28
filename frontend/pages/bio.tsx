@@ -5,10 +5,9 @@ import Navbar from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
-import {SessionMain} from "../components/mains/Sessions";
-const cc = console.log;
+import {BioMain} from "../components/mains/Bio";
 
-function Sessions<NextPage>(): ReactElement{
+function Contact<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
     return (
@@ -21,10 +20,12 @@ function Sessions<NextPage>(): ReactElement{
                 navbarOpenOrClosed={navbarOpenOrClosed}
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
-            <SessionMain
+            <BioMain
                 isUserMobile={isUserMobile}
                 width={width}
                 screenOrientation={screenOrientation}
+                navbarOpenOrClosed={navbarOpenOrClosed}
+                setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
             <OverlayShadows
                 isUserMobile={isUserMobile}
@@ -37,4 +38,4 @@ function Sessions<NextPage>(): ReactElement{
     );
 }
 
-export default Sessions;
+export default Contact;

@@ -14,9 +14,8 @@ export function ContactMain({isUserMobile, width, screenOrientation}: {isUserMob
                             <div className={"main__content--headline"}>Contact</div>
 
                             <p>Ideal Portraits is currently located in Rapid City, SD. </p>
-                            <span><a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a></span>
-                            <br/>
-                            <span><a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.</span>
+                            <p className={"list"}><a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a></p>
+                            <p className={"list"}><a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.</p>
 
                         </div>
                     </div>

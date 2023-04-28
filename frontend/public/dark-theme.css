@@ -55,3 +55,9 @@ body{
     font-family: "EB Garamond";
     margin: 10px 0px 4px 0px;
 }
+
+.main__content--equipment-headline{
+    color: #797545;
+    font-size: 30px;
+
+}
