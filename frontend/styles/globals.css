@@ -145,7 +145,7 @@ button {
     display: none;
 }
 
-.main__content--headline, .main__content--equipment-headline{
+.main__content--headline{
     width: 100%;
     display: block;
     text-align: center;
@@ -153,7 +153,6 @@ button {
     font-family: "EB Garamond";
     color: darkkhaki;
     @apply
-    pt-2
     pb-2
     mt-6
 }
@@ -173,23 +172,6 @@ button {
 
 .main__content--two-col-list--sub-container li{
     min-width: 200px;
-}
-
-.main__content--equipment-headline:first-of-type{
-    margin-top: 8px;
-}
-
-.main__content--equipment--sub-right,.main__content--equipment--sub-left {
-    text-align: center;
-    min-width: 180px;
-}
-
-.main__content--equipment--sub-left {
-    margin-right: 8px;
-}
-
-.main__content--equipment--sub-right{
-    margin-left: 8px;
 }
 
 .main__content--subheading{
@@ -243,7 +225,69 @@ header {
     min-width: 200px;
     width: 48%;
     margin-bottom: 30px;
+}
 
+.services-card__container:hover{
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn;
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes slideOutRight {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    50% {
+        -webkit-transform: translateX(4%);
+        transform: translateX(4%);
+    }
+    100% {
+        -webkit-transform: translateX(2%);
+        transform: translateX(2%);
+    }
+}
+@keyframes slideOutRight {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    50% {
+        -webkit-transform: translateX(4%);
+        transform: translateX(4%);
+    }
+    100% {
+        -webkit-transform: translateX(2%);
+        transform: translateX(2%);
+    }
+}
+
+@-webkit-keyframes zoomIn {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
+}
+@keyframes zoomIn {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05);
+    }
 }
 
 

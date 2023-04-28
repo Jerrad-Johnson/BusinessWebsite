@@ -1,4 +1,4 @@
-import {OrientationOptions} from "../../types/layout";
+import {NavbarOptions, OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import Image from "next/image";
 import seniorPortrait from '../../photos/svc_cards/senior2.png';
@@ -10,9 +10,16 @@ import themedPortrait from '../../photos/svc_cards/themed.png';
 import otherPortrait from '../../photos/svc_cards/other.png';
 import weddingPortrait from '../../photos/svc_cards/wedding.png';
 import {businessName, navbarOptions} from "../../common/variables";
+import {Dispatch, SetStateAction} from "react";
 const cc = console.log;
 
-export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
+export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
+    isUserMobile: boolean,
+    width: number,
+    screenOrientation: OrientationOptions
+    navbarOpenOrClosed: NavbarOptions,
+    setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>
+}){
 
     const standardCardBottomMessage = "Click for more info.";
 
@@ -70,50 +77,48 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                     <BackgroundImage screenOrientation={screenOrientation}/>
                     <div className={"main__overlay"}>
                         <div className={"main__content" + (navbarOpenOrClosed === navbarOptions.closed ? "" : " hidden")}>
-                            <div className={"main__content--equipment--main-container"}>
-
-                                <br/>
-                                <div className={"main__content--headline"}>
-                                    Welcome
-                                </div>
-                                <p>
-                                    Remember those pictures you've seen of yourself that made you ask in exasperation
-                                    "what was I thinking?" That's the reason I use a traditional portraiture style.
-                                    Candids tend to show you in less-than-great light, and you deserve the opportunity
-                                    to be seen at your best. When you work with me, I'll guide your poses, so you won't have to worry about practicing in front of a mirror and crossing your fingers.
-                                </p>
-
-                                <p>
-                                    Ideal Portraits is a photography and videography company in Rapid City, SD.
-                                    that's operated by me, Jerrad Johnson. Across the last seven years, I've spent
-                                    about 150 portait sessions practicing lighting and posing. I'm sure you'll
-                                    appreciate the results of my endeavours, just head to the <a href={"gallery"}>gallery</a> or
-                                    see below for a list of my services. When you're ready, let's <a href={"#contact"}>talk</a>.
-                                </p>
+                            <br/>
+                            <div className={"main__content--headline"}>
+                                Welcome
+                            </div>
+                            <p>
+                                Remember those pictures you{"'"}ve seen of yourself that made you ask in exasperation
+                                {'"'}what was I thinking?{'"'} That{"'"}s the reason I use a traditional portraiture style.
+                                Candids tend to show you in less-than-great light, and you deserve the opportunity
+                                to be seen at your best. When you work with me I{"'"}ll guide your poses, so you won{"'"}t have to practice in front of a mirror and cross your fingers.
+                            </p>
 
 
 {/*                                    You didn't have anyone to instruct your pose. It's not your fault
 
-                                    My portraiture style is traditional and as such I choose to pose my models rather than shoot candids -- most of the time. If you've
+                                My portraiture style is traditional and as such I choose to pose my models rather than shoot candids -- most of the time. If you've
 
-                                    After you browse my <a href={"gallery"}>gallery</a>, I believe you'll agree that there is great merit to  intentional self-presentation.*/}
+                                After you browse my <a href={"gallery"}>gallery</a>, I believe you'll agree that there is great merit to  intentional self-presentation.*/}
 
-                                <div className={"main__content--headline"} id={"services"}>
-                                    Services
-                                </div>
-                                <div className={"services-cards-spacer"}>
-                                    {svcCardElems}
-                                </div>
-
-                                <br/>
-                                <div className={"main__content--headline"} id={"contact"}>Contact</div>
-                                <p className={"list"}>
-                                    <a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a>
-                                </p>
-                                <p className={"list"}>
-                                    <a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.
-                                </p>
+                            <div className={"main__content--headline"} id={"services"}>
+                                Services
                             </div>
+                            <div className={"services-cards-spacer"}>
+                                {svcCardElems}
+                            </div>
+
+                            <div className={"main__content--headline"}>About</div>
+                            <p>
+                                Ideal Portraits is a photography and videography company in Rapid City, SD.
+                                that{"'"}s operated by me, Jerrad Johnson. Across the last seven years, I{"'"}ve invested
+                                about 150 portait sessions practicing lighting and posing. I{"'"}m sure you{"'"}ll
+                                appreciate the results of my endeavours, just head to the <a href={"gallery"}>gallery</a>.
+                                When you{"'"}re ready, I{"'"}d love to chat with you.
+                            </p>
+
+                            <br/>
+                            <div className={"main__content--headline"} id={"contact"}>Contact</div>
+                            <p className={"list"}>
+                                <a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a>
+                            </p>
+                            <p className={"list"}>
+                                <a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.
+                            </p>
                         </div>
                     </div>
                 </header>

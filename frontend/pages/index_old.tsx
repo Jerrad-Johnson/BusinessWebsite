@@ -12,7 +12,7 @@ const cc = console.log;
 function Home<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
-    return (
+/*    return (
         <div className={"threeDimensionalContainer" + (navbarOpenOrClosed === navbarOptions.open ? " active" : "")}>
             <GenericHead
                 content={"Index"}
@@ -35,7 +35,8 @@ function Home<NextPage>(): ReactElement{
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
         </div>
-    );
+    );*/
+    return (<></>)
 }
 
-export default Home
+/*export default Home*/
