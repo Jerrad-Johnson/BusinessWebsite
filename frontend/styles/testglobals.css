@@ -20,6 +20,10 @@ button {
     background-size: cover;*/
 }
 
+#gallery, #services{
+    scroll-margin-top: 50px;
+}
+
 /* Leaflet  */
 #map {
     height: 80%;
@@ -65,7 +69,7 @@ button {
     font-family: 'Alegreya+Sans'; /* Lato is also good, but very straight */
     font-size: 20px;
     width: 80%;
-    max-width: 1550px;
+    max-width: 1250px;
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px 0px;
     /*border-radius: 15px;*/
@@ -85,8 +89,12 @@ button {
 
 .main__content p, .main__content span{
     @apply
-    px-20
     mb-4
+}
+
+.main__content--main-body{
+    @apply
+    px-28
 }
 
 .navbar span{
@@ -146,9 +154,6 @@ button {
     padding: 0px 20px 0px 20px;
 }
 
-.main__content::-webkit-scrollbar {
-    display: none;
-}
 
 .main__content--headline, .main__content--equipment-headline{
     width: 100%;
@@ -205,7 +210,10 @@ button {
     @apply
     mt-6
     mb-4
-    px-20
+}
+
+.gallery__container{
+    margin: auto;
 }
 
 header {
@@ -257,7 +265,7 @@ header {
     border-color: #777;
 
     min-width: 300px;
-    width: 28%;
+    width: 45%;
     height: auto;
     background-color: rgba(0, 0, 0, 0);
     @apply
@@ -287,6 +295,7 @@ header {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    margin: auto;
 }
 
 /*.services-card__bottom-row{
@@ -320,7 +329,7 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    width: 80%;
+    width: 100%;
     padding-top: 10px;
     z-index: 10;
     height: 3rem;
@@ -735,19 +744,35 @@ span.galleryFolderSelectors::first-letter{
 
 /* Media Queries */
 @media screen and (max-width: 1400px){
-    .services-card__container{
+    .main__content{
+        width: 85%;
     }
 }
 
-@media screen and (max-width: 1250px){
-    .main__content p, .main__content span, .main__content--subheading{
-        padding: 0px 20px 10px 20px;
+@media screen and (max-width: 1120px){
+    .services-card__container{
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .main__content--main-body{
+        @apply
+        px-14
+    }
+}
+
+@media screen and (max-width: 900px){
+    .main__content{
+        width: 90%;
     }
 }
 
 @media screen and (max-width: 800px){
     .main__content {
-        padding: 60px 30px 30px 30px;
+    }
+    .main__content--main-body{
+        @apply
+        px-8
     }
 
     .home__address {
