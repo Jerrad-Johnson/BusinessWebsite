@@ -1,9 +1,4 @@
-import Head from 'next/head'
 import dynamic from "next/dynamic";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import httpClient from "../common/httpClient";
-import {cc} from "../common/variables";
-import {ReactElement} from "react";
 import Navbar from "../components/Navbar";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";

@@ -9,12 +9,9 @@ import {themeOptions} from "../../features/theme/themeSlice";
 import {CircularProgress, createTheme, Tabs, ThemeProvider} from "@mui/material";
 import {Box} from "@mui/system";
 import NjGallery from "../../njGallery/NjGallery";
-import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import httpClient from "../../common/httpClient";
 import Tab from "@mui/material/Tab";
-import Link from "next/link";
-import MainDivAndHeader from "../MainDivAndHeader";
-import MainContentAndOverlay from "../MainContentAndOverlay";
+import MainLayout from "../MainLayout";
 
 export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
     isUserMobile: boolean,
@@ -136,7 +133,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenO
     }
 
     return (
-        <MainDivAndHeader isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
+        <MainLayout isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
             <ThemeProvider theme={styledTab}>
                 <div className={"main__content--headline"}>Gallery</div>
                 <hr/>
@@ -161,7 +158,7 @@ export function GalleryMain({isUserMobile, width, screenOrientation, navbarOpenO
                     {...galleryInputs}
                 />
             </ThemeProvider>
-        </MainDivAndHeader>
+        </MainLayout>
     );
 }
 

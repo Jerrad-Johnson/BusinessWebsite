@@ -6,7 +6,6 @@ import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
 import {IndexMain} from "../components/mains/Index";
-const cc = console.log;
 
 function Index<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();

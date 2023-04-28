@@ -1,7 +1,7 @@
 import {NavbarOptions, OrientationOptions} from "../../types/layout";
 import Link from "next/link";
 import {Dispatch, SetStateAction} from "react";
-import MainDivAndHeader from "../MainDivAndHeader";
+import MainLayout from "../MainLayout";
 
 export function BioMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
     isUserMobile: boolean,
@@ -11,7 +11,7 @@ export function BioMain({isUserMobile, width, screenOrientation, navbarOpenOrClo
     setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>
 }){
     return (
-        <MainDivAndHeader isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed}>
+        <MainLayout isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
             <div className={"main__content--headline"}>Bio</div>
             <div className={"main__content--subheading"}>Jerrad Johnson</div>
 
@@ -38,7 +38,7 @@ export function BioMain({isUserMobile, width, screenOrientation, navbarOpenOrClo
             <p>
                 Instead I prefer pursuing many causes, so to speak. I have more skills than I have time to cultivate them. I{"'"}ve tried so many other things too, ranging from building speakers all the way to stripping for a bachelorette party. But how I most enjoy spending my time is hanging out with my German Shepherd, watching good movies, capturing beautiful photos, driving fun cars, writing, making people laugh, learning, and going to the gym. Oh, and lap dancing.
             </p>
-        </MainDivAndHeader>
+        </MainLayout>
     );
 }
 

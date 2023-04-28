@@ -1,19 +1,13 @@
-import {NavbarOptions, OrientationOptions} from "../../types/layout";
-import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import Image from "next/image";
+import {NavbarOptions, OrientationOptions} from "../../types/layout";
 import seniorPortrait from '../../photos/svc_cards/senior2.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
 import couplePortrait from '../../photos/svc_cards/couple2.png';
 import familyPortrait from '../../photos/svc_cards/family2.png';
-import themedPortrait from '../../photos/svc_cards/themed.png';
 import otherPortrait from '../../photos/svc_cards/other.png';
 import weddingPortrait from '../../photos/svc_cards/wedding.png';
-import {businessName, navbarOptions} from "../../common/variables";
 import {Dispatch, SetStateAction} from "react";
-import MainDivAndHeader from "../MainDivAndHeader";
-import MainContentAndOverlay from "../MainContentAndOverlay";
-import chalk from "chalk";
-const cc = console.log;
+import MainLayout from "../MainLayout";
 
 export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
     isUserMobile: boolean,
@@ -36,13 +30,6 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
             cardTop: "Couples",
             cardMiddle: couplePortrait,
         },{
-/*            cardTop: "Themed",
-            cardMiddle: themedPortrait,
-        },{*/
-/*            cardTop: "Headshot Portraits",
-            cardMiddle: headshotPortrait,
-        },{*/
-
             cardTop: "Wedding",
             cardMiddle: weddingPortrait,
         },{
@@ -69,7 +56,7 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
     });
 
     return (
-        <MainDivAndHeader isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
+        <MainLayout isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
             <br/>
             <div className={"main__content--headline"}>
                 Welcome
@@ -171,6 +158,6 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                         <p>Remove in advance tight-fit articles such as wrist watches, as they may leave red skin marks.</p>
                         <p>If you have dry, flaky skin, moisturizers such as those offered by CeraVe may be very beneficial. But moisturizers are glossy, so do not apply any before your session.</p>*/}
 
-        </MainDivAndHeader>
+        </MainLayout>
     );
 }

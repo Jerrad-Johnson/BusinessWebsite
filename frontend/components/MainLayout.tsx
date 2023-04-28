@@ -1,7 +1,7 @@
 import {navbarOptions} from "../common/variables";
 import {BackgroundImage} from "../utils/SharedBetweenPages";
 
-function MainDivAndHeader({isUserMobile, width, navbarOpenOrClosed, setNavbarOpenOrClosed, children, screenOrientation}){
+function MainLayout({isUserMobile, width, navbarOpenOrClosed, setNavbarOpenOrClosed, children, screenOrientation}){
     return (
         <div className={"main-container"}>
             <div className={"main" + (isUserMobile ? " mobile" : "") + (width < 920 ? " narrow" : "")}
@@ -22,4 +22,4 @@ function MainDivAndHeader({isUserMobile, width, navbarOpenOrClosed, setNavbarOpe
     )
 }
 
-export default MainDivAndHeader;
+export default MainLayout;
