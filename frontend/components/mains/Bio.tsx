@@ -6,7 +6,7 @@ import MainLayout from "../MainLayout";
 export function BioMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
     isUserMobile: boolean,
     width: number,
-    screenOrientation: OrientationOptions
+    screenOrientation: OrientationOptions,
     navbarOpenOrClosed: NavbarOptions,
     setNavbarOpenOrClosed: Dispatch<SetStateAction<NavbarOptions>>
 }){
