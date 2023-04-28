@@ -153,14 +153,10 @@ export function GalleryMain({isUserMobile, width, screenOrientation}:
                             <hr/>
 
                             <br/>
-                            <p>
-                                Love my work? Visit the <Link href={"/services"}><a>services</a></Link> page next.
-                            </p>
 
                             <NjGallery
                                 {...galleryInputs}
                             />
-
                         </div>
                     </div>
                 </ThemeProvider>

@@ -59,7 +59,7 @@ export const NavbarLinkTitles = [
         url: "gallery-map",
     }, {
         title: "Services",
-        url: "services",
+        url: "/#services",
     },/* {
         title: "About",
         url: "about",
@@ -68,6 +68,6 @@ export const NavbarLinkTitles = [
         url: "bio",
     }, {
         title: "Contact",
-        url: "contact",
+        url: "/#contact",
     },
 ]

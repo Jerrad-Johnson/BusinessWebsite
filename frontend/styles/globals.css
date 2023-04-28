@@ -73,16 +73,19 @@ button {
     box-shadow: 20px 0 20px -4px rgba(0, 0, 0, 0.4), -20px 0 20px -4px rgba(0, 0, 0, 0.4);
     padding-top: 60px;
     padding-bottom: 30px;
+    transition: opacity ease-out 1s;
 
     @apply
     pl-16
     pr-16
 }
 
+.main__content.hidden{
+    opacity: 0;
+}
+
 .main__content p, .main__content span{
-    @apply
-    px-20
-    mb-4
+    padding-bottom: 20px;
 }
 
 .main__content span.font--bold{
@@ -195,9 +198,7 @@ button {
     font-family: "EB Garamond";
 
     @apply
-    mt-6
     mb-4
-    px-20
 }
 
 header {
@@ -265,9 +266,11 @@ header {
 
 .services-cards-spacer{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
+}
 
+.services-cards-spacer:last-child{
 }
 
 /*.services-card__bottom-row{
@@ -856,7 +859,7 @@ span.galleryFolderSelectors::first-letter{
 
 @media screen and (max-width: 1250px){
     .main__content p, .main__content span, .main__content--subheading{
-        padding: 0px 20px 10px 20px;
+        padding-bottom: 20px;
     }
 }
 

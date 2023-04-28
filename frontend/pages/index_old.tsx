@@ -1,27 +1,28 @@
 import type {ReactElement} from "react";
 import {navbarOptions} from "../common/variables";
 import NavbarLinks from "../components/NavbarLinks";
-import Navbar from "../components/Navbar";
+import {HomeNavbar} from "../components/Navbar";
 import {GenericHead} from "../components/Heads";
 import OverlayShadows from "../components/OverlayShadows";
 import Basics from "../components/forEveryPage";
-import {SessionMain} from "../components/mains/Services";
+import {IndexMain} from "../components/mains/Index";
+
 const cc = console.log;
 
-function Services<NextPage>(): ReactElement{
+function Home<NextPage>(): ReactElement{
     const {dispatch, navbarOpenOrClosed, setNavbarOpenOrClosed, screenOrientation, width, isUserMobile, setIsUserMobile} = Basics();
 
     return (
         <div className={"threeDimensionalContainer" + (navbarOpenOrClosed === navbarOptions.open ? " active" : "")}>
             <GenericHead
-                content={"About"}
-                metaName={"About"}
+                content={"Index"}
+                metaName={"Home"}
             />
-            <Navbar
+            <HomeNavbar
                 navbarOpenOrClosed={navbarOpenOrClosed}
                 setNavbarOpenOrClosed={setNavbarOpenOrClosed}
             />
-            <SessionMain
+            <IndexMain
                 isUserMobile={isUserMobile}
                 width={width}
                 screenOrientation={screenOrientation}
@@ -37,4 +38,4 @@ function Services<NextPage>(): ReactElement{
     );
 }
 
-export default Services;
+export default Home
