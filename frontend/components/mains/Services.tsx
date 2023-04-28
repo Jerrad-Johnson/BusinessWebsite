@@ -1,13 +1,14 @@
 import {OrientationOptions} from "../../types/layout";
 import {BackgroundImage} from "../../utils/SharedBetweenPages";
 import Image from "next/image";
-import seniorPortrait from '../../photos/svc_cards/senior.png';
+import seniorPortrait from '../../photos/svc_cards/senior2.png';
 import boudoirPortrait from '../../photos/svc_cards/boudoir.png';
-import couplePortrait from '../../photos/svc_cards/couple.png';
-import familyPortrait from '../../photos/svc_cards/family.png';
+import couplePortrait from '../../photos/svc_cards/couple2.png';
+import familyPortrait from '../../photos/svc_cards/family2.png';
 import headshotPortrait from '../../photos/svc_cards/headshot.png';
 import themedPortrait from '../../photos/svc_cards/themed.png';
 import otherPortrait from '../../photos/svc_cards/other.png';
+import weddingPortrait from '../../photos/svc_cards/wedding.png';
 
 export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMobile: boolean, width: number, screenOrientation: OrientationOptions}){
 
@@ -15,26 +16,31 @@ export function SessionMain({isUserMobile, width, screenOrientation}: {isUserMob
 
     const svcCardData = [
         {
-            cardTop: "Senior Portraits",
+            cardTop: "Senior",
             cardMiddle: seniorPortrait,
         },{
-            cardTop: "Family Portraits",
+            cardTop: "Family",
             cardMiddle: familyPortrait,
         },{
-            cardTop: "Couples Portraits",
+            cardTop: "Couples",
             cardMiddle: couplePortrait,
         },{
-            cardTop: "Themed Portraits",
+            cardTop: "Themed",
             cardMiddle: themedPortrait,
         },{
-            cardTop: "Headshot Portraits",
+/*            cardTop: "Headshot Portraits",
             cardMiddle: headshotPortrait,
-        },{
-            cardTop: "Boudoir",
-            cardMiddle: boudoirPortrait,
-        },{
-            cardTop: "Other Portraits",
+        },{*/
+            cardTop: "Other",
             cardMiddle: otherPortrait,
+        },{
+
+            cardTop: "Wedding",
+            cardMiddle: weddingPortrait,
+        },{
+
+            cardTop: "Boudoir & Erotic",
+            cardMiddle: boudoirPortrait,
         }/*,{
             cardTop: "Subcontract",
             cardMiddle: headshotPortrait,

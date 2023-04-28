@@ -239,18 +239,15 @@ header {
 /* Services Container */
 
 .services-card__container{
-    border-style: groove;
-    border-color: #777;
-    border-width: 3px;
-    box-shadow: 0px 0px 50px 15px rgba(0,0,0,0.58);
     min-width: 200px;
-    @apply
-    mx-8
-    my-4
+    width: 48%;
+    margin-bottom: 30px;
+
 }
 
 
 .services-card__middle-row{
+    cursor: pointer;
 }
 
 
@@ -268,8 +265,9 @@ header {
 
 .services-cards-spacer{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
+
 }
 
 /*.services-card__bottom-row{
@@ -385,7 +383,7 @@ ul {
     list-style: none;
 }
 
-.links a {
+.links a{
     text-decoration: none;
     color: #eee;
     padding: 0.7rem 0;
@@ -400,11 +398,17 @@ ul {
     animation: hide 0.5s forwards ease;
 }
 
-.links a:hover {
+.links hr{
+    opacity: 0;
+    animation: hide 0.5s forwards ease;
+}
+
+
+  .links a:hover {
     color: #fff;
 }
 
-.threeDimensionalContainer.active .links a {
+.threeDimensionalContainer.active .links a, .threeDimensionalContainer.active .links hr {
     animation: appear 0.5s forwards ease var(--i);
 }
 
@@ -843,10 +847,10 @@ span.galleryFolderSelectors::first-letter{
 }
 
 /* Media Queries */
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 1150px){
     .services-card__container{
-        margin: auto;
-        margin-bottom: 2em;
+        width: 90%;
+        max-width: 600px;
     }
 }
 
@@ -901,6 +905,7 @@ span.galleryFolderSelectors::first-letter{
     .services-card__container{
         margin: auto;
         margin-bottom: 30px;
+
     }
 
     .lightbox__bottom-row--right ul li, .lightbox__bottom-row--left ul li{

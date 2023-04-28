@@ -25,7 +25,7 @@ function NavbarLinks({setNavbarOpenOrClosed}: {setNavbarOpenOrClosed: Dispatch<S
         <div className={"links"}>
             <ul>
                 {linkElems}
-                <hr/>
+                <hr style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}}/>
                 <li> {/*@ts-ignore*/}
                     <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(lightTheme()); }}>Light</a> &nbsp; {/*@ts-ignore*/}
                     <a style={{"--i": linkTransitionTimes[linkTransitionTimes.length-1]}} onClick={(e) => { e.preventDefault(); dispatch(darkTheme()); }}>Dark</a>
