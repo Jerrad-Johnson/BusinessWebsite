@@ -41,6 +41,7 @@ export const serviceTitle = {
     couples: createServiceTitle("Couples Portrait Sessions"),
     family: createServiceTitle("Family Portrait Sessions"),
     wedding: createServiceTitle("Wedding Photography"),
+    other: createServiceTitle("All Other Photography"),
 }
 
 function createServiceTitle(title: string){
@@ -183,7 +184,7 @@ export const servicePreparationFamily = (
 export const serviceBasicsOther = (
     <>
         <p>On-location only, I do not currently have a studio.</p>
-        <p>In most cases, my standard sessions structure is sufficient for my clients{"'"} needs. Please see the bullet points below and if you{"'"}re unsure, contact me.</p>
+        <p>In most cases, my standard sessions structure is sufficient for my clients{"'"} needs. Please see the bullet points below.</p>
         <p>If your needs may require more than what my my standard session offers, please contact me to discuss the details.</p>
     </>
 );

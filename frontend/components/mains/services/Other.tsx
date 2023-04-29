@@ -19,7 +19,7 @@ export function ServicesOtherMain({isUserMobile, width, screenOrientation, navba
     return (
         <MainLayout isUserMobile={isUserMobile} width={width} navbarOpenOrClosed={navbarOpenOrClosed} setNavbarOpenOrClosed={setNavbarOpenOrClosed} screenOrientation={screenOrientation}>
             <br/>
-            {serviceTitle.senior}
+            {serviceTitle.other}
             {serviceBasicsOther}
 
             {serviceBulletsSenior}
