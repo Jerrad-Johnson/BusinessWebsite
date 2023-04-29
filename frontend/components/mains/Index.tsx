@@ -8,6 +8,7 @@ import otherPortrait from '../../photos/svc_cards/other.png';
 import weddingPortrait from '../../photos/svc_cards/wedding.png';
 import {Dispatch, SetStateAction} from "react";
 import MainLayout from "../MainLayout";
+import Link from "next/link";
 
 export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrClosed, setNavbarOpenOrClosed}:{
     isUserMobile: boolean,
@@ -23,21 +24,27 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
         {
             cardTop: "Senior",
             cardMiddle: seniorPortrait,
+            cardURL: "/services/senior",
         },{
             cardTop: "Family",
             cardMiddle: familyPortrait,
+            cardURL: "/services/family",
         },{
             cardTop: "Couples",
             cardMiddle: couplePortrait,
+            cardURL: "/services/couples",
         },{
             cardTop: "Wedding",
             cardMiddle: weddingPortrait,
+            cardURL: "/services/weddings",
         },{
             cardTop: "Boudoir & Erotic",
             cardMiddle: boudoirPortrait,
+            cardURL: "/services/boudoir_erotic",
         },{
             cardTop: "Other",
             cardMiddle: otherPortrait,
+            cardURL: "/services/other",
         }
     ];
 
@@ -48,9 +55,13 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                     {e.cardTop}
                 </div>
 
-                <div className={"services-card__middle-row"}>
-                    <Image src={e.cardMiddle} alt={"test"} priority={true}/>
-                </div>
+                <Link href={e.cardURL}>
+                    <a>
+                        <div className={"services-card__middle-row"}>
+                            <Image src={e.cardMiddle} alt={"test"} priority={true}/>
+                        </div>
+                    </a>
+                </Link>
             </div>
         );
     });
@@ -89,7 +100,7 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                 <a href={"mailto:jerrad.johnson3@gmail.com"}>jerrad.johnson3@gmail.com</a>
             </p>
             <p className={"list"}>
-                <a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, I do not answer for unknown numbers.
+                <a href={"tel:6056468941"}>(605) 646-8941</a> – Please text first, or leave a voice mail.
             </p>
 
 
