@@ -55,7 +55,7 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                     {e.cardTop}
                 </div>
 
-                <Link href={e.cardURL}>
+                <Link href={{/*e.cardURL*/}}>
                     <a>
                         <div className={"services-card__middle-row"}>
                             <Image src={e.cardMiddle} alt={"test"} priority={true}/>
@@ -74,11 +74,18 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
             </div>
             <p>
                 Remember those pictures you{"'"}ve seen of yourself that made you ask in exasperation
-                {' "'}what was I thinking?{'"'} That{"'"}s the reason I use a traditional portraiture style.
+                {' "'}what was I doing?{'"'} That{"'"}s the reason I use a traditional portraiture style.
                 Candids tend to show you in less-than-great light, and you deserve the opportunity
                 to be seen at your best. When you work with me I{"'"}ll guide your poses, so
                 you won{"'"}t have to practice in front of a mirror and cross your fingers. Instead you{"'"}ll have
                 flattering pictures you{"'"}ll want to share even decades from now.
+
+                <br/>
+                <br/>
+                Across the last seven years, I{"'"}ve invested
+                about 150 portait sessions worth of effort practicing lighting and posing. I{"'"}m sure you{"'"}ll
+                appreciate the results of my endeavours, just head to the <a href={"gallery"}>gallery</a>.
+                When you{"'"}re ready, I{"'"}d love to chat with you.
             </p>
 
             <div className={"main__content--headline"} id={"services"}> Services </div>
@@ -86,14 +93,14 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
                 {svcCardElems}
             </div>
 
-            <div className={"main__content--headline"}>About</div>
+{/*            <div className={"main__content--headline"}>About</div>
             <p>
                 Ideal Portraits is a photography and videography company in Rapid City, SD.
                 that{"'"}s operated by me, Jerrad Johnson. Across the last seven years, I{"'"}ve invested
-                about 150 portait sessions practicing lighting and posing. I{"'"}m sure you{"'"}ll
+                about 150 portait sessions worth of effort practicing lighting and posing. I{"'"}m sure you{"'"}ll
                 appreciate the results of my endeavours, just head to the <a href={"gallery"}>gallery</a>.
                 When you{"'"}re ready, I{"'"}d love to chat with you.
-            </p>
+            </p>*/}
 
             <div className={"main__content--headline"} id={"contact"}>Contact</div>
             <p className={"list"}>

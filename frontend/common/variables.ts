@@ -51,19 +51,19 @@ export const NavbarLinkTitles = [
     {
         title: "Home",
         url: "/",
-    }, {
+    }, /*{
         title: "Services",
         url: "/#services",
-    },{
+    }*/,{
         title: "Gallery",
         url: "gallery",
     }, {
         title: "Photo Map",
         url: "gallery-map",
-    },{
+    },/*{
         title: "Contact",
         url: "/#contact",
-    }, {
+    }*/, {
         title: "Bio",
         url: "bio",
     },
