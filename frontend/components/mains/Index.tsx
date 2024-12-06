@@ -37,14 +37,14 @@ export function IndexMain({isUserMobile, width, screenOrientation, navbarOpenOrC
             cardTop: "Wedding",
             cardMiddle: weddingPortrait,
             cardURL: "/services/weddings",
-        },{
+/*        },{
             cardTop: "Boudoir & Erotic",
             cardMiddle: boudoirPortrait,
             cardURL: "/services/boudoir_erotic",
         },{
             cardTop: "Other",
             cardMiddle: otherPortrait,
-            cardURL: "/services/other",
+            cardURL: "/services/other",*/
         }
     ];
 
